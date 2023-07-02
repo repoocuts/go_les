@@ -11,3 +11,21 @@
 }
 
 */
+
+.h4 { 
+  color: decoration-slate-500
+}
+
+a { 
+  color: black;  
+}
+
+.pagy-nav,
+.pagy-nav-js {
+  @apply flex space-x-2;
+}
+
+turbo-frame {
+  display: block;
+  border: 1px solid blue;
+}
