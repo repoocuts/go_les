@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  minute: 1
+  card_type: MyString
+  is_home: false
+  first_card_id: 1
+  appearance: one
+  player_season: one
+  team_season: one
+  fixture: one
+
+two:
+  minute: 1
+  card_type: MyString
+  is_home: false
+  first_card_id: 1
+  appearance: two
+  player_season: two
+  team_season: two
+  fixture: two

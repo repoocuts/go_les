@@ -1,0 +1,42 @@
+<div id="<%= dom_id goal %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Minute:</strong>
+    <%= goal.minute %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Goal type:</strong>
+    <%= goal.goal_type %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Is home:</strong>
+    <%= goal.is_home %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Own goal:</strong>
+    <%= goal.own_goal %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Player season:</strong>
+    <%= goal.player_season_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Team season:</strong>
+    <%= goal.team_season_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Fixture:</strong>
+    <%= goal.fixture_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this goal", goal, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this goal', edit_goal_path(goal), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  minute: 1
+  goal_type: MyString
+  is_home: false
+  own_goal: false
+  player_season: one
+  team_season: one
+  fixture: one
+
+two:
+  minute: 1
+  goal_type: MyString
+  is_home: false
+  own_goal: false
+  player_season: two
+  team_season: two
+  fixture: two

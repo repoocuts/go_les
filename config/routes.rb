@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :cards
+  resources :goals
   resources :appearances
   resources :player_seasons
   resources :players
