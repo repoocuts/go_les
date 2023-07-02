@@ -1,0 +1,22 @@
+<div id="<%= dom_id player_season %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Api football:</strong>
+    <%= player_season.api_football_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Team season:</strong>
+    <%= player_season.team_season_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Player:</strong>
+    <%= player_season.player_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this player season", player_season, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this player season', edit_player_season_path(player_season), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

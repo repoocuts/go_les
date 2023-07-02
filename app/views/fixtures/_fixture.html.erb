@@ -1,0 +1,52 @@
+<div id="<%= dom_id fixture %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Home team season:</strong>
+    <%= fixture.home_team_season_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Away team season:</strong>
+    <%= fixture.away_team_season_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Home score:</strong>
+    <%= fixture.home_score %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Away score:</strong>
+    <%= fixture.away_score %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Kick off:</strong>
+    <%= fixture.kick_off %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Game week:</strong>
+    <%= fixture.game_week %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Api football:</strong>
+    <%= fixture.api_football_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Season:</strong>
+    <%= fixture.season_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">League:</strong>
+    <%= fixture.league_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this fixture", fixture, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this fixture', edit_fixture_path(fixture), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

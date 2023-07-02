@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :appearances
+  resources :player_seasons
+  resources :players
+  resources :fixtures
+  resources :team_seasons
+  resources :teams
   resources :seasons
   resources :leagues
   resources :countries

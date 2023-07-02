@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  home_team_season_id: 1
+  away_team_season_id: 1
+  home_score: 1
+  away_score: 1
+  kick_off: 2023-07-02 20:34:18
+  game_week: 1
+  api_football_id: 1
+  season: one
+  league: one
+
+two:
+  home_team_season_id: 1
+  away_team_season_id: 1
+  home_score: 1
+  away_score: 1
+  kick_off: 2023-07-02 20:34:18
+  game_week: 1
+  api_football_id: 1
+  season: two
+  league: two
