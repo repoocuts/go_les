@@ -8,6 +8,19 @@ class TeamsController < ApplicationController
 
   # GET /teams/1 or /teams/1.json
   def show
+    @players = team.players
+    @player_seasons = PlayerSeason.joins(:player).where(player: @players).order("#{params[:column]}").order("#{params[:column]} #{params[:direction]}")
+    @current_team_season = current_team_season
+    @top_scorer = current_team_season.top_scorer.first
+    @most_booked = current_team_season.most_booked_player
+    @most_reds = current_team_season.most_reds_player
+    @pagy_team_upcoming_fixtures, @upcoming_fixtures = pagy(current_team_season.upcoming_fixtures)
+    @pagy_team_finished_fixtures, @finished_fixtures = pagy(current_team_season.completed_fixtures, page_param: :page_results)
+
+    respond_to do |format|
+      format.html 
+      format.turbo_stream
+    end
   end
 
   # GET /teams/new
@@ -63,6 +76,9 @@ class TeamsController < ApplicationController
       @team = Team.find(params[:id])
     end
 
+    def current_team_season
+      team.current_team_season
+    end
     # Only allow a list of trusted parameters through.
     def team_params
       params.require(:team).permit(:name, :short_name, :acronym, :api_football_id, :league_id)

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :dashboards
   resources :cards
   resources :goals
   resources :appearances
