@@ -1,0 +1,34 @@
+<table class="table-responsive season-stats-table mt-3">
+  <thead>
+    <tr>
+      <th>Starts</th>
+      <th>Subs</th>
+      <th>Goals</th>
+      <th>Assists</th>
+      <th>Yellow Cards</th>
+      <th>Red Card</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= @player_season.appearances.count %>
+      </td>
+      <td class="text-center">
+        <%= @player_season.appearances.count %>
+      </td>
+      <td class="text-center">
+        <%= @player_season.season_goals %>
+      </td>
+      <td class="text-center">
+        <%= @player_season.season_goals %>
+      </td>
+      <td class="text-center">
+        <%= @player_season.season_yellows %>
+      </td>
+      <td class="text-center">
+        <%= @player_season.season_reds %>
+      </td>
+    </tr>
+  </tbody>
+</table>

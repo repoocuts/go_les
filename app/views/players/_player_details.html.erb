@@ -1,0 +1,3 @@
+<h2><%= @player.full_name ? @player.full_name : @player.short_name %></h2>
+<h5><%= link_to @player.team.name, team_path(@player.team) %></h5>
+<h5><%= "#{@player.position.capitalize}"%></h5>

@@ -1,14 +1,22 @@
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Dashboards</h1>
-    <%= link_to 'New dashboard', new_dashboard_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+<div class="grid grid-cols-2 gap-4 justify-center mx-auto">
+  <div>
+    <h5 class="text-center">Current Game Week</h5>
+    <%= render partial: 'current_game_week' %>
   </div>
-
-  <div id="dashboards" class="min-w-full">
-    <%= render @dashboards %>
+  <div>
+    <h5 class="text-center">Next Game Week</h5>
+    <%= render partial: 'next_game_week' %>
+  </div>
+  <div>
+    <h5 class="text-center">Top Scorers</h5>
+    <%= turbo_frame_tag "top_scorers" do %>
+      <%= render partial: 'top_scorers_partial' %>
+    <% end %>
+  </div>
+  <div>
+    <h5 class="text-center">Most Booked</h5>
+    <%= turbo_frame_tag "most_booked" do %>
+      <%= render partial: 'most_booked' %>
+    <% end %>
   </div>
 </div>

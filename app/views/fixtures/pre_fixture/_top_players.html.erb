@@ -1,0 +1,24 @@
+<div class="col-md-4">
+  <h5>Scorers</h5>
+  <% team.top_scorers.each do |scorer| %>
+    <p>
+      <%= link_to "#{scorer.get_player_name} - #{scorer.season_goals}", player_path(scorer.player) %>
+    </p>
+  <% end %>
+</div>
+<div class="col-md-4">
+  <h5>Assists</h5>
+  <%# <% team.top_assists.each do |assister| %>
+    <p>
+      <%# <%= link_to "#{assister.player.common_name} - #{assister.total_assists}", country_league_season_team_player_path(@match.season.league.country, @match.season.league, @match.season, assister.player.team, assister.player) %>
+    </p>
+  <%# <% end %>
+</div>
+<div class="col-md-4">
+  <h5>Yellows</h5>
+  <% team.booked_players.first(3).each do |yellow| %>
+    <p>
+      <%= link_to "#{yellow.get_player_name} - #{yellow.season_yellows}", player_path(yellow.player) %>
+    </p>
+  <% end %>
+</div>

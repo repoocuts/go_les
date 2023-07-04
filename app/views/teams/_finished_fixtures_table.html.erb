@@ -1,0 +1,24 @@
+<%= turbo_frame_tag "finished_fixtures", class: "min-w-full", autoscroll: "true" do %>
+  <table class="table-auto text-base text-md w-full">
+    <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th>Kick Off</th>
+        <th>Final Score</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    </tbody>
+      <% @finished_fixtures.each do |fixture| %>
+        <tr>
+          <td><%= link_to fixture.format_kick_off, fixture_path(fixture) %></td>
+          <td class="text-center"><%= link_to fixture.interpolate_final_score, fixture_path(fixture) %></td>
+          <td class="text-center"><%= link_to @current_team_season.home_or_away_string(fixture), fixture_path(fixture) %></td>
+          <td><%= link_to @current_team_season.match_opponent_name(fixture), fixture_path(fixture) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%== pagy_nav @pagy_team_finished_fixtures if @pagy_team_finished_fixtures.pages > 1 %>
+<% end %>

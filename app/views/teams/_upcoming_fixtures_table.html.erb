@@ -1,0 +1,22 @@
+<%= turbo_frame_tag "upcoming_fixtures", class: "min-w-full", autoscroll: "true" do %>
+  <table class="table-auto text-base text-md w-full">
+    <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th>Kick Off</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    </tbody>
+      <% @upcoming_fixtures.each do |fixture| %>
+        <tr>
+          <td><%= link_to fixture.format_kick_off, fixture_path(fixture) %></td>
+          <td class="text-right"><%= link_to @current_team_season.home_or_away_string(fixture), fixture_path(fixture) %></td>
+          <td><%= link_to @current_team_season.match_opponent_name(fixture), fixture_path(fixture) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%== pagy_nav @pagy_team_upcoming_fixtures %>
+<% end %>

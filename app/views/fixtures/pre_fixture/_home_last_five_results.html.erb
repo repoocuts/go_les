@@ -1,0 +1,6 @@
+<h6>Home</h6>
+<% team.played_home_matches.each do |match| %>
+  <p>
+    <%= link_to "GW#{match.game_week} - #{match.home_score} - #{match.away_score} #{match.away_team_name}", fixture_path(match) %>
+  </p>
+<% end %>
