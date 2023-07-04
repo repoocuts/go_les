@@ -1,0 +1,66 @@
+<div class="row pl-4">
+  <div class="col-md-4">
+    <ul class="list-group">
+      <li class="list-group-item">Average mintues per goal</li>
+      <li class="list-group-item text-center">
+        <%= @player_season.average_minutes_per_goal %>
+      </li>
+      <li class="list-group-item">Most assisted to</li>
+      <li class="list-group-item text-center">
+        <%= link_to "#{@player_season.most_assisted_to[:name]} - #{@player_season.most_assisted_to[:value]}", country_league_season_team_player_path(@player_season.player.team.league.country, @player_season.player.team.league, @season, @player_season.player.team, @player_season.most_assisted_to[:id]) %>
+      </li>
+      <li class="list-group-item">Most assisted by</li>
+      <li class="list-group-item text-center">
+        <%= link_to "#{@player_season.most_assisted_by[:name]} - #{@player_season.most_assisted_by[:value]}", country_league_season_team_player_path(@player_season.player.team.league.country, @player_season.player.team.league, @season, @player_season.player.team, @player_season.most_assisted_by[:id]) %>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <%= "Av mins per start: #{@player_season.average_mins_per_start}" %>
+      </li>
+      <li class="list-group-item">
+        <%= "Home Goals: #{@player_season.home_goals.count}" %>
+      </li>
+      <li class="list-group-item">
+        <%= "Home Assists: #{@player_season.home_assists.count}" %>
+      </li>
+      <li class="list-group-item">
+        <%= "Av mins per yellow: #{@player_season.average_minutes_per_yellow}" %>
+      </li>
+      <li class="list-group-item">
+        <%= "Home yellows: #{@player_season.yellows_count}" %>
+      </li>
+      <li class="list-group-item">
+        <%= "Away yellows: #{@player_season.yellows_count(false)}" %>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <%= "Av mins per sub: #{@player_season.average_mins_per_sub}" %>
+      </li>
+      <li class="list-group-item">
+        <%= "Away Goals: #{@player_season.away_goals.count}" %>
+      </li>
+      <li class="list-group-item">
+        <%= "Away Assists: #{@player_season.away_assists.count}" %>
+      </li>
+      <% if @player_season.most_booked_by != 'Not booked' %>
+        <li class="list-group-item">Most Booked by: <a href="/referees/#{Referee.find_by(full_name: @player_season.most_booked_by).id}">#{@player_season.most_booked_by}</a></li>
+      <% else %>
+        <li class="list-group-item">
+          <%= "Most Booked by: #{@player_season.most_booked_by}" %>
+        </li>
+      <% end %>
+      <li class="list-group-item">
+        <%= "Home reds: #{@player_season.home_reds_count}" %>
+      </li>
+      <li class="list-group-item">
+        <%= "Away reds: #{@player_season.away_reds_count}" %>
+      </li>
+    </ul>
+  </div>
+</div>

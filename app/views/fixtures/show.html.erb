@@ -1,15 +1,40 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
-
-    <%= render @fixture %>
-
-    <%= link_to 'Edit this fixture', edit_fixture_path(@fixture), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this fixture', fixture_path(@fixture), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to fixtures', fixtures_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+<div class="container">
+  <div id="notice">
+    <%= notice %>
   </div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h6>
+        <%= "Game Week #{@fixture.game_week}" %>
+      </h6>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-4">
+      <h5 class="text-right">
+        <%= link_to @fixture.home_team_season.team.name, team_path(@fixture.home_team_season.team) %>
+      </h5>
+    </div>
+    <div class="col-md-4">
+      <% if @fixture.home_score.nil? %>
+        <h5 class="text-center">
+          <%= @fixture.kick_off %>
+        </h5>
+      <% else %>
+        <h5 class="text-center">
+          <%= "#{@fixture.home_score} - #{@fixture.away_score}" %>
+        </h5>
+      <% end %>
+    </div>
+    <div class="col-md-4">
+      <h5 class="text-left">
+        <%= link_to @fixture.away_team_season.team.name, team_path(@fixture.away_team_season.team) %>
+      </h5>
+    </div>
+  </div>
+  <% if !@fixture.home_score.nil? %>
+    <%= render '/fixtures/post_fixture/post_fixture' %>
+  <% else %>
+    <%= render '/fixtures/pre_fixture/pre_fixture' %>
+  <% end %>
 </div>

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  root 'dashboards#index'
+  
+  resources :dashboards
   resources :cards
   resources :goals
   resources :appearances

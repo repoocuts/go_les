@@ -3,11 +3,26 @@ class FixturesController < ApplicationController
 
   # GET /fixtures or /fixtures.json
   def index
-    @fixtures = Fixture.all
+    @fixtures = Fixture.all.sort_by(&:kick_off)
   end
 
   # GET /fixtures/1 or /fixtures/1.json
   def show
+    @home_starts = Appearance.home_starts(fixture)
+    @away_starts = Appearance.away_starts(fixture)
+    @home_substitutes = Appearance.home_subs(fixture)
+    @away_substitutes = Appearance.away_subs(fixture)
+    @home_yellow_cards = Card.home_yellow_cards(fixture)
+    @away_yellow_cards = Card.away_yellow_cards(fixture)
+    @home_red_cards = Card.home_red_cards(fixture)
+    @away_red_cards = Card.away_red_cards(fixture)
+    @home_goals = Goal.home_goals(fixture)
+    @away_goals = Goal.away_goals(fixture)
+    @goals = fixture.goals
+    @cards = fixture.cards
+    @subs = fixture.appearances.where(appearance_type: 'substitute')
+    @home_team_season = set_team_season(fixture.home_team_season_id)
+    @away_team_season = set_team_season(fixture.away_team_season_id)
   end
 
   # GET /fixtures/new
@@ -62,6 +77,10 @@ class FixturesController < ApplicationController
     def set_fixture
       @fixture = Fixture.find(params[:id])
     end
+
+    def set_team_season(team_season_id)
+      TeamSeason.find(team_season_id)
+    end  
 
     # Only allow a list of trusted parameters through.
     def fixture_params

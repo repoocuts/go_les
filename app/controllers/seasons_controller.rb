@@ -60,7 +60,7 @@ class SeasonsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_season
-      @season = Season.find(params[:id])
+      @current_season = Season.find_by(current_season: true)
     end
 
     # Only allow a list of trusted parameters through.

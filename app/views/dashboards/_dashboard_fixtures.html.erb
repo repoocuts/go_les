@@ -1,0 +1,40 @@
+<table class="ml-5 dashboard-fixtures">
+  <thead>
+    <tr class="flex">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <% @matches.each do |match| %>
+    <tbody>
+      <tr class="flex">
+        <td class="w-3/12 px-0">
+          <%= link_to match.kickoff.strftime("%d/%m %H:%M"), country_league_season_match_path(@c, @l, @season, match) %>
+        </td>
+        <td class="w-4/12 pr-0 team-name">
+          <%= link_to match.home_team_name, country_league_season_match_path(@c, @l, @season, match) %>
+        </td>
+        <% if !match.home_score.nil? %>
+          <td class="w-1/12">
+            <%= link_to match.home_score, country_league_season_match_path(@c, @l, @season, match) %>
+          </td>
+        <% else %>
+          <td class="w-1/12"></td>
+        <% end %>
+        <% if !match.away_score.nil? %>
+          <td class="w-1/12">
+            <%= link_to match.away_score, country_league_season_match_path(@c, @l, @season, match) %>
+          </td>
+        <% else %>
+          <td class="w-1/12"></td>
+        <% end %>
+        <td class="w-4/12 team-name">
+          <%= link_to match.away_team_name, country_league_season_match_path(@c, @l, @season, match) %>
+        </td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>
