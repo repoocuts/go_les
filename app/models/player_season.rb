@@ -1,4 +1,36 @@
 class PlayerSeason < ApplicationRecord
-  belongs_to :team_season
   belongs_to :player
+  belongs_to :team_season
+  belongs_to :season
+  has_many :appearances
+  has_many :goals
+  has_many :cards
+
+  scope :scorers, -> { joins(:goals).reverse }
+  scope :booked_players, -> { joins(:cards).where('cards.card_type = ?', "yellow") }
+  scope :sent_off_players, -> { joins(:cards).where('cards.card_type = ?', "red") }
+
+  def get_player_name
+    player.full_name
+  end
+
+  def team_acronym
+    team_season.team.acronym
+  end
+
+  def team_name
+    team_season.team.name
+  end
+
+  def season_goals
+    goals.count
+  end
+
+  def season_yellows
+    cards.where(card_type: "yellow").count
+  end
+
+  def season_reds
+    cards.where(card_type: "red").count
+  end
 end
