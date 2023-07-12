@@ -2,7 +2,7 @@ class Creators::FixtureCreator < ApiFootball
 
   ENDPOINT = 'fixtures'
 
-  def create_fixture(league_api_football_id, season_start_date_year)
+  def create_fixture(league: league_api_football_id, season: season_start_date_year)
     fixtures = call['response']
     fixtures.map { |elem| create_from_response(elem) }
   end
