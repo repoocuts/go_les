@@ -38,14 +38,13 @@ class Appearance < ApplicationRecord
   scope :away_subs, ->(fixture) { where(is_home: nil, fixture_id: fixture.id, appearance_type: 'substitute') }
 
   def create_appearance_for_player(player_id, fixture, team_season, is_home=nil)
-    binding.pry
     update(
       player_season: get_player_season(player_id),
       team_season: team_season,
       fixture_id: fixture.id,
       appearance_type: 'start',
       is_home: is_home,
-      minute: 90
+      minutes: 90
     )
   end
 

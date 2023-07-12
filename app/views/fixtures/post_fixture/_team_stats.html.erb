@@ -18,7 +18,7 @@
               <%= link_to start.player_season.player.return_name, player_path(start.player_season.player) %>
             </td>
             <td class="text-center">
-              <%= start.minute %>
+              <%= start.minutes %>
             </td>
             <td class="text-center">
               <%= start.goals.where.not(goal_type: 1).count %>
@@ -47,7 +47,7 @@
               <%= link_to sub.player_season.player.return_name, player_path(sub.player_season.player) %>
             </td>
             <td class="text-center">
-              <%= sub.minute %>
+              <%= sub.minutes %>
             </td>
             <td class="text-center">
               <%= sub.goals.where.not(goal_type: 1).count %>
