@@ -21,6 +21,7 @@ class Creators::TeamCreator < ApiFootball
       acronym: response_element['team']['code'],
       api_football_id: response_element['team']['id'],
       league_id: league.id,
+      country_id: league.country.id,
       name: response_element['team']['name']
     )
   end

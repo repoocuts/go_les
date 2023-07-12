@@ -73,6 +73,8 @@ class FixturesController < ApplicationController
   end
 
   private
+
+    attr_reader :fixture
     # Use callbacks to share common setup or constraints between actions.
     def set_fixture
       @fixture = Fixture.find(params[:id])

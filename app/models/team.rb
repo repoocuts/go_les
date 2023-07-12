@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: teams
+#
+#  id              :bigint           not null, primary key
+#  acronym         :string
+#  name            :string
+#  short_name      :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  api_football_id :integer
+#  country_id      :bigint           not null
+#  league_id       :bigint           not null
+#
+# Indexes
+#
+#  index_teams_on_country_id  (country_id)
+#  index_teams_on_league_id   (league_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (country_id => countries.id)
+#  fk_rails_...  (league_id => leagues.id)
+#
 class Team < ApplicationRecord
   has_many :players
   belongs_to :league

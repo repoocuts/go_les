@@ -1,7 +1,7 @@
 class Updaters::PreFixtureDataCheck < ApiFootball
 
   include Creators::HomeStartsCreator
-  include Updaters::HomePlayerChecker
+  # include Updaters::HomePlayerChecker
 
   ENDPOINT = 'fixtures'
 
