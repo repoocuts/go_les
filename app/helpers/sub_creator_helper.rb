@@ -23,12 +23,12 @@ module SubCreatorHelper
     Appearance.create(
       fixture_id: fixture.id,
       is_home: true,
-      minute: 90 - event['time']['elapsed'],
+      minutes: 90 - event['time']['elapsed'],
       player_season_id: player_in_player_season.id,
       team_season_id: team_season.id,
       appearance_type: 'substitute'
     )
-    player_out_start.update(minute: event['time']['elapsed'])
+    player_out_start.update(minutes: event['time']['elapsed'])
   end
 
   def substitute_for_away(event, fixture, team_season)
@@ -41,12 +41,12 @@ module SubCreatorHelper
     end
     Appearance.create(
       fixture_id: fixture.id,
-      minute: 90 - event['time']['elapsed'],
+      minutes: 90 - event['time']['elapsed'],
       player_season_id: player_in_player_season.id,
       team_season_id: team_season.id,
       appearance_type: 'substitute'
     )
-    player_out_start.update(minute: event['time']['elapsed'])
+    player_out_start.update(minutes: event['time']['elapsed'])
   end
 
   def create_player_season(api_football_id, team_season)

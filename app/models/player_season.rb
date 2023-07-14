@@ -23,7 +23,7 @@
 class PlayerSeason < ApplicationRecord
   belongs_to :player
   belongs_to :team_season
-  belongs_to :season
+  # belongs_to :season
   has_many :appearances
   has_many :goals
   has_many :cards

@@ -40,7 +40,6 @@ module Updaters::CheckPlayerExists
       player: player,
       team_season: team_season,
       current_season: true,
-      season: team_season.season
     )
   end
 end
