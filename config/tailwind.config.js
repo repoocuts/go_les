@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: [
     './public/*.html',
@@ -8,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['ui-sans-serif'],
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
     },
   },
@@ -17,9 +19,5 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/container-queries'),
-    require('@tailwindcss/base'),
-    require('@tailwindcss/components'),
-    require('@tailwindcss/utilities'),
-    require('@tailwindcss/default-theme'),
   ]
 }
