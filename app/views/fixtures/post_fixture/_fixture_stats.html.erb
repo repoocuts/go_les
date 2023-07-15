@@ -1,40 +1,36 @@
-<div class="table-responsive">
-  <div class="table match-stats">
-    <table class="w-100">
-      <thead>
+<div class="block w-full overflow-auto scrolling-touch mt-5">
+  <div class="w-full max-w-full mb-4 match-stats">
+    <table class="w-full border-separate">
+      <thead class="border-separate">
         <tr>
           <th></th>
           <th></th>
           <th></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="border-separate">
         <tr>
-          <td>
+          <td class='w-1/3 text-right'>
             <%= @home_yellow_cards.count %>
           </td>
-          <td class="text-center">Yellow Cards</td>
-          <td>
+          <td class="text-center w-1/3">Yellow Cards</td>
+          <td class='w-1/3'>
             <%= @away_yellow_cards.count %>
           </td>
         </tr>
         <tr>
-          <td>
+          <td class='w-1/3 text-right'>
             <%= @home_red_cards.count %>
           </td>
-          <td class="text-center">Red Cards</td>
-          <td>
+          <td class="text-center w-1/3">Red Cards</td>
+          <td class='w-1/3'>
             <%= @away_red_cards.count %>
           </td>
         </tr>
         <tr>
-          <td>
-            <%= @home_yellow_cards.count %>
-          </td>
-          <td class="text-center">Corners</td>
-          <td>
-            <%= @home_yellow_cards.count %>
-          </td>
+          <td class='w-1/3 text-right'></td>
+          <td class="text-center w-1/3">Corners</td>
+          <td class='w-1/3'></td>
         </tr>
       </tbody>
     </table>

@@ -1,24 +1,20 @@
-<div class="row">
-  <div class="col-md-4 home-goals-post-fixture text-right">
-    <%= render '/fixtures/post_fixture/fixture_goals', collection: @home_goals %>
+<div class='grid-rows-2'>
+  <div class='grid grid-cols-3 flex'>
+    <div class="home-goals-post-fixture text-right">
+      <%= render '/fixtures/post_fixture/fixture_goals', collection: @home_goals %>
+    </div>
+    <div></div>
+    <div class="away-goals-post-fixture flex justify-center">
+      <%= render '/fixtures/post_fixture/fixture_goals', collection: @away_goals %>
+    </div>
   </div>
-  <div class="col-md-4"></div>
-  <div class="col-md-4 away-goals-post-fixture">
-    <%= render '/fixtures/post_fixture/fixture_goals', collection: @away_goals %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4"></div>
-  <div class="col-md-4">
+  <div class="grid grid-cols-1 flex justify-items-center mt-3 mb-3">
     <%= render '/fixtures/post_fixture/fixture_stats' %>
   </div>
-  <div class="col-md-4"></div>
 </div>
-<div class="row mt-5">
-  <div class="col-md-6 pl-5">
-    <%= render partial: '/fixtures/post_fixture/team_stats', :locals => { starts: @home_starts ,  subs: @home_substitutes } %>
-  </div>
-  <div class="col-md-6">
-    <%= render partial: '/fixtures/post_fixture/team_stats', :locals => { starts: @away_starts,  subs: @away_substitutes } %>
-  </div>
+<div class='grid grid-cols-3 flex mt-5'>
+  <%= render partial: '/fixtures/post_fixture/team_stats', :locals => { starts: @home_starts ,  subs: @home_substitutes } %>
+  <div></div>
+  <%= render partial: '/fixtures/post_fixture/team_stats', :locals => { starts: @away_starts,  subs: @away_substitutes } %>
 </div>
+
