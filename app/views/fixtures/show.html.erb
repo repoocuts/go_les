@@ -1,7 +1,4 @@
-<div class='flex grid grid-rows-3'> 
-  <div id="notice">
-    <%= notice %>
-  </div>
+<div class='flex grid'> 
   <div class="grid justify-center">
     <h6>
       <%= "Game Week #{@fixture.game_week}" %>
@@ -24,11 +21,9 @@
       <%= link_to @fixture.away_team_season.team.name, team_path(@fixture.away_team_season.team) %>
     </h5>
   </div>
-  <div class='grid justify-center mt-2'>
-    <% if !@fixture.home_score.nil? %>
-      <%= render '/fixtures/post_fixture/post_fixture' %>
-    <% else %>
-      <%= render '/fixtures/pre_fixture/pre_fixture' %>
-    <% end %>
-  </div>
+  <% if !@fixture.home_score.nil? %>
+    <%= render '/fixtures/post_fixture/post_fixture' %>
+  <% else %>
+    <%= render '/fixtures/pre_fixture/pre_fixture' %>
+  <% end %>
 </div>
