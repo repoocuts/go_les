@@ -1,15 +1,17 @@
-<% collection.each do |goal| %>
-  <% if goal.goal_type == 'goal' %>
-    <p class="mb-0 goal-scorer">
-      <%= link_to "#{goal.player_season.player.full_name}, #{goal.minute}", player_path(goal.player_season.player) %>
-    </p>
-  <% elsif goal.goal_type == 'penalty' %>
-    <p class="mb-0 goal-scorer">
-      <%= link_to "#{goal.player_season.player.full_name}, #{goal.minute} (P)", player_path(goal.player_season.player) %>
-    </p>
-  <% else %>
-    <p class="mb-0 goal-scorer">
-      <%= link_to "#{goal.player_season.player.full_name}, #{goal.minute} (OG)", player_path(goal.player_season.player) %>
-    </p>
+<div class='grid-cols-1'>
+  <% collection.each do |goal| %>
+    <% if goal.goal_type == 'goal' %>
+      <p class="mb-0 goal-scorer">
+        <%= link_to "#{goal.player_season.player.full_name}, #{goal.minute}", player_path(goal.player_season.player) %>
+      </p>
+    <% elsif goal.goal_type == 'penalty' %>
+      <p class="mb-0 goal-scorer">
+        <%= link_to "#{goal.player_season.player.full_name}, #{goal.minute} (P)", player_path(goal.player_season.player) %>
+      </p>
+    <% else %>
+      <p class="mb-0 goal-scorer">
+        <%= link_to "#{goal.player_season.player.full_name}, #{goal.minute} (OG)", player_path(goal.player_season.player) %>
+      </p>
+    <% end %>
   <% end %>
-<% end %>
+</div>
