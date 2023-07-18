@@ -5,12 +5,12 @@
   <%= render 'team_stats' %>
   <div class="row">
     <div class="grid grid-cols-2 gap-4">
-      <div class="col-span-1" id="finished-fixtures-table">
+      <div class="mt-5" id="finished-fixtures-table">
         <%= turbo_frame_tag "finished_fixtures" do %>
           <%= render 'finished_fixtures_table' %>
         <% end %>
       </div>
-      <div class="col-span-1" id="upcoming-fixtures-table">
+      <div class="mt-5" id="upcoming-fixtures-table">
         <%= turbo_frame_tag "upcoming_fixtures" do %>
           <%= render 'upcoming_fixtures_table' %>
         <% end %>
