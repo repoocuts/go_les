@@ -1,18 +1,15 @@
-<div class="grid">
-  <div class="row">
+<div class="grid grid-rows-3">
+  <div class="grid-row-1">
     <%= render partial: 'player_details' %>
   </div>
-  <div class="row">
+  <div class="grid-row-1 mt-4">
     <%= render partial: 'season_stats_table' %>
   </div>
-  <div class="row">
+  <div class="grid-row-1">
     <div class="grid grid-cols-1">
       <div class="col-span-1" id="finished-fixtures-table">
         <%= render 'appearances' %>
       </div>
     </div>
-  </div>
-  <div class="row">
-    
   </div>
 </div>

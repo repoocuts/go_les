@@ -21,7 +21,7 @@
         </td>
         <% @appearance = match.appearance_for_player_season(@player_season.id) %>
         <td class="px-4 py-2 text-center">
-          <%= @appearance.nil? ? 0 : @appearance.minute %>
+          <%= @appearance.nil? ? 0 : @appearance.minutes %>
         </td>
         <td class="px-4 py-2 text-center">
           <%= @appearance.nil? ? 0 : @appearance.goals.where.not(goal_type: "own-goal").count %>
