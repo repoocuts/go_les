@@ -18,7 +18,7 @@
   </thead>
   <tbody>
     <% @current_game_week.each do |fixture| %>  
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <tr class="bg-white border-b dark:border-gray-700">
         <td class="text-right"><%= link_to fixture.home_team_season.team.name, team_path(fixture.home_team_season.team) %></td>
         <td></td>
         <td class="text-center"><%= link_to convert_datetime(fixture.kick_off), fixture_path(fixture) %></td>
