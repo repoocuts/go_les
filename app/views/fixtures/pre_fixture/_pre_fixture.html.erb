@@ -1,63 +1,58 @@
-<div class="row">
-  <div class="col-md-12 text-center mt-2">
-    <h5>
+<div class="grid-rows-7">
+  <div class="grid grid-cols-1 text-center flex mt-2">
+    <h5 class='text-2xl'>
       <%= link_to "GW#{@fixture.game_week}", fixture_path(@fixture) %>
     </h5>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12 text-center">
-    <h5>Form</h5>
-    <div class="row">
-      <div class="col-md-6">
+  <div class="grid-row">
+    <div class="grid grid-cols-1 text-center flex mt-2">
+      <h5 class='text-2xl'>Form</h5>
+      <div class="grid grid-row-1 grid-cols-2">
         <%= render partial: '/fixtures/pre_fixture/form_box', object: @home_team_season, as: :team %>
-      </div>
-      <div class="col-md-6">
         <%= render partial: '/fixtures/pre_fixture/form_box', object: @away_team_season, as: :team %>
       </div>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-3">
-    <%= render partial: '/fixtures/pre_fixture/home_last_five_results', object: @home_team_season, as: :team %>
+  <div class="grid grid-row-2">
+    <div class='grid grid-cols-4'>
+      <h6 class='text-xl'>Home</h6>
+      <h6 class='text-xl'>Away</h6>
+      <h6 class='text-xl'>Home</h6>
+      <h6 class='text-xl'>Away</h6>
+    </div>
+    <div class='grid-cols-4'>
+      <%= render partial: '/fixtures/pre_fixture/home_last_five_results', object: @home_team_season, as: :team %>
+      <%= render partial: '/fixtures/pre_fixture/away_last_five_results', object: @home_team_season, as: :team %>
+      <%= render partial: '/fixtures/pre_fixture/home_last_five_results', object: @away_team_season, as: :team %>
+      <%= render partial: '/fixtures/pre_fixture/away_last_five_results', object: @away_team_season, as: :team %>
+    </div>
   </div>
-  <div class="col-md-3">
-    <%= render partial: '/fixtures/pre_fixture/away_last_five_results', object: @home_team_season, as: :team %>
-  </div>
-  <div class="col-md-3">
-    <%= render partial: '/fixtures/pre_fixture/away_last_five_results', object: @away_team_season, as: :team %>
-  </div>
-  <div class="col-md-3">
-    <%= render partial: '/fixtures/pre_fixture/home_last_five_results', object: @away_team_season, as: :team %>
-  </div>
-</div>
-<div class="row">
+<div class="grid-row">
   <br/>
 </div>
-<div class="row">
+<div class="grid-row">
   <div class="col-md-6">
-    <div class="row pt-3">
+    <div class="grid-row-1 pt-3">
       <%= render partial: '/fixtures/pre_fixture/top_players', object: @home_team_season, as: :team %>
     </div>
   </div>
   <div class="col-md-6">
-    <div class="row pt-3">
+    <div class="grid-row-1 pt-3">
       <%= render partial: '/fixtures/pre_fixture/top_players', object: @away_team_season, as: :team %>
     </div>
   </div>
 </div>
-<div class="flex-row justify-center items-center">
+<div class="flex-grid-row-1 justify-center items-center">
   <div class="px-4">
     <%= render partial: '/fixtures/pre_fixture/all_fixtures' %>
   </div>
 </div>
-<div class="row justify-center items-center">
+<div class="grid-row-1 justify-center items-center">
   <div class="justify-center px-4">
     <h1>Home / Away stats</h1>
   </div>
 </div>
-<div class="flex-row justify-center items-center">
+<div class="flex-grid-row-1 justify-center items-center">
   <div class="px-4">
     <%= render partial: '/fixtures/pre_fixture/home_away_fixture_stats_table' %>
   </div>
