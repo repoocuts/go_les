@@ -77,11 +77,11 @@ class TeamSeason < ApplicationRecord
   end
 
   def most_booked_player
-    player_seasons.booked_players.first
+    player_seasons.booked_players.first || player_seasons.first
   end
 
   def most_reds_player
-    player_seasons.sent_off_players.first
+    player_seasons.sent_off_players.first || player_seasons.first
   end
 
   def home_or_away_string(match)
