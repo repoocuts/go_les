@@ -4,6 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  current_season  :boolean
+#  points          :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  api_football_id :integer

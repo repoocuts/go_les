@@ -4,6 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  current_season  :boolean
+#  points          :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  api_football_id :integer
@@ -96,6 +97,10 @@ class TeamSeason < ApplicationRecord
 
   def completed_fixtures
     all_fixtures_sorted_by_game_week.where.not(home_score: nil)
+  end
+
+  def completed_fixtures_count
+    completed_fixtures.count
   end
 
   def upcoming_fixtures
