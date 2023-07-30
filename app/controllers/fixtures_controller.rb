@@ -3,7 +3,7 @@ class FixturesController < ApplicationController
 
   # GET /fixtures or /fixtures.json
   def index
-    @fixtures = Fixture.all.sort_by(&:kick_off)
+    @fixtures = Fixture.order(:kick_off).group_by(&:game_week)
   end
 
   # GET /fixtures/1 or /fixtures/1.json

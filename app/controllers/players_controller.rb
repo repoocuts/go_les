@@ -3,7 +3,7 @@ class PlayersController < ApplicationController
 
   # GET /players or /players.json
   def index
-    @players = Player.all.sort_by(&:full_name)
+    @players = Player.all.sort_by(&:return_name)
   end
 
   # GET /players/1 or /players/1.json
