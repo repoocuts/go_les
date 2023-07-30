@@ -3,7 +3,12 @@ class FixturesController < ApplicationController
 
   # GET /fixtures or /fixtures.json
   def index
-    @fixtures = Fixture.order(:kick_off).group_by(&:game_week)
+    @pagy_fixtures, @fixtures = pagy_array(fixture_list.to_a, items: 1)
+
+    respond_to do |format|
+      format.html 
+      format.turbo_stream
+    end
   end
 
   # GET /fixtures/1 or /fixtures/1.json
@@ -74,18 +79,22 @@ class FixturesController < ApplicationController
 
   private
 
-    attr_reader :fixture
-    # Use callbacks to share common setup or constraints between actions.
-    def set_fixture
-      @fixture = Fixture.find(params[:id])
-    end
+  attr_reader :fixture
+  # Use callbacks to share common setup or constraints between actions.
+  def set_fixture
+    @fixture = Fixture.find(params[:id])
+  end
 
-    def set_team_season(team_season_id)
-      TeamSeason.find(team_season_id)
-    end  
+  def set_team_season(team_season_id)
+    TeamSeason.find(team_season_id)
+  end  
 
-    # Only allow a list of trusted parameters through.
-    def fixture_params
-      params.require(:fixture).permit(:home_team_season_id, :away_team_season_id, :home_score, :away_score, :kick_off, :game_week, :api_football_id, :season_id, :league_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def fixture_params
+    params.require(:fixture).permit(:home_team_season_id, :away_team_season_id, :home_score, :away_score, :kick_off, :game_week, :api_football_id, :season_id, :league_id)
+  end
+
+  def fixture_list
+    Fixture.order(:kick_off).group_by(&:game_week)
+  end
 end

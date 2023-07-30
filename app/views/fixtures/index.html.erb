@@ -1,24 +1,3 @@
-<table class="w-full">
-  <thead>
-    <tr>
-      <th class="bg-gray-300 p-2 font-bold text-center">Game Week</th>
-      <th class="bg-gray-300 p-2 font-bold text-center">Home Team</th>
-      <th class="bg-gray-300 p-2 font-bold text-center">Kick-off</th>
-      <th class="bg-gray-300 p-2 font-bold text-center">Away Team</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @fixtures.each do |game_week, fixtures| %>
-      <% fixtures.each_with_index do |fixture, index| %>
-        <tr class="<%= index % 2 == 0 ? 'bg-white' : 'bg-gray-100' %>">
-          <% if index == 0 %>
-            <td rowspan="<%= fixtures.size %>" class="border border-gray-300 p-2 text-center"><%= game_week %></td>
-          <% end %>
-          <td class="border border-gray-300 p-2 text-center"><%= link_to fixture.home_team_season.team.name, fixture_path(fixture) %></td>
-          <td class="border border-gray-300 p-2 text-center"><%= fixture.format_kick_off %></td>
-          <td class="border border-gray-300 p-2 text-center"><%= link_to fixture.away_team_season.team.name, fixture_path(fixture) %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+<%= turbo_frame_tag "fixture_list" do %>
+  <%= render partial: 'fixture_list_table' %>
+<% end %>

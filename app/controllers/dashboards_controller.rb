@@ -22,7 +22,7 @@ class DashboardsController < ApplicationController
     @season = Season.find_by!(current_season: true)
   end
 
-    def top_scorers_array
+  def top_scorers_array
     Goal.group(:player_season_id).order('count_id desc').count('id')
   end 
 
