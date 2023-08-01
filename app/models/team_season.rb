@@ -34,6 +34,8 @@ class TeamSeason < ApplicationRecord
   end
 
   def next_match
+    return Fixture.where(home_team_season_id: id).first || Fixture.where(away_team_season_id: id).first
+
     Fixture.find_by("game_week = ? AND (home_team_season_id = ? OR away_team_season_id = ?)", season.current_game_week + 1, id, id)
   end
 
