@@ -4,6 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  current_season  :boolean
+#  points          :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  api_football_id :integer
@@ -33,6 +34,8 @@ class TeamSeason < ApplicationRecord
   end
 
   def next_match
+    return Fixture.where(home_team_season_id: id).first || Fixture.where(away_team_season_id: id).first
+
     Fixture.find_by("game_week = ? AND (home_team_season_id = ? OR away_team_season_id = ?)", season.current_game_week + 1, id, id)
   end
 
@@ -65,7 +68,7 @@ class TeamSeason < ApplicationRecord
   end
 
   def top_scorer
-    player_seasons.map { |ps| [ps.season_goals, ps.player.full_name, ps.player_id] }.sort! { |a,b| a.first <=> b.first }.reverse
+    player_seasons.map { |ps| [ps.season_goals, ps.player.full_name, ps.player_id] }.sort! { |a,b| a.first <=> b.first }.reverse.first
   end
 
   def booked_players
@@ -77,11 +80,11 @@ class TeamSeason < ApplicationRecord
   end
 
   def most_booked_player
-    player_seasons.booked_players.first
+    player_seasons.booked_players.first || player_seasons.first
   end
 
   def most_reds_player
-    player_seasons.sent_off_players.first
+    player_seasons.sent_off_players.first || player_seasons.first
   end
 
   def home_or_away_string(match)
@@ -96,6 +99,10 @@ class TeamSeason < ApplicationRecord
 
   def completed_fixtures
     all_fixtures_sorted_by_game_week.where.not(home_score: nil)
+  end
+
+  def completed_fixtures_count
+    completed_fixtures.count
   end
 
   def upcoming_fixtures

@@ -1,7 +1,3 @@
-<% @fixtures.each do |fixture| %>
-  <div>
-    <%= link_to fixture.home_team_season.team.name, fixture_path(fixture) %>
-    <%= fixture.kick_off %>
-    <%= fixture.away_team_season.team.name %>
-  </div>
+<%= turbo_frame_tag "fixture_list" do %>
+  <%= render partial: 'fixture_list_table' %>
 <% end %>

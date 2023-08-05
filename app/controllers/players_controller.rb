@@ -3,7 +3,12 @@ class PlayersController < ApplicationController
 
   # GET /players or /players.json
   def index
-    @players = Player.all.sort_by(&:full_name)
+    @pagy_players, @players = pagy_array(sorted_players, items: 1)
+
+    respond_to do |format|
+      format.html 
+      format.turbo_stream
+    end
   end
 
   # GET /players/1 or /players/1.json
@@ -69,5 +74,11 @@ class PlayersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def player_params
       params.require(:player).permit(:full_name, :short_name, :position, :api_football_id, :team_id)
+    end
+
+    def sorted_players
+      Team.includes(:players).order(:name).map do |team|
+        { team_name: team.name, players: team.players.sort_by(&:return_name) }
+      end
     end
 end
