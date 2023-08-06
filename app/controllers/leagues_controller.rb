@@ -1,9 +1,10 @@
 class LeaguesController < ApplicationController
   before_action :set_league, only: %i[ show edit update destroy ]
+  before_action :set_season, only: %i[ index show edit update destroy ]
 
   # GET /leagues or /leagues.json
   def index
-    @league = TeamSeason.all.order(:points).reverse
+    @league = TeamSeason.where(season: season).all.order(:points).reverse
   end
 
   # GET /leagues/1 or /leagues/1.json
@@ -58,9 +59,14 @@ class LeaguesController < ApplicationController
   end
 
   private
+    attr_reader :league, :season
     # Use callbacks to share common setup or constraints between actions.
     def set_league
       @league = League.find(params[:id])
+    end
+
+    def set_season
+      @season = Season.current_season
     end
 
     # Only allow a list of trusted parameters through.

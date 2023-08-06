@@ -10,7 +10,7 @@
     </h5>
     <% if @fixture.home_score.nil? %>
       <h5 class="text-center text-3xl">
-        <%= @fixture.kick_off %>
+        <%= @fixture.format_kick_off %>
       </h5>
     <% else %>
       <h5 class="text-center text-3xl">
