@@ -21,4 +21,12 @@ class League < ApplicationRecord
   belongs_to :country
   has_many :seasons
   has_many :teams
+
+  def current_season
+    seasons.find_by(current_season: true)
+  end
+
+  def last_season
+    seasons.find_by(start_date: current_season.start_date - 1.year)
+  end
 end

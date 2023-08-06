@@ -41,6 +41,13 @@ class Goal < ApplicationRecord
   scope :group_by_player_season, -> { group(:player_season_id) }
   scope :first_half_goals, -> { where('minute < ?', 46) }
   scope :second_half_goals, -> { where('minute > ?', 45) }
+  scope :by_season, -> (season_id) {
+    joins(team_season: :season)
+    .where('seasons.id = ?', season_id)
+    .group(:player_season_id)
+    .order('COUNT(goals.id) desc')
+    .count('goals.id')
+  }
 
   def goal_scorer_name
     player_season.get_player_name

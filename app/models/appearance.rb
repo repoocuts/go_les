@@ -67,6 +67,6 @@ class Appearance < ApplicationRecord
   private
 
   def get_player_season(player_id)
-    Player.find_by(api_football_id: player_id).player_seasons.where(current_season: true).first
+    Player.find_by(api_football_id: player_id).player_seasons.first
   end
 end

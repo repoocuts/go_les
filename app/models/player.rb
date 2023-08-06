@@ -24,7 +24,7 @@ class Player < ApplicationRecord
   has_many :player_seasons
 
   def current_player_season
-    player_seasons.where(current_season: true).first
+    player_seasons.where(current_season: true).first || player_seasons.first
   end
 
   def return_name
