@@ -3,8 +3,8 @@ class DashboardsController < ApplicationController
   before_action :set_season
 
   def index
-    @current_game_week = Fixture.where(game_week: season.current_game_week).order(:kick_off)
-    @next_game_week = Fixture.where(game_week: season.current_game_week + 1).order(:kick_off)
+    @current_game_week = Fixture.where(season: season, game_week: season.current_game_week).order(:kick_off)
+    @next_game_week = Fixture.where(season: season, game_week: season.current_game_week + 1).order(:kick_off)
     @pagy_scorers, @top_scorers = pagy_array(top_scorers)
     @pagy_booked, @most_booked = pagy_array(top_booked)
 
@@ -23,7 +23,7 @@ class DashboardsController < ApplicationController
   end
 
   def top_scorers_array
-    Goal.group(:player_season_id).order('count_id desc').count('id')
+    Goal.by_season(season.id)
   end 
 
   def top_scorers
@@ -41,7 +41,7 @@ class DashboardsController < ApplicationController
   end
 
   def top_booked_array
-    Card.yellow_cards.group(:player_season_id).order('count_id desc').count('id')
+    Card.by_season(season.id)
   end
 
   def top_booked

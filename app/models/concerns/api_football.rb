@@ -1,4 +1,4 @@
-class ApiFootball
+module ApiFootball
 
   include HTTParty
 
@@ -27,7 +27,6 @@ class ApiFootball
       'x-rapidapi-key': ENV['RAPID_API_KEY']
     }
   end
-
   
   def query
     return interpolate_endpoint if options.blank?

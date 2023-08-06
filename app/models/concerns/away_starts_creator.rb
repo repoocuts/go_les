@@ -1,4 +1,4 @@
-module Creators::AwayStartsCreator
+module AwayStartsCreator
 
   def create_away_starting_lineup(starting_players, fixture)
     starting_players.map { |player| create_appearance(player['player']['id'], fixture) }

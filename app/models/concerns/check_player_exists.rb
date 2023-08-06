@@ -1,4 +1,4 @@
-module Updaters::CheckPlayerExists
+module CheckPlayerExists
 
   def verify_data(lineups, fixture)
     find_or_create_players(lineups, fixture)
