@@ -27,6 +27,8 @@ class Season < ApplicationRecord
   has_many :player_seasons, through: :team_seasons
   has_many :goals, through: :team_seasons
   
+  scope :current_season, -> { find_by(current_season: true) }
+
   def next_round_of_fixtures
     fixtures.where(season_id: id, game_week: game_week + 1)
   end

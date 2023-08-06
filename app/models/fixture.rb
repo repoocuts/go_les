@@ -70,7 +70,7 @@ class Fixture < ApplicationRecord
   end
 
   def format_kick_off
-    kick_off.strftime("%m %b %H:%M")
+    kick_off.strftime("%d %b %H:%M")
   end
 
   def interpolate_final_score

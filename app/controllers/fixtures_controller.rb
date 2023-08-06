@@ -1,5 +1,6 @@
 class FixturesController < ApplicationController
   before_action :set_fixture, only: %i[ show edit update destroy ]
+  before_action :set_season, only: %i[ index show edit update destroy ]
 
   # GET /fixtures or /fixtures.json
   def index
@@ -79,10 +80,14 @@ class FixturesController < ApplicationController
 
   private
 
-  attr_reader :fixture
+  attr_reader :fixture, :season
   # Use callbacks to share common setup or constraints between actions.
   def set_fixture
     @fixture = Fixture.find(params[:id])
+  end
+
+  def set_season
+    @season = Season.current_season
   end
 
   def set_team_season(team_season_id)
@@ -95,6 +100,6 @@ class FixturesController < ApplicationController
   end
 
   def fixture_list
-    Fixture.order(:kick_off).group_by(&:game_week)
+    Fixture.where(season: season).order(:kick_off).group_by(&:game_week)
   end
 end
