@@ -4,7 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  full_name       :string
-#  position        :string
+#  position        :integer
 #  short_name      :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -22,6 +22,8 @@
 class Player < ApplicationRecord
   belongs_to :team
   has_many :player_seasons
+
+  enum position: { goalkeeper: 0, defender: 1, midfielder: 2, attacker: 3 }
 
   def current_player_season
     player_seasons.where(current_season: true).first || player_seasons.first

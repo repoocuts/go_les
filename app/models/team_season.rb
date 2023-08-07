@@ -52,9 +52,15 @@ class TeamSeason < ApplicationRecord
   end
 
   def next_match_opponent_name
-    return next_match.home_team_name if team.name == next_match.away_team_name
+    return next_match.home_team_name + home_or_away_string(next_match) if team.name == next_match.away_team_name
 
-    next_match.away_team_name
+    next_match.away_team_name + home_or_away_string(next_match)
+  end
+
+  def next_match_opponent_id
+    return next_match.home_team_season_id if team.name == next_match.away_team_name
+
+    next_match.away_team_season_id
   end
 
   def last_match
@@ -100,13 +106,13 @@ class TeamSeason < ApplicationRecord
   end
 
   def home_or_away_string(match)
-    return "(H)" if match.home_team_season_id == id
+    return ' (H)' if match.home_team_season_id == id
 
-    "(A)"
+    ' (A)'
   end
 
   def all_fixtures_sorted_by_game_week
-    Fixture.where("season_id = ? AND (home_team_season_id = ? OR away_team_season_id = ?)", season_id, id, id).order(:game_week)
+    Fixture.where('season_id = ? AND (home_team_season_id = ? OR away_team_season_id = ?)', season_id, id, id).order(:game_week)
   end
 
   def completed_fixtures

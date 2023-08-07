@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_30_164520) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_07_151926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -114,11 +114,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_30_164520) do
   create_table "players", force: :cascade do |t|
     t.string "full_name"
     t.string "short_name"
-    t.string "position"
     t.integer "api_football_id"
     t.bigint "team_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position"
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 

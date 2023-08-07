@@ -9,9 +9,11 @@ class TeamsController < ApplicationController
   # GET /teams/1 or /teams/1.json
   def show
     @players = team.players
-    @player_seasons = PlayerSeason.joins(:player).where(player: @players).order("#{params[:column]}").order("#{params[:column]} #{params[:direction]}")
+    sorting_column = params[:column].presence_in(['full_name', 'position', 'appearances', 'goals', 'yellow_cards', 'red_cards']) || 'position'
+    sorting_direction = params[:direction].presence_in(['asc', 'desc']) || 'asc'
+    @player_seasons = PlayerSeason.joins(:player).where(player: @players).sorted_by(sorting_column, sorting_direction)
     @current_team_season = current_team_season
-    @top_scorer = current_team_season.top_scorer.first
+    @top_scorer = current_team_season.top_scorer
     @most_booked = current_team_season.most_booked_player
     @most_reds = current_team_season.most_reds_player
     @pagy_team_upcoming_fixtures, @upcoming_fixtures = pagy(current_team_season.upcoming_fixtures)
