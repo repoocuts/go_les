@@ -3,7 +3,7 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <div id="players" class="flex w-full mt-4 pl-5">
+  <div id="players" class="w-full mt-4 pl-5">
     <%= turbo_frame_tag "player_list" do %>
       <%= render partial: 'player_list', locals: { players: @players } %>
     <% end %>
