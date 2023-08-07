@@ -1,11 +1,11 @@
 <%= turbo_frame_tag "player_list" do %>
-  <% players.each_slice(10).with_index do |player_slice, index| %>
-    <div class="sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 2xl:w-1/6">
-      <% player_slice.each do |player| %>
-        <p><%= link_to "#{player.return_name} - #{player.team.name}", player_path(player) %></p>
+  <div class="grid grid-cols-4 ml-4 pl-4">
+    <% players.each_slice(15).with_index do |player_slice, index| %>
+      <% player_slice[0][:players].each do |player| %>
+        <p><%= link_to player.return_name, player_path(player) %></p>
       <% end %>
-    </div>
-  <% end %>
-  
+    <% end %>
+  </div>
+
   <%== pagy_nav @pagy_players %>
 <% end %>
