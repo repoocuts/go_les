@@ -55,6 +55,10 @@ class PlayerSeason < ApplicationRecord
     cards.where(card_type: "red").count
   end
 
+  def sub_appearances
+    appearances.where(appearance_type: 'substitute')
+  end
+
   def self.sorted_by(column, direction)
     case column
     when 'full_name'
