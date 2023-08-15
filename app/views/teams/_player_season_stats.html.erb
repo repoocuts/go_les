@@ -13,7 +13,7 @@
         <% @player_seasons.each do |player_season| %>  
           <tr class="border-t border-b">
             <td class="px-4 py-2 text-left">
-              <%= link_to player_season.player.full_name, player_path(player_season.player), data: { turbo_frame: '_top' } %>
+              <%= link_to player_season.player.return_name, player_path(player_season.player), data: { turbo_frame: '_top' } %>
             </td>
             <td class="px-4 py-2 text-left"><%= player_season.player.position %></td>
             <td class="px-4 py-2 text-center"><%= player_season.appearances.count %></td>

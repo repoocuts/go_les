@@ -116,7 +116,7 @@ class TeamSeason < ApplicationRecord
   end
 
   def completed_fixtures
-    all_fixtures_sorted_by_game_week.where.not(home_score: nil)
+    all_fixtures_sorted_by_game_week.where('kick_off < ?', Date.today)
   end
 
   def completed_fixtures_count

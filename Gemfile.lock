@@ -95,6 +95,8 @@ GEM
     debug (1.8.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    dockerfile-rails (1.5.2)
+      rails
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
@@ -146,6 +148,8 @@ GEM
       net-protocol
     nio4r (2.5.9)
     nokogiri (1.15.3-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.15.3-x86_64-linux)
       racc (~> 1.4)
     pagy (6.0.4)
     pg (1.5.3)
@@ -203,6 +207,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.10.0)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.10.0)
+    sentry-ruby (5.10.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     slop (3.6.0)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
@@ -214,6 +223,8 @@ GEM
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.29-x86_64-darwin)
+      railties (>= 6.0.0)
+    tailwindcss-rails (2.0.29-x86_64-linux)
       railties (>= 6.0.0)
     thor (1.2.2)
     timeout (0.4.0)
@@ -242,6 +253,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   annotate
@@ -249,6 +261,7 @@ DEPENDENCIES
   capybara
   database_cleaner-active_record
   debug
+  dockerfile-rails (>= 1.5)
   dotenv-rails
   hotwire-rails
   httparty
@@ -263,6 +276,8 @@ DEPENDENCIES
   rails (~> 7.0.4, >= 7.0.4.3)
   redis (~> 4.0)
   selenium-webdriver
+  sentry-rails (~> 5.10)
+  sentry-ruby (~> 5.10)
   sprockets-rails
   stimulus-rails
   tailwindcss-rails

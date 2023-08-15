@@ -73,6 +73,10 @@ class Fixture < ApplicationRecord
     kick_off.strftime("%d %b %H:%M")
   end
 
+  def completed?
+    kick_off.to_date < Date.current
+  end
+
   def interpolate_final_score
     home_score.to_s + ' - ' + away_score.to_s
   end
