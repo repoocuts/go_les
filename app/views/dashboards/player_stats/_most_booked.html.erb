@@ -12,12 +12,10 @@
   <tbody class="bg-white divide-y divide-gray-200">
     <% @most_booked_players.each do |player_season| %>
       <tr>
-        <td>
-          <%= link_to player_season.player.common_name, country_league_season_team_player_path(@premier_league.country, @premier_league, @current_season, player_season.player.team, player_season.player), class: "text-sm font-medium text-gray-900" %>
-        </td>
+        <td class="text-sm font-medium text-gray-900">
+          <%= link_to player_season.player.common_name, player_path(player_season.player), data: { turbo_frame: '_top' } %></td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-          <%= link_to player_season.player.team.name_code, country_league_season_team_path(@premier_league.country, @premier_league, @current_season, player_season.player.team), class: "text-sm font-medium text-gray-900" %>
-        </td>
+          <%= link_to player_season.player.team.name_code, team_path(player_season.player.team), data: { turbo_frame: '_top' } %></td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
           <%= player_season.yellows %>
         </td>

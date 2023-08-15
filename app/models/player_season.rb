@@ -32,7 +32,7 @@ class PlayerSeason < ApplicationRecord
   scope :sent_off_players, -> { joins(:cards).where('cards.card_type = ?', "red") }
 
   def get_player_name
-    player.full_name
+    player.return_name
   end
 
   def team_acronym

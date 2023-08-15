@@ -1,3 +1,4 @@
+
 # == Schema Information
 #
 # Table name: players
@@ -23,7 +24,7 @@ class Player < ApplicationRecord
   belongs_to :team
   has_many :player_seasons
 
-  enum position: { goalkeeper: 0, defender: 1, midfielder: 2, attacker: 3 }
+  enum position: { goalkeeper: 'G', defender: 'D', midfielder: 'M', attacker: 'F' }
 
   def current_player_season
     player_seasons.where(current_season: true).first || player_seasons.first
