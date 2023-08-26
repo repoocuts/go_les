@@ -17,6 +17,7 @@ module SubCreatorHelper
     player_out_start = fixture.appearances.where(player_season: player_out_player_season).first
     if player_out_player_season.nil? || player_in_player_season.nil? || player_out_start.nil?
       #Fixture 13 is where to get this fixed
+      binding.pry
       create_player_season(event['assist']['id'], team_season) if event['assist']['id']
       create_player_season(event['player']['id'], team_season) if event['player']['id']
     end
@@ -36,6 +37,7 @@ module SubCreatorHelper
     player_in_player_season = Player.find_by_api_football_id(event['assist']['id']).current_player_season
     player_out_start = fixture.appearances.where(player_season: player_out_player_season).first
     if player_out_player_season.nil? || player_in_player_season.nil? || player_out_start.nil?
+      binding.pry
       create_player_season(event['assist']['id'], team_season) if event['assist']['id']
       create_player_season(event['player']['id'], team_season) if event['player']['id']
     end
