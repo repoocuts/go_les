@@ -15,9 +15,9 @@
             <% if index == 0 %>
               <td rowspan="<%= fixtures.size %>" class="border border-gray-300 p-2 text-center"><%= game_week %></td>
             <% end %>
-            <td class="border border-gray-300 p-2 text-center"><%= link_to fixture.home_team_season.team.name, fixture_path(fixture) %></td>
+            <td class="border border-gray-300 p-2 text-center"><%= link_to fixture.home_team_season.team.name, fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
             <td class="border border-gray-300 p-2 text-center"><%= fixture.format_kick_off %></td>
-            <td class="border border-gray-300 p-2 text-center"><%= link_to fixture.away_team_season.team.name, fixture_path(fixture) %></td>
+            <td class="border border-gray-300 p-2 text-center"><%= link_to fixture.away_team_season.team.name, fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
           </tr>
         <% end %>
       <% end %>
