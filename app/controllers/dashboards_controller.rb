@@ -3,10 +3,12 @@ class DashboardsController < ApplicationController
   before_action :set_season
 
   def index
-    @current_game_week = Fixture.where(season: season, game_week: season.current_game_week).order(:kick_off)
-    @next_game_week = Fixture.where(season: season, game_week: season.current_game_week + 1).order(:kick_off)
-    @pagy_scorers, @top_scorers = pagy_array(top_scorers)
-    @pagy_booked, @most_booked = pagy_array(top_booked)
+    if season
+      @current_game_week = Fixture.where(season: season, game_week: season.current_game_week).order(:kick_off)
+      @next_game_week = Fixture.where(season: season, game_week: season.current_game_week + 1).order(:kick_off)
+      @pagy_scorers, @top_scorers = pagy_array(top_scorers)
+      @pagy_booked, @most_booked = pagy_array(top_booked)
+    end
 
     respond_to do |format|
       format.html 
@@ -19,7 +21,7 @@ class DashboardsController < ApplicationController
   attr_reader :season
 
   def set_season
-    @season = Season.find_by!(current_season: true)
+    @season ||= Season.find_by(current_season: true)
   end
 
   def top_scorers_array
