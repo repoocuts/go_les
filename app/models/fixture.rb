@@ -77,6 +77,10 @@ class Fixture < ApplicationRecord
     kick_off.to_date < Date.current
   end
 
+  def kick_off_or_score
+    completed? ? interpolate_final_score : format_kick_off
+  end
+
   def interpolate_final_score
     home_score.to_s + ' - ' + away_score.to_s
   end
@@ -103,5 +107,17 @@ class Fixture < ApplicationRecord
 
   def update_from_api_football_response
     Updaters::FixtureApiCall.new(fixture: self, options: {id: api_football_id}).update_fixture
+  end
+
+   def format_kick_off
+    kick_off.strftime("%d %b %H:%M")
+  end
+
+  def completed?
+    kick_off.to_date < Date.current
+  end
+
+  def interpolate_final_score
+    home_score.to_s + ' - ' + away_score.to_s
   end
 end
