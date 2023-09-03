@@ -17,6 +17,7 @@ module CheckPlayerExists
       team = Team.find_by_api_football_id(lineup['team']['id'])
       all_data = lineup['startXI'] + lineup['substitutes']
       all_data.each do |player_data|
+        puts "API FOOTBALL ID = #{player_data['player']['id']}"
         player = Player.where(api_football_id: player_data['player']['id']).first
         next if player && player.player_seasons.count > 0
 
