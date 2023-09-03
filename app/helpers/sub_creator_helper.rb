@@ -29,7 +29,7 @@ module SubCreatorHelper
       team_season_id: team_season.id,
       appearance_type: 'substitute'
     )
-    player_out_start.update(minutes: event['time']['elapsed'])
+    player_out_start.update(minutes: event['time']['elapsed']) if player_out_start
   end
 
   def substitute_for_away(event, fixture, team_season)
@@ -48,7 +48,7 @@ module SubCreatorHelper
       team_season_id: team_season.id,
       appearance_type: 'substitute'
     )
-    player_out_start.update(minutes: event['time']['elapsed'])
+    player_out_start.update(minutes: event['time']['elapsed']) if player_out_start
   end
 
   def create_player_season(api_football_id, team_season)
