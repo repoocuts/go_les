@@ -17,7 +17,7 @@ module SubCreatorHelper
     player_out_start = fixture.appearances.where(player_season: player_out_player_season).first
     if player_out_player_season.nil? || player_in_player_season.nil? || player_out_start.nil?
       #Fixture 13 is where to get this fixed
-      binding.pry
+      puts "Fixture #{fixture.id} substitute_for_home in sub creator helper"
       create_player_season(event['assist']['id'], team_season) if event['assist']['id']
       create_player_season(event['player']['id'], team_season) if event['player']['id']
     end
@@ -37,7 +37,7 @@ module SubCreatorHelper
     player_in_player_season = Player.find_by_api_football_id(event['assist']['id']).current_player_season
     player_out_start = fixture.appearances.where(player_season: player_out_player_season).first
     if player_out_player_season.nil? || player_in_player_season.nil? || player_out_start.nil?
-      binding.pry
+      puts "Fixture #{fixture.id} substitute_for_away in sub creator helper"
       create_player_season(event['assist']['id'], team_season) if event['assist']['id']
       create_player_season(event['player']['id'], team_season) if event['player']['id']
     end
@@ -55,7 +55,7 @@ module SubCreatorHelper
     player = Player.find_by_api_football_id(api_football_id)
     if player.player_seasons.where.not(current_season: true).any? || player.player_seasons.count.zero?
       if player.nil?
-        binding.pry
+        puts "Fixture api football id #{api_football_id} create player season method in sub creator helper"
       end
       if player.player_seasons.where.not(current_season: true).any? || player.player_seasons.count.zero?
         create_player_season_for_player(player, team_season)
