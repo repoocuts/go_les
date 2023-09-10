@@ -73,7 +73,7 @@ class Fixture < ApplicationRecord
     kick_off.strftime("%d %b %H:%M")
   end
 
-  def completed?
+  def has_completed?
     kick_off.to_date < Date.current
   end
 
