@@ -22,11 +22,7 @@
         <tr class="bg-white border-b dark:border-gray-700">
           <td class="text-right"><%= link_to fixture.home_team_season.team.name, team_path(fixture.home_team_season.team) %></td>
           <td></td>
-          <% if fixture.has_completed? %>
-            <td class="text-center"><%= link_to fixture.interpolate_final_score, fixture_path(fixture) %></td>
-          <% else %>
-            <td class="text-center"><%= link_to convert_datetime(fixture.kick_off), fixture_path(fixture) %></td>
-          <% end %>
+          <td class="text-center"><%= link_to fixture.kick_off_or_score, fixture_path(fixture) %></td>
           <td></td>
           <td><%= link_to fixture.away_team_season.team.name, team_path(fixture.away_team_season.team) %></td>
         </tr>

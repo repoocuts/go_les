@@ -69,20 +69,12 @@ class Fixture < ApplicationRecord
     away_team_season.team.name
   end
 
-  def format_kick_off
-    kick_off.strftime("%d %b %H:%M")
-  end
-
   def has_completed?
     kick_off.to_date < Date.current
   end
 
   def kick_off_or_score
     completed? ? interpolate_final_score : format_kick_off
-  end
-
-  def interpolate_final_score
-    home_score.to_s + ' - ' + away_score.to_s
   end
 
   def opponent_for_team_season(team_season_id)
