@@ -3,7 +3,7 @@
   <div class="grid grid-cols-4 ml-4 pl-4 mt-5">
     <% players.each_slice(15).with_index do |player_slice, index| %>
       <% player_slice[0][:players].each do |player| %>
-        <ul class='mt-3'><%= link_to player.return_name, player_path(player) %></ul>
+        <ul class='mt-3'><%= link_to player.return_name, player_path(player), data: { 'turbo_frame': '_top'} %></ul>
       <% end %>
     <% end %>
   </div>

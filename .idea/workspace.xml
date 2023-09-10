@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6a92e6b-f3d5-45ee-af96-b23a99d21bc8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/models/fixture.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/fixture.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/dashboards/_current_game_week.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/dashboards/_current_game_week.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/teams/_finished_fixtures_table.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/teams/_finished_fixtures_table.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/teams/_upcoming_fixtures_table.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/teams/_upcoming_fixtures_table.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/players/_player_list.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/players/_player_list.html.erb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,11 +127,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1694367774575</updated>
-      <workItem from="1694367775497" duration="1286000" />
+      <workItem from="1694367775497" duration="1832000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/app/models/season.rb</url>
+          <line>35</line>
+          <properties myBlockOrdinal="-1">
+            <option name="block-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
