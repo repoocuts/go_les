@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e6a92e6b-f3d5-45ee-af96-b23a99d21bc8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/players/_player_list.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/players/_player_list.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/player_season.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/player_season.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/show.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/show.html.erb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +128,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1694367774575</updated>
-      <workItem from="1694367775497" duration="1832000" />
+      <workItem from="1694367775497" duration="2169000" />
     </task>
     <servers />
   </component>
@@ -144,6 +145,14 @@
             <option name="block-ordinal" value="-1" />
           </properties>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/app/models/player_season.rb</url>
+          <line>57</line>
+          <properties myBlockOrdinal="-1">
+            <option name="block-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

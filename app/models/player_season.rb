@@ -59,6 +59,10 @@ class PlayerSeason < ApplicationRecord
     appearances.where(appearance_type: 'substitute')
   end
 
+  def starts
+    appearances.where(appearance_type: 'start')
+  end
+
   def self.sorted_by(column, direction)
     case column
     when 'full_name'
