@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6a92e6b-f3d5-45ee-af96-b23a99d21bc8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/goal.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/goal.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/team_season.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/team_season.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_all_fixtures.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_all_fixtures.html.erb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_home_away_fixture_stats_table.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_home_away_fixture_stats_table.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_pre_fixture.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_pre_fixture.html.erb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +141,7 @@
       <workItem from="1695582683751" duration="77000" />
       <workItem from="1695668496843" duration="93000" />
       <workItem from="1695708309132" duration="82000" />
-      <workItem from="1695752591274" duration="6874000" />
+      <workItem from="1695752591274" duration="6972000" />
     </task>
     <servers />
   </component>
