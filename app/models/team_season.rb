@@ -35,7 +35,9 @@ class TeamSeason < ApplicationRecord
   scope :current_season_goals, -> {
     joins(:season, :goals)
       .where(seasons: { current_season: true })
+      .where('goals.team_season_id = team_seasons.id')
   }
+
   scope :current_season_home_goals, -> {
     joins(:season, :goals)
       .where(seasons: { current_season: true }, goals: { is_home: true })
@@ -160,7 +162,7 @@ class TeamSeason < ApplicationRecord
   end
 
   def goals_for
-    TeamSeason.current_season_goals
+    current_season_goals
   end
 
   def goals_against

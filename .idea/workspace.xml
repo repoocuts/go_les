@@ -5,9 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6a92e6b-f3d5-45ee-af96-b23a99d21bc8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/go_les.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/go_les.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/player_season.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/player_season.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/fixtures/show.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/show.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ruby-version" beforeDir="false" afterPath="$PROJECT_DIR$/.ruby-version" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/team_season.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/team_season.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/post_fixture/_team_stats.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/post_fixture/_team_stats.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_away_last_five_results.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_away_last_five_results.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_form_box.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_form_box.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_home_last_five_results.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_home_last_five_results.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_pre_fixture.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_pre_fixture.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_top_players.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_top_players.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/seeds.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/seeds.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,9 +30,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2VDPeQycY5SazYLolwfSy9ym4wk" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -30,6 +40,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
@@ -39,8 +50,10 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "ruby.rails.projectView.checked": "true",
     "ruby.structure.view.model.defaults.configured": "true",
+    "settings.editor.selected.configurable": "preferences.editor",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -54,7 +67,7 @@
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
       <EXTENSION ID="BundlerRunConfigurationExtension" BUNDLE_MODE="AUTO" bundleExecEnabled="true" />
-      <EXTENSION ID="RubyCoverageRunConfigurationExtension" track_test_folders="true" runner="rcov" ENABLE_BRANCH_COVERAGE="true" ENABLE_FORKED_COVERAGE="true">
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" runner="rcov">
         <COVERAGE_PATTERN ENABLED="true">
           <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
         </COVERAGE_PATTERN>
@@ -77,7 +90,7 @@
       <RAKE_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
       <RAKE_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
       <EXTENSION ID="BundlerRunConfigurationExtension" BUNDLE_MODE="AUTO" bundleExecEnabled="true" />
-      <EXTENSION ID="RubyCoverageRunConfigurationExtension" track_test_folders="true" runner="rcov" ENABLE_BRANCH_COVERAGE="true" ENABLE_FORKED_COVERAGE="true">
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" runner="rcov">
         <COVERAGE_PATTERN ENABLED="true">
           <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
         </COVERAGE_PATTERN>
@@ -103,7 +116,7 @@
         <env name="RAILS_ENV" value="test" />
       </envs>
       <EXTENSION ID="BundlerRunConfigurationExtension" BUNDLE_MODE="AUTO" bundleExecEnabled="true" />
-      <EXTENSION ID="RubyCoverageRunConfigurationExtension" track_test_folders="true" runner="rcov" ENABLE_BRANCH_COVERAGE="true" ENABLE_FORKED_COVERAGE="true">
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" runner="rcov">
         <COVERAGE_PATTERN ENABLED="true">
           <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
         </COVERAGE_PATTERN>
@@ -128,7 +141,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1694367774575</updated>
-      <workItem from="1694367775497" duration="2169000" />
+      <workItem from="1694367775497" duration="2768000" />
+      <workItem from="1695481888401" duration="7757000" />
+      <workItem from="1695575785318" duration="928000" />
+      <workItem from="1695582683751" duration="77000" />
+      <workItem from="1695668496843" duration="93000" />
+      <workItem from="1695708309132" duration="82000" />
+      <workItem from="1695752591274" duration="656000" />
     </task>
     <servers />
   </component>

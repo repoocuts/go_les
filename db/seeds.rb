@@ -14,7 +14,7 @@ season = Season.first
 
 team_names = ['United', 'City', 'Athletic', 'Town']
 player_names = %w[Adams Bruce Cooper Davies Evans Fish Gooch Harris Ings James Kirk Lee Miller Nielson Overmars Parker Quinn Rashford Stones Tristan Unsworth Vieira Walker Xavi Yeboah Zaha]
-position = %w[keeper defender midfielder attacker]
+position = %w[G D M F]
 4.times do
   name = team_names.pop
   acronym = name[0..2]
