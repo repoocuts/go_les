@@ -1,45 +1,48 @@
-<div class="grid grid-flow-rows-6 gap-5">
+<div class="grid grid-flow-rows-5 gap-5">
   <!-- Row 1 -->
-  <div class="text-center flex items-center justify-center whitespace-nowrap">
-    <h5 class='text-2xl'>
-      <%= link_to "GW#{@fixture.game_week}", fixture_path(@fixture) %>
-    </h5>
-  </div>
-
-  <!-- Row 2 -->
-  <div class="grid grid-cols-3 items-center">
+  <div class="grid grid-cols-3 items-center mt-5">
     <div><%= render partial: '/fixtures/pre_fixture/form_box', object: @home_team_season, as: :team %></div>
     <div class="text-center"><h5 class='text-2xl'>Form</h5></div>
     <div><%= render partial: '/fixtures/pre_fixture/form_box', object: @away_team_season, as: :team %></div>
   </div>
 
-  <!-- Row 3 -->
+  <!-- Row 2 -->
   <div>
-    <div class='grid grid-cols-4 gap-4'>
-      <h6 class='text-xl text-center'>Home</h6>
-      <h6 class='text-xl text-center'>Away</h6>
-      <h6 class='text-xl text-center'>Home</h6>
-      <h6 class='text-xl text-center'>Away</h6>
+    <div class='grid grid-cols-6 gap-4'>
+      <div>
+        <h6 class='text-xl'>Home</h6>
+      </div>
+      <div>
+        <h6 class='text-xl text-right'>Away</h6>
+      </div>
+      <div></div>
+      <div></div>
+      <div>
+        <h6 class='text-xl'>Home</h6>
+      </div>
+      <div>
+        <h6 class='text-xl text-right'>Away</h6>
+      </div>
     </div>
-    <div class='grid grid-cols-4 gap-4'>
+    <div class='grid grid-cols-5 gap-4'>
       <div>
         <%= render partial: '/fixtures/pre_fixture/home_last_five_results', object: @home_team_season, as: :team %>
       </div>
       <div>
         <%= render partial: '/fixtures/pre_fixture/away_last_five_results', object: @home_team_season, as: :team %>
       </div>
+      <div></div>
       <div>
         <%= render partial: '/fixtures/pre_fixture/home_last_five_results', object: @away_team_season, as: :team %>
       </div>
-      <div>
+      <div class="text-right ml-3">
         <%= render partial: '/fixtures/pre_fixture/away_last_five_results', object: @away_team_season, as: :team %>
       </div>
     </div>
   </div>
 
-  <!-- Row 4 -->
-  <div class="grid grid-cols-5 gap-5 items-center">
-    <div></div>
+  <!-- Row 3 -->
+  <div class="grid grid-cols-3 gap-5 items-center">
     <div class="text-right gap-1"><%= render partial: '/fixtures/pre_fixture/top_players', object: @home_team_season, as:
       :team %></div>
     <div class="grid grid-rows-3 gap-1 text-center">
@@ -48,17 +51,16 @@
       <h6 class='text-l'>Yellows</h6>
     </div>
     <div class="gap-1"><%= render partial: '/fixtures/pre_fixture/top_players', object: @away_team_season, as: :team %></div>
-    <div></div>
   </div>
 
-  <!-- Row 5 -->
+  <!-- Row 4 -->
   <div class="grid grid-cols-3 gap-3 items-center">
     <div></div>
     <%= render partial: '/fixtures/pre_fixture/all_fixtures' %>
     <div></div>
   </div>
 
-  <!-- Row 6 -->
+  <!-- Row 5 -->
   <div class="flex items-center justify-center">
     <h1 class='text-xl justify-center'>Home / Away stats</h1>
   </div>

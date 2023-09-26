@@ -1,7 +1,8 @@
 <% team.played_away_matches.each do |match| %>
   <ul class="max-w-md space-y-1 list-none list-inside">
-    <li class="list-group-item text-left text-sm">
-      <%= link_to "GW#{match.game_week} - #{match.home_team_name} #{match.home_score} - #{match.away_score}", fixture_path(match) %>
+    <li class="list-group-item text-sm">
+      <%= link_to "(GW#{match.game_week})#{match.home_team_name} #{match.home_score} - #{match.away_score}",
+                  fixture_path(match) %>
     </li>
   <ul>
 <% end %>

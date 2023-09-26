@@ -48,6 +48,9 @@ class Goal < ApplicationRecord
     .order('COUNT(goals.id) desc')
     .count('goals.id')
   }
+  scope :for_team_season, ->(team_season_id) {
+    where(team_season_id: team_season_id)
+  }
 
   def goal_scorer_name
     player_season.get_player_name

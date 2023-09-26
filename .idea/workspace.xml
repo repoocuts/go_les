@@ -5,18 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6a92e6b-f3d5-45ee-af96-b23a99d21bc8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/go_les.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/go_les.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ruby-version" beforeDir="false" afterPath="$PROJECT_DIR$/.ruby-version" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/goal.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/goal.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/team_season.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/team_season.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/fixtures/post_fixture/_team_stats.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/post_fixture/_team_stats.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_all_fixtures.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_all_fixtures.html.erb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_away_last_five_results.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_away_last_five_results.html.erb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_form_box.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_form_box.html.erb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_home_last_five_results.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_home_last_five_results.html.erb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_pre_fixture.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_pre_fixture.html.erb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_top_players.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_top_players.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/show.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/show.html.erb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/seeds.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/seeds.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +42,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "pre-fixture-page-details",
     "last_opened_file_path": "/Users/goldsmid/Product/go_les",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -55,6 +53,12 @@
     "ruby.structure.view.model.defaults.configured": "true",
     "settings.editor.selected.configurable": "preferences.editor",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "ruby",
+      "TEXT"
+    ]
   }
 }]]></component>
   <component name="RunManager" selected="Rails.go_les">
@@ -147,7 +151,7 @@
       <workItem from="1695582683751" duration="77000" />
       <workItem from="1695668496843" duration="93000" />
       <workItem from="1695708309132" duration="82000" />
-      <workItem from="1695752591274" duration="656000" />
+      <workItem from="1695752591274" duration="5611000" />
     </task>
     <servers />
   </component>
@@ -172,6 +176,54 @@
             <option name="block-ordinal" value="-1" />
           </properties>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/app/models/team_season.rb</url>
+          <line>49</line>
+          <properties myBlockOrdinal="-1">
+            <option name="block-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/app/models/team_season.rb</url>
+          <line>61</line>
+          <properties myBlockOrdinal="-1">
+            <option name="block-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/app/models/team_season.rb</url>
+          <line>101</line>
+          <properties myBlockOrdinal="-1">
+            <option name="block-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/app/models/team_season.rb</url>
+          <line>109</line>
+          <properties myBlockOrdinal="-1">
+            <option name="block-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/app/models/team_season.rb</url>
+          <line>149</line>
+          <properties myBlockOrdinal="-1">
+            <option name="block-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/app/models/team_season.rb</url>
+          <line>199</line>
+          <properties myBlockOrdinal="-1">
+            <option name="block-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
