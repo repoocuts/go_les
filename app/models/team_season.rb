@@ -194,23 +194,19 @@ class TeamSeason < ApplicationRecord
   end
 
   def home_goals_conceeded
-    goals_against
+    goals_against.where(is_home: false)
   end
 
   def away_goals_conceeded
-    goals_against
+    goals_against.where(is_home: true)
   end
 
   def home_goals_conceeded_count
-    home_fixtures.joins(:goals)
-                  .where(season: current_season, goals: { team_season_id: id })
-                  .where.not(goals: { team_season_id: id }).count
+    goals_against.where.not(team_season_id: id, is_home: true).count
   end
 
   def away_goals_conceeded_count
-    away_fixtures.joins(:goals)
-                  .where(season: current_season, goals: { team_season_id: id })
-                  .where.not(goals: { team_season_id: id }).count
+    goals_against.where.not(team_season_id: id, is_home: false).count
   end
 
   def average_goals_conceeded_home
@@ -273,13 +269,11 @@ class TeamSeason < ApplicationRecord
   end
 
   def first_half_goals
-    goals.first_half_goals
-    [0]
+    Goal.first_half_goals(id)
   end
 
   def second_half_goals
-    goals.second_half_goals
-    [0]
+    Goal.second_half_goals(id)
   end
 
   private

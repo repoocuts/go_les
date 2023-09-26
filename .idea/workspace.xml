@@ -9,13 +9,8 @@
       <change beforePath="$PROJECT_DIR$/app/models/goal.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/goal.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/team_season.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/team_season.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_all_fixtures.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_all_fixtures.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_away_last_five_results.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_away_last_five_results.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_form_box.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_form_box.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_home_last_five_results.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_home_last_five_results.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_home_away_fixture_stats_table.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_home_away_fixture_stats_table.html.erb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_pre_fixture.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_pre_fixture.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_top_players.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_top_players.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/fixtures/show.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/show.html.erb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/seeds.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/seeds.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +146,7 @@
       <workItem from="1695582683751" duration="77000" />
       <workItem from="1695668496843" duration="93000" />
       <workItem from="1695708309132" duration="82000" />
-      <workItem from="1695752591274" duration="5611000" />
+      <workItem from="1695752591274" duration="6874000" />
     </task>
     <servers />
   </component>
