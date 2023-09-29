@@ -1,8 +1,9 @@
-<div class="flex space-x-2">
+<div class="flex space-x-2 justify-center">
   <% team.last_five_results.each do |result| %>
     <div class="text-center">
       <p class='text-2xl p-3'><%= result %></p>
     </div>
   <% end %>
+  <p class="flex space-x-2 text-xs"><- last match</p>
 </div>
 

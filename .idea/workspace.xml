@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e6a92e6b-f3d5-45ee-af96-b23a99d21bc8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_home_away_fixture_stats_table.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_home_away_fixture_stats_table.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_all_fixtures.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_all_fixtures.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_away_last_five_results.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_away_last_five_results.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_form_box.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_form_box.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_pre_fixture.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/fixtures/pre_fixture/_pre_fixture.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev_dump.psql" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,31 +31,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "pre-fixture-page-details",
-    "last_opened_file_path": "/Users/goldsmid/Product/go_les",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ruby.rails.projectView.checked": "true",
-    "ruby.structure.view.model.defaults.configured": "true",
-    "settings.editor.selected.configurable": "preferences.editor",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;pre-fixture-page-details&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/goldsmid/Product/go_les&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ruby.rails.projectView.checked&quot;: &quot;true&quot;,
+    &quot;ruby.structure.view.model.defaults.configured&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "ruby",
-      "TEXT"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;ruby&quot;,
+      &quot;TEXT&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Rails.go_les">
     <configuration name="go_les" type="RailsRunConfigurationType" factoryName="Rails">
       <module name="go_les" />
@@ -141,7 +146,10 @@
       <workItem from="1695582683751" duration="77000" />
       <workItem from="1695668496843" duration="93000" />
       <workItem from="1695708309132" duration="82000" />
-      <workItem from="1695752591274" duration="6972000" />
+      <workItem from="1695752591274" duration="7029000" />
+      <workItem from="1695762130468" duration="655000" />
+      <workItem from="1695987899353" duration="5367000" />
+      <workItem from="1695996245522" duration="3723000" />
     </task>
     <servers />
   </component>
