@@ -1,4 +1,4 @@
-<table class="table-responsive match-goals-table text-center w-1/2">
+<table class="table-responsive match-goals-table text-center w-full">
   <thead>
     <tr>
       <th class="w-1/5">av</th>
@@ -14,7 +14,7 @@
       <td class="w-1/10 text-center">
         <%= @home_team_season.completed_fixtures.count %>
       </td>
-      <td class="w-2/5 h-a-stat-title">Matches</td>
+      <td class="w-2/5 h-a-stat-title ">Matches</td>
       <td class="w-1/10">
         <%= @away_team_season.completed_fixtures.count %>
       </td>
@@ -40,11 +40,11 @@
         <%= @home_team_season.average_first_half_goals %>
       </td>
       <td class="w-1/10 text-center">
-        <%= @home_team_season.goals.first_half_goals.count %>
+        <%= Goal.first_half_goals(@home_team_season.id).count %>
       </td>
       <td class="w-2/5 h-a-stat-title">1st half goals</td>
       <td class="w-1/10 text-center">
-        <%= @away_team_season.goals.first_half_goals.count %>
+        <%= Goal.first_half_goals(@away_team_season.id).count %>
       </td>
       <td class="w-1/5 text-center">
         <%= @away_team_season.average_first_half_goals %>
@@ -55,11 +55,11 @@
         <%= @home_team_season.average_second_half_goals %>
       </td>
       <td class="w-1/10 text-center">
-        <%= @home_team_season.goals.second_half_goals.count %>
+        <%= Goal.second_half_goals(@home_team_season.id).count %>
       </td>
       <td class="w-2/5 h-a-stat-title">2nd half goals</td>
       <td class="w-1/10 text-center">
-        <%= @away_team_season.goals.second_half_goals.count %>
+        <%= Goal.second_half_goals(@away_team_season.id).count %>
       </td>
       <td class="w-1/5 text-center">
         <%= @away_team_season.average_second_half_goals %>
@@ -76,7 +76,7 @@
       <td class="w-1/10 text-center">
         <%= @away_team_season.away_goals_conceeded_count %>
       </td>
-      <td class=w-1/5 text-center">
+      <td class="w-1/5 text-center">
         <%= @away_team_season.average_goals_conceeded_away %>
       </td>
     </tr>

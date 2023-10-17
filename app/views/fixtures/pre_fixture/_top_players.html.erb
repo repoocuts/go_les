@@ -1,15 +1,21 @@
-<div class="text-sm">
+<h6 class="text-l">
   <% if team.top_scorer %>
-    <%= link_to "#{team.top_scorer[1]} - #{team.top_scorer[0]}", player_path(team.top_scorer[2]) %>
+    <%= link_to "#{team.top_scorer[1]}, (#{team.top_scorer[0]})", player_path(team.top_scorer[2]) %>
   <% else %>
-    <p>No goals</p>
+     No goals
   <% end %>
-</div>
-<div></div>
-<div class="text-sm">
+</h6>
+<h6>
+  <% if team.top_scorer %>
+    <%= link_to "#{team.top_scorer[1]}, (#{team.top_scorer[0]})", player_path(team.top_scorer[2]) %>
+  <% else %>
+    No Assists
+  <% end %>
+</h6>
+<h6 class="text-l">
   <% if team.most_booked_player %>
-    <%= link_to "#{team.most_booked_player.get_player_name} - #{team.most_booked_player.season_yellows}", player_path(team.most_booked_player.player) %>
+    <%= link_to "#{team.most_booked_player.get_player_name}, (#{team.most_booked_player.season_yellows})", player_path(team.most_booked_player.player) %>
   <% else %>
-    <p>No cards</p>
+    No cards
   <% end %>
-</div>
+</h6>

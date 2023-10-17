@@ -1,24 +1,24 @@
 <table class="table-responsive match-goals-table text-center w-full">
   <thead>
     <tr>
-      <th>av</th>
+      <th>average</th>
       <th></th>
-      <th>Total Stats</th>
+      <th>total stats</th>
       <th></th>
-      <th>av</th>
+      <th>average</th>
     </tr>
   </thead>
   <tbody class="table-bordered">
     <tr>
-      <td></td>
       <td class="text-center">
         <%= @home_team_season.completed_fixtures_reversed.count %>
       </td>
-      <td class="stat-title">Matches</td>
+      <td></td>
+      <td class="stat-title w-1/5">matches</td>
+      <td></td>
       <td class="text-center">
         <%= @away_team_season.completed_fixtures_reversed.count %>
       </td>
-      <td></td>
     </tr>
     <tr>
       <td class="text-center">
@@ -27,7 +27,7 @@
       <td class="text-center">
         <%= @home_team_season.goals_for.count %>
       </td>
-      <td class="stat-title">Scored</td>
+      <td class="stat-title w-1/5">scored</td>
       <td class="text-center">
         <%= @away_team_season.goals_for.count %>
       </td>
@@ -42,7 +42,7 @@
       <td class="text-center">
         <%= @home_team_season.goals_against.count %>
       </td>
-      <td class="stat-title">Conceeded</td>
+      <td class="stat-title w-1/5">conceeded</td>
       <td class="text-center">
         <%= @away_team_season.goals_against.count %>
       </td>
@@ -57,7 +57,7 @@
       <td class="text-center">
         <%= @home_team_season.first_half_goals.count %>
       </td>
-      <td class="stat-title">1st half goals</td>
+      <td class="stat-title w-1/5">1st half goals</td>
       <td class="text-center">
         <%= @away_team_season.first_half_goals.count %>
       </td>
@@ -72,7 +72,7 @@
       <td class="text-center">
         <%= @home_team_season.second_half_goals.count %>
       </td>
-      <td class="stat-title">2nd half goals</td>
+      <td class="stat-title w-1/5">2nd half goals</td>
       <td class="text-center">
         <%= @away_team_season.second_half_goals.count %>
       </td>

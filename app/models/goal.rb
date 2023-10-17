@@ -39,14 +39,17 @@ class Goal < ApplicationRecord
   scope :home_goals, ->(fixture) { where(is_home: true, fixture_id: fixture.id) }
   scope :away_goals, ->(fixture) { where(is_home: nil, fixture_id: fixture.id) }
   scope :group_by_player_season, -> { group(:player_season_id) }
-  scope :first_half_goals, -> { where('minute < ?', 46) }
-  scope :second_half_goals, -> { where('minute > ?', 45) }
+  scope :first_half_goals, ->(team_season_id) { where('minute < ? AND team_season_id = ?', 46, team_season_id) }
+  scope :second_half_goals, ->(team_season_id) { where('minute > ? AND team_season_id = ?', 45, team_season_id) }
   scope :by_season, -> (season_id) {
     joins(team_season: :season)
     .where('seasons.id = ?', season_id)
     .group(:player_season_id)
     .order('COUNT(goals.id) desc')
     .count('goals.id')
+  }
+  scope :for_team_season, ->(team_season_id) {
+    where(team_season_id: team_season_id)
   }
 
   def goal_scorer_name

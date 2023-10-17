@@ -88,7 +88,7 @@ class TeamSeason < ApplicationRecord
   end
 
   def top_scorer
-    player_seasons.map { |ps| [ps.season_goals, ps.player.full_name, ps.player_id] }.sort! { |a,b| a.first <=> b.first }.reverse.first
+    player_seasons.map { |ps| [ps.season_goals, ps.player.return_name, ps.player_id] }.sort! { |a,b| a.first <=> b.first }.reverse.first
   end
 
   def booked_players
@@ -150,7 +150,7 @@ class TeamSeason < ApplicationRecord
   def last_five_results
     last_five_matches.map do |match|
       results_formatter(match)
-    end.flatten
+    end
   end
 
   def played_home_matches
@@ -162,21 +162,14 @@ class TeamSeason < ApplicationRecord
   end
 
   def goals_for
-    current_season_goals
+    Goal.for_team_season(id)
   end
 
   def goals_against
-    current_season = Season.find_by(current_season: true)
+    ids = completed_fixtures.pluck(:id)
 
-    home_goals_against = home_fixtures.joins(:goals)
-                            .where(season: current_season, goals: { team_season_id: id })
-                            .where.not(goals: { team_season_id: id })
-
-    away_goals_against = away_fixtures.joins(:goals)
-                            .where(season: current_season, goals: { team_season_id: id })
-                            .where.not(goals: { team_season_id: id })
-
-    home_goals_against + away_goals_against
+    goals = Goal.where(fixture_id: ids)
+    goals.where.not(team_season_id: id)
   end
 
   def top_scorers
@@ -184,134 +177,130 @@ class TeamSeason < ApplicationRecord
   end
 
   def average_first_half_goals
-    # (first_half_goals.count / completed_fixtures.count.to_f).round(2)
+    (first_half_goals.count / completed_fixtures.count.to_f).round(2)
   end
 
   def average_second_half_goals
-    # (second_half_goals.count / completed_fixtures.count.to_f).round(2)
+    (second_half_goals.count / completed_fixtures.count.to_f).round(2)
   end
 
   def average_goals_scored_per_match
-    # (goals.count.to_f / completed_fixtures.count.to_f).round(2)
+    (goals.count.to_f / completed_fixtures.count.to_f).round(2)
   end
 
   def average_goals_conceeded_per_match
-    # (goals_against.count.to_f / completed_fixtures.count).round(2)
+    (goals_against.count.to_f / completed_fixtures.count).round(2)
+    (goals_against.count.to_f / completed_fixtures.count).round(2)
   end
 
   def home_goals_conceeded
-    goals_against.length
+    goals_against.where(is_home: false)
   end
 
   def away_goals_conceeded
-    goals_against.length
+    goals_against.where(is_home: true)
   end
 
   def home_goals_conceeded_count
-    home_fixtures.joins(:goals)
-                  .where(season: current_season, goals: { team_season_id: id })
-                  .where.not(goals: { team_season_id: id }).count
+    goals_against.where.not(team_season_id: id, is_home: true).count
   end
 
   def away_goals_conceeded_count
-    away_fixtures.joins(:goals)
-                  .where(season: current_season, goals: { team_season_id: id })
-                  .where.not(goals: { team_season_id: id }).count
+    goals_against.where.not(team_season_id: id, is_home: false).count
   end
 
   def average_goals_conceeded_home
-    # (home_goals_conceeded_count / completed_fixtures.count.to_f).round(2)
+    (home_goals_conceeded_count / completed_fixtures.count.to_f).round(2)
   end
 
   def average_goals_conceeded_away
-    # (away_goals_conceeded_count / completed_fixtures.count.to_f).round(2)
+    (away_goals_conceeded_count / completed_fixtures.count.to_f).round(2)
   end
 
   def average_goals_scored_first_half
-    # (goals.count.to_f / completed_fixtures.count).round(2)
+    (goals.count.to_f / completed_fixtures.count).round(2)
   end
 
   def average_goals_scored_second_half
-    # (goals.count.to_f / completed_fixtures.count).round(2)
+    (goals.count.to_f / completed_fixtures.count).round(2)
   end
 
   def average_goals_scored_at_home
-    # (goals.count.to_f / completed_fixtures.count).round(2)
+    (goals.count.to_f / completed_fixtures.count).round(2)
   end
 
   def average_goals_scored_at_away
-    # (goals.count.to_f / completed_fixtures.count).round(2)
+    (goals.count.to_f / completed_fixtures.count).round(2)
   end
 
   def average_first_half_goals_conceeded_home
-    # (home_goals_conceeded.where('minute < ?', 46).count / completed_fixtures.count.to_f.round(2))
+    (home_goals_conceeded.where('minute < ?', 46).count / completed_fixtures.count.to_f.round(2))
     0
   end
 
   def average_first_half_goals_conceeded_away
-    # (away_goals_conceeded.where('minute < ?', 46).count / completed_fixtures.count.to_f.round(2))
+    (away_goals_conceeded.where('minute < ?', 46).count / completed_fixtures.count.to_f.round(2))
     0
   end
 
   def average_second_half_goals_conceeded_home
-    # (home_goals_conceeded.where('minute > ?', 46).count / completed_fixtures.count.to_f.round(2))
+    (home_goals_conceeded.where('minute > ?', 46).count / completed_fixtures.count.to_f.round(2))
     0
   end
 
   def average_second_half_goals_conceeded_away
-    # (away_goals_conceeded.where('minute > ?', 46).count / completed_fixtures.count.to_f.round(2))
+    (away_goals_conceeded.where('minute > ?', 46).count / completed_fixtures.count.to_f.round(2))
   end
 
   def first_half_home_goals_conceeded
-    # home_goals_conceeded.where('minute < ?', 46).count
+    home_goals_conceeded.where('minute < ?', 46).count
   end
 
   def second_half_home_goals_conceeded
-    # home_goals_conceeded.where('minute > ?', 45).count
+    home_goals_conceeded.where('minute > ?', 45).count
   end
 
   def first_half_away_goals_conceeded
-    # away_goals_conceeded.where('minute < ?', 46).count
+    away_goals_conceeded.where('minute < ?', 46).count
   end
 
   def second_half_away_goals_conceeded
-    # away_goals_conceeded.where('minute > ?', 45).count
+    away_goals_conceeded.where('minute > ?', 45).count
   end
 
   def first_half_goals
-    # goals.first_half_goals
-    [0]
+    Goal.first_half_goals(id)
   end
 
   def second_half_goals
-    # goals.second_half_goals
-    [0]
+    Goal.second_half_goals(id)
   end
 
   private
 
-  def results_formatter(match, array: [])
-    if match.home_score.nil?
-      array.push('-')
-    else
-      if match.home_team_season_id == self.id
-        if match.home_score > match.away_score
-          array.push('W')
-        elsif match.home_score == match.away_score
-          array.push('D')
-        else
-          array.push('L')
-        end
-      else
-        if match.away_score > match.home_score
-          array.push('W')
-        elsif match.home_score == match.away_score
-          array.push('D')
-        else
-          array.push('L')
-        end
-      end
-    end
-    array
+  def results_formatter(match, hash: {})
+    outcome = if match.home_score.nil?
+                '-'
+              elsif match.home_team_season_id == self.id
+                if match.home_score > match.away_score
+                  'W'
+                elsif match.home_score == match.away_score
+                  'D'
+                else
+                  'L'
+                end
+              else
+                if match.away_score > match.home_score
+                  'W'
+                elsif match.home_score == match.away_score
+                  'D'
+                else
+                  'L'
+                end
+              end
+
+    hash[match.game_week] = outcome
+    hash
   end
+
 end

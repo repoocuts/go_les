@@ -34,14 +34,18 @@ away_team_one = team_seasons[1]
 home_team_two = team_seasons[2]
 away_team_two = team_seasons[3]
 
-fixture_one = Fixture.create(away_score: 3, game_week: 1, home_score: 2, kick_off: DateTime.now - 48.hours, away_team_season_id: away_team_one.id, home_team_season_id: home_team_one.id, league: league, season: season)
+fixture_one = Fixture.create(away_score: 3, game_week: 9, home_score: 2, kick_off: DateTime.now - 48.hours,
+                             away_team_season_id: away_team_one.id, home_team_season_id: home_team_one.id, league: league, season: season)
 
 
-fixture_two = Fixture.create(away_score: 1, game_week: 1, home_score: 1, kick_off: DateTime.now - 24.hours, away_team_season_id: away_team_two.id, home_team_season_id: home_team_two.id, league: league, season: season)
+fixture_two = Fixture.create(away_score: 1, game_week: 9, home_score: 1, kick_off: DateTime.now - 24.hours,
+                             away_team_season_id: away_team_two.id, home_team_season_id: home_team_two.id, league: league, season: season)
 
-fixture_three = Fixture.create(game_week: 2, kick_off: DateTime.now + 1.week, away_team_season_id: away_team_two.id, home_team_season_id: home_team_one.id, league: league, season: season)
+fixture_three = Fixture.create(game_week: 10, kick_off: DateTime.now + 1.week, away_team_season_id: away_team_two.id,
+                               home_team_season_id: home_team_one.id, league: league, season: season)
 
-fixture_four = Fixture.create(game_week: 2, kick_off: DateTime.now + 1.week, away_team_season_id: away_team_one.id, home_team_season_id: home_team_two.id, league: league, season: season)
+fixture_four = Fixture.create(game_week: 10, kick_off: DateTime.now + 1.week, away_team_season_id: away_team_one.id,
+                              home_team_season_id: home_team_two.id, league: league, season: season)
 
 home_team_one_player_seasons = PlayerSeason.where(team_season: home_team_one)
 away_team_one_player_seasons = PlayerSeason.where(team_season: away_team_one)
