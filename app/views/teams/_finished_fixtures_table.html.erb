@@ -8,10 +8,10 @@
         <th></th>
       </tr>
     </thead>
-    </tbody>
+    <tbody>
       <% @finished_fixtures.each do |fixture| %>
         <tr>
-          <td><%= link_to fixture.kick_off_or_score, fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
+          <td><%= link_to fixture.readable_kick_off, fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
           <td class="text-center"><%= link_to fixture.kick_off_or_score, fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
           <td class="text-center"><%= link_to @current_team_season.home_or_away_string(fixture), fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
           <td><%= link_to @current_team_season.match_opponent_name(fixture), fixture_path(fixture), data: { turbo_frame: '_top' } %></td>

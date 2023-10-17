@@ -6,9 +6,11 @@ namespace :update_completed_fixtures do
     season = league.current_season
     fixtures = season.completed_fixtures
     fixtures.all.each do |fixture|
-      ApiFootball::Updaters::FixtureApiCall.new(fixture: fixture, options: { id: fixture.api_football_id } ).update_fixture
-      count = 0
-      puts "Fixture #{fixture.id} updated"
+	    if fixture.home_score.nil?
+        ApiFootball::Updaters::FixtureApiCall.new(fixture: fixture, options: { id: fixture.api_football_id } ).update_fixture
+        count = 0
+        puts "Fixture #{fixture.id} updated"
+	    end
     end
   end
 end
