@@ -34,6 +34,6 @@ class Season < ApplicationRecord
   end
 
   def completed_fixtures
-    fixtures.where('kick_off < ? AND (SELECT COUNT(*) FROM appearances WHERE appearances.fixture_id = fixtures.id) = ?', Date.yesterday, 0)
+    fixtures.where('kick_off < ? AND (SELECT COUNT(*) FROM appearances WHERE appearances.fixture_id = fixtures.id) = ?', 12.hours.ago, 0)
   end
 end

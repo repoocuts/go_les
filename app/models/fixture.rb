@@ -77,6 +77,10 @@ class Fixture < ApplicationRecord
     completed? ? interpolate_final_score : format_kick_off
   end
 
+  def readable_kick_off
+    format_kick_off
+  end
+
   def opponent_for_team_season(team_season_id)
     return home_team_name if team_season_id == away_team_season_id
 
