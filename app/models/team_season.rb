@@ -150,7 +150,7 @@ class TeamSeason < ApplicationRecord
   def last_five_results
     last_five_matches.map do |match|
       results_formatter(match)
-    end.flatten
+    end
   end
 
   def played_home_matches
@@ -278,28 +278,29 @@ class TeamSeason < ApplicationRecord
 
   private
 
-  def results_formatter(match, array: [])
-    if match.home_score.nil?
-      array.push('-')
-    else
-      if match.home_team_season_id == self.id
-        if match.home_score > match.away_score
-          array.push('W')
-        elsif match.home_score == match.away_score
-          array.push('D')
-        else
-          array.push('L')
-        end
-      else
-        if match.away_score > match.home_score
-          array.push('W')
-        elsif match.home_score == match.away_score
-          array.push('D')
-        else
-          array.push('L')
-        end
-      end
-    end
-    array
+  def results_formatter(match, hash: {})
+    outcome = if match.home_score.nil?
+                '-'
+              elsif match.home_team_season_id == self.id
+                if match.home_score > match.away_score
+                  'W'
+                elsif match.home_score == match.away_score
+                  'D'
+                else
+                  'L'
+                end
+              else
+                if match.away_score > match.home_score
+                  'W'
+                elsif match.home_score == match.away_score
+                  'D'
+                else
+                  'L'
+                end
+              end
+
+    hash[match.game_week] = outcome
+    hash
   end
+
 end
