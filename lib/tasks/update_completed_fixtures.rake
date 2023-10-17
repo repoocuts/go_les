@@ -5,12 +5,15 @@ namespace :update_completed_fixtures do
     league = League.find_by(name: 'Premier League')
     season = league.current_season
     fixtures = season.completed_fixtures
+    should_wait = fixtures.length > 10
+
     fixtures.all.each do |fixture|
-	    if fixture.home_score.nil?
+      if fixture.home_score.nil?
         ApiFootball::Updaters::FixtureApiCall.new(fixture: fixture, options: { id: fixture.api_football_id } ).update_fixture
-        count = 0
         puts "Fixture #{fixture.id} updated"
-	    end
+      end
+
+      sleep 8 if should_wait
     end
   end
 end
