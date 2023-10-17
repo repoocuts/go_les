@@ -88,7 +88,7 @@ class TeamSeason < ApplicationRecord
   end
 
   def top_scorer
-    player_seasons.map { |ps| [ps.season_goals, ps.player.full_name, ps.player_id] }.sort! { |a,b| a.first <=> b.first }.reverse.first
+    player_seasons.map { |ps| [ps.season_goals, ps.player.return_name, ps.player_id] }.sort! { |a,b| a.first <=> b.first }.reverse.first
   end
 
   def booked_players
