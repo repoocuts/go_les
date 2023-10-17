@@ -25,7 +25,3 @@ a {
   @apply flex space-x-2;
 }
 
-turbo-frame {
-  display: block;
-  border: 1px solid blue;
-}
