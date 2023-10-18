@@ -4,14 +4,29 @@
       <p class="mb-0 goal-scorer">
         <%= link_to "#{goal.player_season.player.return_name}, #{goal.minute}", player_path(goal.player_season.player) %>
       </p>
+      <% if goal.assist %>
+        <p class="mb-0 pl-5">
+          <%= link_to "(#{goal.assist.player_season.player.return_name})", player_path(goal.assist.player_season.player) %>
+        </p>
+      <% end %>
     <% elsif goal.goal_type == 'penalty' %>
       <p class="mb-0 goal-scorer">
         <%= link_to "#{goal.player_season.player.return_name}, #{goal.minute} (P)", player_path(goal.player_season.player) %>
       </p>
+      <% if goal.assist %>
+        <p class="mb-0 pl-5">
+          <%= link_to "(#{goal.assist.player_season.player.return_name})", player_path(goal.assist.player_season.player) %>
+        </p>
+      <% end %>
     <% else %>
       <p class="mb-0 goal-scorer">
         <%= link_to "#{goal.player_season.player.return_name}, #{goal.minute} (OG)", player_path(goal.player_season.player) %>
       </p>
+      <% if goal.assist %>
+        <p class="mb-0 pl-5">
+          <%= link_to "(#{goal.assist.player_season.player.return_name})", player_path(goal.assist.player_season.player) %>
+        </p>
+      <% end %>
     <% end %>
   <% end %>
 </div>

@@ -1,41 +1,41 @@
 <table class="table-auto w-full season-starts-table">
   <thead>
-    <tr>
-      <th class="px-4 py-2">GW</th>
-      <th class="px-4 py-2"></th>
-      <th class="px-4 py-2">Minutes</th>
-      <th class="px-4 py-2">Goals</th>
-      <th class="px-4 py-2">Assists</th>
-      <th class="px-4 py-2">Yellow</th>
-      <th class="px-4 py-2">Red</th>
-    </tr>
+  <tr>
+    <th class="px-4 py-2">GW</th>
+    <th class="px-4 py-2"></th>
+    <th class="px-4 py-2">Minutes</th>
+    <th class="px-4 py-2">Goals</th>
+    <th class="px-4 py-2">Assists</th>
+    <th class="px-4 py-2">Yellow</th>
+    <th class="px-4 py-2">Red</th>
+  </tr>
   </thead>
   <tbody>
-    <% @team_season.completed_fixtures_reversed.each do |match| %>
-      <tr class="bg-gray-100">
-        <td class="text-center">
-          <%= match.game_week %>
-        </td>
-        <td class="pl-2">
-          <%= link_to "#{match.opponent_for_team_season(@team_season.id)} (#{match.home_or_away_checker(@team_season.id)})", fixture_path(match) %>
-        </td>
-        <% appearance = match.appearance_for_player_season(@player_season.id) %>
-        <td class="px-4 py-2 text-center">
-          <%= appearance.nil? ? 0 : appearance.minutes %>
-        </td>
-        <td class="px-4 py-2 text-center">
-          <%= appearance.nil? ? 0 : appearance.goals.where.not(goal_type: "own-goal").count %>
-        </td>
-        <td class="px-4 py-2 text-center">
-          <%= appearance.nil? ? 0 : appearance.goals.count %>
-        </td>
-        <td class="px-4 py-2 text-center">
-          <%= appearance.nil? ? 0 : appearance.yellow_cards.count %>
-        </td>
-        <td class="px-4 py-2 text-center">
-          <%= appearance.nil? ? 0 : appearance.red_cards.count %>
-        </td>
-      </tr>
-    <% end %>
+  <% @team_season.completed_fixtures_reversed.each do |match| %>
+    <tr class="bg-gray-100">
+      <td class="text-center">
+        <%= match.game_week %>
+      </td>
+      <td class="pl-2">
+        <%= link_to "#{match.opponent_for_team_season(@team_season.id)} (#{match.home_or_away_checker(@team_season.id)})", fixture_path(match) %>
+      </td>
+      <% appearance = match.appearance_for_player_season(@player_season.id) %>
+      <td class="px-4 py-2 text-center">
+        <%= appearance.nil? ? 0 : appearance.minutes %>
+      </td>
+      <td class="px-4 py-2 text-center">
+        <%= appearance.nil? ? 0 : appearance.goals.where.not(goal_type: "own-goal").count %>
+      </td>
+      <td class="px-4 py-2 text-center">
+        <%= appearance.nil? ? 0 : appearance.assists.count %>
+      </td>
+      <td class="px-4 py-2 text-center">
+        <%= appearance.nil? ? 0 : appearance.yellow_cards.count %>
+      </td>
+      <td class="px-4 py-2 text-center">
+        <%= appearance.nil? ? 0 : appearance.red_cards.count %>
+      </td>
+    </tr>
+  <% end %>
   </tbody>
 </table>

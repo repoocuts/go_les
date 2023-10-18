@@ -1,0 +1,42 @@
+<div id="<%= dom_id assist %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Player season:</strong>
+    <%= assist.player_season_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Goal:</strong>
+    <%= assist.goal_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Team season:</strong>
+    <%= assist.team_season_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Fixture:</strong>
+    <%= assist.fixture_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Appearances:</strong>
+    <%= assist.appearances_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Is home:</strong>
+    <%= assist.is_home %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Minute:</strong>
+    <%= assist.minute %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this assist", assist, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this assist', edit_assist_path(assist), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

@@ -29,6 +29,7 @@ class Fixture < ApplicationRecord
   has_many :appearances
   has_many :goals
   has_many :cards
+  has_many :assists
 
   belongs_to :season
   belongs_to :league

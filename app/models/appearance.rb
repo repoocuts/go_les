@@ -31,6 +31,7 @@ class Appearance < ApplicationRecord
 
   has_many :goals
   has_many :cards
+  has_many :assists
 
   scope :home_starts, ->(fixture) { where(is_home: true, fixture_id: fixture.id, appearance_type: 'start') }
   scope :away_starts, ->(fixture) { where(is_home: nil, fixture_id: fixture.id, appearance_type: 'start') }
