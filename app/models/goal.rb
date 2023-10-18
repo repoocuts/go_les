@@ -29,34 +29,34 @@
 #  fk_rails_...  (team_season_id => team_seasons.id)
 #
 class Goal < ApplicationRecord
-  belongs_to :appearance
-  belongs_to :player_season
-  belongs_to :team_season
-  belongs_to :fixture
-  
-  has_one :assist
+	belongs_to :appearance
+	belongs_to :player_season
+	belongs_to :team_season
+	belongs_to :fixture
 
-  scope :home_goals, ->(fixture) { where(is_home: true, fixture_id: fixture.id) }
-  scope :away_goals, ->(fixture) { where(is_home: nil, fixture_id: fixture.id) }
-  scope :group_by_player_season, -> { group(:player_season_id) }
-  scope :first_half_goals, ->(team_season_id) { where('minute < ? AND team_season_id = ?', 46, team_season_id) }
-  scope :second_half_goals, ->(team_season_id) { where('minute > ? AND team_season_id = ?', 45, team_season_id) }
-  scope :by_season, -> (season_id) {
-    joins(team_season: :season)
-    .where('seasons.id = ?', season_id)
-    .group(:player_season_id)
-    .order('COUNT(goals.id) desc')
-    .count('goals.id')
-  }
-  scope :for_team_season, ->(team_season_id) {
-    where(team_season_id: team_season_id)
-  }
+	has_one :assist
 
-  def goal_scorer_name
-    player_season.get_player_name
-  end
+	scope :home_goals, ->(fixture) { where(is_home: true, fixture_id: fixture.id).order(:minute) }
+	scope :away_goals, ->(fixture) { where(is_home: nil, fixture_id: fixture.id).order(:minute) }
+	scope :group_by_player_season, -> { group(:player_season_id) }
+	scope :first_half_goals, ->(team_season_id) { where('minute < ? AND team_season_id = ?', 46, team_season_id) }
+	scope :second_half_goals, ->(team_season_id) { where('minute > ? AND team_season_id = ?', 45, team_season_id) }
+	scope :by_season, -> (season_id) {
+		joins(team_season: :season)
+			.where('seasons.id = ?', season_id)
+			.group(:player_season_id)
+			.order('COUNT(goals.id) desc')
+			.count('goals.id')
+	}
+	scope :for_team_season, ->(team_season_id) {
+		where(team_season_id: team_season_id)
+	}
 
-  def goal_team_name
-    team_season.team_name
-  end
+	def goal_scorer_name
+		player_season.get_player_name
+	end
+
+	def goal_team_name
+		team_season.team_name
+	end
 end
