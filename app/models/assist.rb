@@ -30,9 +30,17 @@
 #  fk_rails_...  (team_season_id => team_seasons.id)
 #
 class Assist < ApplicationRecord
-  belongs_to :player_season
-  belongs_to :goal
-  belongs_to :team_season
-  belongs_to :fixture
-  belongs_to :appearance
+	belongs_to :player_season
+	belongs_to :goal
+	belongs_to :team_season
+	belongs_to :fixture
+	belongs_to :appearance
+
+	scope :by_season, -> (season_id) {
+		joins(team_season: :season)
+			.where('seasons.id = ?', season_id)
+			.group(:player_season_id)
+			.order('COUNT(assists.id) desc')
+			.count('assists.id')
+	}
 end

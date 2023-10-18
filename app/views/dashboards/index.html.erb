@@ -7,10 +7,18 @@
     <h5 class="text-center">Next Game Week</h5>
     <%= render partial: 'next_game_week' %>
   </div>
+</div>
+<div class="grid grid-cols-3 gap-4 justify-center mx-auto">
   <div>
     <h5 class="text-center">Top Scorers</h5>
     <%= turbo_frame_tag "top_scorers" do %>
       <%= render partial: 'top_scorers_partial' %>
+    <% end %>
+  </div>
+  <div>
+    <h5 class="text-center">Top Assists</h5>
+    <%= turbo_frame_tag "top_assists" do %>
+      <%= render partial: 'top_assists_partial' %>
     <% end %>
   </div>
   <div>
