@@ -33,12 +33,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_202855) do
     t.bigint "goal_id", null: false
     t.bigint "team_season_id", null: false
     t.bigint "fixture_id", null: false
-    t.bigint "appearances_id", null: false
+    t.bigint "appearance_id", null: false
     t.boolean "is_home"
     t.integer "minute"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["appearances_id"], name: "index_assists_on_appearances_id"
+    t.index ["appearance_id"], name: "index_assists_on_appearance_id"
     t.index ["fixture_id"], name: "index_assists_on_fixture_id"
     t.index ["goal_id"], name: "index_assists_on_goal_id"
     t.index ["player_season_id"], name: "index_assists_on_player_season_id"
@@ -179,7 +179,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_202855) do
   add_foreign_key "appearances", "fixtures"
   add_foreign_key "appearances", "player_seasons"
   add_foreign_key "appearances", "team_seasons"
-  add_foreign_key "assists", "appearances", column: "appearances_id"
+  add_foreign_key "assists", "appearances"
   add_foreign_key "assists", "fixtures"
   add_foreign_key "assists", "goals"
   add_foreign_key "assists", "player_seasons"

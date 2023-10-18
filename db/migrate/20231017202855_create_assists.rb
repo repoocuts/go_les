@@ -5,7 +5,7 @@ class CreateAssists < ActiveRecord::Migration[7.0]
       t.references :goal, null: false, foreign_key: true
       t.references :team_season, null: false, foreign_key: true
       t.references :fixture, null: false, foreign_key: true
-      t.references :appearances, null: false, foreign_key: true
+      t.references :appearance, null: false, foreign_key: true
       t.boolean :is_home
       t.integer :minute
 
