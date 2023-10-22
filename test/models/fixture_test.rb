@@ -13,16 +13,19 @@
 #  away_team_season_id :integer
 #  home_team_season_id :integer
 #  league_id           :bigint           not null
+#  season_game_week_id :bigint
 #  season_id           :bigint           not null
 #
 # Indexes
 #
-#  index_fixtures_on_league_id  (league_id)
-#  index_fixtures_on_season_id  (season_id)
+#  index_fixtures_on_league_id            (league_id)
+#  index_fixtures_on_season_game_week_id  (season_game_week_id)
+#  index_fixtures_on_season_id            (season_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (league_id => leagues.id)
+#  fk_rails_...  (season_game_week_id => season_game_weeks.id)
 #  fk_rails_...  (season_id => seasons.id)
 #
 require "test_helper"
