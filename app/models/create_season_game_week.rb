@@ -15,4 +15,6 @@
 #  index_create_season_game_weeks_on_season_id   (season_id)
 #
 class CreateSeasonGameWeek < ApplicationRecord
+	belongs_to :season
+	has_many :fixture
 end

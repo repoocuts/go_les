@@ -70,16 +70,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_22_180251) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "create_season_game_weeks", force: :cascade do |t|
-    t.bigint "season_id"
-    t.bigint "fixture_id"
-    t.integer "game_week_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["fixture_id"], name: "index_create_season_game_weeks_on_fixture_id"
-    t.index ["season_id"], name: "index_create_season_game_weeks_on_season_id"
-  end
-
   create_table "dashboards", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -147,6 +137,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_22_180251) do
     t.datetime "updated_at", null: false
     t.integer "position"
     t.index ["team_id"], name: "index_players_on_team_id"
+  end
+
+  create_table "season_game_weeks", force: :cascade do |t|
+    t.bigint "season_id"
+    t.bigint "fixture_id"
+    t.integer "game_week_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fixture_id"], name: "index_season_game_weeks_on_fixture_id"
+    t.index ["season_id"], name: "index_season_game_weeks_on_season_id"
   end
 
   create_table "seasons", force: :cascade do |t|
