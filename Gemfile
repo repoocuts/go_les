@@ -55,30 +55,31 @@ gem 'dotenv-rails'
 gem 'pagy', '~> 6.0'
 
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
-  gem 'database_cleaner-active_record'
+	# See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+	gem "debug", platforms: %i[ mri mingw x64_mingw ]
+	gem 'database_cleaner-active_record'
 end
 
 group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
-  gem 'pry', '~> 0.14.2'
-  gem 'pry-remote'
-  gem 'pry-nav'
-  gem 'annotate'
-  # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
-
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+	# Use console on exceptions pages [https://github.com/rails/web-console]
+	gem "web-console"
+	gem 'pry', '~> 0.14.2'
+	gem 'pry-remote'
+	gem 'pry-nav'
+	gem 'annotate'
+	# Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
+	gem "rack-mini-profiler"
+	gem 'bullet'
+	gem 'stackprof'
+	# Speed up commands on slow machines / big apps [https://github.com/rails/spring]
+	# gem "spring"
 end
 
 group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
-  gem "webdrivers"
+	# Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+	gem "capybara"
+	gem "selenium-webdriver"
+	gem "webdrivers"
 end
 
 gem "dockerfile-rails", ">= 1.5", :group => :development

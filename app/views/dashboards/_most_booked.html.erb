@@ -1,27 +1,30 @@
 <% if @most_booked %>
   <%= turbo_frame_tag "most_booked", class: "min-w-full", autoscroll: "true" do %>
-    <table class="table-auto text-base text-sm w-full">
+    <table class="table-auto text-base text-sm w-full md:w-1/3">
       <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-          <th class="px-4 py-2">
-            Player
-          </th>
-          <th class="px-4 py-2 text-center">
-            Team
-          </th>
-          <th class="px-4 py-2 text-center">
-            Yellow Cards
-          </th>
-        </tr>
+      <tr>
+        <th class="px-4 py-2">
+          Player
+        </th>
+        <th class="px-4 py-2 text-center">
+          Team
+        </th>
+        <th class="px-4 py-2 text-center">
+          Yellows
+        </th>
+      </tr>
       </thead>
       <tbody id="bookings-table">
-        <% @most_booked.each do |player| %>
-          <tr class="bg-white border-b dark:border-gray-700">
-            <td class="px-4 py-2"><%= link_to player[:player], player_path(player[:player_id]), data: { turbo_frame: '_top' } %></td>
-            <td class="px-4 py-2 text-center"><%= link_to player[:team_name], team_path(player[:team_id]), data: { turbo_frame: '_top' } %></td>
-            <td class="px-4 py-2 text-center"><%= player[:yellow_cards] %></td>
-          </tr>
-        <% end %>
+      <% @most_booked.each do |player| %>
+        <tr class="bg-white border-b dark:border-gray-700">
+          <td class="px-4 py-2"><%= link_to player[:player], player_path(player[:player_id]), data: { turbo_frame: '_top' } %></td>
+          <td class="px-4 py-2 text-center">
+            <%= link_to player[:team_name], team_path(player[:team_id]), data: { turbo_frame: '_top' }, class: "hidden md:inline-block" %>
+            <%= link_to player[:team_acronym], team_path(player[:team_id]), data: { turbo_frame: '_top' }, class: "md:hidden inline-block" %>
+          </td>
+          <td class="px-4 py-2 text-center"><%= player[:yellow_cards] %></td>
+        </tr>
+      <% end %>
       </tbody>
     </table>
 

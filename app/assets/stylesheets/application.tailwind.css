@@ -12,16 +12,16 @@
 
 */
 
-.h4 { 
-  color: decoration-slate-500
+.h4 {
+    color: decoration-slate-500
 }
 
-a { 
-  color: rgb(52, 1, 234);  
+a {
+    color: rgb(52, 1, 234);
 }
 
 .pagy-nav,
 .pagy-nav-js {
-  @apply flex space-x-2;
+    @apply flex space-x-2;
 }
 

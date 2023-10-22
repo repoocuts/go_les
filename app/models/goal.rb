@@ -44,6 +44,7 @@ class Goal < ApplicationRecord
 	scope :by_season, -> (season_id) {
 		joins(team_season: :season)
 			.where('seasons.id = ?', season_id)
+			.includes(:player_season, :team_season)
 			.group(:player_season_id)
 			.order('COUNT(goals.id) desc')
 			.count('goals.id')

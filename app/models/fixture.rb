@@ -26,95 +26,106 @@
 #  fk_rails_...  (season_id => seasons.id)
 #
 class Fixture < ApplicationRecord
-  has_many :appearances
-  has_many :goals
-  has_many :cards
-  has_many :assists
+	has_many :appearances
+	has_many :goals
+	has_many :cards
+	has_many :assists
 
-  belongs_to :season
-  belongs_to :league
+	belongs_to :season
+	belongs_to :league
 
-  def update_stats_post_match
-    update_from_api_football_response
-  end
+	belongs_to :away_team_season, class_name: 'TeamSeason', foreign_key: 'away_team_season_id'
+	belongs_to :home_team_season, class_name: 'TeamSeason', foreign_key: 'home_team_season_id'
 
-  def update_home_starts
-    updater_fixture_home_starts.update_fixture_home_starts(self)
-  end
+	def update_stats_post_match
+		update_from_api_football_response
+	end
 
-  def update_away_starts
-    updater_fixture_away_starts.update_fixture_away_starts(self)
-  end
+	def update_home_starts
+		updater_fixture_home_starts.update_fixture_home_starts(self)
+	end
 
-  def home_team_season
-    TeamSeason.find_by(id: home_team_season_id)
-  end
+	def update_away_starts
+		updater_fixture_away_starts.update_fixture_away_starts(self)
+	end
 
-  def away_team_season
-    TeamSeason.find_by(id: away_team_season_id)
-  end
+	def home_team_object
+		home_team_season.team
+	end
 
-  def home_team_api_football_id
-    home_team_season.team.api_football_id
-  end
+	def away_team_object
+		away_team_season.team
+	end
 
-  def away_team_api_football_id
-    away_team_season.team.api_football_id
-  end
+	def home_team_api_football_id
+		home_team_season.team.api_football_id
+	end
 
-  def home_team_name
-    home_team_season.team.name
-  end
+	def away_team_api_football_id
+		away_team_season.team.api_football_id
+	end
 
-  def away_team_name
-    away_team_season.team.name
-  end
+	def home_team_name
+		home_team_season.team.name
+	end
 
-  def has_completed?
-    kick_off.to_date < Date.current
-  end
+	def away_team_name
+		away_team_season.team.name
+	end
 
-  def kick_off_or_score
-    completed? ? interpolate_final_score : format_kick_off
-  end
+	def home_team_name_acronym
+		home_team_season.team.acronym
+	end
 
-  def readable_kick_off
-    format_kick_off
-  end
+	def away_team_name_acronym
+		away_team_season.team.acronym
+	end
 
-  def opponent_for_team_season(team_season_id)
-    return home_team_name if team_season_id == away_team_season_id
+	def has_completed?
+		kick_off.to_date < Date.current
+	end
 
-    away_team_name
-  end
+	def kick_off_or_score
+		completed? ? interpolate_final_score : format_kick_off
+	end
 
-  def home_or_away_checker(team_season_id)
-    return "H" if team_season_id == away_team_season_id
+	def readable_kick_off
+		format_kick_off
+	end
 
-    "A"
-  end
+	def opponent_for_team_season(team_season_id)
+		return home_team_name if team_season_id == away_team_season_id
 
-  def appearance_for_player_season(player_season_id)
-    return appearances.where(player_season_id: player_season_id).first
+		away_team_name
+	end
 
-    self
-  end
+	def home_or_away_checker(team_season_id)
+		return "H" if team_season_id == away_team_season_id
 
-  private
+		"A"
+	end
 
-  def update_from_api_football_response
-    Updaters::FixtureApiCall.new(fixture: self, options: {id: api_football_id}).update_fixture
-  end
+	def appearance_for_player_season(player_season_id)
+		return appearances.where(player_season_id: player_season_id).first
 
-   def format_kick_off
-    kick_off.strftime("%d %b %H:%M")
-  end
+		self
+	end
 
-  def completed?
-    kick_off.to_date < Date.current
-  end
+	private
 
-  def interpolate_final_score
-    home_score.to_s + ' - ' + away_score.to_s
-  end
+	def update_from_api_football_response
+		Updaters::FixtureApiCall.new(fixture: self, options: { id: api_football_id }).update_fixture
+	end
+
+	def format_kick_off
+		kick_off.strftime("%d %b %H:%M")
+	end
+
+	def completed?
+		kick_off.to_date < Date.current
+	end
+
+	def interpolate_final_score
+		home_score.to_s + ' - ' + away_score.to_s
+	end
 end
