@@ -36,7 +36,7 @@ class Fixture < ApplicationRecord
 
 	belongs_to :season
 	belongs_to :league
-	belongs_to :create_season_game_week
+	belongs_to :season_game_week
 
 	belongs_to :away_team_season, class_name: 'TeamSeason', foreign_key: 'away_team_season_id'
 	belongs_to :home_team_season, class_name: 'TeamSeason', foreign_key: 'home_team_season_id'

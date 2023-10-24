@@ -41,15 +41,11 @@ class Season < ApplicationRecord
 	end
 
 	def fixtures_for_current_game_week
-		fixtures.includes(:home_team_season, :away_team_season).where(game_week: current_game_week).order(:kick_off)
+		season_game_weeks.find_by(game_week_number: current_game_week).fixtures.includes(:home_team_season, :away_team_season).order(:kick_off)
 	end
 
 	def fixtures_for_next_game_week
-		fixtures.includes(:home_team_season, :away_team_season).where(game_week: current_game_week + ONE).order(:kick_off)
-	end
-
-	def top_scorers_array
-		Goal.by_season(id)
+		season_game_weeks.find_by(game_week_number: current_game_week + ONE).fixtures.includes(:home_team_season, :away_team_season).order(:kick_off)
 	end
 
 	def top_scorers
@@ -66,10 +62,6 @@ class Season < ApplicationRecord
 		end
 	end
 
-	def top_assists_array
-		Assist.by_season(id)
-	end
-
 	def top_assists
 		top_assists_array.map do |player_season_id, assist_count|
 			player_season = PlayerSeason.find(player_season_id)
@@ -83,11 +75,7 @@ class Season < ApplicationRecord
 			}
 		end
 	end
-
-	def top_booked_array
-		Card.by_season(id)
-	end
-
+	
 	def top_booked
 		top_booked_array.map do |player_season_id, card_count|
 			player_season = PlayerSeason.find(player_season_id)
@@ -100,5 +88,19 @@ class Season < ApplicationRecord
 				team_id: player_season.team_season.team_id,
 			}
 		end
+	end
+
+	private
+
+	def top_scorers_array
+		@season_goals ||= Goal.by_season(id)
+	end
+
+	def top_assists_array
+		@season_assists ||= Assist.by_season(id)
+	end
+
+	def top_booked_array
+		@season_yellows ||= Card.by_season(id)
 	end
 end
