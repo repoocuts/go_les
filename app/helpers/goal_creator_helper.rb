@@ -33,7 +33,7 @@ module GoalCreatorHelper
 	def goal_for_away(event, fixture, team_season)
 		scorer_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
 		away_start = fixture.appearances.where(player_season: scorer_player_season).first
-		Goal.create(
+		goal = Goal.create(
 			appearance_id: away_start.id,
 			goal_type: event['type'].downcase,
 			fixture_id: fixture.id,
