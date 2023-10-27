@@ -1,4 +1,4 @@
-class CreateCreateSeasonGameWeeks < ActiveRecord::Migration[7.0]
+class CreateSeasonGameWeeks < ActiveRecord::Migration[7.0]
 	def change
 		create_table :season_game_weeks do |t|
 			t.references :season
