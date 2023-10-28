@@ -8,7 +8,7 @@ module ApiFootball
 
 			def create_fixture_events(events, fixture)
 				events.each do |event|
-					next if event['player']['id'] == 19657
+					next if event['player']['id'] == 106835
 					team_season_for_event = return_team_season_from_api_football_id(fixture, event['team']['id'])
 					case event['type']
 					when 'Goal'

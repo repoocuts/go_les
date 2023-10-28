@@ -42,12 +42,12 @@ class Goal < ApplicationRecord
 	scope :first_half_goals, ->(team_season_id) { where('minute < ? AND team_season_id = ?', 46, team_season_id) }
 	scope :second_half_goals, ->(team_season_id) { where('minute > ? AND team_season_id = ?', 45, team_season_id) }
 	scope :by_season, -> (season_id) {
-		joins(team_season: :season)
-			.where('seasons.id = ?', season_id)
-			.includes(:player_season, :team_season)
+		select('player_season_id, count(goals.id) as goal_count')
+			.joins(:team_season)
+			.includes(:player_season)
+			.where('team_seasons.season_id = ?', season_id)
 			.group(:player_season_id)
-			.order('COUNT(goals.id) desc')
-			.count('goals.id')
+			.order('count(goals.id) DESC')
 	}
 	scope :for_team_season, ->(team_season_id) {
 		where(team_season_id: team_season_id)

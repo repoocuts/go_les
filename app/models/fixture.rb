@@ -115,6 +115,13 @@ class Fixture < ApplicationRecord
 		self
 	end
 
+	def delete_associations
+		assists.delete_all
+		cards.delete_all
+		goals.delete_all
+		appearance.delete_all
+	end
+
 	private
 
 	def update_from_api_football_response

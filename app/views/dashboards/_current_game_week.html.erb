@@ -1,32 +1,32 @@
 <% if @current_game_week %>
   <table class="table-auto text-base text-sm w-full">
     <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-      <tr>
-        <th class="text-right">
-          Home Team
-        </th>
-        <th>
-        </th>
-        <th class="text-center">
-          Kick Off
-        </th>
-        <th>
-        </th>
-        <th>
-          Away Team
-        </th>
-      </tr>
+    <tr>
+      <th class="text-right">
+        Home Team
+      </th>
+      <th>
+      </th>
+      <th class="text-center">
+        Kick Off
+      </th>
+      <th>
+      </th>
+      <th>
+        Away Team
+      </th>
+    </tr>
     </thead>
     <tbody>
-      <% @current_game_week.each do |fixture| %>  
-        <tr class="bg-white border-b dark:border-gray-700">
-          <td class="text-right"><%= link_to fixture.home_team_season.team.name, team_path(fixture.home_team_season.team) %></td>
-          <td></td>
-          <td class="text-center"><%= link_to fixture.kick_off_or_score, fixture_path(fixture) %></td>
-          <td></td>
-          <td><%= link_to fixture.away_team_season.team.name, team_path(fixture.away_team_season.team) %></td>
-        </tr>
-      <% end %>
+    <% @current_game_week.each do |fixture| %>
+      <tr class="bg-white border-b dark:border-gray-700">
+        <td class="text-right"><%= link_to fixture.home_team_name, team_path(fixture.home_team_object) %></td>
+        <td></td>
+        <td class="text-center"><%= link_to fixture.kick_off_or_score, fixture_path(fixture) %></td>
+        <td></td>
+        <td><%= link_to fixture.away_team_name, team_path(fixture.away_team_object) %></td>
+      </tr>
+    <% end %>
     </tbody>
   </table>
 <% end %>

@@ -9,14 +9,14 @@
       </tr>
       </thead>
       <tbody id="assists-table">
-      <% @top_assists.each do |player| %>
+      <% @top_assists.each do |player_season, assists| %>
         <tr class="bg-white border-b dark:border-gray-700">
-          <td class="px-4 py-2"><%= link_to player[:player], player_path(player[:player_id]), data: { turbo_frame: '_top' } %></td>
+          <td class="px-4 py-2"><%= link_to player_season.get_player_name, player_path(player_season.player), data: { turbo_frame: '_top' } %></td>
           <td class="px-4 py-2 text-center">
-            <%= link_to player[:team_name], team_path(player[:team_id]), data: { turbo_frame: '_top' }, class: "hidden md:inline-block" %>
-            <%= link_to player[:team_acronym], team_path(player[:team_id]), data: { turbo_frame: '_top' }, class: "md:hidden inline-block" %>
+            <%= link_to player_season.team_name, team_path(player_season.team_season.team), data: { turbo_frame: '_top' }, class: "hidden md:inline-block" %>
+            <%= link_to player_season.team_acronym, team_path(player_season.team_season.team), data: { turbo_frame: '_top' }, class: "md:hidden inline-block" %>
           </td>
-          <td class="px-4 py-2 text-center"><%= player[:assists] %></td>
+          <td class="px-4 py-2 text-center"><%= assists %></td>
         </tr>
       <% end %>
       </tbody>

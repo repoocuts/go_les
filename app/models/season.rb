@@ -29,6 +29,8 @@ class Season < ApplicationRecord
 	has_many :team_seasons
 	has_many :player_seasons, through: :team_seasons
 	has_many :goals, through: :team_seasons
+	has_many :assists, through: :goals
+	has_many :cards, through: :team_seasons
 
 	scope :current_season, -> { find_by(current_season: true) }
 
@@ -41,53 +43,37 @@ class Season < ApplicationRecord
 	end
 
 	def fixtures_for_current_game_week
-		season_game_weeks.find_by(game_week_number: current_game_week).fixtures.includes(:home_team_season, :away_team_season).order(:kick_off)
+		season_game_weeks
+		.find_by(game_week_number: current_game_week)
+		.fixtures
+		.includes(home_team_season: :team, away_team_season: :team)
+		.order(:kick_off)
 	end
 
 	def fixtures_for_next_game_week
-		season_game_weeks.find_by(game_week_number: current_game_week + ONE).fixtures.includes(:home_team_season, :away_team_season).order(:kick_off)
+		season_game_weeks
+		.find_by(game_week_number: current_game_week + ONE)
+		.fixtures
+		.includes(home_team_season: :team, away_team_season: :team)
+		.order(:kick_off)
 	end
 
 	def top_scorers
-		top_scorers_array.map do |player_season_id, goal_count|
-			player_season = PlayerSeason.find(player_season_id) # This line will now not hit the database
-			{
-				player: player_season.get_player_name,
-				team_acronym: player_season.team_acronym,
-				team_name: player_season.team_name,
-				goals: goal_count,
-				player_id: player_season.player_id,
-				team_id: player_season.team_season.team_id,
-			}
-		end
+		grouped_goals = goals.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
+		sorted_counts = grouped_goals.map { |player_season, goals| [player_season, goals.count] }
+		sorted_counts.sort_by! { |_, count| -count }
 	end
 
 	def top_assists
-		top_assists_array.map do |player_season_id, assist_count|
-			player_season = PlayerSeason.find(player_season_id)
-			{
-				player: player_season.get_player_name,
-				team_acronym: player_season.team_acronym,
-				team_name: player_season.team_name,
-				assists: assist_count,
-				player_id: player_season.player_id,
-				team_id: player_season.team_season.team_id,
-			}
-		end
+		grouped_assists = assists.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
+		sorted_counts = grouped_assists.map { |player_season, assist| [player_season, assist.count] }
+		sorted_counts.sort_by! { |_, count| -count }
 	end
-	
+
 	def top_booked
-		top_booked_array.map do |player_season_id, card_count|
-			player_season = PlayerSeason.find(player_season_id)
-			{
-				player: player_season.get_player_name,
-				team_acronym: player_season.team_acronym,
-				team_name: player_season.team_name,
-				yellow_cards: card_count,
-				player_id: player_season.player_id,
-				team_id: player_season.team_season.team_id,
-			}
-		end
+		grouped_cards = cards.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
+		sorted_counts = grouped_cards.map { |player_season, card| [player_season, card.count] }
+		sorted_counts.sort_by! { |_, count| -count }
 	end
 
 	private
