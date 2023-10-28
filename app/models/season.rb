@@ -59,21 +59,27 @@ class Season < ApplicationRecord
 	end
 
 	def top_scorers
-		grouped_goals = goals.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
-		sorted_counts = grouped_goals.map { |player_season, goals| [player_season, goals.count] }
-		sorted_counts.sort_by! { |_, count| -count }
+		Rails.cache.fetch("top_scorers", expires_in: 12.hours) do
+			grouped_goals = goals.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
+			sorted_counts = grouped_goals.map { |player_season, goals| [player_season, goals.count] }
+			sorted_counts.sort_by! { |_, count| -count }
+		end
 	end
 
 	def top_assists
-		grouped_assists = assists.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
-		sorted_counts = grouped_assists.map { |player_season, assist| [player_season, assist.count] }
-		sorted_counts.sort_by! { |_, count| -count }
+		Rails.cache.fetch("top_scorers", expires_in: 12.hours) do
+			grouped_assists = assists.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
+			sorted_counts = grouped_assists.map { |player_season, assist| [player_season, assist.count] }
+			sorted_counts.sort_by! { |_, count| -count }
+		end
 	end
 
 	def top_booked
-		grouped_cards = cards.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
-		sorted_counts = grouped_cards.map { |player_season, card| [player_season, card.count] }
-		sorted_counts.sort_by! { |_, count| -count }
+		Rails.cache.fetch("top_scorers", expires_in: 12.hours) do
+			grouped_cards = cards.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
+			sorted_counts = grouped_cards.map { |player_season, card| [player_season, card.count] }
+			sorted_counts.sort_by! { |_, count| -count }
+		end
 	end
 
 	private
