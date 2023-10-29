@@ -34,7 +34,7 @@ class Assist < ApplicationRecord
 	belongs_to :goal
 	belongs_to :team_season
 	belongs_to :fixture
-	belongs_to :appearance
+	belongs_to :appearance, counter_cache: true
 
 	scope :by_season, -> (season_id) {
 		joins(team_season: :season)

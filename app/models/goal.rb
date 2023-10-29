@@ -29,7 +29,7 @@
 #  fk_rails_...  (team_season_id => team_seasons.id)
 #
 class Goal < ApplicationRecord
-	belongs_to :appearance
+	belongs_to :appearance, counter_cache: true
 	belongs_to :player_season
 	belongs_to :team_season
 	belongs_to :fixture

@@ -122,6 +122,46 @@ class Fixture < ApplicationRecord
 		appearance.delete_all
 	end
 
+	def home_starts
+		appearances.includes(:player_season).where(appearance_type: 'start', is_home: true)
+	end
+
+	def away_starts
+		appearances.includes(:player_season).where(appearance_type: 'start', is_home: nil)
+	end
+
+	def home_substitute_appearances
+		appearances.includes(:player_season).where(appearance_type: 'substitute', is_home: true)
+	end
+
+	def away_substitute_appearances
+		appearances.includes(:player_season).where(appearance_type: 'substitute', is_home: nil)
+	end
+
+	def home_goals
+		goals.includes(:assist, player_season: :player).where(is_home: true)
+	end
+
+	def away_goals
+		goals.includes(:assist, player_season: :player).where(is_home: nil)
+	end
+
+	def home_yellow_cards
+		cards.includes(:player_season).where(card_type: 'yellow', is_home: true)
+	end
+
+	def away_yellow_cards
+		cards.includes(:player_season).where(card_type: 'yellow', is_home: nil)
+	end
+
+	def home_red_cards
+		cards.includes(:player_season).where(card_type: 'red', is_home: true)
+	end
+
+	def away_red_cards
+		cards.includes(:player_season).where(card_type: 'red', is_home: nil)
+	end
+
 	private
 
 	def update_from_api_football_response
