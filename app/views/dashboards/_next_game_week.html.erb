@@ -20,11 +20,31 @@
     <tbody>
     <% @next_game_week.each do |fixture| %>
       <tr class="bg-white border-b dark:border-gray-700">
-        <td class="text-right"><%= link_to fixture.home_team_name_acronym, team_path(fixture.home_team_object) %></td>
+        <td class="text-right">
+          <span class="laptop:hidden">
+            <%= link_to fixture.home_team_name_acronym, team_path(fixture.home_team_object) %>
+          </span>
+          <span class="hidden laptop:inline">
+            <%= link_to fixture.home_team_name, team_path(fixture.home_team_object) %>
+          </span>
+        </td>
         <td></td>
-        <td class="text-center"><%= link_to convert_datetime(fixture.kick_off), fixture_path(fixture) %></td>
+        <td class="text-center">
+          <span class="laptop:hidden">
+            <%= link_to convert_datetime_short(fixture.kick_off), fixture_path(fixture) %>
+          </span>
+          <span class="hidden laptop:inline">
+            <%= link_to convert_datetime_long(fixture.kick_off), fixture_path(fixture) %>
+          </span></td>
         <td></td>
-        <td><%= link_to fixture.away_team_name_acronym, team_path(fixture.away_team_object) %></td>
+        <td>
+          <span class="laptop:hidden">
+            <%= link_to fixture.away_team_name_acronym, team_path(fixture.away_team_object) %>
+          </span>
+          <span class="hidden laptop:inline">
+            <%= link_to fixture.away_team_name, team_path(fixture.away_team_object) %>
+          </span>
+        </td>
       </tr>
     <% end %>
     </tbody>
