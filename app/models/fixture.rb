@@ -115,7 +115,7 @@ class Fixture < ApplicationRecord
 
 	def appearance_for_player_season(player_season_id)
 		Rails.cache.fetch("away_team_object", expires_in: 12.hours) do
-			return appearances.find_by(player_season_id: player_season_id).first
+			return appearances.find_by(player_season_id: player_season_id)
 
 			self
 		end
