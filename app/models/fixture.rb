@@ -54,11 +54,15 @@ class Fixture < ApplicationRecord
 	end
 
 	def home_team_object
-		home_team_season.team
+		Rails.cache.fetch("home_team_object", expires_in: 12.hours) do
+			home_team_season.team
+		end
 	end
 
 	def away_team_object
-		away_team_season.team
+		Rails.cache.fetch("away_team_object", expires_in: 12.hours) do
+			away_team_season.team
+		end
 	end
 
 	def home_team_api_football_id
@@ -110,9 +114,11 @@ class Fixture < ApplicationRecord
 	end
 
 	def appearance_for_player_season(player_season_id)
-		return appearances.where(player_season_id: player_season_id).first
+		Rails.cache.fetch("away_team_object", expires_in: 12.hours) do
+			return appearances.find_by(player_season_id: player_season_id).first
 
-		self
+			self
+		end
 	end
 
 	def delete_associations
@@ -123,35 +129,51 @@ class Fixture < ApplicationRecord
 	end
 
 	def home_starts
-		appearances.includes(:player_season).where(appearance_type: 'start', is_home: true)
+		Rails.cache.fetch("home_starts", expires_in: 12.hours) do
+			appearances.includes(:player_season).where(appearance_type: 'start', is_home: true)
+		end
 	end
 
 	def away_starts
-		appearances.includes(:player_season).where(appearance_type: 'start', is_home: nil)
+		Rails.cache.fetch("away_starts", expires_in: 12.hours) do
+			appearances.includes(:player_season).where(appearance_type: 'start', is_home: nil)
+		end
 	end
 
 	def home_substitute_appearances
-		appearances.includes(:player_season).where(appearance_type: 'substitute', is_home: true)
+		Rails.cache.fetch("home_substitute_appearances", expires_in: 12.hours) do
+			appearances.includes(:player_season).where(appearance_type: 'substitute', is_home: true)
+		end
 	end
 
 	def away_substitute_appearances
-		appearances.includes(:player_season).where(appearance_type: 'substitute', is_home: nil)
+		Rails.cache.fetch("away_substitute_appearances", expires_in: 12.hours) do
+			appearances.includes(:player_season).where(appearance_type: 'substitute', is_home: nil)
+		end
 	end
 
 	def home_goals
-		goals.includes(:assist, player_season: :player).where(is_home: true)
+		Rails.cache.fetch("home_goals", expires_in: 12.hours) do
+			goals.includes(:assist, player_season: :player).where(is_home: true)
+		end
 	end
 
 	def away_goals
-		goals.includes(:assist, player_season: :player).where(is_home: nil)
+		Rails.cache.fetch("away_goals", expires_in: 12.hours) do
+			goals.includes(:assist, player_season: :player).where(is_home: nil)
+		end
 	end
 
 	def home_yellow_cards
-		cards.includes(:player_season).where(card_type: 'yellow', is_home: true)
+		Rails.cache.fetch("home_yellow_cards", expires_in: 12.hours) do
+			cards.includes(:player_season).where(card_type: 'yellow', is_home: true)
+		end
 	end
 
 	def away_yellow_cards
-		cards.includes(:player_season).where(card_type: 'yellow', is_home: nil)
+		Rails.cache.fetch("away_yellow_cards", expires_in: 12.hours) do
+			cards.includes(:player_season).where(card_type: 'yellow', is_home: nil)
+		end
 	end
 
 	def home_red_cards

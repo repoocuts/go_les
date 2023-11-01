@@ -67,7 +67,7 @@ class Season < ApplicationRecord
 	end
 
 	def top_assists
-		Rails.cache.fetch("top_scorers", expires_in: 12.hours) do
+		Rails.cache.fetch("top_assists", expires_in: 12.hours) do
 			grouped_assists = assists.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
 			sorted_counts = grouped_assists.map { |player_season, assist| [player_season, assist.count] }
 			sorted_counts.sort_by! { |_, count| -count }
@@ -75,7 +75,7 @@ class Season < ApplicationRecord
 	end
 
 	def top_booked
-		Rails.cache.fetch("top_scorers", expires_in: 12.hours) do
+		Rails.cache.fetch("top_booked", expires_in: 12.hours) do
 			grouped_cards = cards.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
 			sorted_counts = grouped_cards.map { |player_season, card| [player_season, card.count] }
 			sorted_counts.sort_by! { |_, count| -count }
