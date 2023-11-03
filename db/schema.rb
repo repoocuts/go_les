@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_22_182629) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_03_210537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_22_182629) do
     t.bigint "fixture_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "goals_count", default: 0, null: false
+    t.integer "assists_count", default: 0, null: false
     t.index ["fixture_id"], name: "index_appearances_on_fixture_id"
     t.index ["player_season_id"], name: "index_appearances_on_player_season_id"
     t.index ["team_season_id"], name: "index_appearances_on_team_season_id"
@@ -148,6 +150,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_22_182629) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["fixture_id"], name: "index_season_game_weeks_on_fixture_id"
+    t.index ["game_week_number"], name: "index_season_game_weeks_on_game_week_number"
     t.index ["season_id"], name: "index_season_game_weeks_on_season_id"
   end
 

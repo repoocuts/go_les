@@ -41,6 +41,12 @@ class Fixture < ApplicationRecord
 	belongs_to :away_team_season, class_name: 'TeamSeason', foreign_key: 'away_team_season_id'
 	belongs_to :home_team_season, class_name: 'TeamSeason', foreign_key: 'home_team_season_id'
 
+	scope :for_game_week, ->(season, game_week_number) {
+		joins(:season_game_week)
+			.where(season: season, season_game_weeks: { game_week_number: game_week_number })
+			.order(:kick_off)
+	}
+
 	def update_stats_post_match
 		update_from_api_football_response
 	end

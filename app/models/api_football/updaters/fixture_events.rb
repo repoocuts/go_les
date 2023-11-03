@@ -7,8 +7,12 @@ module ApiFootball
 			include SubCreatorHelper
 
 			def create_fixture_events(events, fixture)
-				events.each do |event|
-					next if event['player']['id'] == 106835
+				substitute_events, non_sub_events = events.partition { |event| event['type'] == 'subst' }
+				substitute_events.each do |event|
+					team_season_for_event = return_team_season_from_api_football_id(fixture, event['team']['id'])
+					create_substitute_from_api_data(event, fixture, team_season_for_event)
+				end
+				non_sub_events.each do |event|
 					team_season_for_event = return_team_season_from_api_football_id(fixture, event['team']['id'])
 					case event['type']
 					when 'Goal'
@@ -20,8 +24,6 @@ module ApiFootball
 						if event['detail'] == 'Red Card'
 							create_red_from_api_data(event, fixture, team_season_for_event)
 						end
-					when 'subst'
-						create_substitute_from_api_data(event, fixture, team_season_for_event)
 					end
 				end
 			end

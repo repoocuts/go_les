@@ -1,28 +1,29 @@
 <%= turbo_frame_tag "fixture_list", class: "min-w-full", autoscroll: "true" do %>
   <table class="w-full">
     <thead>
-      <tr>
-        <th class="bg-gray-300 p-2 font-bold text-center">Game Week</th>
-        <th class="bg-gray-300 p-2 font-bold text-center">Home Team</th>
-        <th class="bg-gray-300 p-2 font-bold text-center">Kick-off</th>
-        <th class="bg-gray-300 p-2 font-bold text-center">Away Team</th>
-      </tr>
+    <tr>
+      <th class="bg-gray-300 p-2 font-bold text-center">Game Week</th>
+      <th class="bg-gray-300 p-2 font-bold text-center">Home Team</th>
+      <th class="bg-gray-300 p-2 font-bold text-center">Kick-off</th>
+      <th class="bg-gray-300 p-2 font-bold text-center">Away Team</th>
+    </tr>
     </thead>
     <tbody>
-      <% @fixtures.each do |game_week, fixtures| %>
-        <% fixtures.each_with_index do |fixture, index| %>
-          <tr class="<%= index % 2 == 0 ? 'bg-white' : 'bg-gray-100' %>">
-            <% if index == 0 %>
-              <td rowspan="<%= fixtures.size %>" class="border border-gray-300 p-2 text-center"><%= game_week %></td>
-            <% end %>
-            <td class="border border-gray-300 p-2 text-center"><%= link_to fixture.home_team_season.team.name, fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
-            <td class="border border-gray-300 p-2 text-center"><%= fixture.kick_off_or_score %></td>
-            <td class="border border-gray-300 p-2 text-center"><%= link_to fixture.away_team_season.team.name, fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
-          </tr>
-        <% end %>
-      <% end %>
+    <% @fixtures.each do |fixture| %>
+      <tr>
+        <td class="border border-gray-300 p-2 text-center"><%= fixture.game_week %></td>
+        <td class="border border-gray-300 p-2 text-center"><%= link_to fixture.home_team_season.team.name, fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
+        <td class="border border-gray-300 p-2 text-center"><%= fixture.kick_off_or_score %></td>
+        <td class="border border-gray-300 p-2 text-center"><%= link_to fixture.away_team_season.team.name, fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
+      </tr>
+    <% end %>
     </tbody>
   </table>
+  <div class="mt-5">
+    <%= select_tag :game_week,
+                   options_for_select((1..@season_game_week_count).map { |week| ["#{week}", week] },
+                                      params[:game_week] || @season.current_game_week),
+                   onchange: 'window.location = "' + fixtures_path + '?game_week=" + this.value;' %>
+  </div>
 
-  <%== pagy_nav @pagy_fixtures %>
 <% end %>

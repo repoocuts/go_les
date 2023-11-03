@@ -4,6 +4,8 @@
 #
 #  id               :bigint           not null, primary key
 #  appearance_type  :string
+#  assists_count    :integer          default(0), not null
+#  goals_count      :integer          default(0), not null
 #  is_home          :boolean
 #  minutes          :integer
 #  created_at       :datetime         not null

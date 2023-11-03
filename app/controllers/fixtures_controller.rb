@@ -4,8 +4,9 @@ class FixturesController < ApplicationController
 
 	# GET /fixtures or /fixtures.json
 	def index
-		@pagy_fixtures, @fixtures = pagy_array(fixture_list.to_a, items: 1)
-
+		game_week_number = params[:game_week] || season.current_game_week
+		@pagy_fixtures, @fixtures = pagy_array(Fixture.for_game_week(season, game_week_number))
+		@season_game_week_count = season.season_game_weeks.count
 		respond_to do |format|
 			format.html
 			format.turbo_stream
@@ -15,7 +16,7 @@ class FixturesController < ApplicationController
 	# GET /fixtures/1 or /fixtures/1.json
 	def show
 		@home_starts = fixture.home_starts
-		@away_starts = fixture.home_starts
+		@away_starts = fixture.away_starts
 		@home_substitutes = fixture.home_substitute_appearances
 		@away_substitutes = fixture.away_substitute_appearances
 		@home_yellow_cards = fixture.home_yellow_cards
@@ -97,9 +98,5 @@ class FixturesController < ApplicationController
 	# Only allow a list of trusted parameters through.
 	def fixture_params
 		params.require(:fixture).permit(:home_team_season_id, :away_team_season_id, :home_score, :away_score, :kick_off, :game_week, :api_football_id, :season_id, :league_id)
-	end
-
-	def fixture_list
-		Fixture.where(season: season).order(:kick_off).group_by(&:game_week)
 	end
 end

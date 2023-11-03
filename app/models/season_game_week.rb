@@ -11,8 +11,9 @@
 #
 # Indexes
 #
-#  index_season_game_weeks_on_fixture_id  (fixture_id)
-#  index_season_game_weeks_on_season_id   (season_id)
+#  index_season_game_weeks_on_fixture_id        (fixture_id)
+#  index_season_game_weeks_on_game_week_number  (game_week_number)
+#  index_season_game_weeks_on_season_id         (season_id)
 #
 class SeasonGameWeek < ApplicationRecord
 	belongs_to :season
