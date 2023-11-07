@@ -30,9 +30,9 @@
 #  fk_rails_...  (team_season_id => team_seasons.id)
 #
 class Assist < ApplicationRecord
-	belongs_to :player_season
+	belongs_to :player_season, counter_cache: true
 	belongs_to :goal
-	belongs_to :team_season
+	belongs_to :team_season, counter_cache: true
 	belongs_to :fixture
 	belongs_to :appearance, counter_cache: true
 

@@ -10,7 +10,7 @@
       </thead>
       <tbody id="scorers-table">
       <% @top_scorers.each do |player_season, goals| %>
-        <tr class="bg-white border-b dark:border-gray-700">
+        <tr class="bg-white dark:border-gray-700">
           <td class="px-4 py-2">
             <%= link_to player_season.get_player_name, player_path(player_season.player), data: { turbo_frame: '_top' } %>
           </td>
@@ -25,7 +25,6 @@
       <% end %>
       </tbody>
     </table>
-
-    <%== pagy_nav @pagy_scorers %>
   <% end %>
+  <%== pagy_nav @pagy_scorers %>
 <% end %>

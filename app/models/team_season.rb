@@ -2,14 +2,17 @@
 #
 # Table name: team_seasons
 #
-#  id              :bigint           not null, primary key
-#  current_season  :boolean
-#  points          :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  api_football_id :integer
-#  season_id       :bigint           not null
-#  team_id         :bigint           not null
+#  id                :bigint           not null, primary key
+#  appearances_count :integer          default(0), not null
+#  assists_count     :integer          default(0), not null
+#  current_season    :boolean
+#  goals_count       :integer          default(0), not null
+#  points            :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  api_football_id   :integer
+#  season_id         :bigint           not null
+#  team_id           :bigint           not null
 #
 # Indexes
 #
@@ -49,9 +52,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def next_match
-		return Fixture.where(home_team_season_id: id).first || Fixture.where(away_team_season_id: id).first
-
-		Fixture.find_by("game_week = ? AND (home_team_season_id = ? OR away_team_season_id = ?)", season.current_game_week + 1, id, id)
+		all_fixtures_sorted_by_game_week.find_by(game_week: completed_fixtures.last.game_week + 1)
 	end
 
 	def next_match_opponent_name
@@ -90,6 +91,10 @@ class TeamSeason < ApplicationRecord
 
 	def top_scorer
 		player_seasons.includes([:player]).map { |ps| [ps.season_goals, ps.player.return_name, ps.player_id] }.sort! { |a, b| a.first <=> b.first }.reverse.first
+	end
+
+	def top_assists
+		player_seasons.includes([:player]).map { |ps| [ps.assists_count, ps.player.return_name, ps.player_id] }.sort! { |a, b| a.first <=> b.first }.reverse.first
 	end
 
 	def booked_players
@@ -188,7 +193,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def average_goals_scored_per_match
-		(goals.count.to_f / completed_fixtures.count.to_f).round(2)
+		(goals.size.to_f / completed_fixtures.count.to_f).round(2)
 	end
 
 	def average_goals_conceeded_per_match
@@ -221,15 +226,15 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def average_goals_scored_first_half
-		(goals.count.to_f / completed_fixtures.count).round(2)
+		(goals.size.to_f / completed_fixtures.count).round(2)
 	end
 
 	def average_goals_scored_second_half
-		(goals.count.to_f / completed_fixtures.count).round(2)
+		(goals.size.to_f / completed_fixtures.count).round(2)
 	end
 
 	def average_goals_scored_at_home
-		(goals.count.to_f / completed_fixtures.count).round(2)
+		(goals.size.to_f / completed_fixtures.count).round(2)
 	end
 
 	def average_goals_scored_at_away

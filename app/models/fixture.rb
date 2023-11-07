@@ -33,6 +33,12 @@ class Fixture < ApplicationRecord
 	has_many :goals
 	has_many :cards
 	has_many :assists
+	has_many :home_starts, -> { where(is_home: true, appearance_type: 'start') }, class_name: 'Appearance'
+	has_many :away_starts, -> { where(is_home: false, appearance_type: 'start') }, class_name: 'Appearance'
+	has_many :home_goals_with_player_season_and_assist, -> { includes(:player_season, :assist) }, class_name: 'Goal'
+	has_many :away_goals_with_player_season_and_assist, -> { includes(:player_season, :assist) }, class_name: 'Goal'
+	has_many :home_assists_with_player_season, -> { includes(:player_season) }, class_name: 'Assist'
+	has_many :away_assists_with_player_season, -> { includes(:player_season) }, class_name: 'Assist'
 
 	belongs_to :season
 	belongs_to :league

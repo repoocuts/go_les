@@ -1,22 +1,29 @@
 <%= turbo_frame_tag "finished_fixtures", class: "min-w-full", autoscroll: "true" do %>
   <table class="table-auto text-base text-md w-full">
     <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-      <tr>
-        <th>Kick Off</th>
-        <th>Final Score</th>
-        <th></th>
-        <th></th>
-      </tr>
+    <tr>
+      <th>Kick Off</th>
+      <th>Final Score</th>
+      <th></th>
+      <th></th>
+    </tr>
     </thead>
     <tbody>
-      <% @finished_fixtures.each do |fixture| %>
-        <tr>
-          <td><%= link_to fixture.readable_kick_off, fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
-          <td class="text-center"><%= link_to fixture.kick_off_or_score, fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
-          <td class="text-center"><%= link_to @current_team_season.home_or_away_string(fixture), fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
-          <td><%= link_to @current_team_season.match_opponent_name(fixture), fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
-        </tr>
-      <% end %>
+    <% @finished_fixtures.each do |fixture| %>
+      <tr>
+        <td>
+          <span class="laptop:hidden">
+            <%= link_to fixture.kick_off.strftime("%d %b"), fixture_path(fixture), data: { turbo_frame: '_top' } %>
+          </span>
+          <span class="hidden laptop:inline">
+            <%= link_to fixture.readable_kick_off, fixture_path(fixture), data: { turbo_frame: '_top' } %>
+          </span>
+        </td>
+        <td class="text-center"><%= link_to fixture.kick_off_or_score, fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
+        <td class="text-center"><%= link_to @current_team_season.home_or_away_string(fixture), fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
+        <td><%= link_to @current_team_season.match_opponent_name(fixture), fixture_path(fixture), data: { turbo_frame: '_top' } %></td>
+      </tr>
+    <% end %>
     </tbody>
   </table>
 

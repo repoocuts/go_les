@@ -16,7 +16,7 @@
       </thead>
       <tbody id="bookings-table">
       <% @most_booked.each do |player_season, cards| %>
-        <tr class="bg-white border-b dark:border-gray-700">
+        <tr class="bg-white dark:border-gray-700">
           <td class="px-4 py-2"><%= link_to player_season.get_player_name, player_path(player_season.player), data: { turbo_frame: '_top' } %></td>
           <td class="px-4 py-2 text-center">
             <%= link_to player_season.team_name, team_path(player_season.team_season.team), data: { turbo_frame: '_top' }, class: "hidden md:inline-block" %>

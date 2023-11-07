@@ -1,0 +1,38 @@
+<table class="table-auto text-base text-md w-full">
+  <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="text-xl"><%= opponent.team_name %></td>
+  </tr>
+  <tr>
+    <td>H-2-H</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Last match</td>
+    <td><%= opponent.last_match_opponent_name %></td>
+  </tr>
+  <tr>
+    <td>Top scorer</td>
+    <td><%= opponent.top_scorer[1] %></td>
+  </tr>
+  <tr>
+    <td>Most assists</td>
+    <td><%= opponent.top_assists[1] %></td>
+  </tr>
+  <tr>
+    <td>Most booked</td>
+    <td><%= opponent.most_booked_player.get_player_name %></td>
+  </tr>
+  <tr>
+    <td>Most reds</td>
+    <td><%= opponent.most_reds_player.get_player_name %></td>
+  </tr>
+  </tbody>
+</table>
