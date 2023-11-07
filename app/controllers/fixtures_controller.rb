@@ -87,14 +87,15 @@ class FixturesController < ApplicationController
 		@fixture = Fixture.includes(:goals,
 		                            :cards,
 		                            :appearances,
-		                            :home_team_season,
-		                            :away_team_season,
 		                            :home_starts,
 		                            :away_starts,
 		                            :home_goals_with_player_season_and_assist,
 		                            :away_goals_with_player_season_and_assist,
 		                            :home_assists_with_player_season,
-		                            :away_assists_with_player_season).find(params[:id])
+		                            :away_assists_with_player_season,
+		                            home_team_season: [:team],
+		                            away_team_season: [:team],
+		).find(params[:id])
 	end
 
 	def set_season

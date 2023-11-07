@@ -33,8 +33,8 @@ class TeamSeason < ApplicationRecord
 	has_many :cards
 	has_many :assists
 
-	has_many :home_fixtures, class_name: "Fixture", foreign_key: "home_team_season_id"
-	has_many :away_fixtures, class_name: "Fixture", foreign_key: "away_team_season_id"
+	has_many :home_fixtures, -> { order(game_week: :asc) }, class_name: "Fixture", foreign_key: "home_team_season_id"
+	has_many :away_fixtures, -> { order(game_week: :asc) }, class_name: "Fixture", foreign_key: "away_team_season_id"
 
 	scope :current_season_goals, -> {
 		joins(:season, :goals)

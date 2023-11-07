@@ -24,10 +24,10 @@
         <%= appearance.nil? ? 0 : appearance.minutes %>
       </td>
       <td class="px-4 py-2 text-center">
-        <%= appearance.nil? ? 0 : appearance.goals.where.not(goal_type: "own-goal").count %>
+        <%= appearance.nil? ? 0 : appearance.goals.where.not(goal_type: "own-goal").size %>
       </td>
       <td class="px-4 py-2 text-center">
-        <%= appearance.nil? ? 0 : appearance.assists.count %>
+        <%= appearance.nil? ? 0 : appearance.assists.size %>
       </td>
       <td class="px-4 py-2 text-center">
         <%= appearance.nil? ? 0 : appearance.yellow_cards.count %>
