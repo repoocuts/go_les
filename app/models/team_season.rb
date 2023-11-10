@@ -120,9 +120,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def all_fixtures_sorted_by_game_week
-		Rails.cache.fetch("all_fixtures_sorted_by_game_week", expires_in: 12.hours) do
-			Fixture.where('season_id = ? AND (home_team_season_id = ? OR away_team_season_id = ?)', season_id, id, id).order(:game_week)
-		end
+		Fixture.where('season_id = ? AND (home_team_season_id = ? OR away_team_season_id = ?)', season_id, id, id).order(:game_week)
 	end
 
 	def completed_fixtures
