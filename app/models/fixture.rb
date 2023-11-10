@@ -84,12 +84,10 @@ class Fixture < ApplicationRecord
 	end
 
 	def home_team_name
-		Bullet.enable = false
 		home_team_season.team_name
 	end
 
 	def away_team_name
-		Bullet.enable = false
 		away_team_season.team_name
 	end
 
