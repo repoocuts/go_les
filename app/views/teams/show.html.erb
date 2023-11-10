@@ -3,6 +3,11 @@
     <h1 class='text-6xl'><%= @team.name %></h1>
   </div>
   <%= render 'team_stats' %>
+  <div class="grid grid-cols-3">
+    <div id='team-stats'>
+      <%= column_chart team_player_season_goals_path(@team.current_team_season.id) %>
+    </div>
+  </div>
   <div class="row">
     <div class="grid grid-cols-2 gap-4">
       <div class="mt-5" id="finished-fixtures-table">

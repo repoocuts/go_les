@@ -68,7 +68,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def last_match
-		Fixture.find_by("game_week = ? AND (home_team_season_id = ? OR away_team_season_id = ?)", season.current_game_week, id, id)
+		completed_fixtures.last
 	end
 
 	def last_match_opponent_name

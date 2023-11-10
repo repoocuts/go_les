@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :seasons
   resources :leagues
   resources :countries
+
+  get 'team_player_season_goals/:team_season_id', to: 'charts#team_player_season_goals', as: 'team_player_season_goals'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
