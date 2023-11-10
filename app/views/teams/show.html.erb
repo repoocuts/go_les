@@ -17,9 +17,9 @@
       </div>
     </div>
   </div>
-  <div class="row-auto grid gird-cols-2 mt-5">
-    <div><%= render 'opponent_head_to_head', fixture: @next_match, opponent: @next_match.away_team_season %></div>
-    <div></div>
+  <div class="row-auto grid grid-cols-2 mt-5">
+    <div><%= render 'opponent_head_to_head', fixture: @next_match, opponent: @next_opponent %></div>
+    <div><%= render 'opponent_head_to_head_stats', fixture: @next_match, opponent: @next_opponent %></div>
   </div>
   <div class="row-auto mt-5">
     <%= turbo_frame_tag "player-season-stats" do %>

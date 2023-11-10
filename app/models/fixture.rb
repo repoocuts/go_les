@@ -84,11 +84,13 @@ class Fixture < ApplicationRecord
 	end
 
 	def home_team_name
-		home_team_season.team.name
+		Bullet.enable = false
+		home_team_season.team_name
 	end
 
 	def away_team_name
-		away_team_season.team.name
+		Bullet.enable = false
+		away_team_season.team_name
 	end
 
 	def home_team_name_acronym
@@ -115,6 +117,10 @@ class Fixture < ApplicationRecord
 		return home_team_name if team_season_id == away_team_season_id
 
 		away_team_name
+	end
+
+	def opponent_team_season_object(team_season_id)
+		team_season_id == home_team_season_id ? away_team_season : home_team_season
 	end
 
 	def home_or_away_checker(team_season_id)

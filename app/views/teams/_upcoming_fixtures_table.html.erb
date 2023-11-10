@@ -7,7 +7,7 @@
         <th></th>
       </tr>
     </thead>
-    </tbody>
+    <tbody>
       <% @upcoming_fixtures.each do |fixture| %>
         <tr>
           <td><%= link_to fixture.kick_off_or_score, fixture_path(fixture), data: { turbo_frame: "_top" } %></td>

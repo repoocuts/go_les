@@ -42,6 +42,12 @@ class Card < ApplicationRecord
 	scope :away_red_cards, ->(fixture) { where(is_home: nil, fixture_id: fixture.id, card_type: 'red') }
 	scope :yellow_cards, -> { where(card_type: 'yellow') }
 	scope :red_cards, -> { where(card_type: 'red') }
+	scope :yellow_cards_for_team_season, ->(team_season_id) { where(card_type: 'yellow', team_season_id: team_season_id) }
+	scope :red_cards_for_team_season, ->(team_season_id) { where(card_type: 'red', team_season_id: team_season_id) }
+	scope :first_half_yellow_cards, ->(team_season_id) { yellow_cards.where('minute < ? AND team_season_id = ?', 46, team_season_id) }
+	scope :second_half_yellow_cards, ->(team_season_id) { yellow_cards.where('minute > ? AND team_season_id = ?', 45, team_season_id) }
+	scope :first_half_red_cards, ->(team_season_id) { red_cards.where('minute < ? AND team_season_id = ?', 46, team_season_id) }
+	scope :second_half_red_cards, ->(team_season_id) { red_cards.where('minute > ? AND team_season_id = ?', 45, team_season_id) }
 	scope :group_by_player_season, -> { group(:player_season_id) }
 	scope :by_season, -> (season_id) {
 		joins(team_season: :season)

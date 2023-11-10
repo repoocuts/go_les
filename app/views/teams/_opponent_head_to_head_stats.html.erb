@@ -1,0 +1,54 @@
+<table class="table-auto text-base text-md w-full">
+  <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td colspan="3" class="text-xl"><br></td>
+  </tr>
+  <tr>
+    <td colspan="3" class="text-xl"><br></td>
+  </tr>
+  <tr>
+    <td>Scored</td>
+    <td><%= @next_opponent.goals.size %></td>
+    <td>Bookings</td>
+    <td><%= Card.yellow_cards_for_team_season(@next_opponent.id).size %></td>
+  </tr>
+  <tr>
+    <td>Conceded</td>
+    <td><%= @next_opponent.goals_against_number %></td>
+    <td>Reds</td>
+    <td><%= Card.red_cards_for_team_season(@next_opponent.id).size %></td>
+  </tr>
+  <tr>
+    <td>1st half GF</td>
+    <td><%= @next_opponent.first_half_goals_total %></td>
+    <td>1st half YC</td>
+    <td><%= @next_opponent.first_half_yellow_cards_total %></td>
+  </tr>
+  <tr>
+    <td>1st half GA</td>
+    <td><%= @next_opponent.first_half_goals_conceded_count %></td>
+    <td>2nd half YC</td>
+    <td><%= @next_opponent.second_half_yellow_cards_total %></td>
+  </tr>
+  <tr>
+    <td>2nd half GF</td>
+    <td><%= @next_opponent.second_half_goals_total %></td>
+    <td>1st half RC</td>
+    <td><%= @next_opponent.first_half_red_cards_total %></td>
+  </tr>
+  <tr>
+    <td>2nd half GA</td>
+    <td><%= @next_opponent.second_half_goals_conceded_count %></td>
+    <td>2nd half RC</td>
+    <td><%= @next_opponent.second_half_red_cards_total %></td>
+  </tr>
+  </tbody>
+</table>
