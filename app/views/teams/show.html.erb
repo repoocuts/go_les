@@ -5,7 +5,13 @@
   <%= render 'team_stats' %>
   <div class="grid grid-cols-3">
     <div id='team-stats'>
-      <%= column_chart team_player_season_goals_path(@team.current_team_season.id) %>
+      <%= render 'teams/charts/team_player_season_goals' %>
+    </div>
+    <div id='team-stats'>
+      <%= render 'teams/charts/team_player_season_assists' %>
+    </div>
+    <div id='team-stats'>
+      <%= render 'teams/charts/team_player_season_yellow_cards' %>
     </div>
   </div>
   <div class="row">

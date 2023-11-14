@@ -9,3 +9,4 @@ pin "tailwindcss", to: 'app/assets/stylesheets/application.tailwind.css'
 pin "chartkick", to: "chartkick.js"
 pin "Chart.bundle", to: "Chart.bundle.js"
 pin_all_from "app/javascript/controllers", under: "controllers"
+pin "highcharts" # @11.2.0

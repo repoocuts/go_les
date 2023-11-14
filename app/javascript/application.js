@@ -2,3 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import 'flowbite';
+import "chartkick"
+import Highcharts from "highcharts"
+
+window.Highcharts = Highcharts
