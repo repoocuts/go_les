@@ -66,9 +66,7 @@ module TeamPlayerChartHelper
 			current_team_season.home_goals_conceded_count,
 			current_team_season.away_goals_conceded_count,
 			current_team_season.home_yellow_cards.size,
-			current_team_season.away_yellow_cards.size,
-			current_team_season.home_red_cards.size,
-			current_team_season.away_red_cards.size
+			current_team_season.away_yellow_cards.size
 		]
 
 		# Prepare data for the opponent team
@@ -82,14 +80,12 @@ module TeamPlayerChartHelper
 			opponent_team_season.home_goals_conceded_count,
 			opponent_team_season.away_goals_conceded_count,
 			opponent_team_season.home_yellow_cards.size,
-			opponent_team_season.away_yellow_cards.size,
-			opponent_team_season.home_red_cards.size,
-			opponent_team_season.away_red_cards.size
+			opponent_team_season.away_yellow_cards.size
 		]
 
 		# Radar chart data structure
 		data = {
-			labels: ['Scored', 'Conceded', 'Bookings', 'Reds', 'Home Scored', 'Away Scored', 'Home Conceded', 'Away Conceded', 'Home Bookings', 'Away Bookings', 'Home Reds', 'Away Reds'],
+			labels: ['Scored', 'Conceded', 'Bookings', 'Reds', 'Home Scored', 'Away Scored', 'Home Conceded', 'Away Conceded', 'Home Bookings', 'Away Bookings'],
 			datasets: [
 				{
 					label: current_team_season.team_name,
