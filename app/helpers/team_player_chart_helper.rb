@@ -90,20 +90,24 @@ module TeamPlayerChartHelper
 				{
 					label: current_team_season.team_name,
 					data: current_team_season_data,
-					backgroundColor: 'lightgrey',
-					pointBackgroundColor: %w[yellow aqua pink lightgreen lightblue gold],
-					borderColor: 'black',
-					borderWidth: 1,
-					pointRadius: 6
+					fill: true,
+					backgroundColor: 'rgba(255, 99, 132, 0.2)',
+					borderColor: 'rgb(255, 99, 132)',
+					pointBackgroundColor: 'rgb(255, 99, 132)',
+					pointBorderColor: '#fff',
+					pointHoverBackgroundColor: '#fff',
+					pointHoverBorderColor: 'rgb(255, 99, 132)'
 				},
 				{
 					label: opponent_team_season.team_name,
 					data: opponent_team_season_data,
-					backgroundColor: 'lightyellow',
-					pointBackgroundColor: %w[yellow aqua pink lightgreen lightblue gold],
-					borderColor: 'black',
-					borderWidth: 1,
-					pointRadius: 6
+					fill: true,
+					backgroundColor: 'rgba(54, 162, 235, 0.2)',
+					borderColor: 'rgb(54, 162, 235)',
+					pointBackgroundColor: 'rgb(54, 162, 235)',
+					pointBorderColor: '#fff',
+					pointHoverBackgroundColor: '#fff',
+					pointHoverBorderColor: 'rgb(54, 162, 235)'
 				}
 			]
 		}
