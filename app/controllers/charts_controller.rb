@@ -42,4 +42,8 @@ class ChartsController < ApplicationController
 		render json: transformed_yellow_cards.sort_by { |_, count| -count }.to_h
 	end
 
+	def radar_chart_thingy
+		render json: { 'Strength' => 8, 'Dexterity' => 6, 'Intelligence' => 7, 'Wisdom' => 9, 'Charisma' => 5, 'Constitution' => 10 }
+	end
+
 end

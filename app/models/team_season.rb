@@ -35,6 +35,8 @@ class TeamSeason < ApplicationRecord
 
 	has_many :home_fixtures, -> { order(game_week: :asc) }, class_name: "Fixture", foreign_key: "home_team_season_id"
 	has_many :away_fixtures, -> { order(game_week: :asc) }, class_name: "Fixture", foreign_key: "away_team_season_id"
+	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card"
+	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card"
 
 	scope :current_season_goals, -> {
 		joins(:season, :goals)
@@ -120,7 +122,10 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def all_fixtures_sorted_by_game_week
-		Fixture.where('season_id = ? AND (home_team_season_id = ? OR away_team_season_id = ?)', season_id, id, id).order(:game_week)
+		Fixture
+		.includes(:home_team_season, :away_team_season)
+		.where('(home_team_season_id = ? OR away_team_season_id = ?)', id, id)
+		.order(:game_week, :kick_off)
 	end
 
 	def completed_fixtures
@@ -201,6 +206,14 @@ class TeamSeason < ApplicationRecord
 	def average_goals_conceded_per_match
 		(goals_against.size.to_f / completed_fixtures.size).round(2)
 		(goals_against.size.to_f / completed_fixtures.size).round(2)
+	end
+
+	def home_goals_scored
+		goals_for.where(is_home: true)
+	end
+
+	def away_goals_scored
+		goals_for.where.not(is_home: true)
 	end
 
 	def home_goals_conceded
@@ -338,8 +351,24 @@ class TeamSeason < ApplicationRecord
 		yellow_cards.size
 	end
 
+	def home_yellow_cards
+		yellow_cards.where(is_home: true)
+	end
+
+	def away_yellow_cards
+		yellow_cards.where.not(is_home: true)
+	end
+
 	def red_card_count
 		red_cards.size
+	end
+
+	def home_red_cards
+		red_cards.where(is_home: true)
+	end
+
+	def away_red_cards
+		red_cards.where.not(is_home: true)
 	end
 
 	private

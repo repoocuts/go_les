@@ -53,4 +53,65 @@ module TeamPlayerChartHelper
 			             }
 		             }
 	end
+
+	def radar_chart_thingy(current_team_season, opponent_team_season)
+		# Prepare data for the current team
+		current_team_season_data = [
+			current_team_season.goals_for.size,
+			current_team_season.goals_against_number,
+			current_team_season.yellow_card_count,
+			current_team_season.red_card_count,
+			current_team_season.home_goals_scored.size,
+			current_team_season.away_goals_scored.size,
+			current_team_season.home_goals_conceded_count,
+			current_team_season.away_goals_conceded_count,
+			current_team_season.home_yellow_cards.size,
+			current_team_season.away_yellow_cards.size,
+			current_team_season.home_red_cards.size,
+			current_team_season.away_red_cards.size
+		]
+
+		# Prepare data for the opponent team
+		opponent_team_season_data = [
+			opponent_team_season.goals_for.size,
+			opponent_team_season.goals_against_number,
+			opponent_team_season.yellow_card_count,
+			opponent_team_season.red_card_count,
+			opponent_team_season.home_goals_scored,
+			opponent_team_season.away_goals_scored,
+			opponent_team_season.home_goals_conceded_count,
+			opponent_team_season.away_goals_conceded_count,
+			opponent_team_season.home_yellow_cards.size,
+			opponent_team_season.away_yellow_cards.size,
+			opponent_team_season.home_red_cards.size,
+			opponent_team_season.away_red_cards.size
+		]
+
+		# Radar chart data structure
+		data = {
+			labels: ['Scored', 'Conceded', 'Bookings', 'Reds', 'Home Scored', 'Away Scored', 'Home Conceded', 'Away Conceded', 'Home Bookings', 'Away Bookings', 'Home Reds', 'Away Reds'],
+			datasets: [
+				{
+					label: current_team_season.team_name,
+					data: current_team_season_data,
+					backgroundColor: 'lightgrey',
+					pointBackgroundColor: %w[yellow aqua pink lightgreen lightblue gold],
+					borderColor: 'black',
+					borderWidth: 1,
+					pointRadius: 6
+				},
+				{
+					label: opponent_team_season.team_name,
+					data: opponent_team_season_data,
+					backgroundColor: 'lightyellow',
+					pointBackgroundColor: %w[yellow aqua pink lightgreen lightblue gold],
+					borderColor: 'black',
+					borderWidth: 1,
+					pointRadius: 6
+				}
+			]
+		}
+
+		@radar_chart_data = data
+	end
 end

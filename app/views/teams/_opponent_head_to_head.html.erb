@@ -1,4 +1,4 @@
-<table class="table-auto text-base text-md w-full">
+<table class="table-fixed text-base text-md w-full">
   <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
   <tr>
     <th></th>
@@ -17,7 +17,7 @@
   </tr>
   <tr>
     <td>Last match</td>
-    <td><%= opponent.last_match_opponent_name %></td>
+    <td class="justify-right"><%= opponent.last_match_opponent_name %></td>
   </tr>
   <tr>
     <td>Top scorer</td>
@@ -34,6 +34,54 @@
   <tr>
     <td>Most reds</td>
     <td><%= opponent.most_reds_player.get_player_name %></td>
+  </tr>
+  <tr>
+    <td>Scored</td>
+    <td><%= @next_opponent.goals.size %></td>
+  </tr>
+  <tr>
+    <td>Conceded</td>
+    <td><%= @next_opponent.goals_against_number %></td>
+  </tr>
+  <tr>
+    <td>Bookings</td>
+    <td><%= Card.yellow_cards_for_team_season(@next_opponent.id).size %></td>
+  </tr>
+  <tr>
+    <td>Reds</td>
+    <td><%= Card.red_cards_for_team_season(@next_opponent.id).size %></td>
+  </tr>
+  <tr>
+    <td>1st half Goals scored</td>
+    <td><%= @next_opponent.first_half_goals_total %></td>
+  </tr>
+  <tr>
+    <td>2nd half Goals scored</td>
+    <td><%= @next_opponent.second_half_goals_total %></td>
+  </tr>
+  <tr>
+    <td>1st half Goals conceded</td>
+    <td><%= @next_opponent.first_half_goals_conceded_count %></td>
+  </tr>
+  <tr>
+    <td>2nd half Goals conceded</td>
+    <td><%= @next_opponent.second_half_goals_conceded_count %></td>
+  </tr>
+  <tr>
+    <td>1st half Yellow cards</td>
+    <td><%= @next_opponent.first_half_yellow_cards_total %></td>
+  </tr>
+  <tr>
+    <td>2nd half Yellow cards</td>
+    <td><%= @next_opponent.second_half_yellow_cards_total %></td>
+  </tr>
+  <tr>
+    <td>1st half Red cards</td>
+    <td><%= @next_opponent.first_half_red_cards_total %></td>
+  </tr>
+  <tr>
+    <td>2nd half Red cards</td>
+    <td><%= @next_opponent.second_half_red_cards_total %></td>
   </tr>
   </tbody>
 </table>

@@ -1,0 +1,19 @@
+<% if defined?(@radar_chart_data) %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          var ctx = document.getElementById("myRadarChart").getContext("2d");
+          var myRadarChart = new Chart(ctx, {
+              type: 'radar',
+              data: <%= raw @radar_chart_data.to_json %>,
+              options: {
+                  responsive: false,
+                  elements: {
+                      line: {
+                          borderWidth: 3
+                      }
+                  }
+              }
+          });
+      });
+  </script>
+<% end %>
