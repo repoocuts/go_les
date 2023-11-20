@@ -213,7 +213,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def away_goals_scored
-		goals_for.where.not(is_home: true)
+		goals_for.select { |goal| goal.is_home.nil? }
 	end
 
 	def home_goals_conceded
@@ -356,7 +356,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def away_yellow_cards
-		yellow_cards.where.not(is_home: true)
+		yellow_cards.select { |card| card.is_home.nil? }
 	end
 
 	def red_card_count
