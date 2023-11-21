@@ -5,7 +5,7 @@ class FixturesController < ApplicationController
 	# GET /fixtures or /fixtures.json
 	def index
 		game_week_number = params[:game_week] || season.current_game_week
-		@pagy_fixtures, @fixtures = pagy_array(Fixture.for_game_week(season, game_week_number))
+		@pagy_fixtures, @fixtures = pagy_array(Fixture.includes(home_team_season: [:team], away_team_season: [:team]).for_game_week(season, game_week_number))
 		@season_game_week_count = season.season_game_weeks.count
 		respond_to do |format|
 			format.html

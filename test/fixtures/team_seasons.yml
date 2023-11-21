@@ -2,17 +2,19 @@
 #
 # Table name: team_seasons
 #
-#  id                :bigint           not null, primary key
-#  appearances_count :integer          default(0), not null
-#  assists_count     :integer          default(0), not null
-#  current_season    :boolean
-#  goals_count       :integer          default(0), not null
-#  points            :integer
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  api_football_id   :integer
-#  season_id         :bigint           not null
-#  team_id           :bigint           not null
+#  id                 :bigint           not null, primary key
+#  appearances_count  :integer          default(0), not null
+#  assists_count      :integer          default(0), not null
+#  current_season     :boolean
+#  goals_count        :integer          default(0), not null
+#  points             :integer
+#  red_cards_count    :integer          default(0), not null
+#  yellow_cards_count :integer          default(0), not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  api_football_id    :integer
+#  season_id          :bigint           not null
+#  team_id            :bigint           not null
 #
 # Indexes
 #

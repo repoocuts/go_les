@@ -88,7 +88,7 @@ class Fixture < ApplicationRecord
 	end
 
 	def away_team_name
-		away_team_season.team_name
+		away_team_season.team.name
 	end
 
 	def home_team_name_acronym

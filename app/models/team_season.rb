@@ -2,17 +2,19 @@
 #
 # Table name: team_seasons
 #
-#  id                :bigint           not null, primary key
-#  appearances_count :integer          default(0), not null
-#  assists_count     :integer          default(0), not null
-#  current_season    :boolean
-#  goals_count       :integer          default(0), not null
-#  points            :integer
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  api_football_id   :integer
-#  season_id         :bigint           not null
-#  team_id           :bigint           not null
+#  id                 :bigint           not null, primary key
+#  appearances_count  :integer          default(0), not null
+#  assists_count      :integer          default(0), not null
+#  current_season     :boolean
+#  goals_count        :integer          default(0), not null
+#  points             :integer
+#  red_cards_count    :integer          default(0), not null
+#  yellow_cards_count :integer          default(0), not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  api_football_id    :integer
+#  season_id          :bigint           not null
+#  team_id            :bigint           not null
 #
 # Indexes
 #
@@ -35,8 +37,8 @@ class TeamSeason < ApplicationRecord
 
 	has_many :home_fixtures, -> { order(game_week: :asc) }, class_name: "Fixture", foreign_key: "home_team_season_id"
 	has_many :away_fixtures, -> { order(game_week: :asc) }, class_name: "Fixture", foreign_key: "away_team_season_id"
-	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card"
-	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card"
+	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card", counter_cache: true
+	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card", counter_cache: true
 
 	scope :current_season_goals, -> {
 		joins(:season, :goals)
@@ -123,7 +125,7 @@ class TeamSeason < ApplicationRecord
 
 	def all_fixtures_sorted_by_game_week
 		Fixture
-		.includes(:home_team_season, :away_team_season)
+		.includes(home_team_season: [:team], away_team_season: [:team])
 		.where('(home_team_season_id = ? OR away_team_season_id = ?)', id, id)
 		.order(:game_week, :kick_off)
 	end
@@ -149,7 +151,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def match_opponent_name(match)
-		return match.home_team_name if team.name == match.away_team_name
+		return team.name if id == match.away_team_season_id
 
 		match.away_team_name
 	end
@@ -209,7 +211,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def home_goals_scored
-		goals_for.where(is_home: true)
+		goals_for.select { |goal| goal.is_home == true }
 	end
 
 	def away_goals_scored
@@ -356,7 +358,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def away_yellow_cards
-		yellow_cards.select { |card| card.is_home.nil? }
+		yellow_cards.where(is_home: nil)
 	end
 
 	def red_card_count
