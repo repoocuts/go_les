@@ -5,16 +5,14 @@ module TeamPlayerChartHelper
 		             colors: ['red'],
 		             library: {
 			             yAxis: {
-				             title: {
-					             text: 'Goals' },
+				             title: { text: 'Goals' },
 				             allowDecimals: false,
 				             minTickInterval: 1
-		             },
+			             },
 			             xAxis: {
-				             labels: {
-					             enabled: false
-				             }
-			             }
+				             labels: { enabled: false }
+			             },
+			             backgroundColor: 'rgb(247 254 231)',
 		             }
 	end
 

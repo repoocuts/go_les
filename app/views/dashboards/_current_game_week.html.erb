@@ -19,7 +19,7 @@
     </thead>
     <tbody>
     <% @current_game_week.each do |fixture| %>
-      <tr class="bg-white border-b dark:border-gray-700">
+      <tr class="border-b dark:border-gray-700">
         <td class="text-right">
           <span class="laptop:hidden">
             <%= link_to fixture.home_team_name_acronym, team_path(fixture.home_team_object) %>

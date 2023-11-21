@@ -55,6 +55,10 @@ class TeamSeason < ApplicationRecord
 		team.name
 	end
 
+	def fixtures
+		Fixture.where("home_team_season_id = ? OR away_team_season_id = ?", id, id).order(game_week: :asc, kick_off: :asc)
+	end
+
 	def next_match
 		all_fixtures_sorted_by_game_week.find_by(game_week: completed_fixtures.last.game_week + 1)
 	end
@@ -124,10 +128,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def all_fixtures_sorted_by_game_week
-		Fixture
-		.includes(home_team_season: [:team], away_team_season: [:team])
-		.where('(home_team_season_id = ? OR away_team_season_id = ?)', id, id)
-		.order(:game_week, :kick_off)
+		fixtures.order(:game_week, :kick_off)
 	end
 
 	def completed_fixtures
