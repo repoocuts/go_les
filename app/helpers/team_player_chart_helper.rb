@@ -61,9 +61,9 @@ module TeamPlayerChartHelper
 			current_team_season.home_goals_conceded_count,
 			current_team_season.away_goals_conceded_count,
 			current_team_season.goals_against_number,
-			current_team_season.yellow_card_count,
 			current_team_season.home_yellow_cards.size,
 			current_team_season.away_yellow_cards.size,
+			current_team_season.yellow_cards_count,
 			current_team_season.red_card_count,
 		]
 
@@ -75,9 +75,9 @@ module TeamPlayerChartHelper
 			opponent_team_season.home_goals_conceded_count,
 			opponent_team_season.away_goals_conceded_count,
 			opponent_team_season.goals_against_number,
-			opponent_team_season.yellow_card_count,
 			opponent_team_season.home_yellow_cards.size,
 			opponent_team_season.away_yellow_cards.size,
+			opponent_team_season.yellow_cards_count,
 			opponent_team_season.red_card_count
 		]
 

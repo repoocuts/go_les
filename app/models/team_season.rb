@@ -37,8 +37,8 @@ class TeamSeason < ApplicationRecord
 
 	has_many :home_fixtures, -> { order(game_week: :asc) }, class_name: "Fixture", foreign_key: "home_team_season_id"
 	has_many :away_fixtures, -> { order(game_week: :asc) }, class_name: "Fixture", foreign_key: "away_team_season_id"
-	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card", counter_cache: true
-	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card", counter_cache: true
+	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
+	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 
 	scope :current_season_goals, -> {
 		joins(:season, :goals)
@@ -363,7 +363,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def red_card_count
-		red_cards.size
+		red_cards.count
 	end
 
 	def home_red_cards
