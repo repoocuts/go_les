@@ -1,5 +1,4 @@
 <%= turbo_frame_tag "player_list" do %>
-  <h1>Premier League</h1>
   <h1 class='text-xl ml-4 pl-4'><%= @players[0][:team_name] %></h1>
   <div class="grid grid-cols-4 ml-4 pl-4 mt-5">
     <% players.each_slice(15).with_index do |player_slice, index| %>
