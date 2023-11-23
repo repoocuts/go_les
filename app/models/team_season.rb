@@ -152,7 +152,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def match_opponent_name(match)
-		return team.name if id == match.away_team_season_id
+		return match.home_team_name if id == match.away_team_season_id
 
 		match.away_team_name
 	end
