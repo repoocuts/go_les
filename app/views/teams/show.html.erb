@@ -32,10 +32,10 @@
     <div>
       <%= render 'opponent_head_to_head', fixture: @next_match, opponent: @next_opponent %>
     </div>
-    <div>
-      <% radar_chart_thingy(@current_team_season, @next_opponent) %>
+    <div data-controller="radar-chart"
+         data-radar-chart-current-team-season-id-value="<%= @current_team_season.id %>"
+         data-radar-chart-opponent-team-season-id-value="<%= @next_opponent.id %>">
       <canvas id="myRadarChart" width="400" height="400"></canvas>
-      <%= render 'teams/charts/radar_chart_thingy' %>
     </div>
   </div>
   <div class="row-auto mt-5">
