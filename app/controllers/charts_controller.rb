@@ -42,11 +42,11 @@ class ChartsController < ApplicationController
 		render json: transformed_yellow_cards.sort_by { |_, count| -count }.to_h
 	end
 
-	def radar_chart_thingy
+	def team_goals_radar
 		current_team_season = TeamSeason.find(params[:current_team_season_id])
 		opponent_team_season = TeamSeason.find(params[:opponent_team_season_id])
 		data = {
-			labels: ['Scored', 'Home Scored', 'Away Scored', 'Home Conceded', 'Away Conceded', 'Conceded', 'Home Bookings', 'Away Bookings', 'Bookings', 'Reds'],
+			labels: ['Scored', 'Home Scored', 'Away Scored', 'Home Conceded', 'Away Conceded', 'Conceded'],
 			datasets: [
 				{
 					label: current_team_season.team_name,
@@ -57,10 +57,6 @@ class ChartsController < ApplicationController
 						current_team_season.home_goals_conceded_count,
 						current_team_season.away_goals_conceded_count,
 						current_team_season.goals_against_number,
-						current_team_season.home_yellow_cards.size,
-						current_team_season.away_yellow_cards.size,
-						current_team_season.yellow_cards_count,
-						current_team_season.red_card_count
 					],
 					fill: true,
 					backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -79,10 +75,6 @@ class ChartsController < ApplicationController
 						opponent_team_season.home_goals_conceded_count,
 						opponent_team_season.away_goals_conceded_count,
 						opponent_team_season.goals_against_number,
-						opponent_team_season.home_yellow_cards.size,
-						opponent_team_season.away_yellow_cards.size,
-						opponent_team_season.yellow_cards_count,
-						opponent_team_season.red_card_count
 					],
 					fill: true,
 					backgroundColor: 'rgba(54, 162, 235, 0.2)',
@@ -96,6 +88,20 @@ class ChartsController < ApplicationController
 		}
 
 		render json: data
+	end
+
+	def team_cards_line_chart
+		team_seasons = TeamSeason.where(id: [params[:current_team_season_id], params[:opponent_team_season_id]])
+		
+		render json: team_seasons.map { |team_season|
+			{
+				name: team_season.team_name,
+				data: { "Home Bookings" => team_season.home_yellow_cards.size,
+				        "Away Bookings" => team_season.away_yellow_cards.size,
+				        "Total Bookings" => team_season.yellow_cards_count,
+				        "Reds" => team_season.red_card_count
+				} }
+		}
 	end
 
 end

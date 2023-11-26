@@ -15,7 +15,7 @@ export default class extends Controller {
   }
 
   fetchChartData() {
-    return fetch(`/radar_chart_thingy/${this.currentTeamSeasonIdValue}/${this.opponentTeamSeasonIdValue}`)
+    return fetch(`/team_goals_radar/${this.currentTeamSeasonIdValue}/${this.opponentTeamSeasonIdValue}`)
     .then(response => response.json());
   }
 
