@@ -1,5 +1,5 @@
 class DashboardsController < ApplicationController
-
+	include Search
 	before_action :set_season
 
 	def index
@@ -14,6 +14,15 @@ class DashboardsController < ApplicationController
 		respond_to do |format|
 			format.html
 			format.turbo_stream
+		end
+	end
+
+	def search
+		@teams = return_teams(params[:query])
+		@players = return_players(params[:query])
+
+		respond_to do |format|
+			format.html { render :search_results }
 		end
 	end
 

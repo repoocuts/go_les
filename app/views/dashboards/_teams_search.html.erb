@@ -1,0 +1,7 @@
+<% @teams.each do |team| %>
+	<div id="<%= dom_id team %>" class="grid grid-cols-1 lg:grid-cols-2">
+		<ul>
+			<%= link_to team.name, team_path(team) %>
+		</ul>
+	</div>
+<% end %>
