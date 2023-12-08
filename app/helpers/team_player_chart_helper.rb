@@ -54,6 +54,26 @@ module TeamPlayerChartHelper
 
 	def team_cards_line_chart
 		line_chart team_cards_line_chart_path(@team.id, @next_opponent.id),
-		           library: { backgroundColor: 'transparent' }
+		           library: {
+			           backgroundColor: 'transparent',
+			           scales: {
+				           x: {
+					           ticks: {
+						           font: {
+							           size: 10
+						           }
+					           }
+				           }
+			           },
+			           plugins: {
+				           tooltip: {
+					           labels: {
+						           font: {
+							           size: 10
+						           }
+					           }
+				           }
+			           }
+		           }
 	end
 end
