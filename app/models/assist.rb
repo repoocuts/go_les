@@ -44,4 +44,8 @@ class Assist < ApplicationRecord
 			.order('COUNT(assists.id) desc')
 			.count('assists.id')
 	}
+
+	def player_name
+		player_season.get_player_name
+	end
 end

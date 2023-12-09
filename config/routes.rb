@@ -1,5 +1,22 @@
 Rails.application.routes.draw do
-  mount Avo::Engine, at: Avo.configuration.root_path
+  namespace :admin do
+    resources :appearances
+    resources :assists
+    resources :cards
+    resources :countries
+    resources :dashboards
+    resources :fixtures
+    resources :goals
+    resources :leagues
+    resources :players
+    resources :player_seasons
+    resources :seasons
+    resources :season_game_weeks
+    resources :teams
+    resources :team_seasons
+
+    root to: "leagues#index"
+  end
 
   resources :assists
   resources :dashboards
