@@ -28,16 +28,16 @@
       </div>
     </div>
   </div>
-  <div class="grid grid-cols-1 tablet:grid-cols-3 mt-5 gap-4">
-    <div>
+  <div class="grid grid-cols-1 tablet:grid-cols-1 mt-5 gap-4">
+    <div class="tablet:flex grid-cols-2">
       <%= render 'opponent_head_to_head', fixture: @next_match, opponent: @next_opponent %>
     </div>
     <div data-controller="team-goals-radar-chart"
          data-team-goals-radar-chart-current-team-season-id-value="<%= @current_team_season.id %>"
-         data-team-goals-radar-chart-opponent-team-season-id-value="<%= @next_opponent.id %>">
+         data-team-goals-radar-chart-opponent-team-season-id-value="<%= @next_opponent.id %>" , class="tablet:flex justify-center items-center">
       <canvas id="TeamGoalsRadarChart" width="500" height="500"></canvas>
     </div>
-    <div class="flex justify-center items-center">
+    <div class="flex justify-center items-center tablet:w-full">
       <%= render 'teams/charts/team_cards' %>
     </div>
   </div>

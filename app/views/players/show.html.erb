@@ -5,6 +5,10 @@
   <div>
     <%= render partial: 'season_stats_table' %>
   </div>
+  <div class="grid grid-cols-2">
+    <%= render PlayerSeasonGoalsComponent.new(player_season: @player_season) %>
+    <%= render PlayerSeasonAssistsComponent.new(player_season: @player_season) %>
+  </div>
   <div>
     <div id="finished-fixtures-table">
       <%= render 'appearances' %>

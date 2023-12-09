@@ -35,6 +35,7 @@ class PlayerSeason < ApplicationRecord
 	scope :booked_players, -> { joins(:cards).where('cards.card_type = ?', "yellow") }
 	scope :sent_off_players, -> { joins(:cards).where('cards.card_type = ?', "red") }
 
+	ZERO = 0
 	def get_player_name
 		player.return_name
 	end
@@ -88,5 +89,83 @@ class PlayerSeason < ApplicationRecord
 		else
 			joins(:player).order("players.position #{direction}") # default order
 		end
+	end
+
+	def total_minutes_played
+		appearances.sum(:minutes)
+	end
+
+	def average_minutes_per_goal
+		total_minutes_played / season_goals
+	end
+
+	def home_goals
+		goals.where(is_home: true).count
+	end
+
+	def away_goals
+		goals.where(is_home: false).count
+	end
+
+	def first_half_goals
+		goals.where(minute: 0..45).count
+	end
+
+	def second_half_goals
+		goals.where(minute: 46..100).count
+	end
+
+	def first_half_home_goals
+		goals.where(minute: 0..45, is_home: true).count
+	end
+
+	def first_half_away_goals
+		goals.where(minute: 0..45, is_home: false).count
+	end
+
+	def second_half_home_goals
+		goals.where(minute: 46..100, is_home: true).count
+	end
+
+	def second_half_away_goals
+		goals.where(minute: 46..100, is_home: false).count
+	end
+
+	def average_minutes_per_assist
+		appearances.sum(:minutes) / season_assists if season_assists > 0
+
+		ZERO
+	end
+
+	def home_assists
+		assists.where(is_home: true).count
+	end
+
+	def away_assists
+		assists.where(is_home: false).count
+	end
+
+	def first_half_assists
+		assists.where(minute: 0..45).count
+	end
+
+	def second_half_assists
+		assists.where(minute: 46..100).count
+	end
+
+	def first_half_home_assists
+		assists.where(minute: 0..45, is_home: true).count
+	end
+
+	def first_half_away_assists
+		assists.where(minute: 0..45, is_home: false).count
+	end
+
+	def second_half_home_assists
+		assists.where(minute: 46..100, is_home: true).count
+	end
+
+	def second_half_away_assists
+		assists.where(minute: 46..100, is_home: false).count
 	end
 end
