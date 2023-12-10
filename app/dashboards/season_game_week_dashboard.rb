@@ -64,7 +64,7 @@ class SeasonGameWeekDashboard < Administrate::BaseDashboard
   COLLECTION_FILTERS = {}.freeze
 
   # Overwrite this method to customize how season game weeks are displayed
-  # across all pages of the admin dashboard.
+  # across all pages of the ceefax dashboard.
   #
   def display_resource(season_game_week)
     "#{season_game_week.game_week_number}"

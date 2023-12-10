@@ -91,7 +91,7 @@ class SeasonDashboard < Administrate::BaseDashboard
   COLLECTION_FILTERS = {}.freeze
 
   # Overwrite this method to customize how seasons are displayed
-  # across all pages of the admin dashboard.
+  # across all pages of the ceefax dashboard.
   #
   def display_resource(season)
     "#{season.start_date.strftime('%Y')}/#{season.end_date.strftime('%Y')}"

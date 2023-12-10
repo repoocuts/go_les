@@ -76,7 +76,7 @@ class CardDashboard < Administrate::BaseDashboard
   COLLECTION_FILTERS = {}.freeze
 
   # Overwrite this method to customize how cards are displayed
-  # across all pages of the admin dashboard.
+  # across all pages of the ceefax dashboard.
   #
   def display_resource(card)
     "#{card.card_receiver_name}"

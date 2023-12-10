@@ -4,9 +4,10 @@
 #
 # If you want to add pagination or other controller-level concerns,
 # you're free to overwrite the RESTful controller actions.
-module Admin
+module Ceefax
   class ApplicationController < Administrate::ApplicationController
-    before_action :authenticate_admin
+    include Clearance::Controller
+    before_action :require_login
 
     def authenticate_admin
       # TODO Add authentication logic here.

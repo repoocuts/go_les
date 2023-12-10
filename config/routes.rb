@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  namespace :admin do
+  namespace :ceefax do
     resources :appearances
     resources :assists
     resources :cards
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :teams
     resources :team_seasons
 
-    root to: "leagues#index"
+    root to: "dashboards#index"
   end
 
   resources :assists

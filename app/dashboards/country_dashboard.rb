@@ -64,7 +64,7 @@ class CountryDashboard < Administrate::BaseDashboard
   COLLECTION_FILTERS = {}.freeze
 
   # Overwrite this method to customize how countries are displayed
-  # across all pages of the admin dashboard.
+  # across all pages of the ceefax dashboard.
   #
   def display_resource(country)
     "#{country.name}"
