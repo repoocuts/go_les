@@ -35,7 +35,11 @@ class Season < ApplicationRecord
 	scope :current_season, -> { find_by(current_season: true) }
 
 	def next_round_of_fixtures
-		fixtures.where(season_id: id, game_week: game_week + 1)
+		fixtures.where(current_game_week + 1)
+	end
+
+	def last_round_of_fixtures
+		fixtures.where(game_week: current_game_week - 1)
 	end
 
 	def completed_fixtures

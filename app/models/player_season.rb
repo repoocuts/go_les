@@ -96,6 +96,8 @@ class PlayerSeason < ApplicationRecord
 	end
 
 	def average_minutes_per_goal
+		return ZERO if season_goals.zero?
+		
 		total_minutes_played / season_goals
 	end
 

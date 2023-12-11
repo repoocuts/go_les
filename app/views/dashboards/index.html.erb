@@ -1,4 +1,29 @@
-<div class="grid grid-cols-2 gap-4 justify-center mx-auto pb-5">
+<div class="grid grid-cols-3 gap-4 justify-center mx-auto pb-5">
+  <div>
+    <h5 class="text-center">Last Game Week</h5>
+    <table class="table-auto text-base text-sm w-full">
+      <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th class="text-right">
+          Home Team
+        </th>
+        <th>
+        </th>
+        <th class="text-center">
+          Kick Off
+        </th>
+        <th>
+        </th>
+        <th>
+          Away Team
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <%= render LastGameWeekResultsComponent.with_collection(@last_game_week), cached: true %>
+      </tbody>
+    </table>
+  </div>
   <div>
     <h5 class="text-center">Current Game Week</h5>
     <%= render partial: 'current_game_week', cached: true %>
