@@ -12,11 +12,11 @@
     <tr>
       <td class="w-1/5"></td>
       <td class="w-1/10 text-center">
-        <%= @home_team_season.completed_fixtures.count %>
+        <%= @home_team_season.played_home_matches.length %>
       </td>
       <td class="w-2/5 h-a-stat-title ">Matches</td>
       <td class="w-1/10">
-        <%= @away_team_season.completed_fixtures.count %>
+        <%= @away_team_season.played_away_matches.length %>
       </td>
       <td class="w-1/5"></td>
     </tr>
@@ -25,11 +25,11 @@
         <%= @home_team_season.average_goals_scored_at_home %>
       </td>
       <td class="w-1/10 text-center">
-        <%= @home_team_season.goals.count %>
+        <%= @home_team_season.home_goals_scored.length %>
       </td>
       <td class="w-2/5 h-a-stat-title">Goals</td>
       <td class="w-1/10 text-center">
-        <%= @away_team_season.goals.count %>
+        <%= @away_team_season.away_goals_scored.length %>
       </td>
       <td class="w-1/5 text-center">
         <%= @away_team_season.average_goals_scored_at_away %>
@@ -40,11 +40,11 @@
         <%= @home_team_season.average_first_half_goals %>
       </td>
       <td class="w-1/10 text-center">
-        <%= Goal.first_half_goals(@home_team_season.id).count %>
+        <%= @home_team_season.first_half_goals_total %>
       </td>
       <td class="w-2/5 h-a-stat-title">1st half goals</td>
       <td class="w-1/10 text-center">
-        <%= Goal.first_half_goals(@away_team_season.id).count %>
+        <%= @away_team_season.first_half_goals_total %>
       </td>
       <td class="w-1/5 text-center">
         <%= @away_team_season.average_first_half_goals %>
@@ -55,11 +55,11 @@
         <%= @home_team_season.average_second_half_goals %>
       </td>
       <td class="w-1/10 text-center">
-        <%= Goal.second_half_goals(@home_team_season.id).count %>
+        <%= @home_team_season.second_half_goals_total %>
       </td>
       <td class="w-2/5 h-a-stat-title">2nd half goals</td>
       <td class="w-1/10 text-center">
-        <%= Goal.second_half_goals(@away_team_season.id).count %>
+        <%= @away_team_season.second_half_goals_total %>
       </td>
       <td class="w-1/5 text-center">
         <%= @away_team_season.average_second_half_goals %>

@@ -98,11 +98,11 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def top_scorer
-		player_seasons.includes([:player]).map { |ps| [ps.season_goals, ps.player.return_name, ps.player_id] }.sort! { |a, b| a.first <=> b.first }.reverse.first
+		player_seasons.order(:goals_count).reverse.first
 	end
 
 	def top_assists
-		player_seasons.includes([:player]).map { |ps| [ps.assists_count, ps.player.return_name, ps.player_id] }.sort! { |a, b| a.first <=> b.first }.reverse.first
+		player_seasons.order(:assists_count).reverse.first
 	end
 
 	def booked_players
@@ -168,11 +168,11 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def played_home_matches
-		Fixture.where(id: completed_fixtures_reversed(&:id)).where(home_team_season_id: id)
+		home_fixtures.where.not(home_score: nil)
 	end
 
 	def played_away_matches
-		Fixture.where(id: completed_fixtures_reversed(&:id)).where(away_team_season_id: id)
+		away_fixtures.where.not(away_score: nil)
 	end
 
 	def goals_for
@@ -220,11 +220,11 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def home_goals_conceded
-		goals_against.where(is_home: false)
+		goals_against.where(is_home: true)
 	end
 
 	def away_goals_conceded
-		goals_against.where(is_home: true)
+		goals_against.where(is_home: nil)
 	end
 
 	def home_goals_conceded_count
@@ -232,7 +232,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def away_goals_conceded_count
-		goals_against.where.not(team_season_id: id, is_home: false).size
+		goals_against.where.not(team_season_id: id, is_home: nil).size
 	end
 
 	def first_half_goals_conceded_count
@@ -260,7 +260,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def average_goals_scored_at_home
-		(goals.size.to_f / completed_fixtures.size).round(2)
+		(goals_count.to_f / completed_fixtures.size).round(2)
 	end
 
 	def average_goals_scored_at_away

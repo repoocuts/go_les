@@ -1,13 +1,13 @@
 <h6 class="text-l">
   <% if team.top_scorer %>
-    <%= link_to "#{team.top_scorer[1]}, (#{team.top_scorer[0]})", player_path(team.top_scorer[2]) %>
+		<%= link_to "#{team.top_scorer.get_player_name}, (#{team.top_scorer.goals_count})", player_path(team.top_scorer.player) %>
   <% else %>
      No goals
   <% end %>
 </h6>
 <h6>
-  <% if team.top_scorer %>
-    <%= link_to "#{team.top_scorer[1]}, (#{team.top_scorer[0]})", player_path(team.top_scorer[2]) %>
+	<% if team.top_assists %>
+		<%= link_to "#{team.top_assists.get_player_name}, (#{team.top_assists.assists_count})", player_path(team.top_assists.player) %>
   <% else %>
     No Assists
   <% end %>

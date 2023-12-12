@@ -9,7 +9,7 @@
   <div class='grid grid-cols-5'>
     <p><%= link_to @team.current_team_season.next_match_opponent_name, team_path(@team) %></p>
     <% if @top_scorer %>
-      <p><%= link_to "#{@top_scorer[1]} - #{@top_scorer[0]}", player_path(@top_scorer[2]) %></p>
+      <p><%= link_to "#{@top_scorer.get_player_name} - #{@top_scorer.goals_count}", player_path(@top_scorer.player) %></p>
     <% end %>
     <% if @most_booked %>
       <p><%= link_to "#{@most_booked.get_player_name} - #{@most_booked.season_yellows}", player_path(@most_booked.player) %></p>

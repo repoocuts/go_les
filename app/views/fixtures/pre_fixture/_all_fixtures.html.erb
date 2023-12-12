@@ -10,15 +10,11 @@
   </thead>
   <tbody class="table-bordered">
     <tr>
-      <td class="text-center">
-        <%= @home_team_season.completed_fixtures_reversed.count %>
-      </td>
       <td></td>
+      <td><%= @home_team_season.completed_fixtures_reversed.count %></td>
       <td class="stat-title w-1/5">matches</td>
+      <td><%= @away_team_season.completed_fixtures_reversed.count %></td>
       <td></td>
-      <td class="text-center">
-        <%= @away_team_season.completed_fixtures_reversed.count %>
-      </td>
     </tr>
     <tr>
       <td class="text-center">
