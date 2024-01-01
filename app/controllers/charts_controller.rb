@@ -52,8 +52,8 @@ class ChartsController < ApplicationController
 					label: current_team_season.team_name,
 					data: [
 						current_team_season.goals_for.size,
-						current_team_season.home_goals_scored.size,
-						current_team_season.away_goals_scored.size,
+						current_team_season.home_goals_scored_count,
+						current_team_season.away_goals_scored_count,
 						current_team_season.home_goals_conceded_count,
 						current_team_season.away_goals_conceded_count,
 						current_team_season.goals_against_number,
@@ -70,8 +70,8 @@ class ChartsController < ApplicationController
 					label: opponent_team_season.team_name,
 					data: [
 						opponent_team_season.goals_for.size,
-						opponent_team_season.home_goals_scored.size,
-						opponent_team_season.away_goals_scored.size,
+						opponent_team_season.home_goals_scored_count,
+						opponent_team_season.away_goals_scored_count,
 						opponent_team_season.home_goals_conceded_count,
 						opponent_team_season.away_goals_conceded_count,
 						opponent_team_season.goals_against_number,

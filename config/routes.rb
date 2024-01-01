@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :goals_conceded_stats
+  resources :goals_scored_stats
   namespace :ceefax do
     resources :appearances
     resources :assists

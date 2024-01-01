@@ -29,6 +29,10 @@
 class TeamSeason < ApplicationRecord
 	belongs_to :team
 	belongs_to :season
+
+	has_one :goals_scored_stat
+	has_one :goals_conceded_stat
+
 	has_many :appearances
 	has_many :player_seasons
 	has_many :goals
@@ -179,13 +183,8 @@ class TeamSeason < ApplicationRecord
 		goals
 	end
 
-
-	def goals_against
-		total_goals_calculator.goals_against_number
-	end
-
 	def goals_against_number
-		goals_against.size
+		goals_conceded_stat.total
 	end
 
 	def top_scorers
@@ -193,11 +192,11 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def average_first_half_goals
-		(first_half_goals.size / completed_fixtures.size.to_f).round(2)
+		total_goals_calculator.average_first_half_goals
 	end
 
 	def average_second_half_goals
-		(second_half_goals.size / completed_fixtures.size.to_f).round(2)
+		total_goals_calculator.average_second_half_goals
 	end
 
 	def average_goals_scored_per_match
@@ -208,44 +207,40 @@ class TeamSeason < ApplicationRecord
 		total_goals_calculator.average_goals_conceded_per_match
 	end
 
-	def home_goals_scored
-		goals_for.select { |goal| goal.is_home == true }
+	def home_goals_scored_count
+		goals_scored_stat.home
 	end
 
 	def away_goals_scored
 		goals_for.select { |goal| goal.is_home.nil? }
 	end
 
-	def home_goals_conceded
-		# goals_against.where(is_home: true)
-	end
-
-	def away_goals_conceded
-		# goals_against.where(is_home: nil)
+	def away_goals_scored_count
+		goals_scored_stat.away
 	end
 
 	def home_goals_conceded_count
-		# goals_against.where.not(team_season_id: id, is_home: true).size
+		goals_conceded_stat.home
 	end
 
 	def away_goals_conceded_count
-		# goals_against.where.not(team_season_id: id, is_home: nil).size
+		goals_conceded_stat.away
 	end
 
 	def first_half_goals_conceded_count
-		(home_goals_conceded.where('minute < ?', 46) + away_goals_conceded.where('minute < ?', 46)).size
+		goals_conceded_stat.home_first_half
 	end
 
 	def second_half_goals_conceded_count
-		(home_goals_conceded.where('minute > ?', 45) + away_goals_conceded.where('minute > ?', 46)).size
+		goals_conceded_stat.second_half
 	end
 
 	def average_goals_conceded_home
-		# (home_goals_conceded_count / completed_fixtures.size.to_f).round(2)
+		total_goals_calculator.average_goals_conceded_home
 	end
 
 	def average_goals_conceded_away
-		# (away_goals_conceded_count / completed_fixtures.size.to_f).round(2)
+		total_goals_calculator.average_goals_conceded_away
 	end
 
 	def average_goals_scored_first_half
@@ -257,11 +252,11 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def average_goals_scored_at_home
-		(goals_count.to_f / completed_fixtures.size).round(2)
+		total_goals_calculator.average_goals_scored_home
 	end
 
 	def average_goals_scored_at_away
-		(goals.size.to_f / completed_fixtures.size).round(2)
+		total_goals_calculator.average_goals_scored_away
 	end
 
 	def average_first_half_goals_conceded_home
@@ -270,33 +265,31 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def average_first_half_goals_conceded_away
-		# (away_goals_conceded.where('minute < ?', 46).size / completed_fixtures.size.to_f.round(2))
-		0
+		total_goals_calculator.average_goals_conceded_away_first_half
 	end
 
 	def average_second_half_goals_conceded_home
-		# (home_goals_conceded.where('minute > ?', 46).size / completed_fixtures.size.to_f.round(2))
-		0
+		total_goals_calculator.average_goals_conceded_home_second_half
 	end
 
 	def average_second_half_goals_conceded_away
-		# (away_goals_conceded.where('minute > ?', 46).size / completed_fixtures.size.to_f.round(2))
+		total_goals_calculator.average_goals_conceded_away_second_half
 	end
 
 	def first_half_home_goals_conceded
-		# home_goals_conceded.where('minute < ?', 46).size
+		goals_conceded_stat.home_first_half
 	end
 
 	def second_half_home_goals_conceded
-		# home_goals_conceded.where('minute > ?', 45).size
+		goals_conceded_stat.home_second_half
 	end
 
 	def first_half_away_goals_conceded
-		# away_goals_conceded.where('minute < ?', 46).size
+		goals_conceded_stat.away_first_half
 	end
 
 	def second_half_away_goals_conceded
-		# away_goals_conceded.where('minute > ?', 45).size
+		goals_conceded_stat.away_second_half
 	end
 
 	def first_half_goals
@@ -304,7 +297,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def first_half_goals_total
-		total_goals_calculator.first_half_goals_total
+		goals_scored_stat.first_half
 	end
 
 	def second_half_goals
@@ -312,7 +305,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def second_half_goals_total
-		total_goals_calculator.second_half_goals_total
+		goals_scored_stat.second_half
 	end
 
 	def first_half_yellow_cards
@@ -401,12 +394,12 @@ class TeamSeason < ApplicationRecord
 
 	def total_goals_calculator
 		@total_goals_calculator ||=
-			Calculators::TeamGoals::TotalGoalsCalculator.new(
-				goals: goals,
-				total_goals_count: goals_count,
-				completed_fixtures: completed_fixtures,
+			Calculators::TeamGoals::GoalsCalculator.new(
+				goals_scored_stat: goals_scored_stat,
+				goals_conceded_stat: goals_conceded_stat,
 				completed_fixtures_count: completed_fixtures_count,
-				team_season_id: id
+				home_fixtures_count: home_fixtures.count,
+				away_fixtures_count: away_fixtures.count,
 			)
 	end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_10_142040) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_28_210109) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -112,6 +112,38 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_10_142040) do
     t.index ["fixture_id"], name: "index_goals_on_fixture_id"
     t.index ["player_season_id"], name: "index_goals_on_player_season_id"
     t.index ["team_season_id"], name: "index_goals_on_team_season_id"
+  end
+
+  create_table "goals_conceded_stats", force: :cascade do |t|
+    t.bigint "team_season_id", null: false
+    t.integer "total"
+    t.integer "home"
+    t.integer "away"
+    t.integer "first_half"
+    t.integer "second_half"
+    t.integer "home_first_half"
+    t.integer "away_first_half"
+    t.integer "home_second_half"
+    t.integer "away_second_half"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_season_id"], name: "index_goals_conceded_stats_on_team_season_id"
+  end
+
+  create_table "goals_scored_stats", force: :cascade do |t|
+    t.bigint "team_season_id", null: false
+    t.integer "total"
+    t.integer "home"
+    t.integer "away"
+    t.integer "first_half"
+    t.integer "second_half"
+    t.integer "home_first_half"
+    t.integer "away_first_half"
+    t.integer "home_second_half"
+    t.integer "away_second_half"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_season_id"], name: "index_goals_scored_stats_on_team_season_id"
   end
 
   create_table "leagues", force: :cascade do |t|
@@ -232,6 +264,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_10_142040) do
   add_foreign_key "goals", "fixtures"
   add_foreign_key "goals", "player_seasons"
   add_foreign_key "goals", "team_seasons"
+  add_foreign_key "goals_conceded_stats", "team_seasons"
+  add_foreign_key "goals_scored_stats", "team_seasons"
   add_foreign_key "leagues", "countries"
   add_foreign_key "player_seasons", "players"
   add_foreign_key "player_seasons", "team_seasons"
