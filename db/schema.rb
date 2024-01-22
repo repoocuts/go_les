@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_28_210109) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_22_205215) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -75,6 +75,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_210109) do
   create_table "dashboards", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "fixture_api_responses", force: :cascade do |t|
+    t.jsonb "pre_fixture"
+    t.jsonb "finished_fixture"
+    t.bigint "fixture_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fixture_id"], name: "index_fixture_api_responses_on_fixture_id"
   end
 
   create_table "fixtures", force: :cascade do |t|
@@ -257,6 +266,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_210109) do
   add_foreign_key "cards", "fixtures"
   add_foreign_key "cards", "player_seasons"
   add_foreign_key "cards", "team_seasons"
+  add_foreign_key "fixture_api_responses", "fixtures"
   add_foreign_key "fixtures", "leagues"
   add_foreign_key "fixtures", "season_game_weeks"
   add_foreign_key "fixtures", "seasons"
