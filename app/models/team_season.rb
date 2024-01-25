@@ -32,6 +32,8 @@ class TeamSeason < ApplicationRecord
 
 	has_one :goals_scored_stat
 	has_one :goals_conceded_stat
+	has_one :yellow_cards_stat
+	has_one :red_cards_stat
 
 	has_many :appearances
 	has_many :player_seasons
@@ -313,7 +315,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def first_half_yellow_cards_total
-		first_half_yellow_cards.size
+		yellow_cards_stat.first_half
 	end
 
 	def second_half_yellow_cards
@@ -321,7 +323,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def second_half_yellow_cards_total
-		second_half_yellow_cards.size
+		yellow_cards_stat.second_half
 	end
 
 	def first_half_red_cards
@@ -329,7 +331,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def first_half_red_cards_total
-		first_half_red_cards.size
+		red_cards_stat.first_half
 	end
 
 	def second_half_red_cards
@@ -337,31 +339,31 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def second_half_red_cards_total
-		second_half_red_cards.size
+		red_cards_stat.second_half
 	end
 
 	def yellow_card_count
-		yellow_cards.size
+		yellow_cards_stat.total
 	end
 
 	def home_yellow_cards
-		yellow_cards.where(is_home: true)
+		yellow_cards_stat.home
 	end
 
 	def away_yellow_cards
-		yellow_cards.where(is_home: nil)
+		yellow_cards_stat.away
 	end
 
 	def red_card_count
-		red_cards.count
+		red_cards_stat.total
 	end
 
 	def home_red_cards
-		red_cards.where(is_home: true)
+		red_cards_stat.home
 	end
 
 	def away_red_cards
-		red_cards.where.not(is_home: true)
+		red_cards_stat.away
 	end
 
 	private
@@ -397,6 +399,26 @@ class TeamSeason < ApplicationRecord
 			Calculators::TeamGoals::GoalsCalculator.new(
 				goals_scored_stat: goals_scored_stat,
 				goals_conceded_stat: goals_conceded_stat,
+				completed_fixtures_count: completed_fixtures_count,
+				home_fixtures_count: home_fixtures.count,
+				away_fixtures_count: away_fixtures.count,
+			)
+	end
+
+	def total_yellow_cards_calculator
+		@total_yellow_cards_calculator ||=
+			Calculators::TeamCards::YellowCardsCalculator.new(
+				yellow_cards_stat: yellow_card_stat,
+				completed_fixtures_count: completed_fixtures_count,
+				home_fixtures_count: home_fixtures.count,
+				away_fixtures_count: away_fixtures.count,
+			)
+	end
+
+	def total_red_cards_calculator
+		@total_red_cards_calculator ||=
+			Calculators::TeamCards::RedCardsCalculator.new(
+				red_cards_stat: red_card_stat,
 				completed_fixtures_count: completed_fixtures_count,
 				home_fixtures_count: home_fixtures.count,
 				away_fixtures_count: away_fixtures.count,

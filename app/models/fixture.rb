@@ -42,6 +42,9 @@ class Fixture < ApplicationRecord
 	has_many :home_assists_with_player_season, -> { includes(:player_season) }, class_name: 'Assist'
 	has_many :away_assists_with_player_season, -> { includes(:player_season) }, class_name: 'Assist'
 
+	has_one :fixture_api_response
+	has_one :referee_fixture
+
 	belongs_to :season
 	belongs_to :league
 	belongs_to :season_game_week

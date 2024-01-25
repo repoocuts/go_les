@@ -2,17 +2,18 @@
 #
 # Table name: goals
 #
-#  id               :bigint           not null, primary key
-#  goal_type        :string
-#  is_home          :boolean
-#  minute           :integer
-#  own_goal         :boolean
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  appearance_id    :bigint           not null
-#  fixture_id       :bigint           not null
-#  player_season_id :bigint           not null
-#  team_season_id   :bigint           not null
+#  id                 :bigint           not null, primary key
+#  goal_type          :string
+#  is_home            :boolean
+#  minute             :integer
+#  own_goal           :boolean
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  appearance_id      :bigint           not null
+#  fixture_id         :bigint           not null
+#  player_season_id   :bigint           not null
+#  referee_fixture_id :integer
+#  team_season_id     :bigint           not null
 #
 # Indexes
 #

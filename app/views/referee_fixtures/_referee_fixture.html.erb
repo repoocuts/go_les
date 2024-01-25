@@ -1,0 +1,22 @@
+<div id="<%= dom_id referee_fixture %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Fixture:</strong>
+    <%= referee_fixture.fixture_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Referee:</strong>
+    <%= referee_fixture.referee_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Season:</strong>
+    <%= referee_fixture.season_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this referee fixture", referee_fixture, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this referee fixture', edit_referee_fixture_path(referee_fixture), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

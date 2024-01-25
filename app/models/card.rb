@@ -2,17 +2,18 @@
 #
 # Table name: cards
 #
-#  id               :bigint           not null, primary key
-#  card_type        :string
-#  is_home          :boolean
-#  minute           :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  appearance_id    :bigint           not null
-#  first_card_id    :integer
-#  fixture_id       :bigint           not null
-#  player_season_id :bigint           not null
-#  team_season_id   :bigint           not null
+#  id                 :bigint           not null, primary key
+#  card_type          :string
+#  is_home            :boolean
+#  minute             :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  appearance_id      :bigint           not null
+#  first_card_id      :integer
+#  fixture_id         :bigint           not null
+#  player_season_id   :bigint           not null
+#  referee_fixture_id :integer
+#  team_season_id     :bigint           not null
 #
 # Indexes
 #
@@ -33,6 +34,7 @@ class Card < ApplicationRecord
 	belongs_to :player_season
 	belongs_to :team_season, counter_cache: :yellow_cards_count
 	belongs_to :fixture
+	belongs_to :referee_fixture
 
 	scope :home_cards, ->(fixture) { where(is_home: true, fixture_id: fixture.id) }
 	scope :away_cards, ->(fixture) { where(is_home: nil, fixture_id: fixture.id) }
