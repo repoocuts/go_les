@@ -15,15 +15,13 @@ module ApiFootball
 			end
 
 			def update_fixture
-				# response = call
-				#
-				# return if response['response'][0]['lineups'].empty?
+				response = call
 
-				# api_match_object = response['response'][0]
-				# ApiFootball::Updaters::FixtureApiCall.new(fixture: fixture, options: {}).update_fixture
-				# far = FixtureApiResponse.new
-				# far.update(finished_fixture: api_match_object, fixture: fixture)
-				api_match_object = FixtureApiResponse.find_by(fixture_id: fixture.id).finished_fixture[0]
+				return if response['response'][0]['lineups'].empty?
+				fixture_api_response.update(finished_fixture: response['response'][0], fixture: fixture)
+
+				api_match_object = fixture_api_response.finished_fixture
+
 				verify_data(api_match_object['lineups'], fixture)
 
 				handle_referee(api_match_object['fixture']['referee'])
@@ -38,6 +36,10 @@ module ApiFootball
 			private
 
 			attr_reader :fixture, :options
+
+			def fixture_api_response
+				@fixture_api_response ||= FixtureApiResponse.find_or_create_by(fixture_id: fixture.id)
+			end
 
 			def interpolate_endpoint
 				base_uri + ENDPOINT

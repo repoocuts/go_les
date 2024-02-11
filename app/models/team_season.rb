@@ -366,6 +366,10 @@ class TeamSeason < ApplicationRecord
 		red_cards_stat.away
 	end
 
+	def average_first_half_yellow_cards
+		total_yellow_cards_calculator.average_first_half_yellow_cards
+	end
+
 	private
 
 	attr_reader :total_goals_calculator
