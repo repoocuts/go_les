@@ -34,7 +34,7 @@ class Goal < ApplicationRecord
 	belongs_to :player_season, counter_cache: true
 	belongs_to :team_season, counter_cache: true
 	belongs_to :fixture
-	belongs_to :referee_fixture
+	belongs_to :referee_fixture, optional: true
 
 	has_one :assist
 

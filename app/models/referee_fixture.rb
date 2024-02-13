@@ -27,4 +27,5 @@ class RefereeFixture < ApplicationRecord
   belongs_to :season
 
   has_many :cards
+  has_many :goals
 end
