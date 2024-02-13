@@ -187,6 +187,10 @@ class TeamSeason < ApplicationRecord
 		goals_conceded_stat.total
 	end
 
+	def goal_difference
+		total_goals_calculator.goal_difference
+	end
+
 	def top_scorers
 		player_seasons.scorers.first(3)
 	end

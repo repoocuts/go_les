@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_28_210109) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_25_195224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_210109) do
     t.bigint "fixture_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "referee_fixture_id"
     t.index ["appearance_id"], name: "index_cards_on_appearance_id"
     t.index ["fixture_id"], name: "index_cards_on_fixture_id"
     t.index ["player_season_id"], name: "index_cards_on_player_season_id"
@@ -75,6 +76,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_210109) do
   create_table "dashboards", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "fixture_api_responses", force: :cascade do |t|
+    t.jsonb "pre_fixture"
+    t.jsonb "finished_fixture"
+    t.bigint "fixture_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fixture_id"], name: "index_fixture_api_responses_on_fixture_id"
   end
 
   create_table "fixtures", force: :cascade do |t|
@@ -108,6 +118,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_210109) do
     t.bigint "fixture_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "referee_fixture_id"
     t.index ["appearance_id"], name: "index_goals_on_appearance_id"
     t.index ["fixture_id"], name: "index_goals_on_fixture_id"
     t.index ["player_season_id"], name: "index_goals_on_player_season_id"
@@ -180,6 +191,41 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_210109) do
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
+  create_table "red_cards_stats", force: :cascade do |t|
+    t.bigint "team_season_id", null: false
+    t.integer "total"
+    t.integer "home"
+    t.integer "away"
+    t.integer "first_half"
+    t.integer "second_half"
+    t.integer "home_first_half"
+    t.integer "away_first_half"
+    t.integer "home_second_half"
+    t.integer "away_second_half"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_season_id"], name: "index_red_cards_stats_on_team_season_id"
+  end
+
+  create_table "referee_fixtures", force: :cascade do |t|
+    t.bigint "fixture_id", null: false
+    t.bigint "referee_id", null: false
+    t.bigint "season_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fixture_id"], name: "index_referee_fixtures_on_fixture_id"
+    t.index ["referee_id"], name: "index_referee_fixtures_on_referee_id"
+    t.index ["season_id"], name: "index_referee_fixtures_on_season_id"
+  end
+
+  create_table "referees", force: :cascade do |t|
+    t.string "name"
+    t.bigint "season_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["season_id"], name: "index_referees_on_season_id"
+  end
+
   create_table "season_game_weeks", force: :cascade do |t|
     t.bigint "season_id"
     t.bigint "fixture_id"
@@ -245,6 +291,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_210109) do
     t.index ["remember_token"], name: "index_users_on_remember_token", unique: true
   end
 
+  create_table "yellow_cards_stats", force: :cascade do |t|
+    t.bigint "team_season_id", null: false
+    t.integer "total"
+    t.integer "home"
+    t.integer "away"
+    t.integer "first_half"
+    t.integer "second_half"
+    t.integer "home_first_half"
+    t.integer "away_first_half"
+    t.integer "home_second_half"
+    t.integer "away_second_half"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_season_id"], name: "index_yellow_cards_stats_on_team_season_id"
+  end
+
   add_foreign_key "appearances", "fixtures"
   add_foreign_key "appearances", "player_seasons"
   add_foreign_key "appearances", "team_seasons"
@@ -257,6 +319,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_210109) do
   add_foreign_key "cards", "fixtures"
   add_foreign_key "cards", "player_seasons"
   add_foreign_key "cards", "team_seasons"
+  add_foreign_key "fixture_api_responses", "fixtures"
   add_foreign_key "fixtures", "leagues"
   add_foreign_key "fixtures", "season_game_weeks"
   add_foreign_key "fixtures", "seasons"
@@ -270,9 +333,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_210109) do
   add_foreign_key "player_seasons", "players"
   add_foreign_key "player_seasons", "team_seasons"
   add_foreign_key "players", "teams"
+  add_foreign_key "red_cards_stats", "team_seasons"
+  add_foreign_key "referee_fixtures", "fixtures"
+  add_foreign_key "referee_fixtures", "referees"
+  add_foreign_key "referee_fixtures", "seasons"
+  add_foreign_key "referees", "seasons"
   add_foreign_key "seasons", "leagues"
   add_foreign_key "team_seasons", "seasons"
   add_foreign_key "team_seasons", "teams"
   add_foreign_key "teams", "countries"
   add_foreign_key "teams", "leagues"
+  add_foreign_key "yellow_cards_stats", "team_seasons"
 end

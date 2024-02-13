@@ -10,6 +10,13 @@ module Calculators
 				@away_fixtures_count = away_fixtures_count
 			end
 
+			def goal_difference
+				gd = goals_scored_stat.total - goals_conceded_stat.total
+				return 0 if gd.zero?
+
+				gd
+			end
+
 			def average_first_half_goals
 				(goals_scored_stat.first_half / completed_fixtures_count.to_f).round(2)
 			end

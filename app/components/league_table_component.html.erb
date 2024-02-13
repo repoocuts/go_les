@@ -1,0 +1,26 @@
+<table class="w-full text-sm">
+	<thead>
+	<tr>
+		<th></th>
+		<th class="bg-gray-300 p-2 font-bold text-center"></th>
+		<th class="bg-gray-300 p-2 font-bold text-center">Played</th>
+		<th class="bg-gray-300 p-2 font-bold text-center">G</th>
+		<th class="bg-gray-300 p-2 font-bold text-center">A</th>
+		<th class="bg-gray-300 p-2 font-bold text-center">GD</th>
+		<th class="bg-gray-300 p-2 font-bold text-center">Pts</th>
+	</tr>
+	</thead>
+	<tbody>
+	<% league_table_order.each_with_index do |team_season, index| %>
+		<tr class="<%= cycle('bg-white', 'bg-gray-100') %>">
+			<td class="border border-gray-300 p-2 text-center"><%= index + 1 %></td>
+			<td class="border border-gray-300 p-2 text-center"><%= link_to team_season.team.name, team_path(team_season.team) %></td>
+			<td class="border border-gray-300 p-2 text-center"><%= team_season.completed_fixtures_count %>
+			<td class="border border-gray-300 p-2 text-center"><%= team_season.goals_count %>
+			<td class="border border-gray-300 p-2 text-center"><%= team_season.goals_against_number %>
+			<td class="border border-gray-300 p-2 text-center"><%= team_season.goal_difference %>
+			<td class="border border-gray-300 p-2 text-center"><%= team_season.points %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
