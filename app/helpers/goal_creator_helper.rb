@@ -21,7 +21,8 @@ module GoalCreatorHelper
 			is_home: true,
 			minute: event['time']['elapsed'],
 			player_season_id: scorer_player_season.id,
-			team_season_id: team_season.id
+			team_season_id: team_season.id,
+			referee_fixture_id: fixture.referee_fixture.id,
 		)
 		if event['assist']['id'].present?
 			assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']))
@@ -40,6 +41,7 @@ module GoalCreatorHelper
 			minute: event['time']['elapsed'],
 			player_season_id: scorer_player_season.id,
 			team_season_id: team_season.id,
+			referee_fixture_id: fixture.referee_fixture.id,
 		)
 		if event['assist']['id'].present?
 			assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']))
@@ -58,6 +60,7 @@ module GoalCreatorHelper
 			own_goal: true,
 			player_season_id: scorer_player_season.id,
 			team_season_id: team_season.id,
+			referee_fixture_id: fixture.referee_fixture.id,
 		)
 	end
 
@@ -72,6 +75,7 @@ module GoalCreatorHelper
 			own_goal: true,
 			player_season_id: scorer_player_season.id,
 			team_season_id: team_season.id,
+			referee_fixture_id: fixture.referee_fixture.id,
 		)
 	end
 end

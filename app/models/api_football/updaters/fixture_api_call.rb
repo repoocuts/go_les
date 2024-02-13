@@ -1,6 +1,7 @@
 module ApiFootball
 	module Updaters
 		class FixtureApiCall
+
 			include ApiFootball
 			include CheckPlayerExists
 
@@ -17,10 +18,13 @@ module ApiFootball
 				response = call
 
 				return if response['response'][0]['lineups'].empty?
+				fixture_api_response.update(finished_fixture: response['response'][0], fixture: fixture)
 
-				api_match_object = response['response'][0]
+				api_match_object = fixture_api_response.finished_fixture
 
 				verify_data(api_match_object['lineups'], fixture)
+
+				handle_referee(api_match_object['fixture']['referee'])
 
 				parse_lineups(api_match_object['lineups'], fixture)
 
@@ -32,6 +36,10 @@ module ApiFootball
 			private
 
 			attr_reader :fixture, :options
+
+			def fixture_api_response
+				@fixture_api_response ||= FixtureApiResponse.find_or_create_by(fixture_id: fixture.id)
+			end
 
 			def interpolate_endpoint
 				base_uri + ENDPOINT
@@ -79,6 +87,12 @@ module ApiFootball
 					home_team_season.update(points: home_points + DRAW_POINTS)
 					away_team_season.update(points: away_points + DRAW_POINTS)
 				end
+			end
+
+			def handle_referee(referee_name)
+				referee_name, _country = referee_name.split(',')
+				referee = Referee.find_or_create_by(name: referee_name, season_id: fixture.season.id)
+				RefereeFixture.create(referee_id: referee.id, fixture_id: fixture.id, season_id: fixture.season.id)
 			end
 		end
 	end

@@ -34,6 +34,7 @@ class Card < ApplicationRecord
 	belongs_to :player_season
 	belongs_to :team_season, counter_cache: :yellow_cards_count
 	belongs_to :fixture
+	belongs_to :referee_fixture
 
 	scope :home_cards, ->(fixture) { where(is_home: true, fixture_id: fixture.id) }
 	scope :away_cards, ->(fixture) { where(is_home: nil, fixture_id: fixture.id) }

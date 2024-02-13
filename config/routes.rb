@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :referee_fixtures
+  resources :referees
   resources :goals_conceded_stats
   resources :goals_scored_stats
   namespace :ceefax do

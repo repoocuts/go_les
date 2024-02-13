@@ -30,7 +30,8 @@ module CardCreatorHelper
       is_home: true,
       minute: event['time']['elapsed'],
       player_season_id: booked_player_season.id,
-      team_season_id: team_season.id
+      team_season_id: team_season.id,
+      referee_fixture_id: fixture.referee_fixture.id,
     )
   end
 
@@ -43,7 +44,8 @@ module CardCreatorHelper
       fixture_id: fixture.id,
       minute: event['time']['elapsed'],
       player_season_id: booked_player_season.id,
-      team_season_id: team_season.id
+      team_season_id: team_season.id,
+      referee_fixture_id: fixture.referee_fixture.id,
     )
   end
 
@@ -57,7 +59,8 @@ module CardCreatorHelper
       is_home: true,
       minute: event['time']['elapsed'],
       player_season_id: booked_player_season.id,
-      team_season_id: team_season.id
+      team_season_id: team_season.id,
+      referee_fixture_id: fixture.referee_fixture.id,
     )
   end
 
@@ -70,7 +73,8 @@ module CardCreatorHelper
       fixture_id: fixture.id,
       minute: event['time']['elapsed'],
       player_season_id: booked_player_season.id,
-      team_season_id: team_season.id
+      team_season_id: team_season.id,
+      referee_fixture_id: fixture.referee_fixture.id,
     )
   end
 end
