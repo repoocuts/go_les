@@ -10,6 +10,7 @@ class DashboardsController < ApplicationController
 			@pagy_scorers, @top_scorers = pagy_array(season.top_scorers)
 			@pagy_assists, @top_assists = pagy_array(season.top_assists)
 			@pagy_booked, @most_booked = pagy_array(season.top_booked)
+			@pagy_reds, @most_reds = pagy_array(season.top_reds)
 		end
 
 		respond_to do |format|

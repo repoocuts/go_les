@@ -1,0 +1,33 @@
+<% if @most_reds %>
+	<%= turbo_frame_tag "most_reds", class: "min-w-full", autoscroll: "true" do %>
+		<table class="table-auto text-base text-sm w-full md:w-1/3">
+			<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+			<tr>
+				<th class="px-4 py-2">
+					Player
+				</th>
+				<th class="px-4 py-2 text-center">
+					Team
+				</th>
+				<th class="px-4 py-2 text-center">
+					Yellows
+				</th>
+			</tr>
+			</thead>
+			<tbody id="reds-table">
+			<% @most_reds.each do |player_season, cards| %>
+				<tr class="dark:border-gray-700">
+					<td class="px-4 py-2"><%= link_to player_season.get_player_name, player_path(player_season.player), data: { turbo_frame: '_top' } %></td>
+					<td class="px-4 py-2 text-center">
+						<%= link_to player_season.team_name, team_path(player_season.team_season.team), data: { turbo_frame: '_top' }, class: "hidden md:inline-block" %>
+						<%= link_to player_season.team_acronym, team_path(player_season.team_season.team), data: { turbo_frame: '_top' }, class: "md:hidden inline-block" %>
+					</td>
+					<td class="px-4 py-2 text-center"><%= cards %></td>
+				</tr>
+			<% end %>
+			</tbody>
+		</table>
+
+		<%== pagy_nav(@pagy_reds) %>
+	<% end %>
+<% end %>
