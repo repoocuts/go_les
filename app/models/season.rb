@@ -75,7 +75,13 @@ class Season < ApplicationRecord
 	end
 
 	def top_booked
-		grouped_cards = cards.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
+		grouped_cards = cards.where(card_type: 'yellow').includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
+		sorted_counts = grouped_cards.map { |player_season, card| [player_season, card.count] }
+		sorted_counts.sort_by! { |_, count| -count }
+	end
+
+	def top_reds
+		grouped_cards = cards.where(card_type: 'red').includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
 		sorted_counts = grouped_cards.map { |player_season, card| [player_season, card.count] }
 		sorted_counts.sort_by! { |_, count| -count }
 	end

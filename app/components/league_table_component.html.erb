@@ -1,13 +1,15 @@
-<table class="w-full text-sm">
+<table class="w-full text-sm" data-controller="search" data-search-target="table">
 	<thead>
 	<tr>
-		<th></th>
+		<th>Position</th>
 		<th class="bg-gray-300 p-2 font-bold text-center"></th>
-		<th class="bg-gray-300 p-2 font-bold text-center">Played</th>
-		<th class="bg-gray-300 p-2 font-bold text-center">G</th>
-		<th class="bg-gray-300 p-2 font-bold text-center">A</th>
-		<th class="bg-gray-300 p-2 font-bold text-center">GD</th>
-		<th class="bg-gray-300 p-2 font-bold text-center">Pts</th>
+		<th class="bg-gray-300 p-2 font-bold text-center" data-action="click->search#sort">Played</th>
+		<th class="bg-gray-300 p-2 font-bold text-center" data-action="click->search#sort">G</th>
+		<th class="bg-gray-300 p-2 font-bold text-center" data-action="click->search#sort">A</th>
+		<th class="bg-gray-300 p-2 font-bold text-center" data-action="click->search#sort">GD</th>
+		<th class="bg-gray-300 p-2 font-bold text-center" data-action="click->search#sort">YC</th>
+		<th class="bg-gray-300 p-2 font-bold text-center" data-action="click->search#sort">RC</th>
+		<th class="bg-gray-300 p-2 font-bold text-center" data-action="click->search#sort">Pts</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -19,6 +21,8 @@
 			<td class="border border-gray-300 p-2 text-center"><%= team_season.goals_count %>
 			<td class="border border-gray-300 p-2 text-center"><%= team_season.goals_against_number %>
 			<td class="border border-gray-300 p-2 text-center"><%= team_season.goal_difference %>
+			<td class="border border-gray-300 p-2 text-center"><%= team_season.yellow_card_count %>
+			<td class="border border-gray-300 p-2 text-center"><%= team_season.red_card_count %>
 			<td class="border border-gray-300 p-2 text-center"><%= team_season.points %></td>
 		</tr>
 	<% end %>
