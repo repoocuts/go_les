@@ -1,5 +1,7 @@
 module DbUpdater
 	class HeadToHeadUpdater
+
+		FIXTURE_INCREMENT = 1
 		def initialize(fixture:)
 			@fixture = fixture
 		end
@@ -26,6 +28,7 @@ module DbUpdater
 				bookings_received: home_team_bookings_received_increment,
 				conceded_against_opponent: home_team_conceded_against_opponent_increment,
 				conceded_home: home_team_conceded_home_increment,
+				fixtures_played: fixtures_played_increment,
 				opponent_bookings: home_team_opponent_bookings_increment,
 				opponent_reds: home_team_opponent_reds_increment,
 				reds_received: home_team_reds_received_increment,
@@ -39,6 +42,7 @@ module DbUpdater
 				bookings_received: away_team_bookings_received_increment,
 				conceded_against_opponent: away_team_conceded_against_opponent_increment,
 				conceded_away: away_team_conceded_away_increment,
+				fixtures_played: fixtures_played_increment,
 				opponent_bookings: away_team_opponent_bookings_increment,
 				opponent_reds: away_team_opponent_reds_increment,
 				reds_received: away_team_reds_received_increment,
@@ -133,6 +137,10 @@ module DbUpdater
 
 		def away_red_cards_received
 			fixture.away_red_cards.size || 0
+		end
+
+		def fixtures_played_increment
+			home_team_head_to_head.fixtures_played += 1
 		end
 	end
 end
