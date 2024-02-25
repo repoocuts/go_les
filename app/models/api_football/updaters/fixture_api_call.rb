@@ -32,6 +32,7 @@ module ApiFootball
 
 				update_fulltime_score(api_match_object['score']['fulltime'], fixture)
 
+				head_to_head_updater(fixture)
 			end
 
 			private
@@ -97,7 +98,7 @@ module ApiFootball
 			end
 
 			def head_to_head_updater(fixture)
-				@head_to_head_updater ||= HeadToHeadUpdater.new(fixture: fixture)
+				@head_to_head_updater ||= HeadToHeadUpdater.new(fixture: fixture).update_head_to_head_objects
 			end
 		end
 	end
