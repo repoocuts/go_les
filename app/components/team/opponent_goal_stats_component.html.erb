@@ -1,0 +1,32 @@
+<div data-controller="team--opponent-goal-stats-component">
+	<table class="text-base w-full table-fixed">
+		<thead class="text-base text-gray-700 uppercase text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+		<tr>
+			<th></th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td><br></td>
+			<td><br></td>
+		</tr>
+		<tr>
+			<td>1st half Goals scored</td>
+			<td><%= @next_opponent.first_half_goals_total %></td>
+		</tr>
+		<tr>
+			<td>2nd half Goals scored</td>
+			<td><%= @next_opponent.second_half_goals_total %></td>
+		</tr>
+		<tr>
+			<td>1st half Goals conceded</td>
+			<td><%= @next_opponent.first_half_goals_conceded_count %></td>
+		</tr>
+		<tr>
+			<td>2nd half Goals conceded</td>
+			<td><%= @next_opponent.second_half_goals_conceded_count %></td>
+		</tr>
+		</tbody>
+	</table>
+</div>

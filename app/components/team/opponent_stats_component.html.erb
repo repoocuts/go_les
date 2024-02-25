@@ -1,0 +1,56 @@
+<div data-controller="team--opponent-stats-component">
+	<table class="table-auto w-full">
+		<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+		<tr>
+			<th></th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td class="text-xl"><%= link_to next_opponent.team_name, team_path(next_opponent.team) %></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Last match</td>
+			<td><%= next_opponent.last_match_opponent_name %></td>
+		</tr>
+		<tr>
+			<td>Top scorer</td>
+			<td><%= next_opponent.top_scorer[1] %></td>
+		</tr>
+		<tr>
+			<td>Most assists</td>
+			<td><%= next_opponent.top_assists[1] %></td>
+		</tr>
+		<tr>
+			<td>Most booked</td>
+			<td><%= next_opponent.most_booked_player.get_player_name %></td>
+		</tr>
+		<tr>
+			<td>Most reds</td>
+			<td><%= next_opponent.most_reds_player.get_player_name %></td>
+		</tr>
+		<tr>
+			<td>Scored</td>
+			<td><%= next_opponent.goals.size %></td>
+		</tr>
+		<tr>
+			<td>Conceded</td>
+			<td><%= next_opponent.goals_against_number %></td>
+		</tr>
+		<tr>
+			<td>Bookings</td>
+			<td><%= Card.yellow_cards_for_team_season(next_opponent.id).size %></td>
+		</tr>
+		<tr>
+			<td>Reds</td>
+			<td><%= Card.red_cards_for_team_season(next_opponent.id).size %></td>
+		</tr>
+		</tbody>
+	</table>
+</div>

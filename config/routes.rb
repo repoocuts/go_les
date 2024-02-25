@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :head_to_heads
   resources :referee_fixtures
   resources :referees
   resources :goals_conceded_stats

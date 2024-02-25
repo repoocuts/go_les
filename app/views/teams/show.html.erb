@@ -15,6 +15,9 @@
     </div>
   </div>
   <div class="row">
+    <%= render PlayerCombinationsComponent.new(@team), cached: true %>
+  </div>
+  <div class="row">
     <div class="grid grid-cols-2 gap-4">
       <div class="mt-5" id="finished-fixtures-table">
         <%= turbo_frame_tag "finished_fixtures" do %>
@@ -28,10 +31,17 @@
       </div>
     </div>
   </div>
-  <div class="grid grid-cols-1 tablet:grid-cols-1 mt-5 gap-4">
-    <div class="tablet:flex grid-cols-2">
-      <%= render 'opponent_head_to_head', fixture: @next_match, opponent: @next_opponent %>
+  <div class="grid grid-cols-4 gap-4 mt-5">
+    <%= render Team::OpponentStatsComponent.new(@next_match, @next_opponent) %>
+    <div>
+      <%= render Team::OpponentGoalStatsComponent.new(@next_match, @next_opponent) %>
+      <%= render Team::OpponentCardStatsComponent.new(@next_match, @next_opponent) %>
     </div>
+    <%= render Team::TeamVsOpponentComponent.new(@current_team_season, @next_match, @next_opponent) %>
+    <%= render Team::PlayerVsOpponentComponent.new(@current_team_season, @next_match, @next_opponent) %>
+  </div>
+</div>
+<div class="grid grid-cols-2 tablet:grid-cols-2 mt-5 gap-4">
     <div data-controller="team-goals-radar-chart"
          data-team-goals-radar-chart-current-team-season-id-value="<%= @current_team_season.id %>"
          data-team-goals-radar-chart-opponent-team-season-id-value="<%= @next_opponent.id %>" , class="tablet:flex justify-center items-center">

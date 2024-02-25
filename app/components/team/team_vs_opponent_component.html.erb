@@ -1,0 +1,41 @@
+<div data-controller="team--team-vs-opponent-component">
+	<table class="w-full">
+		<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td class="text-xl">Head to Head</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>Last result</td>
+			<td><%= current_team_season.last_match_vs_opponent(next_opponent.id) %></td>
+		</tr>
+		<tr>
+			<td>Av Scored</td>
+			<td><%= next_opponent.top_scorer[1] %></td>
+		</tr>
+		<tr>
+			<td>Av Conceded</td>
+			<td><%= next_opponent.top_assists[1] %></td>
+		</tr>
+		<tr>
+			<td>Av Bookings For</td>
+			<td><%= next_opponent.most_booked_player.get_player_name %></td>
+		</tr>
+		<tr>
+			<td>Av Bookings Against</td>
+			<td><%= next_opponent.most_reds_player.get_player_name %></td>
+		</tr>
+		</tbody>
+	</table>
+</div>
