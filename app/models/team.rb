@@ -26,6 +26,7 @@ class Team < ApplicationRecord
   has_many :players
   belongs_to :league
   has_many :team_seasons
+  has_many :head_to_heads
 
   def current_team_season
     team_seasons.find_by(current_season: true)

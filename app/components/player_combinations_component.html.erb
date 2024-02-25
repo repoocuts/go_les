@@ -1,0 +1,26 @@
+<div data-controller="player-combinations-component">
+	<table>
+		<thead>
+		<tr class='text-left'>
+			<th>Combinations</th>
+			<th></th>
+			<th>Scorer</th>
+			<th>Assister</th>
+		</tr>
+		</thead>
+		<tbody>
+		<% combinations_array.first(3).each do |players, combinations| %>
+			<tr class='text-left'>
+				<td class='text-center'><%= combinations %></td>
+				<td></td>
+				<td>
+					<%= link_to PlayerSeason.find(players[0]).get_player_name, player_path(PlayerSeason.find(players[0]).player) %>
+				</td>
+				<td>
+					<%= link_to PlayerSeason.find(players[1]).get_player_name, player_path(PlayerSeason.find(players[0]).player) %>
+				</td>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
+</div>

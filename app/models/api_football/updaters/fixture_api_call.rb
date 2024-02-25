@@ -31,6 +31,7 @@ module ApiFootball
 				parse_events(api_match_object['events'], fixture)
 
 				update_fulltime_score(api_match_object['score']['fulltime'], fixture)
+
 			end
 
 			private
@@ -93,6 +94,10 @@ module ApiFootball
 				referee_name, _country = referee_name.split(',')
 				referee = Referee.find_or_create_by(name: referee_name, season_id: fixture.season.id)
 				RefereeFixture.create(referee_id: referee.id, fixture_id: fixture.id, season_id: fixture.season.id)
+			end
+
+			def head_to_head_updater(fixture)
+				@head_to_head_updater ||= HeadToHeadUpdater.new(fixture: fixture)
 			end
 		end
 	end

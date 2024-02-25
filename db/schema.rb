@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_25_195224) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_24_185425) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -119,6 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_195224) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "referee_fixture_id"
+    t.integer "assist_id"
     t.index ["appearance_id"], name: "index_goals_on_appearance_id"
     t.index ["fixture_id"], name: "index_goals_on_fixture_id"
     t.index ["player_season_id"], name: "index_goals_on_player_season_id"
@@ -155,6 +156,32 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_195224) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["team_season_id"], name: "index_goals_scored_stats_on_team_season_id"
+  end
+
+  create_table "head_to_heads", force: :cascade do |t|
+    t.integer "bookings_received"
+    t.integer "conceded_against_opponent"
+    t.integer "conceded_away"
+    t.integer "conceded_home"
+    t.integer "current_season_fixture_ids", default: [], array: true
+    t.integer "current_team_season_id"
+    t.integer "fixture_ids", default: [], array: true
+    t.integer "fixtures_played"
+    t.integer "opponent_bookings"
+    t.integer "opponent_id"
+    t.integer "opponent_reds"
+    t.integer "opponent_top_assist_player_season_id"
+    t.integer "opponent_top_scorer_player_season_id"
+    t.integer "reds_received"
+    t.integer "scored_against_opponent"
+    t.integer "scored_away"
+    t.integer "scored_home"
+    t.integer "top_assist_player_season_id"
+    t.integer "top_scorer_player_season_id"
+    t.bigint "team_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_head_to_heads_on_team_id"
   end
 
   create_table "leagues", force: :cascade do |t|
@@ -329,6 +356,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_25_195224) do
   add_foreign_key "goals", "team_seasons"
   add_foreign_key "goals_conceded_stats", "team_seasons"
   add_foreign_key "goals_scored_stats", "team_seasons"
+  add_foreign_key "head_to_heads", "teams"
   add_foreign_key "leagues", "countries"
   add_foreign_key "player_seasons", "players"
   add_foreign_key "player_seasons", "team_seasons"

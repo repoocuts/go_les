@@ -1,0 +1,32 @@
+<div data-controller="team--opponent-card-stats-component">
+	<table class="text-base w-full table-fixed">
+		<thead class="text-base text-gray-700 uppercase text-gray-700 uppercase dark:text-gray-400">
+		<tr>
+			<th></th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td><br></td>
+			<td><br></td>
+		</tr>
+		<tr>
+			<td>1st half Yellow cards</td>
+			<td><%= @next_opponent.first_half_yellow_cards_total %></td>
+		</tr>
+		<tr>
+			<td>2nd half Yellow cards</td>
+			<td><%= @next_opponent.second_half_yellow_cards_total %></td>
+		</tr>
+		<tr>
+			<td>1st half Red cards</td>
+			<td><%= @next_opponent.first_half_red_cards_total %></td>
+		</tr>
+		<tr>
+			<td>2nd half Red cards</td>
+			<td><%= @next_opponent.second_half_red_cards_total %></td>
+		</tr>
+		</tbody>
+	</table>
+</div>

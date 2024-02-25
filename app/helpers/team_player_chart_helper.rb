@@ -4,13 +4,14 @@ module TeamPlayerChartHelper
 		column_chart team_player_season_goals_path(@team.current_team_season.id),
 		             colors: ['red'],
 		             library: {
-			             yAxis: {
-				             title: { text: 'Goals' },
-				             allowDecimals: false,
-				             minTickInterval: 1
-			             },
-			             xAxis: {
-				             labels: { enabled: false }
+			             plugins: {
+				             title: {
+					             text: 'Goals',
+					             display: true,
+					             font: {
+						             size: 11
+					             }
+				             }
 			             },
 			             backgroundColor: 'rgb(247 254 231)',
 		             }
@@ -20,15 +21,13 @@ module TeamPlayerChartHelper
 		column_chart team_player_season_assists_path(@team.current_team_season.id),
 		             colors: ['black'],
 		             library: {
-			             yAxis: {
+			             plugins: {
 				             title: {
-					             text: 'Assists' },
-				             allowDecimals: false,
-				             minTickInterval: 1
-			             },
-			             xAxis: {
-				             labels: {
-					             enabled: false
+					             text: 'Assists',
+					             display: true,
+					             font: {
+						             size: 11
+					             }
 				             }
 			             }
 		             }
@@ -38,15 +37,13 @@ module TeamPlayerChartHelper
 		column_chart team_player_season_assists_path(@team.current_team_season.id),
 		             colors: ['yellow'],
 		             library: {
-			             yAxis: {
+			             plugins: {
 				             title: {
-					             text: 'Yellow Cards' },
-				             allowDecimals: false,
-				             minTickInterval: 1
-			             },
-			             xAxis: {
-				             labels: {
-					             enabled: false
+					             text: 'Yellow Cards',
+					             display: true,
+					             font: {
+						             size: 11
+					             }
 				             }
 			             }
 		             }

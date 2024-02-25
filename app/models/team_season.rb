@@ -374,6 +374,22 @@ class TeamSeason < ApplicationRecord
 		total_yellow_cards_calculator.average_first_half_yellow_cards
 	end
 
+	def last_match_vs_opponent(next_match_opponent_id)
+		fixture = (fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_match_opponent_id, next_match_opponent_id) - [next_match]).first
+		return get_fixture_result(fixture) if fixture.home_score
+
+		last_season = season.league.last_season
+		return 'N/A' unless last_season.present?
+
+		first_fixture = Fixture.find_by(home_team_season_id: id, away_team_season_id: next_match_opponent_id, season_id: last_season.id)
+		second_fixture = Fixture.find_by(home_team_season_id: next_match_opponent_id, away_team_season_id: id, season_id: last_season.id)
+		return get_fixture_result(first_fixture) if first_fixture && first_fixture.game_week > second_fixture.game_week
+
+		return 'N/A' unless second_fixture
+			
+		get_fixture_result(second_fixture)
+	end
+
 	private
 
 	attr_reader :total_goals_calculator
@@ -402,6 +418,12 @@ class TeamSeason < ApplicationRecord
 		hash
 	end
 
+	def get_fixture_result(fixture)
+		return "#{fixture.home_score} - #{fixture.away_score}" if fixture.home_team_season_id == id
+
+		"#{fixture.away_score} - #{fixture.home_score}"
+	end
+
 	def total_goals_calculator
 		@total_goals_calculator ||=
 			Calculators::TeamGoals::GoalsCalculator.new(
@@ -416,7 +438,7 @@ class TeamSeason < ApplicationRecord
 	def total_yellow_cards_calculator
 		@total_yellow_cards_calculator ||=
 			Calculators::TeamCards::YellowCardsCalculator.new(
-				yellow_cards_stat: yellow_card_stat,
+				yellow_cards_stat: yellow_cards_stat,
 				completed_fixtures_count: completed_fixtures_count,
 				home_fixtures_count: home_fixtures.count,
 				away_fixtures_count: away_fixtures.count,
@@ -426,7 +448,7 @@ class TeamSeason < ApplicationRecord
 	def total_red_cards_calculator
 		@total_red_cards_calculator ||=
 			Calculators::TeamCards::RedCardsCalculator.new(
-				red_cards_stat: red_card_stat,
+				red_cards_stat: red_cards_stat,
 				completed_fixtures_count: completed_fixtures_count,
 				home_fixtures_count: home_fixtures.count,
 				away_fixtures_count: away_fixtures.count,

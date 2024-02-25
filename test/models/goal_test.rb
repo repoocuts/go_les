@@ -10,6 +10,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  appearance_id      :bigint           not null
+#  assist_id          :integer
 #  fixture_id         :bigint           not null
 #  player_season_id   :bigint           not null
 #  referee_fixture_id :integer
