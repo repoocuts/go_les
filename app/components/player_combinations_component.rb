@@ -12,7 +12,7 @@ class PlayerCombinationsComponent < ViewComponent::Base
 	def combinations_array
 		goals_with_assists = team_goals.includes(assist: { player_season: :player }).where.not(assist_id: nil)
 
-		return 'No combinations' if goals_with_assists.empty?
+		return [] if goals_with_assists.empty?
 
 		# Accumulate assist combinations
 		assist_combinations = goals_with_assists.each_with_object(Hash.new(0)) do |goal, acc|
