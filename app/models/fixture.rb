@@ -41,7 +41,9 @@ class Fixture < ApplicationRecord
 	has_many :away_goals_with_player_season_and_assist, -> { includes(:player_season, :assist) }, class_name: 'Goal'
 	has_many :home_assists_with_player_season, -> { includes(:player_season) }, class_name: 'Assist'
 	has_many :away_assists_with_player_season, -> { includes(:player_season) }, class_name: 'Assist'
-
+	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
+	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
+	
 	has_one :fixture_api_response
 	has_one :referee_fixture
 

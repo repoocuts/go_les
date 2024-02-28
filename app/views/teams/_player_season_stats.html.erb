@@ -1,7 +1,7 @@
 <div class="columns-1">
   <%= turbo_frame_tag "player-season-stats", class: "shadow overflow-hidden rounded border-b border-gray-200" do %>
     <table class="table-auto text-base text-md w-full">
-      <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <thead class="text-base uppercase bg-red-50 dark:bg-red-700">
       <th id="players-name" class="px-4 py-2 text-left"><%= sort_link(column: "full_name", label: "Player") %></th>
       <th class="px-4 py-2 text-left"><%= sort_link(column: "position", label: "Position") %></th>
       <th class="px-4 py-2"><%= sort_link(column: "appearances", label: "Apps") %></th>
