@@ -8,7 +8,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	end
 
 	def top_scorer_against_opponent
-		scorer = current_team_season.goals.where(team_season_id: next_opponent.id).group_by(&:player_season_id).max_by { |_k, v| v.size }
+		scorer = current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).first.goals.where(team_season_id: next_opponent.id).group_by(&:player_season_id).max_by { |_k, v| v.size }.flatten
 
 		return 'No Scorer' if scorer.nil?
 
@@ -24,7 +24,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	end
 
 	def most_booked_against_opponent
-		booked_player = current_team_season.yellow_cards.where(team_season_id: next_opponent.id).group_by(&:player_season_id).max_by { |_k, v| v.size }
+		booked_player = current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).first.yellow_cards.where(team_season_id: next_opponent.id).group_by(&:player_season_id).max_by { |_k, v| v.size }
 
 		return 'No Bookings' if booked_player.nil?
 
@@ -40,7 +40,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	end
 
 	def most_reds_against_opponent
-		reds_player = current_team_season.red_cards.where(team_season_id: next_opponent.id).group_by(&:player_season_id).max_by { |_k, v| v.size }
+		reds_player = current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).first.red_cards.where(team_season_id: next_opponent.id).group_by(&:player_season_id).max_by { |_k, v| v.size }
 
 		return 'No Reds' if reds_player.nil?
 
@@ -56,7 +56,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	end
 
 	def most_assists_against_opponent
-		assists_player = current_team_season.assists.where(team_season_id: next_opponent.id).group_by(&:player_season_id).max_by { |_k, v| v.size }
+		assists_player = current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).first.assists.where(team_season_id: next_opponent.id).group_by(&:player_season_id).max_by { |_k, v| v.size }
 
 		return 'No Assists' if assists_player.nil?
 
@@ -76,18 +76,23 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	attr_reader :current_team_season, :next_match, :next_opponent
 
 	def goals_against
-		current_team_season.completed_fixtures.map { |f| f.goals.where.not(team_season_id: current_team_season.id) }.flatten
+		current_team_season.completed_fixtures.map { |f| f.goals.where.not(team_season_id: next_opponent.id) }.flatten
 	end
 
 	def yellow_cards_against
-		current_team_season.completed_fixtures.map { |f| f.yellow_cards.where.not(team_season_id: current_team_season.id) }.flatten
+		current_team_season.completed_fixtures.map { |f| f.yellow_cards.where(team_season_id: next_opponent.id) }.flatten
 	end
 
 	def red_cards_against
-		current_team_season.completed_fixtures.map { |f| f.red_cards.where.not(team_season_id: current_team_season.id) }.flatten
+		current_team_season.completed_fixtures.map { |f| f.red_cards.where(team_season_id: next_opponent.id) }.flatten
 	end
 
 	def assists_against
-		current_team_season.completed_fixtures.map { |f| f.assists.where.not(team_season_id: current_team_season.id) }.flatten
+		current_team_season.completed_fixtures.map { |f| f.assists.where(team_season_id: next_opponent.id) }.flatten
 	end
+
+	def matches_against_opponent
+		current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id)
+	end
+
 end
