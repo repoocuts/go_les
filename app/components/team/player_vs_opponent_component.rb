@@ -8,7 +8,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	end
 
 	def top_scorer_against_opponent
-		scorer = current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).first.goals.where(team_season_id: next_opponent.id).group_by(&:player_season_id).max_by { |_k, v| v.size }.flatten
+		scorer = current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).first.goals.where(team_season_id: next_opponent.id).group_by(&:player_season_id).max_by { |_k, v| v.size }&.flatten
 
 		return 'No Scorer' if scorer.nil?
 

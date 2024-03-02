@@ -39,7 +39,7 @@ class ChartsController < ApplicationController
 			player_name = card.player_season.get_player_name
 			new_hash[player_name] += 1
 		end
-		binding.pry
+
 		render json: transformed_yellow_cards.sort_by { |_, count| -count }.to_h
 	end
 

@@ -98,7 +98,7 @@ module ApiFootball
 			end
 
 			def head_to_head_updater(fixture)
-				@head_to_head_updater ||= HeadToHeadUpdater.new(fixture: fixture).update_head_to_head_objects
+				@head_to_head_updater ||= DbUpdater::HeadToHeadUpdater.new(fixture: fixture).update_head_to_head_objects
 			end
 		end
 	end

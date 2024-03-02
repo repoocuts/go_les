@@ -116,10 +116,14 @@ module DbUpdater
 		end
 
 		def home_goals_scored
+			return 0 if fixture.home_score.nil?
+
 			fixture.home_score
 		end
 
 		def away_goals_scored
+			return 0 if fixture.away_score.nil?
+
 			fixture.away_score
 		end
 
