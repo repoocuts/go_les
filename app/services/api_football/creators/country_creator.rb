@@ -1,10 +1,6 @@
 module ApiFootball
   module Creators
     class CountryCreator < ApplicationService
-      include ApiFootball
-
-      ENDPOINT = 'countries'
-
       def initialize(create_england:, create_all:)
         @create_england = create_england
         @create_all = create_all
