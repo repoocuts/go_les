@@ -1,0 +1,2 @@
+class ObjectHandlingFailure < ApplicationRecord
+end
