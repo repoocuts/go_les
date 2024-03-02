@@ -76,19 +76,19 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	attr_reader :current_team_season, :next_match, :next_opponent
 
 	def goals_against
-		current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).first.map { |f| f.goals.where.not(team_season_id: next_opponent.id) }.flatten
+		current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).map { |f| f.goals.where.not(team_season_id: next_opponent.id) }.flatten
 	end
 
 	def yellow_cards_against
-		current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).first.map { |f| f.yellow_cards.where(team_season_id: next_opponent.id) }.flatten
+		current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).map { |f| f.yellow_cards.where(team_season_id: next_opponent.id) }.flatten
 	end
 
 	def red_cards_against
-		current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).first.map { |f| f.red_cards.where(team_season_id: next_opponent.id) }.flatten
+		current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).map { |f| f.red_cards.where(team_season_id: next_opponent.id) }.flatten
 	end
 
 	def assists_against
-		current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).first.map { |f| f.assists.where(team_season_id: next_opponent.id) }.flatten
+		current_team_season.completed_fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_opponent.id, next_opponent.id).map { |f| f.assists.where(team_season_id: next_opponent.id) }.flatten
 	end
 
 	def matches_against_opponent
