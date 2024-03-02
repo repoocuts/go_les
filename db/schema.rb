@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_24_185425) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_02_133203) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -191,6 +191,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_24_185425) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_leagues_on_country_id"
+  end
+
+  create_table "object_handling_failures", force: :cascade do |t|
+    t.string "object_type"
+    t.jsonb "api_response_element"
+    t.jsonb "other_attributes"
+    t.integer "related_country_id"
+    t.integer "related_league_id"
+    t.integer "related_season_id"
+    t.integer "related_fixture_id"
+    t.integer "related_team_id"
+    t.integer "related_team_season_id"
+    t.integer "related_player_id"
+    t.integer "related_player_season_id"
+    t.integer "related_appearance_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "player_seasons", force: :cascade do |t|

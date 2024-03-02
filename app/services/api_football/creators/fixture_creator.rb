@@ -30,7 +30,7 @@ module ApiFootball
       def create_from_response(response_element)
         league = League.first
         season = league.current_season
-        Fixture.create(
+        fixture = Fixture.create(
           api_football_id: response_element['fixture']['id'],
           away_team_season_id: get_current_away_team_season_id(response_element['teams']['away']),
           home_team_season_id: get_current_home_team_season_id(response_element['teams']['home']),
@@ -39,6 +39,7 @@ module ApiFootball
           season_id: season.id,
           game_week: response_element['league']['round'].split('-').last.strip.to_i,
         )
+        FixtureApiResponse.create(fixture_id: fixture.id, pre_fixture: response_element)
       end
 
       def get_current_home_team_season_id(response_home_team_element)

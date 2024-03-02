@@ -14,7 +14,7 @@ module ApiFootball
 				@options = options || {}
 			end
 
-			def update_fixture
+			def save_finished_fixture_response
 				response = call
 
 				return if response['response'][0]['lineups'].empty?

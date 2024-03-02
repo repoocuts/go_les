@@ -8,7 +8,7 @@ namespace :update_completed_fixtures do
 
 		fixtures.all.each do |fixture|
 			if fixture.home_score.nil?
-				ApiFootball::Updaters::FixtureApiCall.new(fixture: fixture, options: { id: fixture.api_football_id }).update_fixture
+				ApiFootball::Updaters::FixtureApiCall.new(fixture: fixture, options: { id: fixture.api_football_id }).save_finished_fixture_response
 				puts "Fixture #{fixture.id} updated"
 			end
 
