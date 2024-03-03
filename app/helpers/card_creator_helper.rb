@@ -36,6 +36,7 @@ module CardCreatorHelper
       )
     else
       ObjectHandlingFailure.create(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
+    end
   end
 
   def yellow_card_for_away(event, fixture, team_season)
