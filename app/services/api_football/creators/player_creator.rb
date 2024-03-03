@@ -1,25 +1,32 @@
 module ApiFootball
   module Creators
-    class PlayerCreator 
-      include ApiFootball
-
-      ENDPOINT = 'players/squads'
-
+    class PlayerCreator < ApplicationService
       include PlayerSeasonCreatorHelper
 
-      def create_player
-        players = call['response'][0]['players']
-        players.map { |elem| create_from_response(elem) }
+      def initialize(team:)
+        @team = team
+      end
+
+      def call
+        create_players
+
+        :success
       end
 
       private
 
-      def interpolate_endpoint
-        base_uri + ENDPOINT
+      attr_reader :team
+
+      def make_api_call
+        ApiFootball::ApiFootballCall.new(endpoint: 'players/squads', options: { team: team.api_football_id }).make_api_call
+      end
+
+      def create_players
+        players = make_api_call['response'][0]['players']
+        players.map { |elem| create_from_response(elem) }
       end
 
       def create_from_response(response_element)
-        team = Team.find_by(api_football_id: options[:team])
         player = Player.find_or_create_by(
           full_name: response_element['name'],
           api_football_id: response_element['id'],
@@ -27,6 +34,12 @@ module ApiFootball
           team_id: team.id
         )
         create_player_season(player.api_football_id, team.current_team_season)
+
+        object_handling_failure(response_element, team.id) if player.nil?
+      end
+
+      def object_handling_failure(element, related_team_id)
+        ObjectHandlingFailure.create(object_type: 'player', api_response_element: element, related_team_id:)
       end
     end
   end

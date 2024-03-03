@@ -13,60 +13,73 @@ module GoalCreatorHelper
 
 	def goal_for_home(event, fixture, team_season)
 		scorer_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
-		home_start = fixture.appearances.where(player_season: scorer_player_season).first
-		goal = Goal.create(
-			fixture_id: fixture.id,
-			appearance_id: home_start.id,
-			goal_type: event['type'].downcase,
-			is_home: true,
-			minute: event['time']['elapsed'],
-			player_season_id: scorer_player_season.id,
-			team_season_id: team_season.id,
-			referee_fixture_id: fixture.referee_fixture.id,
-		)
-		if event['assist']['id'].present?
-			assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']))
-			Assist.create(goal: goal, appearance: assist_appearance, fixture: fixture, team_season: team_season,
-			              player_season: assist_appearance.player_season, minute: event['time']['elapsed'], is_home: true)
+		home_start = fixture.appearances.where(player_season: scorer_player_season)&.first
+		if scorer_player_season && home_start
+			goal = Goal.create(
+				fixture_id: fixture.id,
+				appearance_id: home_start.id,
+				goal_type: event['type'].downcase,
+				is_home: true,
+				minute: event['time']['elapsed'],
+				player_season_id: scorer_player_season.id,
+				team_season_id: team_season.id,
+				referee_fixture_id: fixture.referee_fixture.id,
+			)
+			if event['assist']['id'].present?
+				assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']))
+				Assist.create(goal: goal, appearance: assist_appearance, fixture: fixture, team_season: team_season,
+				              player_season: assist_appearance.player_season, minute: event['time']['elapsed'], is_home: true)
+			end
+		else
+			ObjectHandlingFailure.create(object_type: 'goal', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
 	end
 
 	def goal_for_away(event, fixture, team_season)
 		scorer_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
-		away_start = fixture.appearances.where(player_season: scorer_player_season).first
-		goal = Goal.create(
-			appearance_id: away_start.id,
-			goal_type: event['type'].downcase,
-			fixture_id: fixture.id,
-			minute: event['time']['elapsed'],
-			player_season_id: scorer_player_season.id,
-			team_season_id: team_season.id,
-			referee_fixture_id: fixture.referee_fixture.id,
-		)
-		if event['assist']['id'].present?
-			assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']))
-			Assist.create(goal: goal, appearance: assist_appearance, fixture: fixture, team_season: team_season,
-			              player_season: assist_appearance.player_season, minute: event['time']['elapsed'])
+		away_start = fixture.appearances.where(player_season: scorer_player_season)&.first
+		if scorer_player_season && away_start
+			goal = Goal.create(
+				appearance_id: away_start.id,
+				goal_type: event['type'].downcase,
+				fixture_id: fixture.id,
+				minute: event['time']['elapsed'],
+				player_season_id: scorer_player_season.id,
+				team_season_id: team_season.id,
+				referee_fixture_id: fixture.referee_fixture.id,
+			)
+			if event['assist']['id'].present?
+				assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']))
+				Assist.create(goal: goal, appearance: assist_appearance, fixture: fixture, team_season: team_season,
+				              player_season: assist_appearance.player_season, minute: event['time']['elapsed'])
+			end
+		else
+			ObjectHandlingFailure.create(object_type: 'goal', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
 	end
 
 	def own_goal_for_home(event, fixture, team_season)
 		scorer_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
-		away_start = fixture.appearances.where(player_season: scorer_player_season).first
-		Goal.create(
-			appearance_id: away_start.id,
-			fixture_id: fixture.id,
-			minute: event['time']['elapsed'],
-			own_goal: true,
-			player_season_id: scorer_player_season.id,
-			team_season_id: team_season.id,
-			referee_fixture_id: fixture.referee_fixture.id,
-		)
+		away_start = fixture.appearances.where(player_season: scorer_player_season)&.first
+		if scorer_player_season && away_start
+			Goal.create(
+				appearance_id: away_start.id,
+				fixture_id: fixture.id,
+				minute: event['time']['elapsed'],
+				own_goal: true,
+				player_season_id: scorer_player_season.id,
+				team_season_id: team_season.id,
+				referee_fixture_id: fixture.referee_fixture.id,
+			)
+		else
+			ObjectHandlingFailure.create(object_type: 'goal', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
+		end
 	end
 
 	def own_goal_for_away(event, fixture, team_season)
 		scorer_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
-		home_start = fixture.appearances.where(player_season: scorer_player_season).first
+		home_start = fixture.appearances.where(player_season: scorer_player_season)&.first
+		if scorer_player_season && home_start
 		Goal.create(
 			fixture_id: fixture.id,
 			appearance_id: home_start.id,
@@ -77,5 +90,8 @@ module GoalCreatorHelper
 			team_season_id: team_season.id,
 			referee_fixture_id: fixture.referee_fixture.id,
 		)
+		else
+			ObjectHandlingFailure.create(object_type: 'goal', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
+		end
 	end
 end
