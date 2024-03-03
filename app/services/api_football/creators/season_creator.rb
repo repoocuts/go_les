@@ -1,6 +1,14 @@
 module ApiFootball
   module Creators
-    class SeasonCreator
+    class SeasonCreator < ApplicationService
+      def call
+        League.all.each do |league|
+          create_current_season(league)
+          create_last_season(league) unless league.seasons.where(end_date: DateTime.new(current_year, 5, 31)).any?
+        end
+      end
+
+      private
 
       def create_current_season(league)
         start_date = DateTime.new(current_year, 8, 1)
@@ -14,10 +22,9 @@ module ApiFootball
         Season.create(start_date: start_date, end_date: end_date, league_id: league.id, current_season: false, current_game_week: 38)
       end
 
-      private
 
       def current_year
-        DateTime.now.year
+        Date.current.year
       end
 
       def previous_year

@@ -1,25 +1,16 @@
 module ApiFootball
 	module Updaters
-		class FixtureApiCall
-
-			include ApiFootball
+		class UpdateFromDbObject < ApplicationService
 			include CheckPlayerExists
 
-			ENDPOINT = 'fixtures'.freeze
 			WIN_POINTS = 3.freeze
 			DRAW_POINTS = 3.freeze
 
-			def initialize(fixture:, options:)
+			def initialize(fixture:)
 				@fixture = fixture
-				@options = options || {}
 			end
 
-			def update_fixture
-				response = call
-
-				return if response['response'][0]['lineups'].empty?
-				fixture_api_response.update(finished_fixture: response['response'][0], fixture: fixture)
-
+			def call
 				api_match_object = fixture_api_response.finished_fixture
 
 				verify_data(api_match_object['lineups'], fixture)
@@ -37,14 +28,10 @@ module ApiFootball
 
 			private
 
-			attr_reader :fixture, :options
+			attr_reader :fixture
 
 			def fixture_api_response
-				@fixture_api_response ||= FixtureApiResponse.find_or_create_by(fixture_id: fixture.id)
-			end
-
-			def interpolate_endpoint
-				base_uri + ENDPOINT
+				fixture.fixture_api_response
 			end
 
 			def parse_lineups(lineups, fixture)

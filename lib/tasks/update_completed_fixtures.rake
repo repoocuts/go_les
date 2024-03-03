@@ -8,11 +8,12 @@ namespace :update_completed_fixtures do
 
 		fixtures.all.each do |fixture|
 			if fixture.home_score.nil?
-				ApiFootball::Updaters::FixtureApiCall.new(fixture: fixture, options: { id: fixture.api_football_id }).update_fixture
+				ApiFootball::Updaters::FixtureApiCall.new(fixture: fixture, options: { id: fixture.api_football_id }).call
 				puts "Fixture #{fixture.id} updated"
 			end
 
 			sleep 8 if should_wait
+			ApiFootball::Updaters::UpdateFromDbObject.new(fixture: fixture).call
 		end
 
 		next_game_week = season.current_game_week + 1
