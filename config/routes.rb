@@ -10,15 +10,25 @@ Rails.application.routes.draw do
     resources :cards
     resources :countries
     resources :dashboards
+    resources :fixture_api_responses
     resources :fixtures
     resources :goals
+    resources :goals_conceded_stats
+    resources :goals_scored_stats
+    resources :head_to_heads
     resources :leagues
+    resources :object_handling_failures
     resources :players
     resources :player_seasons
+    resources :red_cards_stats
+    resources :referees
+    resources :referee_fixtures
     resources :seasons
     resources :season_game_weeks
     resources :teams
     resources :team_seasons
+    resources :users
+    resources :yellow_cards_stats
 
     root to: "dashboards#index"
   end
