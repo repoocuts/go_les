@@ -23,8 +23,8 @@ class FixturesController < ApplicationController
 		@away_yellow_cards = fixture.away_yellow_cards
 		@home_red_cards = fixture.home_red_cards
 		@away_red_cards = fixture.away_red_cards
-		@home_goals = fixture.home_goals
-		@away_goals = fixture.away_goals
+		@home_goals = fixture.home_goals.group_by(&:appearance_id)
+		@away_goals = fixture.away_goals.group_by(&:appearance_id)
 		@goals = fixture.goals.includes(:player_season, :assist)
 		@cards = fixture.cards
 		@subs = fixture.appearances.where(appearance_type: 'substitute')

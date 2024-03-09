@@ -1,30 +1,25 @@
 <div class='grid-cols-1'>
-  <% collection.each do |goal| %>
-    <% if goal.goal_type == 'goal' %>
-      <p class="mb-0 goal-scorer">
-        <%= link_to "#{goal.player_season.player.return_name}, #{goal.minute}", player_path(goal.player_season.player) %>
-      </p>
-      <% if goal.assist %>
-        <p class="mb-0 pl-5">
-          <%= link_to "(#{goal.assist.player_season.player.return_name})", player_path(goal.assist.player_season.player) %>
-        </p>
-      <% end %>
-    <% elsif goal.goal_type == 'penalty' %>
-      <p class="mb-0 goal-scorer">
-        <%= link_to "#{goal.player_season.player.return_name}, #{goal.minute} (P)", player_path(goal.player_season.player) %>
-      </p>
-      <% if goal.assist %>
-        <p class="mb-0 pl-5">
-          <%= link_to "(#{goal.assist.player_season.player.return_name})", player_path(goal.assist.player_season.player) %>
-        </p>
-      <% end %>
-    <% else %>
-      <p class="mb-0 goal-scorer">
-        <%= link_to "#{goal.player_season.player.return_name}, #{goal.minute} (OG)", player_path(goal.player_season.player) %>
-      </p>
-      <% if goal.assist %>
-        <p class="mb-0 pl-5">
-          <%= link_to "(#{goal.assist.player_season.player.return_name})", player_path(goal.assist.player_season.player) %>
+  <% collection.each do |_appearance_id, goals| %>
+    <p class="mb-0 goal-scorer">
+      <%
+        player_name = goals[0].player_season.player.return_name
+        goals_minutes = goals.map do |goal|
+          goal_minute = goal.minute.to_s
+          goal_type_annotation = case goal.goal_type
+                                 when 'penalty' then '(P)'
+                                 when nil then '(OG)'
+                                 else ''
+                                 end
+          "#{goal_type_annotation} #{goal_minute}"
+        end.join(', ')
+      %>
+
+      <%= link_to "#{player_name}, #{goals_minutes}", player_path(goals[0].player_season.player) %>
+    </p>
+    <% goals.each do |goal| %>
+      <% if goal.assist && goal.is_home %>
+        <p class>
+          <%= link_to "(#{goal.assist.player_season.player.return_name}, #{goal.minute})", player_path(goal.assist.player_season.player) %>
         </p>
       <% end %>
     <% end %>

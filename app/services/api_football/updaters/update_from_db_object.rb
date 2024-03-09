@@ -11,6 +11,8 @@ module ApiFootball
 			end
 
 			def call
+				return :fixture_updated if fixture.home_score
+
 				api_match_object = fixture_api_response.finished_fixture
 
 				verify_data(api_match_object['lineups'], fixture)

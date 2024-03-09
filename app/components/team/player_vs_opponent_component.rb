@@ -8,7 +8,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	end
 
 	def rival_top_scorer
-		scorer = matches_against_opponent.goals.where(team_season_id: next_opponent.id).group_by(&:player_season_id).max_by { |_k, v| v.size }&.flatten
+		scorer = matches_against_opponent&.goals&.where(team_season_id: next_opponent.id)&.group_by(&:player_season_id)&.max_by { |_k, v| v.size }&.flatten
 
 		return 'No Scorer' if scorer.nil?
 
@@ -16,7 +16,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	end
 
 	def top_scorer_against
-		scorer = goals_against.group_by(&:player_season_id).max_by { |_k, v| v.size }
+		scorer = goals_against&.group_by(&:player_season_id)&.max_by { |_k, v| v.size }
 
 		return 'No Scorer' if scorer.nil?
 
@@ -24,7 +24,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	end
 
 	def most_booked_against
-		booked_player = matches_against_opponent.cards.where(team_season_id: current_team_season.id).group_by(&:player_season_id).max_by { |_k, v| v.size }
+		booked_player = matches_against_opponent&.cards&.where(team_season_id: current_team_season.id)&.group_by(&:player_season_id)&.max_by { |_k, v| v.size }
 
 		return 'No Bookings' if booked_player.nil?
 
@@ -32,7 +32,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	end
 
 	def rival_most_booked
-		booked_player = yellow_cards_against.group_by(&:player_season_id).max_by { |_k, v| v.size }
+		booked_player = yellow_cards_against&.group_by(&:player_season_id)&.max_by { |_k, v| v.size }
 
 		return 'No Bookings' if booked_player.nil?
 
@@ -40,7 +40,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	end
 
 	def rival_most_reds
-		reds_player = matches_against_opponent.red_cards.where(team_season_id: next_opponent.id).group_by(&:player_season_id).max_by { |_k, v| v.size }
+		reds_player = matches_against_opponent&.red_cards&.where(team_season_id: next_opponent.id)&.group_by(&:player_season_id)&.max_by { |_k, v| v.size }
 
 		return 'No Reds' if reds_player.nil?
 
@@ -48,7 +48,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	end
 
 	def most_reds_against
-		reds_player = red_cards_against.group_by(&:player_season_id).max_by { |_k, v| v.size }
+		reds_player = red_cards_against&.group_by(&:player_season_id)&.max_by { |_k, v| v.size }
 
 		return 'No Reds' if reds_player.nil?
 
@@ -56,7 +56,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	end
 
 	def most_assists_against
-		assists_player = matches_against_opponent.assists.where(team_season_id: current_team_season.id).group_by(&:player_season_id).max_by { |_k, v| v.size }
+		assists_player = matches_against_opponent&.assists&.where(team_season_id: current_team_season.id)&.group_by(&:player_season_id)&.max_by { |_k, v| v.size }
 
 		return 'No Assists' if assists_player.nil?
 
@@ -64,7 +64,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	end
 
 	def rival_most_assists
-		assists_player = assists_against.group_by(&:player_season_id).max_by { |_k, v| v.size }
+		assists_player = assists_against&.group_by(&:player_season_id)&.max_by { |_k, v| v.size }
 
 		return 'No Assists' if assists_player.nil?
 
@@ -76,19 +76,19 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 	attr_reader :current_team_season, :next_match, :next_opponent
 
 	def goals_against
-		matches_against_opponent.goals.where.not(team_season_id: next_opponent.id)
+		matches_against_opponent&.goals&.where&.not(team_season_id: next_opponent.id)
 	end
 
 	def yellow_cards_against
-		matches_against_opponent.cards.where(team_season_id: next_opponent.id, card_type: 'yellow')
+		matches_against_opponent&.cards&.where(team_season_id: next_opponent.id, card_type: 'yellow')
 	end
 
 	def red_cards_against
-		matches_against_opponent.red_cards.where(team_season_id: next_opponent.id, card_type: 'red')
+		matches_against_opponent&.red_cards&.where(team_season_id: next_opponent.id, card_type: 'red')
 	end
 
 	def assists_against
-		matches_against_opponent.assists.where(team_season_id: next_opponent.id)
+		matches_against_opponent&.assists&.where(team_season_id: next_opponent.id)
 	end
 
 	def matches_against_opponent

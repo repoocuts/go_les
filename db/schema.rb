@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_02_133203) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_09_122124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -128,15 +128,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_02_133203) do
 
   create_table "goals_conceded_stats", force: :cascade do |t|
     t.bigint "team_season_id", null: false
-    t.integer "total"
-    t.integer "home"
-    t.integer "away"
-    t.integer "first_half"
-    t.integer "second_half"
-    t.integer "home_first_half"
-    t.integer "away_first_half"
-    t.integer "home_second_half"
-    t.integer "away_second_half"
+    t.integer "total", default: 0
+    t.integer "home", default: 0
+    t.integer "away", default: 0
+    t.integer "first_half", default: 0
+    t.integer "second_half", default: 0
+    t.integer "home_first_half", default: 0
+    t.integer "away_first_half", default: 0
+    t.integer "home_second_half", default: 0
+    t.integer "away_second_half", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["team_season_id"], name: "index_goals_conceded_stats_on_team_season_id"
@@ -144,38 +144,38 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_02_133203) do
 
   create_table "goals_scored_stats", force: :cascade do |t|
     t.bigint "team_season_id", null: false
-    t.integer "total"
-    t.integer "home"
-    t.integer "away"
-    t.integer "first_half"
-    t.integer "second_half"
-    t.integer "home_first_half"
-    t.integer "away_first_half"
-    t.integer "home_second_half"
-    t.integer "away_second_half"
+    t.integer "total", default: 0
+    t.integer "home", default: 0
+    t.integer "away", default: 0
+    t.integer "first_half", default: 0
+    t.integer "second_half", default: 0
+    t.integer "home_first_half", default: 0
+    t.integer "away_first_half", default: 0
+    t.integer "home_second_half", default: 0
+    t.integer "away_second_half", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["team_season_id"], name: "index_goals_scored_stats_on_team_season_id"
   end
 
   create_table "head_to_heads", force: :cascade do |t|
-    t.integer "bookings_received"
-    t.integer "conceded_against_opponent"
-    t.integer "conceded_away"
-    t.integer "conceded_home"
+    t.integer "bookings_received", default: 0
+    t.integer "conceded_against_opponent", default: 0
+    t.integer "conceded_away", default: 0
+    t.integer "conceded_home", default: 0
     t.integer "current_season_fixture_ids", default: [], array: true
     t.integer "current_team_season_id"
     t.integer "fixture_ids", default: [], array: true
-    t.integer "fixtures_played"
-    t.integer "opponent_bookings"
-    t.integer "opponent_id"
-    t.integer "opponent_reds"
+    t.integer "fixtures_played", default: 0
+    t.integer "opponent_bookings", default: 0
+    t.integer "opponent_id", default: 0
+    t.integer "opponent_reds", default: 0
     t.integer "opponent_top_assist_player_season_id"
     t.integer "opponent_top_scorer_player_season_id"
-    t.integer "reds_received"
-    t.integer "scored_against_opponent"
-    t.integer "scored_away"
-    t.integer "scored_home"
+    t.integer "reds_received", default: 0
+    t.integer "scored_against_opponent", default: 0
+    t.integer "scored_away", default: 0
+    t.integer "scored_home", default: 0
     t.integer "top_assist_player_season_id"
     t.integer "top_scorer_player_season_id"
     t.bigint "team_id", null: false

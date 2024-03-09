@@ -1,6 +1,7 @@
 module GoalCreatorHelper
 
 	def create_goal_from_api_data(event, fixture, team_season)
+		binding.pry
 		case fixture.home_team_season == team_season
 		when true
 			event['detail'] == 'Own Goal' ? own_goal_for_home(event, fixture, team_season) : goal_for_home(event, fixture, team_season)
@@ -28,7 +29,8 @@ module GoalCreatorHelper
 			if event['assist']['id'].present?
 				assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']))
 				Assist.create(goal: goal, appearance: assist_appearance, fixture: fixture, team_season: team_season,
-				              player_season: assist_appearance.player_season, minute: event['time']['elapsed'], is_home: true)
+				              player_season: assist_appearance.player_season, minute: event['time']['elapsed'], is_home: true) if assist_appearance
+				ObjectHandlingFailure.create(object_type: 'assist', api_response_element: event['assist'], related_team_season_id: team_season.id, related_fixture_id: fixture.id) unless assist_appearance
 			end
 		else
 			ObjectHandlingFailure.create(object_type: 'goal', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
@@ -51,7 +53,8 @@ module GoalCreatorHelper
 			if event['assist']['id'].present?
 				assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']))
 				Assist.create(goal: goal, appearance: assist_appearance, fixture: fixture, team_season: team_season,
-				              player_season: assist_appearance.player_season, minute: event['time']['elapsed'])
+				              player_season: assist_appearance.player_season, minute: event['time']['elapsed']) if assist_appearance
+				ObjectHandlingFailure.create(object_type: 'assist', api_response_element: event['assist'], related_team_season_id: team_season.id, related_fixture_id: fixture.id) unless assist_appearance
 			end
 		else
 			ObjectHandlingFailure.create(object_type: 'goal', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
@@ -67,6 +70,7 @@ module GoalCreatorHelper
 				fixture_id: fixture.id,
 				minute: event['time']['elapsed'],
 				own_goal: true,
+				is_home: true,
 				player_season_id: scorer_player_season.id,
 				team_season_id: team_season.id,
 				referee_fixture_id: fixture.referee_fixture.id,
@@ -80,16 +84,16 @@ module GoalCreatorHelper
 		scorer_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
 		home_start = fixture.appearances.where(player_season: scorer_player_season)&.first
 		if scorer_player_season && home_start
-		Goal.create(
-			fixture_id: fixture.id,
-			appearance_id: home_start.id,
-			minute: event['time']['elapsed'],
-			is_home: true,
-			own_goal: true,
-			player_season_id: scorer_player_season.id,
-			team_season_id: team_season.id,
-			referee_fixture_id: fixture.referee_fixture.id,
-		)
+			Goal.create(
+				fixture_id: fixture.id,
+				appearance_id: home_start.id,
+				minute: event['time']['elapsed'],
+				is_home: true,
+				own_goal: true,
+				player_season_id: scorer_player_season.id,
+				team_season_id: team_season.id,
+				referee_fixture_id: fixture.referee_fixture.id,
+			)
 		else
 			ObjectHandlingFailure.create(object_type: 'goal', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
