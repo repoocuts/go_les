@@ -1,7 +1,6 @@
 module GoalCreatorHelper
 
 	def create_goal_from_api_data(event, fixture, team_season)
-		binding.pry
 		case fixture.home_team_season == team_season
 		when true
 			event['detail'] == 'Own Goal' ? own_goal_for_home(event, fixture, team_season) : goal_for_home(event, fixture, team_season)
