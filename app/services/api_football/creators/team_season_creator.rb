@@ -57,5 +57,6 @@ module ApiFootball
           HeadToHead.create(team_id: team.id, opponent_id: other_team.id, current_team_season_id: team_season.id) unless HeadToHead.exists?(team_id: team.id, opponent_id: other_team.id)
         end
       end
+    end
   end
 end
