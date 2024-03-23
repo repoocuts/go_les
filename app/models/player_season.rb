@@ -36,6 +36,7 @@ class PlayerSeason < ApplicationRecord
 	scope :sent_off_players, -> { joins(:cards).where('cards.card_type = ?', "red") }
 
 	ZERO = 0
+
 	def get_player_name
 		player.return_name
 	end
@@ -97,7 +98,7 @@ class PlayerSeason < ApplicationRecord
 
 	def average_minutes_per_goal
 		return ZERO if season_goals.zero?
-		
+
 		total_minutes_played / season_goals
 	end
 
@@ -106,7 +107,7 @@ class PlayerSeason < ApplicationRecord
 	end
 
 	def away_goals
-		goals.where(is_home: false).count
+		goals.where(is_home: [false, nil]).count
 	end
 
 	def first_half_goals
@@ -122,7 +123,7 @@ class PlayerSeason < ApplicationRecord
 	end
 
 	def first_half_away_goals
-		goals.where(minute: 0..45, is_home: false).count
+		goals.where(minute: 0..45, is_home: nil).count
 	end
 
 	def second_half_home_goals
@@ -130,7 +131,7 @@ class PlayerSeason < ApplicationRecord
 	end
 
 	def second_half_away_goals
-		goals.where(minute: 46..100, is_home: false).count
+		goals.where(minute: 46..100, is_home: nil).count
 	end
 
 	def average_minutes_per_assist
@@ -144,7 +145,7 @@ class PlayerSeason < ApplicationRecord
 	end
 
 	def away_assists
-		assists.where(is_home: false).count
+		assists.where(is_home: nil).count
 	end
 
 	def first_half_assists
@@ -160,7 +161,7 @@ class PlayerSeason < ApplicationRecord
 	end
 
 	def first_half_away_assists
-		assists.where(minute: 0..45, is_home: false).count
+		assists.where(minute: 0..45, is_home: nil).count
 	end
 
 	def second_half_home_assists
@@ -168,6 +169,6 @@ class PlayerSeason < ApplicationRecord
 	end
 
 	def second_half_away_assists
-		assists.where(minute: 46..100, is_home: false).count
+		assists.where(minute: 46..100, is_home: nil).count
 	end
 end
