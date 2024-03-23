@@ -30,10 +30,10 @@ class TeamSeason < ApplicationRecord
 	belongs_to :team
 	belongs_to :season
 
-	has_one :goals_scored_stat
-	has_one :goals_conceded_stat
-	has_one :yellow_cards_stat
-	has_one :red_cards_stat
+	has_one :goals_scored_stat, class_name: 'TeamSeasons::GoalsScoredStat'
+	has_one :goals_conceded_stat, class_name: 'TeamSeasons::GoalsConcededStat'
+	has_one :yellow_cards_stat, class_name: 'TeamSeasons::YellowCardsStat'
+	has_one :red_cards_stat, class_name: 'TeamSeasons::RedCardsStat'
 
 	has_many :appearances
 	has_many :player_seasons
@@ -386,13 +386,14 @@ class TeamSeason < ApplicationRecord
 		return get_fixture_result(first_fixture) if first_fixture && first_fixture.game_week > second_fixture.game_week
 
 		return 'N/A' unless second_fixture
-			
+
 		get_fixture_result(second_fixture)
 	end
 
 	private
 
 	attr_reader :total_goals_calculator
+
 	def results_formatter(match, hash: {})
 		outcome = if match.home_score.nil?
 			          '-'

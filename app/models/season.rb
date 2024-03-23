@@ -63,15 +63,11 @@ class Season < ApplicationRecord
 	end
 
 	def top_scorers
-		grouped_goals = goals.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
-		sorted_counts = grouped_goals.map { |player_season, goals| [player_season, goals.count] }
-		sorted_counts.sort_by! { |_, count| -count }
+		player_seasons.where.not(goals_count: 0).order(:goals_count).reverse
 	end
 
 	def top_assists
-		grouped_assists = assists.includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
-		sorted_counts = grouped_assists.map { |player_season, assist| [player_season, assist.count] }
-		sorted_counts.sort_by! { |_, count| -count }
+		player_seasons.where.not(assists_count: 0).order(:assists_count).reverse
 	end
 
 	def top_booked

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: goals_scored_stats
+# Table name: goals_conceded_stats
 #
 #  id               :bigint           not null, primary key
 #  away             :integer          default(0)
@@ -18,12 +18,16 @@
 #
 # Indexes
 #
-#  index_goals_scored_stats_on_team_season_id  (team_season_id)
+#  index_goals_conceded_stats_on_team_season_id  (team_season_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (team_season_id => team_seasons.id)
 #
-class GoalsScoredStat < ApplicationRecord
-	belongs_to :team_season
+module TeamSeasons
+	class GoalsConcededStat < ApplicationRecord
+		self.table_name = 'goals_conceded_stats'
+
+		belongs_to :team_season
+	end
 end
