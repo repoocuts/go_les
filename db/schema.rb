@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_03_175340) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_03_175731) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -243,6 +243,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_03_175340) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
+    t.index ["full_name"], name: "index_players_on_full_name"
+    t.index ["short_name"], name: "index_players_on_short_name"
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
@@ -317,8 +319,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_03_175340) do
     t.integer "appearances_count", default: 0, null: false
     t.integer "yellow_cards_count", default: 0, null: false
     t.integer "red_cards_count", default: 0, null: false
+    t.index ["appearances_count"], name: "index_team_seasons_on_appearances_count"
+    t.index ["assists_count"], name: "index_team_seasons_on_assists_count"
+    t.index ["goals_count"], name: "index_team_seasons_on_goals_count"
+    t.index ["red_cards_count"], name: "index_team_seasons_on_red_cards_count"
     t.index ["season_id"], name: "index_team_seasons_on_season_id"
     t.index ["team_id"], name: "index_team_seasons_on_team_id"
+    t.index ["yellow_cards_count"], name: "index_team_seasons_on_yellow_cards_count"
   end
 
   create_table "teams", force: :cascade do |t|

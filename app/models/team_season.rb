@@ -18,8 +18,13 @@
 #
 # Indexes
 #
-#  index_team_seasons_on_season_id  (season_id)
-#  index_team_seasons_on_team_id    (team_id)
+#  index_team_seasons_on_appearances_count   (appearances_count)
+#  index_team_seasons_on_assists_count       (assists_count)
+#  index_team_seasons_on_goals_count         (goals_count)
+#  index_team_seasons_on_red_cards_count     (red_cards_count)
+#  index_team_seasons_on_season_id           (season_id)
+#  index_team_seasons_on_team_id             (team_id)
+#  index_team_seasons_on_yellow_cards_count  (yellow_cards_count)
 #
 # Foreign Keys
 #
