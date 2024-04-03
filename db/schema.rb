@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_09_122124) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_03_173559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_122124) do
     t.datetime "updated_at", null: false
     t.integer "referee_fixture_id"
     t.index ["appearance_id"], name: "index_cards_on_appearance_id"
+    t.index ["card_type"], name: "index_cards_on_card_type"
     t.index ["fixture_id"], name: "index_cards_on_fixture_id"
     t.index ["player_season_id"], name: "index_cards_on_player_season_id"
     t.index ["team_season_id"], name: "index_cards_on_team_season_id"
