@@ -34,6 +34,14 @@ class PlayerSeason < ApplicationRecord
 	scope :scorers, -> { joins(:goals).reverse }
 	scope :booked_players, -> { joins(:cards).where('cards.card_type = ?', "yellow") }
 	scope :sent_off_players, -> { joins(:cards).where('cards.card_type = ?', "red") }
+	scope :with_goals, -> { where.not(goals_count: 0) }
+	scope :with_assists, -> { where.not(assists_count: 0) }
+	scope :booked_players_with_count, -> {
+		joins(:cards)
+			.select('player_seasons.id, player_seasons.player_id, player_seasons.team_season_id, COUNT(cards.id) AS cards_count')
+			.where(cards: { card_type: 'yellow' })
+			.group('player_seasons.id')
+	}
 
 	ZERO = 0
 

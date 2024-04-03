@@ -33,6 +33,6 @@ class DashboardsController < ApplicationController
 	attr_reader :season
 
 	def set_season
-		@season ||= Season.find_by(current_season: true)
+		@season ||= Season.includes(team_seasons: { player_seasons: :player }).find_by(current_season: true)
 	end
 end

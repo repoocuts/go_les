@@ -39,7 +39,7 @@ class Season < ApplicationRecord
 	end
 
 	def last_round_of_fixtures
-		fixtures.where(game_week: current_game_week - 1)
+		fixtures.includes(home_team_season: :team, away_team_season: :team).where(game_week: current_game_week - 1)
 	end
 
 	def completed_fixtures
@@ -63,17 +63,17 @@ class Season < ApplicationRecord
 	end
 
 	def top_scorers
-		player_seasons.where.not(goals_count: 0).order(:goals_count).reverse
+		player_seasons.with_goals.order(goals_count: :desc)
 	end
 
 	def top_assists
-		player_seasons.where.not(assists_count: 0).order(:assists_count).reverse
+		player_seasons.with_assists.order(assists_count: :desc)
 	end
 
 	def top_booked
-		grouped_cards = cards.where(card_type: 'yellow').includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
-		sorted_counts = grouped_cards.map { |player_season, card| [player_season, card.count] }
-		sorted_counts.sort_by! { |_, count| -count }
+		
+		player_seasons.booked_players_with_count.includes(:player, team_season: :team)
+		.to_a.sort_by(&:cards_count).reverse
 	end
 
 	def top_reds

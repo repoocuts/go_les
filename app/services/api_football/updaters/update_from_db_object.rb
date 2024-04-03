@@ -4,7 +4,7 @@ module ApiFootball
 			include CheckPlayerExists
 
 			WIN_POINTS = 3.freeze
-			DRAW_POINTS = 3.freeze
+			DRAW_POINTS = 1.freeze
 
 			def initialize(fixture:)
 				@fixture = fixture
