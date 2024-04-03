@@ -18,8 +18,12 @@
 #
 # Indexes
 #
+#  index_fixtures_on_away_score           (away_score)
 #  index_fixtures_on_away_team_season_id  (away_team_season_id)
+#  index_fixtures_on_game_week            (game_week)
+#  index_fixtures_on_home_score           (home_score)
 #  index_fixtures_on_home_team_season_id  (home_team_season_id)
+#  index_fixtures_on_kick_off             (kick_off)
 #  index_fixtures_on_league_id            (league_id)
 #  index_fixtures_on_season_game_week_id  (season_game_week_id)
 #  index_fixtures_on_season_id            (season_id)
