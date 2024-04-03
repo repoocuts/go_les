@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_03_175149) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_03_175340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -228,6 +228,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_03_175149) do
     t.integer "assists_count", default: 0, null: false
     t.integer "goals_count", default: 0, null: false
     t.integer "appearances_count", default: 0, null: false
+    t.index ["appearances_count"], name: "index_player_seasons_on_appearances_count"
+    t.index ["assists_count"], name: "index_player_seasons_on_assists_count"
+    t.index ["goals_count"], name: "index_player_seasons_on_goals_count"
     t.index ["player_id"], name: "index_player_seasons_on_player_id"
     t.index ["team_season_id"], name: "index_player_seasons_on_team_season_id"
   end
