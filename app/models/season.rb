@@ -47,6 +47,7 @@ class Season < ApplicationRecord
 	end
 
 	def fixtures_for_current_game_week
+		binding.pry
 		season_game_weeks
 		.find_by(game_week_number: current_game_week)
 		.fixtures
@@ -71,7 +72,6 @@ class Season < ApplicationRecord
 	end
 
 	def top_booked
-		
 		player_seasons.booked_players_with_count.includes(:player, team_season: :team)
 		.to_a.sort_by(&:cards_count).reverse
 	end

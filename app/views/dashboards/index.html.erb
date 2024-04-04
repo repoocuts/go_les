@@ -1,64 +1,85 @@
 <div class="grid grid-cols-3 gap-4 justify-center mx-auto pb-5">
-  <div>
-    <h5 class="text-center">Last Game Week</h5>
-    <table class="table-auto text-base text-sm w-full">
-      <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-      <tr>
-        <th class="text-right">
-          Home Team
-        </th>
-        <th>
-        </th>
-        <th class="text-center">
-          Kick Off
-        </th>
-        <th>
-        </th>
-        <th>
-          Away Team
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <%= render LastGameWeekResultsComponent.with_collection(@last_game_week), cached: true %>
-      </tbody>
-    </table>
-  </div>
-  <div>
-    <h5 class="text-center">Current Game Week</h5>
-    <%= render partial: 'current_game_week', cached: true %>
-  </div>
-  <div class="align-items-right">
-    <h5 class="text-center">Next Game Week</h5>
-    <%= render partial: 'next_game_week', cached: true %>
-  </div>
+	<div>
+		<h5 class="text-center">Last Game Week</h5>
+		<table class="table-auto text-base text-sm w-full">
+			<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+			<tr>
+				<th class="text-right">
+					Home Team
+				</th>
+				<th>
+				</th>
+				<th class="text-center">
+					Kick Off
+				</th>
+				<th>
+				</th>
+				<th class="text-left">
+					Away Team
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			<%= render LastGameWeekResultsComponent.with_collection(@last_game_week), cached: true %>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<h5 class="text-center">Current Game Week</h5>
+		<table class="table-auto text-base text-sm w-full">
+			<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+			<tr>
+				<th class="text-right">
+					Home Team
+				</th>
+				<th>
+				</th>
+				<th class="text-center">
+					Kick Off
+				</th>
+				<th>
+				</th>
+				<th class="text-left">
+					Away Team
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			<%= render CurrentGameWeekFixturesComponent.with_collection(@current_game_week), cached: true %>
+			</tbody>
+		</table>
+	</div>
+	<div class="align-items-right">
+		<h5 class="text-center">Next Game Week</h5>
+		<%= render partial: 'next_game_week', cached: true %>
+	</div>
 </div>
 <div class="grid grid-cols-4 tablet:grid-cols-4 gap-4 justify-center mx-auto mt-5">
-  <div class="p-4">
-    <h5 class="text-center">Top Scorers</h5>
-    <%= turbo_frame_tag "top_scorers" do %>
-      <%= render partial: 'top_scorers_partial', cached: true %>
-    <% end %>
-  </div>
-  <div class="p-4">
-    <h5 class="text-center">Top Assists</h5>
-    <%= turbo_frame_tag "top_assists" do %>
-      <%= render partial: 'top_assists_partial', cached: true %>
-    <% end %>
-  </div>
-  <div class="p-4">
-    <h5 class="text-center">Most Booked</h5>
-    <%= turbo_frame_tag "most_booked" do %>
-      <%= render partial: 'most_booked', cached: true %>
-    <% end %>
-  </div>
-  <div class="p-4">
-    <h5 class="text-center">Most Reds</h5>
-    <%= turbo_frame_tag "most_reds" do %>
-      <%= render partial: 'most_reds', cached: true %>
-    <% end %>
-  </div>
+	<div class="p-4">
+		<h5 class="text-center">Top Scorers</h5>
+		<%= turbo_frame_tag "top_scorers" do %>
+			<%= render partial: 'top_scorers_partial', cached: true %>
+		<% end %>
+	</div>
+	<div class="p-4">
+		<h5 class="text-center">Top Assists</h5>
+		<%= turbo_frame_tag "top_assists" do %>
+			<%= render partial: 'top_assists_partial', cached: true %>
+		<% end %>
+	</div>
+	<div class="p-4">
+		<h5 class="text-center">Most Booked</h5>
+		<%= turbo_frame_tag "most_booked" do %>
+			<%= render partial: 'most_booked', cached: true %>
+		<% end %>
+	</div>
+	<div class="p-4">
+		<h5 class="text-center">Most Reds</h5>
+		<%= turbo_frame_tag "most_reds" do %>
+			<%= render partial: 'most_reds', cached: true %>
+		<% end %>
+	</div>
 </div>
 <div class="grid grid-cols-1 justify-center mx-auto mt-5">
-  <%= render LeagueTableComponent.new(@season), cached: true %>
+	<%= render LeagueTableComponent.new(@season), cached: true %>
 </div>

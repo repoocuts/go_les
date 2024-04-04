@@ -1,27 +1,28 @@
 <tr class="border-b dark:border-gray-700">
 	<td class="text-right">
-			<span class="laptop:hidden">
-				<%= link_to home_team_acronym, team_path(home_team_object) %>
-			</span>
+		<span class="laptop:hidden">
+			<%= link_to home_team_acronym, team_path(home_team_object) %>
+		</span>
 		<span class="hidden laptop:inline">
-				<%= link_to home_team_name, team_path(home_team_object) %>
-			</span>
+			<%= link_to home_team_name, team_path(home_team_object) %>
+		</span>
 	</td>
 	<td></td>
 	<td class="text-center">
-			<span class="laptop:hidden">
-				<%= link_to kick_off_or_score, fixture_path(fixture[:fixture]) %>
-			</span>
+		<span class="laptop:hidden">
+			<%= link_to kick_off_or_score, fixture_path(fixture[:fixture]) %>
+		</span>
 		<span class="hidden laptop:inline">
-				<%= link_to kick_off_or_score, fixture_path(fixture[:fixture]) %>
-			</span></td>
+			<%= link_to kick_off_or_score, fixture_path(fixture[:fixture]) %>
+		</span>
+	</td>
 	<td></td>
 	<td>
-			<span class="laptop:hidden">
-				<%= link_to away_team_acronym, team_path(away_team_object) %>
-			</span>
+		<span class="laptop:hidden">
+			<%= link_to away_team_acronym, team_path(away_team_object) %>
+		</span>
 		<span class="hidden laptop:inline">
-				<%= link_to away_team_name, team_path(away_team_object) %>
-			</span>
+			<%= link_to away_team_name, team_path(away_team_object) %>
+		</span>
 	</td>
 </tr>
