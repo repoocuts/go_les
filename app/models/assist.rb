@@ -46,6 +46,6 @@ class Assist < ApplicationRecord
 	}
 
 	def player_name
-		player_season.get_player_name
+		player_season.return_name
 	end
 end

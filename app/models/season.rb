@@ -34,33 +34,20 @@ class Season < ApplicationRecord
 
 	scope :current_season, -> { find_by(current_season: true) }
 
-	def next_round_of_fixtures
-		fixtures.where(current_game_week + 1)
-	end
-
-	def last_round_of_fixtures
-		fixtures.includes(home_team_season: :team, away_team_season: :team).where(game_week: current_game_week - 1)
-	end
-
 	def completed_fixtures
 		fixtures.where('kick_off < ? AND (SELECT COUNT(*) FROM appearances WHERE appearances.fixture_id = fixtures.id) = ?', 12.hours.ago, 0)
 	end
 
+	def fixtures_for_last_game_week
+		last_season_game_week_fixtures.includes(home_team_season: :team, away_team_season: :team).order(:kick_off)
+	end
+
 	def fixtures_for_current_game_week
-		binding.pry
-		season_game_weeks
-		.find_by(game_week_number: current_game_week)
-		.fixtures
-		.includes(home_team_season: :team, away_team_season: :team)
-		.order(:kick_off)
+		current_season_game_week_fixtures.includes(home_team_season: :team, away_team_season: :team).order(:kick_off)
 	end
 
 	def fixtures_for_next_game_week
-		season_game_weeks
-		.find_by(game_week_number: current_game_week + ONE)
-		.fixtures
-		.includes(home_team_season: :team, away_team_season: :team)
-		.order(:kick_off)
+		next_season_game_week_fixtures.includes(home_team_season: :team, away_team_season: :team).order(:kick_off)
 	end
 
 	def top_scorers
@@ -72,14 +59,11 @@ class Season < ApplicationRecord
 	end
 
 	def top_booked
-		player_seasons.booked_players_with_count.includes(:player, team_season: :team)
-		.to_a.sort_by(&:cards_count).reverse
+		player_seasons.booked_players_with_count.to_a.sort_by(&:cards_count).reverse
 	end
 
 	def top_reds
-		grouped_cards = cards.where(card_type: 'red').includes(player_season: [:player, { team_season: :team }]).group_by(&:player_season)
-		sorted_counts = grouped_cards.map { |player_season, card| [player_season, card.count] }
-		sorted_counts.sort_by! { |_, count| -count }
+		player_seasons.sent_off_players_with_count.to_a.sort_by(&:cards_count).reverse
 	end
 
 	private
@@ -94,5 +78,17 @@ class Season < ApplicationRecord
 
 	def top_booked_array
 		@season_yellows ||= Card.by_season(id)
+	end
+
+	def current_season_game_week_fixtures
+		@current_season_game_week ||= season_game_weeks.find_by(game_week_number: current_game_week).fixtures
+	end
+
+	def last_season_game_week_fixtures
+		@last_season_game_week ||= season_game_weeks.find_by(game_week_number: current_game_week - 1).fixtures
+	end
+
+	def next_season_game_week_fixtures
+		@next_season_game_week ||= season_game_weeks.find_by(game_week_number: current_game_week + 1).fixtures
 	end
 end

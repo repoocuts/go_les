@@ -95,19 +95,19 @@ class Fixture < ApplicationRecord
 	end
 
 	def home_team_name
-		home_team_season.team_name
+		home_team_season.name
 	end
 
 	def away_team_name
-		away_team_season.team.name
+		away_team_season.name
 	end
 
 	def home_team_name_acronym
-		home_team_season.team.acronym
+		home_team_season.acronym
 	end
 
 	def away_team_name_acronym
-		away_team_season.team.acronym
+		away_team_season.acronym
 	end
 
 	def has_completed?

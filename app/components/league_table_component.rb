@@ -2,16 +2,16 @@
 
 class LeagueTableComponent < ViewComponent::Base
 
-	def initialize(season)
-		@season = season
+	def initialize(team_seasons)
+		@team_seasons = team_seasons
 	end
 
 	def league_table_order
-		season.team_seasons.includes(:team, :goals_scored_stat, :goals_conceded_stat, :yellow_cards_stat, :red_cards_stat).order(:points).reverse
+		team_seasons.includes(:team, :goals_scored_stat, :goals_conceded_stat, :yellow_cards_stat, :red_cards_stat).order(:points).reverse
 	end
 
 	def team_name
-		team_season.team.name
+		team_season.name
 	end
 
 	def team_season_id
@@ -48,5 +48,5 @@ class LeagueTableComponent < ViewComponent::Base
 
 	private
 
-	attr_reader :season
+	attr_reader :team_seasons
 end

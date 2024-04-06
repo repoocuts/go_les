@@ -62,7 +62,7 @@ class Card < ApplicationRecord
 	}
 
 	def card_receiver_name
-		player_season.get_player_name
+		player_season.return_name
 	end
 
 	def card_team_name

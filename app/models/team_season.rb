@@ -51,6 +51,8 @@ class TeamSeason < ApplicationRecord
 	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 
+	delegate :acronym, :name, to: :team
+
 	scope :current_season_goals, -> {
 		joins(:season, :goals)
 			.where(seasons: { current_season: true })
@@ -61,10 +63,6 @@ class TeamSeason < ApplicationRecord
 		joins(:season, :goals)
 			.where(seasons: { current_season: true }, goals: { is_home: true })
 	}
-
-	def team_name
-		team.name
-	end
 
 	def fixtures
 		Fixture.where("home_team_season_id = ? OR away_team_season_id = ?", id, id).order(game_week: :asc, kick_off: :asc)

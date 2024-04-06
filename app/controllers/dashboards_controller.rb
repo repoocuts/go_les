@@ -4,9 +4,10 @@ class DashboardsController < ApplicationController
 
 	def index
 		if season
-			@current_game_week = SeasonGameWeek.fixtures_for_current_game_week(season)
-			@next_game_week = SeasonGameWeek.fixtures_for_next_game_week(season)
-			@last_game_week = SeasonGameWeek.fixtures_for_last_game_week(season)
+			@current_game_week = season.fixtures_for_current_game_week
+			@next_game_week = season.fixtures_for_next_game_week
+			@last_game_week = season.fixtures_for_last_game_week
+			@team_seasons = season.team_seasons
 			@pagy_scorers, @top_scorers = pagy_array(season.top_scorers)
 			@pagy_assists, @top_assists = pagy_array(season.top_assists)
 			@pagy_booked, @most_booked = pagy_array(season.top_booked)
@@ -33,6 +34,6 @@ class DashboardsController < ApplicationController
 	attr_reader :season, :current_game_week
 
 	def set_season
-		@season ||= Season.includes(:season_game_weeks, team_seasons: { player_seasons: :player }).find_by(current_season: true)
+		@season ||= Season.find_by(current_season: true)
 	end
 end

@@ -51,7 +51,28 @@
 	</div>
 	<div class="align-items-right">
 		<h5 class="text-center">Next Game Week</h5>
-		<%= render partial: 'next_game_week', cached: true %>
+		<table class="table-auto text-base text-sm w-full">
+			<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+			<tr>
+				<th class="text-right">
+					Home Team
+				</th>
+				<th>
+				</th>
+				<th class="text-center">
+					Kick Off
+				</th>
+				<th>
+				</th>
+				<th class="text-left">
+					Away Team
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			<%= render NextGameWeekFixturesComponent.with_collection(@next_game_week), cached: true %>
+			</tbody>
+		</table>
 	</div>
 </div>
 <div class="grid grid-cols-4 tablet:grid-cols-4 gap-4 justify-center mx-auto mt-5">
@@ -81,5 +102,5 @@
 	</div>
 </div>
 <div class="grid grid-cols-1 justify-center mx-auto mt-5">
-	<%= render LeagueTableComponent.new(@season), cached: true %>
+	<%= render LeagueTableComponent.new(@team_seasons), cached: true %>
 </div>

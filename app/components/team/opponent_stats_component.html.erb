@@ -8,7 +8,7 @@
 		</thead>
 		<tbody>
 		<tr>
-			<td class="text-xl"><%= link_to next_opponent.team_name, team_path(next_opponent.team) %></td>
+			<td class="text-xl"><%= link_to next_opponent.name, team_path(next_opponent.team) %></td>
 			<td></td>
 		</tr>
 		<tr>
@@ -29,11 +29,11 @@
 		</tr>
 		<tr>
 			<td>Most booked</td>
-			<td><%= next_opponent.most_booked_player.get_player_name %></td>
+			<td><%= next_opponent.most_booked_player.return_name %></td>
 		</tr>
 		<tr>
 			<td>Most reds</td>
-			<td><%= next_opponent.most_reds_player.get_player_name %></td>
+			<td><%= next_opponent.most_reds_player.return_name %></td>
 		</tr>
 		<tr>
 			<td>Scored</td>

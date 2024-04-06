@@ -15,11 +15,12 @@
 #
 # Indexes
 #
-#  index_player_seasons_on_appearances_count  (appearances_count)
-#  index_player_seasons_on_assists_count      (assists_count)
-#  index_player_seasons_on_goals_count        (goals_count)
-#  index_player_seasons_on_player_id          (player_id)
-#  index_player_seasons_on_team_season_id     (team_season_id)
+#  index_player_seasons_on_appearances_count               (appearances_count)
+#  index_player_seasons_on_assists_count                   (assists_count)
+#  index_player_seasons_on_goals_count                     (goals_count)
+#  index_player_seasons_on_player_id                       (player_id)
+#  index_player_seasons_on_team_season_id                  (team_season_id)
+#  index_player_seasons_on_team_season_id_and_goals_count  (team_season_id,goals_count)
 #
 # Foreign Keys
 #
@@ -45,19 +46,23 @@ class PlayerSeason < ApplicationRecord
 			.where(cards: { card_type: 'yellow' })
 			.group('player_seasons.id')
 	}
+	scope :sent_off_players_with_count, -> {
+		joins(:cards)
+			.select('player_seasons.id, player_seasons.player_id, player_seasons.team_season_id, COUNT(cards.id) AS cards_count')
+			.where(cards: { card_type: 'red' })
+			.group('player_seasons.id')
+	}
+
+	delegate :return_name, to: :player, prefix: false
 
 	ZERO = 0
 
-	def get_player_name
-		player.return_name
+	def return_team_name
+		team_name
 	end
 
-	def team_acronym
-		team_season.team.acronym
-	end
-
-	def team_name
-		team_season.team.name
+	def return_team_acronym
+		team_acronym
 	end
 
 	def season_goals
@@ -181,5 +186,15 @@ class PlayerSeason < ApplicationRecord
 
 	def second_half_away_assists
 		assists.where(minute: 46..100, is_home: nil).count
+	end
+
+	private
+
+	def team_name
+		@team_name ||= team_season.name
+	end
+
+	def team_acronym
+		@team_acronym ||= team_season.acronym
 	end
 end

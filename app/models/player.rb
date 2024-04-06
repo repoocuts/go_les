@@ -1,4 +1,3 @@
-
 # == Schema Information
 #
 # Table name: players
@@ -23,18 +22,16 @@
 #  fk_rails_...  (team_id => teams.id)
 #
 class Player < ApplicationRecord
-  belongs_to :team
-  has_many :player_seasons
+	belongs_to :team
+	has_many :player_seasons
 
-  enum position: { goalkeeper: 'G', defender: 'D', midfielder: 'M', attacker: 'F' }
+	enum position: { goalkeeper: 'G', defender: 'D', midfielder: 'M', attacker: 'F' }
 
-  def current_player_season
-    player_seasons.where(current_season: true).first || player_seasons.first
-  end
+	def current_player_season
+		player_seasons.where(current_season: true).first || player_seasons.first
+	end
 
-  def return_name
-    return short_name if full_name.nil?
-
-    full_name
-  end
+	def return_name
+		short_name.presence || full_name
+	end
 end
