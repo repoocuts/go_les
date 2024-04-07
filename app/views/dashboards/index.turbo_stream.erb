@@ -1,15 +1,15 @@
-<%= turbo_stream.update "top_scorers" do %>
+<%= turbo_stream.append "top_scorers" do %>
 	<%= render partial: 'top_scorers_partial', locals: { top_scorers: @top_scorers, pagy: @pagy_scorers } %>
 <% end %>
 
-<%= turbo_stream.update "top_assists" do %>
+<%= turbo_stream.append "top_assists" do %>
 	<%= render partial: 'top_assists_partial', locals: { top_assists: @top_assists, pagy: @pagy_assists } %>
 <% end %>
 
-<%= turbo_stream.update "most_booked" do %>
+<%= turbo_stream.append "most_booked" do %>
 	<%= render partial: 'most_booked_partial', locals: { most_booked: @most_booked, pagy: @pagy_booked } %>
 <% end %>
 
-<%= turbo_stream.update "most_reds" do %>
+<%= turbo_stream.append "most_reds" do %>
 	<%= render partial: 'most_reds_partial', locals: { most_reds: @most_reds, pagy: @pagy_reds } %>
 <% end %>

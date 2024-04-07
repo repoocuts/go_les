@@ -76,28 +76,28 @@
 	</div>
 </div>
 <div class="grid grid-cols-4 tablet:grid-cols-4 gap-4 justify-center mx-auto mt-5">
-	<div class="p-4">
+	<div class="p-4 scrollies">
 		<h5 class="text-center">Top Scorers</h5>
 		<%= turbo_frame_tag "top_scorers" do %>
 			<%= render partial: 'top_scorers_partial', cached: true %>
 		<% end %>
 	</div>
-	<div class="p-4">
+	<div class="p-4 scrollies">
 		<h5 class="text-center">Top Assists</h5>
 		<%= turbo_frame_tag "top_assists" do %>
 			<%= render partial: 'top_assists_partial', cached: true %>
 		<% end %>
 	</div>
-	<div class="p-4">
+	<div class="p-4 scrollies">
 		<h5 class="text-center">Most Booked</h5>
 		<%= turbo_frame_tag "most_booked" do %>
-			<%= render partial: 'most_booked', cached: true %>
+			<%= render partial: 'most_booked_partial', cached: true %>
 		<% end %>
 	</div>
-	<div class="p-4">
+	<div class="p-4 scrollies">
 		<h5 class="text-center">Most Reds</h5>
 		<%= turbo_frame_tag "most_reds" do %>
-			<%= render partial: 'most_reds', cached: true %>
+			<%= render partial: 'most_reds_partial', cached: true %>
 		<% end %>
 	</div>
 </div>

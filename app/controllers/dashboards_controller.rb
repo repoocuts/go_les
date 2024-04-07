@@ -1,5 +1,6 @@
 class DashboardsController < ApplicationController
 	include Search
+	include DashboardsHelper
 	before_action :set_season
 
 	def index
