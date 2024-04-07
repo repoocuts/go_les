@@ -9,10 +9,12 @@ class DashboardsController < ApplicationController
 			@next_game_week = season.fixtures_for_next_game_week
 			@last_game_week = season.fixtures_for_last_game_week
 			@team_seasons = season.team_seasons
-			@pagy_scorers, @top_scorers = pagy_array(season.top_scorers)
+			current_page = params[:page] || 1
+			@pagy_scorers, @top_scorers = pagy_countless(season.top_scorers, page: current_page)
 			@pagy_assists, @top_assists = pagy_array(season.top_assists)
 			@pagy_booked, @most_booked = pagy_array(season.top_booked)
 			@pagy_reds, @most_reds = pagy_array(season.top_reds)
+			@next_page = @pagy_scorers.next
 		end
 
 		respond_to do |format|

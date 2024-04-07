@@ -1,5 +1,6 @@
-<%= turbo_stream.append "top_scorers" do %>
-	<%= render partial: 'top_scorers_partial', locals: { top_scorers: @top_scorers, pagy: @pagy_scorers } %>
+<%= turbo_stream.append "top_scorers", loading: :lazy,
+												src: dashboards_path(format: :turbo_stream, page: @pagy_scorers.page) do %>
+	<%= render partial: 'top_scorers_partial', locals: { top_scorers: @top_scorers } %>
 <% end %>
 
 <%= turbo_stream.append "top_assists" do %>

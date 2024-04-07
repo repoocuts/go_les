@@ -1,28 +1,29 @@
 <% if @top_scorers %>
-	<table class="table-auto text-base text-sm w-full">
-		<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-		<tr>
-			<th class="px-4 py-2">Player</th>
-			<th class="px-4 py-2 text-center">Team</th>
-			<th class="px-4 py-2 text-center">Goals</th>
-		</tr>
-		</thead>
-		<tbody id="scorers-table">
-		<% @top_scorers.each do |player_season| %>
-			<tr class="dark:border-gray-700">
-				<td class="px-4 py-2">
-					<%= link_to player_season.return_name, player_path(player_season.player), data: { turbo_frame: '_top' } %>
-				</td>
-				<td class="px-4 py-2 text-center">
-					<%= link_to player_season.return_team_name, team_path(player_season.team_season.team), data: { turbo_frame: '_top' }, class: "hidden md:inline-block" %>
-					<%= link_to player_season.return_team_acronym, team_path(player_season.team_season.team), data: { turbo_frame: '_top' }, class: "md:hidden inline-block" %>
-				</td>
-				<td class="px-4 py-2 text-center">
-					<%= player_season.goals_count %>
-				</td>
+	<div class="scrollies" data-dashboard-target="scrollies">
+		<table class="table-auto text-base text-sm w-full">
+			<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+			<tr>
+				<th class="px-4 py-2">Player</th>
+				<th class="px-4 py-2 text-center">Team</th>
+				<th class="px-4 py-2 text-center">Goals</th>
 			</tr>
-		<% end %>
-		</tbody>
-	</table>
-	<%== pagy_nav @pagy_scorers %>
+			</thead>
+			<tbody id="scorers-table">
+			<% @top_scorers.each do |player_season| %>
+				<tr class="dark:border-gray-700">
+					<td class="px-4 py-2">
+						<%= link_to player_season.return_name, player_path(player_season.player), data: { turbo_frame: '_top' } %>
+					</td>
+					<td class="px-4 py-2 text-center">
+						<%= link_to player_season.return_team_name, team_path(player_season.team_season.team), data: { turbo_frame: '_top' }, class: "hidden md:inline-block" %>
+						<%= link_to player_season.return_team_acronym, team_path(player_season.team_season.team), data: { turbo_frame: '_top' }, class: "md:hidden inline-block" %>
+					</td>
+					<td class="px-4 py-2 text-center">
+						<%= player_season.goals_count %>
+					</td>
+				</tr>
+			<% end %>
+			</tbody>
+		</table>
+	</div>
 <% end %>

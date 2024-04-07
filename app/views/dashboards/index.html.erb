@@ -76,9 +76,9 @@
 	</div>
 </div>
 <div class="grid grid-cols-4 tablet:grid-cols-4 gap-4 justify-center mx-auto mt-5">
-	<div class="p-4 scrollies">
+	<div class="p-4" data-controller="dashboard">
 		<h5 class="text-center">Top Scorers</h5>
-		<%= turbo_frame_tag "top_scorers" do %>
+		<%= turbo_frame_tag "top_scorers", id: "top_scorers", data: { dashboard_target: "table", next_page: @next_page } do %>
 			<%= render partial: 'top_scorers_partial', cached: true %>
 		<% end %>
 	</div>
