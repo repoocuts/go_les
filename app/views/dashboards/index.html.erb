@@ -78,9 +78,20 @@
 <div class="grid grid-cols-4 tablet:grid-cols-4 gap-4 justify-center mx-auto mt-5">
 	<div class="p-4" data-controller="dashboard">
 		<h5 class="text-center">Top Scorers</h5>
-		<%= turbo_frame_tag "top_scorers", id: "top_scorers", data: { dashboard_target: "table", next_page: @next_page } do %>
-			<%= render partial: 'top_scorers_partial', cached: true %>
-		<% end %>
+		<div class="scrollies" data-dashboard-target="scrollies" data-next-page="<%= @next_page %>">
+			<table class="table-auto text-base text-sm w-full">
+				<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+				<tr>
+					<th class="px-4 py-2"></th>
+					<th class="px-4 py-2"></th>
+					<th class="px-4 py-2 text-center">Goals</th>
+				</tr>
+				</thead>
+				<tbody id="scorers-table">
+				<%= render partial: 'top_scorers_partial', cached: true %>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<div class="p-4 scrollies">
 		<h5 class="text-center">Top Assists</h5>

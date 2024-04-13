@@ -20,16 +20,19 @@ export default class extends Controller {
 	}
 
 	loadMore() {
-		const turboFrame = document.getElementById("top_scorers");
-		if (!turboFrame) return;
-
-		const srcAttr = turboFrame.getAttribute("src");
-		if (!srcAttr) return;
-
-		const nextUrl = new URL(srcAttr, window.location.origin);
-		const nextPage = parseInt(turboFrame.dataset.nextPage) || 1;
-		nextUrl.searchParams.set("page", nextPage);
-		turboFrame.setAttribute("src", nextUrl.toString()); // Make sure to set the new URL back to the turbo frame's src attribute
-		turboFrame.dataset.nextPage = nextPage + 1; // Increment for the next call
+		const nextPage = parseInt(this.scrolliesTarget.dataset.nextPage);
+		if (nextPage) {
+			const url = new URL(window.location);
+			url.searchParams.set('page', nextPage);
+			fetch(url.toString(), {
+				headers: {
+					'Accept': 'text/vnd.turbo-stream.html'
+				}
+			}).then(response => response.text())
+			.then(html => {
+				Turbo.renderStreamMessage(html);
+				this.scrolliesTarget.dataset.nextPage = nextPage + 1; // Update the nextPage data attribute
+			}).catch(error => console.error('Failed to load more content:', error));
+		}
 	}
 }
