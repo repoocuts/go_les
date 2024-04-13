@@ -12,8 +12,8 @@ class DashboardsController < ApplicationController
 			current_page = params[:page] || 1
 			@pagy_scorers, @top_scorers = pagy_countless(season.top_scorers, page: current_page)
 			@pagy_assists, @top_assists = pagy_countless(season.top_assists, page: current_page)
-			@pagy_booked, @most_booked = pagy_array(season.top_booked)
-			@pagy_reds, @most_reds = pagy_array(season.top_reds)
+			@pagy_booked, @most_booked = pagy_array(season.top_booked, page: current_page)
+			@pagy_reds, @most_reds = pagy_array(season.top_reds, page: current_page)
 			@next_page = @pagy_scorers.next
 		end
 
