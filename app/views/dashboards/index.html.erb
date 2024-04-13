@@ -93,11 +93,22 @@
 			</table>
 		</div>
 	</div>
-	<div class="p-4 scrollies">
+	<div class="p-4" data-controller="dashboard">
 		<h5 class="text-center">Top Assists</h5>
-		<%= turbo_frame_tag "top_assists" do %>
-			<%= render partial: 'top_assists_partial', cached: true %>
-		<% end %>
+		<div class="scrollies" data-dashboard-target="assisties" data-next-page="<%= @next_page %>">
+			<table class="table-auto text-base text-sm w-full">
+				<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+				<tr>
+					<th class="px-4 py-2"></th>
+					<th class="px-4 py-2"></th>
+					<th class="px-4 py-2 text-center">Assists</th>
+				</tr>
+				</thead>
+				<tbody id="assists-table">
+				<%= render partial: 'top_assists_partial', cached: true %>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<div class="p-4 scrollies">
 		<h5 class="text-center">Most Booked</h5>

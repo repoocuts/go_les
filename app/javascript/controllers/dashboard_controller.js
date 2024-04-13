@@ -2,19 +2,23 @@ import {Controller} from "@hotwired/stimulus"
 
 // Connects to data-controller="dashboard"
 export default class extends Controller {
-	static targets = ["scrollies"];
+	static targets = ["scrollies", 'assisties'];
 
 	connect() {
 		console.log('Dashboard controller connected');
-		this.setupInfiniteScroll();
+		if (this.hasScrolliesTarget) {
+			this.setupInfiniteScroll(this.scrolliesTarget, 'loadMore');
+		}
+		if (this.hasAssistiesTarget) {
+			this.setupInfiniteScroll(this.assistiesTarget, 'loadMoreAssists');
+		}
 	}
 
-	setupInfiniteScroll() {
-		this.scrolliesTarget.addEventListener('scroll', () => {
-			const {scrollTop, scrollHeight, clientHeight} = this.scrolliesTarget;
-			// Check if we are near the bottom of the element
+	setupInfiniteScroll(target, methodName) {
+		target.addEventListener('scroll', () => {
+			const {scrollTop, scrollHeight, clientHeight} = target;
 			if (scrollTop + clientHeight >= scrollHeight - 10) {
-				this.loadMore();
+				this[methodName]();
 			}
 		});
 	}
@@ -32,6 +36,23 @@ export default class extends Controller {
 			.then(html => {
 				Turbo.renderStreamMessage(html);
 				this.scrolliesTarget.dataset.nextPage = nextPage + 1; // Update the nextPage data attribute
+			}).catch(error => console.error('Failed to load more content:', error));
+		}
+	}
+
+	loadMoreAssists() {
+		const nextPage = parseInt(this.assistiesTarget.dataset.nextPage);
+		if (nextPage) {
+			const url = new URL(window.location);
+			url.searchParams.set('page', nextPage);
+			fetch(url.toString(), {
+				headers: {
+					'Accept': 'text/vnd.turbo-stream.html'
+				}
+			}).then(response => response.text())
+			.then(html => {
+				Turbo.renderStreamMessage(html);
+				this.assistiesTarget.dataset.nextPage = nextPage + 1; // Update the nextPage data attribute
 			}).catch(error => console.error('Failed to load more content:', error));
 		}
 	}

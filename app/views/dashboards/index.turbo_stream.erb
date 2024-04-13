@@ -3,7 +3,8 @@
 	<%= render partial: 'top_scorers_partial', locals: { top_scorers: @top_scorers } %>
 <% end %>
 
-<%= turbo_stream.append "top_assists" do %>
+<%= turbo_stream.append "assists-table", loading: :lazy,
+												src: dashboards_path(format: :turbo_stream, page: @pagy_scorers.page) do %>
 	<%= render partial: 'top_assists_partial', locals: { top_assists: @top_assists, pagy: @pagy_assists } %>
 <% end %>
 
