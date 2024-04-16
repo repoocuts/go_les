@@ -203,11 +203,11 @@ class Fixture < ApplicationRecord
 	end
 
 	def return_goals_for_player_season(player_season_id)
-		appearances.find_by(player_season_id: player_season_id).goals_count || 0
+		0 || appearances.find_by(player_season_id: player_season_id).goals_count
 	end
 
 	def return_assists_for_player_season(player_season_id)
-		appearances.find_by(player_season_id: player_season_id).assists_count || 0
+		0 || appearances.find_by(player_season_id: player_season_id).assists_count
 	end
 
 	def return_yellow_cards_for_player_season(player_season_id)
