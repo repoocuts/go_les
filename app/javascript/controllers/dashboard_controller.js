@@ -32,7 +32,7 @@ export default class extends Controller {
 	loadMore() {
 		const nextPage = parseInt(this.scrolliesTarget.dataset.nextPage);
 		if (nextPage) {
-			const url = new URL(window.location);
+			const url = new URL('/scorers_streaming', window.location.origin);
 			url.searchParams.set('page', nextPage);
 			fetch(url.toString(), {
 				headers: {
@@ -49,7 +49,7 @@ export default class extends Controller {
 	loadMoreAssists() {
 		const nextPage = parseInt(this.assistiesTarget.dataset.nextPage);
 		if (nextPage) {
-			const url = new URL(window.location);
+			const url = new URL('/assists_streaming', window.location.origin);
 			url.searchParams.set('page', nextPage);
 			fetch(url.toString(), {
 				headers: {

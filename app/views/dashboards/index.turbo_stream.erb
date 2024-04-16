@@ -1,13 +1,3 @@
-<%= turbo_stream.append "scorers-table", loading: :lazy,
-												src: dashboards_path(format: :turbo_stream, page: @pagy_scorers.page) do %>
-	<%= render partial: 'top_scorers_partial', locals: { top_scorers: @top_scorers } %>
-<% end %>
-
-<%= turbo_stream.append "assists-table", loading: :lazy,
-												src: dashboards_path(format: :turbo_stream, page: @pagy_scorers.page) do %>
-	<%= render partial: 'top_assists_partial', locals: { top_assists: @top_assists, pagy: @pagy_assists } %>
-<% end %>
-
 <%= turbo_stream.append "most-booked-table", loading: :lazy,
 												src: dashboards_path(format: :turbo_stream, page: @pagy_scorers.page) do %>
 	<%= render partial: 'most_booked_partial', locals: { most_booked: @most_booked, pagy: @pagy_booked } %>

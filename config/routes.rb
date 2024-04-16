@@ -43,6 +43,9 @@ Rails.application.routes.draw do
 	get 'team_goals_radar/:current_team_season_id/:opponent_team_season_id', to: 'charts#team_goals_radar', as: 'team_goals_radar'
 	get 'team_cards_line_chart/:current_team_season_id/:opponent_team_season_id', to: 'charts#team_cards_line_chart', as: 'team_cards_line_chart'
 	get '/search', to: 'dashboards#search', as: 'search'
+	get 'scorers_streaming', to: 'dashboards#scorers_streaming'
+	get 'assists_streaming', to: 'dashboards#assists_streaming'
+
 	# Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
 	# Defines the root path route ("/")

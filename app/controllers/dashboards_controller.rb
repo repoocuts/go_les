@@ -23,6 +23,20 @@ class DashboardsController < ApplicationController
 		end
 	end
 
+	def scorers_streaming
+		@pagy_scorers, @top_scorers = pagy_countless(season.top_scorers, page: params[:page])
+		respond_to do |format|
+			format.turbo_stream
+		end
+	end
+
+	def assists_streaming
+		@pagy_assists, @top_assists = pagy_countless(season.top_assists, page: params[:page])
+		respond_to do |format|
+			format.turbo_stream
+		end
+	end
+
 	def search
 		@teams = return_teams(params[:query])
 		@players = return_players(params[:query])
