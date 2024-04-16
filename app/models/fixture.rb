@@ -203,17 +203,11 @@ class Fixture < ApplicationRecord
 	end
 
 	def return_goals_for_player_season(player_season_id)
-		goals = appearances.find_by(player_season_id: player_season_id).goals
-		return 0 unless goals
-
-		goals.size
+		appearances.find_by(player_season_id: player_season_id).goals_count
 	end
 
 	def return_assists_for_player_season(player_season_id)
-		assists = appearances.find_by(player_season_id: player_season_id).assists
-		return 0 unless assists
-
-		assists.size
+		appearances.find_by(player_season_id: player_season_id).assists_count
 	end
 
 	def return_yellow_cards_for_player_season(player_season_id)
