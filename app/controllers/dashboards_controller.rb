@@ -19,7 +19,6 @@ class DashboardsController < ApplicationController
 
 		respond_to do |format|
 			format.html
-			format.turbo_stream
 		end
 	end
 
@@ -32,6 +31,20 @@ class DashboardsController < ApplicationController
 
 	def assists_streaming
 		@pagy_assists, @top_assists = pagy_countless(season.top_assists, page: params[:page])
+		respond_to do |format|
+			format.turbo_stream
+		end
+	end
+
+	def bookings_streaming
+		@pagy_booked, @most_booked = pagy_array(season.top_booked, page: params[:page])
+		respond_to do |format|
+			format.turbo_stream
+		end
+	end
+
+	def reds_streaming
+		@pagy_reds, @most_reds = pagy_array(season.top_reds, page: params[:page])
 		respond_to do |format|
 			format.turbo_stream
 		end

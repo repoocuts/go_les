@@ -1,9 +1,0 @@
-<%= turbo_stream.append "most-booked-table", loading: :lazy,
-												src: dashboards_path(format: :turbo_stream, page: @pagy_scorers.page) do %>
-	<%= render partial: 'most_booked_partial', locals: { most_booked: @most_booked, pagy: @pagy_booked } %>
-<% end %>
-
-<%= turbo_stream.append "most-reds-table", loading: :lazy,
-												src: dashboards_path(format: :turbo_stream, page: @pagy_scorers.page) do %>
-	<%= render partial: 'most_reds_partial', locals: { most_reds: @most_reds, pagy: @pagy_reds } %>
-<% end %>

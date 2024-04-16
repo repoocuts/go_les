@@ -66,7 +66,7 @@ export default class extends Controller {
 	loadMoreBookings() {
 		const nextPage = parseInt(this.bookiesTarget.dataset.nextPage);
 		if (nextPage) {
-			const url = new URL(window.location);
+			const url = new URL('/bookings_streaming', window.location.origin);
 			url.searchParams.set('page', nextPage);
 			fetch(url.toString(), {
 				headers: {
@@ -83,7 +83,7 @@ export default class extends Controller {
 	loadMoreReds() {
 		const nextPage = parseInt(this.reddiesTarget.dataset.nextPage);
 		if (nextPage) {
-			const url = new URL(window.location);
+			const url = new URL('/reds_streaming', window.location.origin);
 			url.searchParams.set('page', nextPage);
 			fetch(url.toString(), {
 				headers: {

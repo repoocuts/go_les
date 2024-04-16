@@ -45,6 +45,8 @@ Rails.application.routes.draw do
 	get '/search', to: 'dashboards#search', as: 'search'
 	get 'scorers_streaming', to: 'dashboards#scorers_streaming'
 	get 'assists_streaming', to: 'dashboards#assists_streaming'
+	get 'bookings_streaming', to: 'dashboards#bookings_streaming'
+	get 'reds_streaming', to: 'dashboards#reds_streaming'
 
 	# Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
