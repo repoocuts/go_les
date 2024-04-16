@@ -24,6 +24,8 @@
 #
 #  fk_rails_...  (team_season_id => team_seasons.id)
 #
-class YellowCardsStat < ApplicationRecord
-	belongs_to :team_season
+module TeamSeasons
+	class YellowCardsStat < ApplicationRecord
+		belongs_to :team_season
+	end
 end

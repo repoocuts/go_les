@@ -18,6 +18,7 @@
 # Indexes
 #
 #  index_cards_on_appearance_id     (appearance_id)
+#  index_cards_on_card_type         (card_type)
 #  index_cards_on_fixture_id        (fixture_id)
 #  index_cards_on_player_season_id  (player_season_id)
 #  index_cards_on_team_season_id    (team_season_id)
@@ -61,7 +62,7 @@ class Card < ApplicationRecord
 	}
 
 	def card_receiver_name
-		player_season.get_player_name
+		player_season.return_name
 	end
 
 	def card_team_name

@@ -18,8 +18,12 @@
 #
 # Indexes
 #
+#  index_fixtures_on_away_score           (away_score)
 #  index_fixtures_on_away_team_season_id  (away_team_season_id)
+#  index_fixtures_on_game_week            (game_week)
+#  index_fixtures_on_home_score           (home_score)
 #  index_fixtures_on_home_team_season_id  (home_team_season_id)
+#  index_fixtures_on_kick_off             (kick_off)
 #  index_fixtures_on_league_id            (league_id)
 #  index_fixtures_on_season_game_week_id  (season_game_week_id)
 #  index_fixtures_on_season_id            (season_id)
@@ -43,7 +47,7 @@ class Fixture < ApplicationRecord
 	has_many :away_assists_with_player_season, -> { includes(:player_season) }, class_name: 'Assist'
 	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
-	
+
 	has_one :fixture_api_response
 	has_one :referee_fixture
 
@@ -91,19 +95,19 @@ class Fixture < ApplicationRecord
 	end
 
 	def home_team_name
-		home_team_season.team_name
+		home_team_season.name
 	end
 
 	def away_team_name
-		away_team_season.team.name
+		away_team_season.name
 	end
 
 	def home_team_name_acronym
-		home_team_season.team.acronym
+		home_team_season.acronym
 	end
 
 	def away_team_name_acronym
-		away_team_season.team.acronym
+		away_team_season.acronym
 	end
 
 	def has_completed?
@@ -185,6 +189,45 @@ class Fixture < ApplicationRecord
 
 	def away_red_cards
 		cards.includes(:player_season).where(card_type: 'red', is_home: nil)
+	end
+
+	def return_opponent_fixture_string(team_season_id)
+		"#{self.opponent_for_team_season(team_season_id)} (#{self.home_or_away_checker(team_season_id)})"
+	end
+
+	def return_appearance_minutes_for_player_season(player_season_id)
+		appearance = appearances.find_by(player_season_id: player_season_id)
+		return 0 unless appearance
+
+		appearance.minutes
+	end
+
+	def return_goals_for_player_season(player_season_id)
+		goals = appearances.find_by(player_season_id: player_season_id).goals
+		return 0 unless goals
+
+		goals.size
+	end
+
+	def return_assists_for_player_season(player_season_id)
+		assists = appearances.find_by(player_season_id: player_season_id).assists
+		return 0 unless assists
+
+		assists.size
+	end
+
+	def return_yellow_cards_for_player_season(player_season_id)
+		yellow_cards = appearances.find_by(player_season_id: player_season_id).cards.where(card_type: 'yellow')
+		return 0 unless yellow_cards
+
+		yellow_cards.size
+	end
+
+	def return_red_cards_for_player_season(player_season_id)
+		red_cards = appearances.find_by(player_season_id: player_season_id).cards.where(card_type: 'red')
+		return 0 unless red_cards
+
+		red_cards.size
 	end
 
 	private

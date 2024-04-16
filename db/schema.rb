@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_09_122124) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_06_094350) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_122124) do
     t.datetime "updated_at", null: false
     t.integer "referee_fixture_id"
     t.index ["appearance_id"], name: "index_cards_on_appearance_id"
+    t.index ["card_type"], name: "index_cards_on_card_type"
     t.index ["fixture_id"], name: "index_cards_on_fixture_id"
     t.index ["player_season_id"], name: "index_cards_on_player_season_id"
     t.index ["team_season_id"], name: "index_cards_on_team_season_id"
@@ -100,8 +101,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_122124) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "season_game_week_id"
+    t.index ["away_score"], name: "index_fixtures_on_away_score"
     t.index ["away_team_season_id"], name: "index_fixtures_on_away_team_season_id"
+    t.index ["game_week"], name: "index_fixtures_on_game_week"
+    t.index ["home_score"], name: "index_fixtures_on_home_score"
     t.index ["home_team_season_id"], name: "index_fixtures_on_home_team_season_id"
+    t.index ["kick_off"], name: "index_fixtures_on_kick_off"
     t.index ["league_id"], name: "index_fixtures_on_league_id"
     t.index ["season_game_week_id"], name: "index_fixtures_on_season_game_week_id"
     t.index ["season_id"], name: "index_fixtures_on_season_id"
@@ -121,7 +126,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_122124) do
     t.integer "referee_fixture_id"
     t.integer "assist_id"
     t.index ["appearance_id"], name: "index_goals_on_appearance_id"
+    t.index ["assist_id"], name: "index_goals_on_assist_id"
     t.index ["fixture_id"], name: "index_goals_on_fixture_id"
+    t.index ["goal_type"], name: "index_goals_on_goal_type"
     t.index ["player_season_id"], name: "index_goals_on_player_season_id"
     t.index ["team_season_id"], name: "index_goals_on_team_season_id"
   end
@@ -181,6 +188,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_122124) do
     t.bigint "team_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["fixture_ids"], name: "index_head_to_heads_on_fixture_ids", using: :gin
     t.index ["team_id"], name: "index_head_to_heads_on_team_id"
   end
 
@@ -220,7 +228,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_122124) do
     t.integer "assists_count", default: 0, null: false
     t.integer "goals_count", default: 0, null: false
     t.integer "appearances_count", default: 0, null: false
+    t.index ["appearances_count"], name: "index_player_seasons_on_appearances_count"
+    t.index ["assists_count"], name: "index_player_seasons_on_assists_count"
+    t.index ["goals_count"], name: "index_player_seasons_on_goals_count"
     t.index ["player_id"], name: "index_player_seasons_on_player_id"
+    t.index ["team_season_id", "goals_count"], name: "index_player_seasons_on_team_season_id_and_goals_count"
     t.index ["team_season_id"], name: "index_player_seasons_on_team_season_id"
   end
 
@@ -232,6 +244,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_122124) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
+    t.index ["full_name"], name: "index_players_on_full_name"
+    t.index ["short_name"], name: "index_players_on_short_name"
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
@@ -306,8 +320,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_122124) do
     t.integer "appearances_count", default: 0, null: false
     t.integer "yellow_cards_count", default: 0, null: false
     t.integer "red_cards_count", default: 0, null: false
+    t.index ["appearances_count"], name: "index_team_seasons_on_appearances_count"
+    t.index ["assists_count"], name: "index_team_seasons_on_assists_count"
+    t.index ["goals_count"], name: "index_team_seasons_on_goals_count"
+    t.index ["red_cards_count"], name: "index_team_seasons_on_red_cards_count"
     t.index ["season_id"], name: "index_team_seasons_on_season_id"
     t.index ["team_id"], name: "index_team_seasons_on_team_id"
+    t.index ["yellow_cards_count"], name: "index_team_seasons_on_yellow_cards_count"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -319,8 +338,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_122124) do
     t.bigint "country_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["acronym"], name: "index_teams_on_acronym"
     t.index ["country_id"], name: "index_teams_on_country_id"
     t.index ["league_id"], name: "index_teams_on_league_id"
+    t.index ["name"], name: "index_teams_on_name"
   end
 
   create_table "users", force: :cascade do |t|

@@ -12,7 +12,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 
 		return 'No Scorer' if scorer.nil?
 
-		link_to PlayerSeason.find(scorer[0]).get_player_name, player_path(scorer[0])
+		link_to PlayerSeason.find(scorer[0]).return_name, player_path(scorer[0])
 	end
 
 	def top_scorer_against
@@ -20,7 +20,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 
 		return 'No Scorer' if scorer.nil?
 
-		link_to "#{PlayerSeason.find(scorer[0]).get_player_name}, (#{scorer[1].size})", player_path(scorer[0])
+		link_to "#{PlayerSeason.find(scorer[0]).return_name}, (#{scorer[1].size})", player_path(scorer[0])
 	end
 
 	def most_booked_against
@@ -28,7 +28,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 
 		return 'No Bookings' if booked_player.nil?
 
-		link_to "#{PlayerSeason.find(booked_player[0]).get_player_name}, (#{booked_player[1].size})", player_path(booked_player[0])
+		link_to "#{PlayerSeason.find(booked_player[0]).return_name}, (#{booked_player[1].size})", player_path(booked_player[0])
 	end
 
 	def rival_most_booked
@@ -36,7 +36,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 
 		return 'No Bookings' if booked_player.nil?
 
-		link_to "#{PlayerSeason.find(booked_player[0]).get_player_name}, (#{booked_player[1].size})", player_path(booked_player[0])
+		link_to "#{PlayerSeason.find(booked_player[0]).return_name}, (#{booked_player[1].size})", player_path(booked_player[0])
 	end
 
 	def rival_most_reds
@@ -44,7 +44,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 
 		return 'No Reds' if reds_player.nil?
 
-		PlayerSeason.find(reds_player[0]).get_player_name
+		PlayerSeason.find(reds_player[0]).return_name
 	end
 
 	def most_reds_against
@@ -52,7 +52,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 
 		return 'No Reds' if reds_player.nil?
 
-		"#{PlayerSeason.find(reds_player[0]).get_player_name}, (#{reds_player[1].size})"
+		"#{PlayerSeason.find(reds_player[0]).return_name}, (#{reds_player[1].size})"
 	end
 
 	def most_assists_against
@@ -60,7 +60,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 
 		return 'No Assists' if assists_player.nil?
 
-		link_to "#{PlayerSeason.find(assists_player[0]).get_player_name}, (#{assists_player[1].size})", player_path(assists_player[0])
+		link_to "#{PlayerSeason.find(assists_player[0]).return_name}, (#{assists_player[1].size})", player_path(assists_player[0])
 	end
 
 	def rival_most_assists
@@ -68,7 +68,7 @@ class Team::PlayerVsOpponentComponent < ViewComponent::Base
 
 		return 'No Assists' if assists_player.nil?
 
-		"#{PlayerSeason.find(assists_player[0]).get_player_name}, (#{assists_player[1].size})"
+		"#{PlayerSeason.find(assists_player[0]).return_name}, (#{assists_player[1].size})"
 	end
 
 	private

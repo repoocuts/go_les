@@ -18,8 +18,13 @@
 #
 # Indexes
 #
-#  index_team_seasons_on_season_id  (season_id)
-#  index_team_seasons_on_team_id    (team_id)
+#  index_team_seasons_on_appearances_count   (appearances_count)
+#  index_team_seasons_on_assists_count       (assists_count)
+#  index_team_seasons_on_goals_count         (goals_count)
+#  index_team_seasons_on_red_cards_count     (red_cards_count)
+#  index_team_seasons_on_season_id           (season_id)
+#  index_team_seasons_on_team_id             (team_id)
+#  index_team_seasons_on_yellow_cards_count  (yellow_cards_count)
 #
 # Foreign Keys
 #
@@ -30,10 +35,10 @@ class TeamSeason < ApplicationRecord
 	belongs_to :team
 	belongs_to :season
 
-	has_one :goals_scored_stat
-	has_one :goals_conceded_stat
-	has_one :yellow_cards_stat
-	has_one :red_cards_stat
+	has_one :goals_scored_stat, class_name: 'TeamSeasons::GoalsScoredStat'
+	has_one :goals_conceded_stat, class_name: 'TeamSeasons::GoalsConcededStat'
+	has_one :yellow_cards_stat, class_name: 'TeamSeasons::YellowCardsStat'
+	has_one :red_cards_stat, class_name: 'TeamSeasons::RedCardsStat'
 
 	has_many :appearances
 	has_many :player_seasons
@@ -46,6 +51,8 @@ class TeamSeason < ApplicationRecord
 	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 
+	delegate :acronym, :name, to: :team
+
 	scope :current_season_goals, -> {
 		joins(:season, :goals)
 			.where(seasons: { current_season: true })
@@ -56,10 +63,6 @@ class TeamSeason < ApplicationRecord
 		joins(:season, :goals)
 			.where(seasons: { current_season: true }, goals: { is_home: true })
 	}
-
-	def team_name
-		team.name
-	end
 
 	def fixtures
 		Fixture.where("home_team_season_id = ? OR away_team_season_id = ?", id, id).order(game_week: :asc, kick_off: :asc)
@@ -386,13 +389,14 @@ class TeamSeason < ApplicationRecord
 		return get_fixture_result(first_fixture) if first_fixture && first_fixture.game_week > second_fixture.game_week
 
 		return 'N/A' unless second_fixture
-			
+
 		get_fixture_result(second_fixture)
 	end
 
 	private
 
 	attr_reader :total_goals_calculator
+
 	def results_formatter(match, hash: {})
 		outcome = if match.home_score.nil?
 			          '-'

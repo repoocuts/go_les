@@ -27,6 +27,7 @@ a {
 
 .table {
     background-color: #ff0c11;
+    max-height: 150px;
 }
 
 .pagy-nav,
@@ -34,3 +35,7 @@ a {
     @apply flex space-x-2;
 }
 
+.scrollies {
+    max-height: 400px;
+    overflow-y: auto;
+}

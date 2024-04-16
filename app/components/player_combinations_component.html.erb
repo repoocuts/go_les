@@ -14,10 +14,10 @@
 				<td class='text-center'><%= combinations %></td>
 				<td></td>
 				<td>
-					<%= link_to PlayerSeason.find(players[0]).get_player_name, player_path(PlayerSeason.find(players[0]).player) %>
+					<%= link_to PlayerSeason.find(players[0]).return_name, player_path(PlayerSeason.find(players[0]).player) %>
 				</td>
 				<td>
-					<%= link_to PlayerSeason.find(players[1]).get_player_name, player_path(PlayerSeason.find(players[0]).player) %>
+					<%= link_to PlayerSeason.find(players[1]).return_name, player_path(PlayerSeason.find(players[0]).player) %>
 				</td>
 			</tr>
 		<% end %>

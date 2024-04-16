@@ -19,11 +19,16 @@ class SeasonGameWeek < ApplicationRecord
 	belongs_to :season
 	has_many :fixtures
 
-	# Fixture.all.group_by(&:game_week).sort.each do |gw, fixtures|
-	# 	sgw = SeasonGameWeek.create(season: season, game_week: gw)
-	# 	fixtures.each do |f|
-	# 		f.update(season_game_week: sgw)
-	# 	end
-	# end
+	def self.fixtures_for_current_game_week(season)
+		find_by(season: season, game_week_number: season.current_game_week).fixtures.order(:kick_off)
+	end
+
+	def self.fixtures_for_last_game_week(season)
+		find_by(season: season, game_week_number: season.current_game_week - 1).fixtures.order(:kick_off)
+	end
+
+	def self.fixtures_for_next_game_week(season)
+		find_by(season: season, game_week_number: season.current_game_week + 1).fixtures.order(:kick_off)
+	end
 
 end

@@ -28,7 +28,8 @@
 #
 # Indexes
 #
-#  index_head_to_heads_on_team_id  (team_id)
+#  index_head_to_heads_on_fixture_ids  (fixture_ids) USING gin
+#  index_head_to_heads_on_team_id      (team_id)
 #
 # Foreign Keys
 #

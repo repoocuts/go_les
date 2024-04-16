@@ -13,7 +13,9 @@
 #
 # Indexes
 #
-#  index_players_on_team_id  (team_id)
+#  index_players_on_full_name   (full_name)
+#  index_players_on_short_name  (short_name)
+#  index_players_on_team_id     (team_id)
 #
 # Foreign Keys
 #

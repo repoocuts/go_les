@@ -14,8 +14,10 @@
 #
 # Indexes
 #
+#  index_teams_on_acronym     (acronym)
 #  index_teams_on_country_id  (country_id)
 #  index_teams_on_league_id   (league_id)
+#  index_teams_on_name        (name)
 #
 # Foreign Keys
 #

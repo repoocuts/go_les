@@ -19,7 +19,9 @@
 # Indexes
 #
 #  index_goals_on_appearance_id     (appearance_id)
+#  index_goals_on_assist_id         (assist_id)
 #  index_goals_on_fixture_id        (fixture_id)
+#  index_goals_on_goal_type         (goal_type)
 #  index_goals_on_player_season_id  (player_season_id)
 #  index_goals_on_team_season_id    (team_season_id)
 #
@@ -57,7 +59,7 @@ class Goal < ApplicationRecord
 	}
 
 	def goal_scorer_name
-		player_season.get_player_name
+		player_season.return_name
 	end
 
 	def goal_team_name
