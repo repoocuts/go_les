@@ -211,17 +211,11 @@ class Fixture < ApplicationRecord
 	end
 
 	def return_yellow_cards_for_player_season(player_season_id)
-		yellow_cards = appearances.find_by(player_season_id: player_season_id).cards.where(card_type: 'yellow')
-		return 0 unless yellow_cards
-
-		yellow_cards.size
+		0 || appearances.find_by(player_season_id: player_season_id).cards.where(card_type: 'yellow').size
 	end
 
 	def return_red_cards_for_player_season(player_season_id)
-		red_cards = appearances.find_by(player_season_id: player_season_id).cards.where(card_type: 'red')
-		return 0 unless red_cards
-
-		red_cards.size
+		0 || appearances.find_by(player_season_id: player_season_id).cards.where(card_type: 'red').size
 	end
 
 	private
