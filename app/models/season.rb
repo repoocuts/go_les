@@ -50,6 +50,10 @@ class Season < ApplicationRecord
 		next_season_game_week_fixtures.includes(home_team_season: :team, away_team_season: :team).order(:kick_off)
 	end
 
+	def fixtures_requiring_update
+		current_season_game_week_fixtures + rearranged_fixtures
+	end
+
 	def top_scorers
 		player_seasons.with_goals.order(goals_count: :desc)
 	end
@@ -90,5 +94,9 @@ class Season < ApplicationRecord
 
 	def next_season_game_week_fixtures
 		@next_season_game_week ||= season_game_weeks.find_by(game_week_number: current_game_week + 1).fixtures
+	end
+
+	def rearranged_fixtures
+		@rearranged_fixtures ||= fixtures.where('kick_off < ? AND home_score IS NULL', 12.hours.ago).order(:kick_off)
 	end
 end
