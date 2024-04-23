@@ -26,6 +26,8 @@
 
 module TeamSeasons
 	class GoalsScoredStat < ApplicationRecord
+		self.table_name = 'goals_scored_stats'
+
 		belongs_to :team_season
 	end
 end

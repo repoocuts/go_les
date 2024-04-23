@@ -1,5 +1,7 @@
 module GoalCreatorHelper
 
+	ONE = 1.freeze
+
 	def create_goal_from_api_data(event, fixture, team_season)
 		case fixture.home_team_season == team_season
 		when true
@@ -14,23 +16,9 @@ module GoalCreatorHelper
 	def goal_for_home(event, fixture, team_season)
 		scorer_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
 		home_start = fixture.appearances.where(player_season: scorer_player_season)&.first
+
 		if scorer_player_season && home_start
-			goal = Goal.create(
-				fixture_id: fixture.id,
-				appearance_id: home_start.id,
-				goal_type: event['type'].downcase,
-				is_home: true,
-				minute: event['time']['elapsed'],
-				player_season_id: scorer_player_season.id,
-				team_season_id: team_season.id,
-				referee_fixture_id: fixture.referee_fixture.id,
-			)
-			if event['assist']['id'].present?
-				assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']))
-				Assist.create(goal: goal, appearance: assist_appearance, fixture: fixture, team_season: team_season,
-				              player_season: assist_appearance.player_season, minute: event['time']['elapsed'], is_home: true) if assist_appearance
-				ObjectHandlingFailure.create(object_type: 'assist', api_response_element: event['assist'], related_team_season_id: team_season.id, related_fixture_id: fixture.id) unless assist_appearance
-			end
+			handle_goal(fixture, home_start, event, scorer_player_season, team_season, true)
 		else
 			ObjectHandlingFailure.create(object_type: 'goal', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
@@ -39,22 +27,9 @@ module GoalCreatorHelper
 	def goal_for_away(event, fixture, team_season)
 		scorer_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
 		away_start = fixture.appearances.where(player_season: scorer_player_season)&.first
+
 		if scorer_player_season && away_start
-			goal = Goal.create(
-				appearance_id: away_start.id,
-				goal_type: event['type'].downcase,
-				fixture_id: fixture.id,
-				minute: event['time']['elapsed'],
-				player_season_id: scorer_player_season.id,
-				team_season_id: team_season.id,
-				referee_fixture_id: fixture.referee_fixture.id,
-			)
-			if event['assist']['id'].present?
-				assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']))
-				Assist.create(goal: goal, appearance: assist_appearance, fixture: fixture, team_season: team_season,
-				              player_season: assist_appearance.player_season, minute: event['time']['elapsed']) if assist_appearance
-				ObjectHandlingFailure.create(object_type: 'assist', api_response_element: event['assist'], related_team_season_id: team_season.id, related_fixture_id: fixture.id) unless assist_appearance
-			end
+			handle_goal(fixture, away_start, event, scorer_player_season, team_season, nil)
 		else
 			ObjectHandlingFailure.create(object_type: 'goal', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
@@ -72,8 +47,10 @@ module GoalCreatorHelper
 				is_home: true,
 				player_season_id: scorer_player_season.id,
 				team_season_id: team_season.id,
-				referee_fixture_id: fixture.referee_fixture.id,
+				referee_fixture_id: fixture.referee_fixture&.id,
 			)
+			update_goals_stat(team_season, event['time']['elapsed'], team_type: 'home', stat_type: 'scored')
+			update_goals_stat(fixture.away_team_season, event['time']['elapsed'], team_type: 'away', stat_type: 'conceded')
 		else
 			ObjectHandlingFailure.create(object_type: 'goal', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
@@ -91,10 +68,78 @@ module GoalCreatorHelper
 				own_goal: true,
 				player_season_id: scorer_player_season.id,
 				team_season_id: team_season.id,
-				referee_fixture_id: fixture.referee_fixture.id,
+				referee_fixture_id: fixture.referee_fixture&.id,
 			)
+			update_goals_stat(team_season, event['time']['elapsed'], team_type: 'away', stat_type: 'scored')
+			update_goals_stat(fixture.home_team_season, event['time']['elapsed'], team_type: 'home', stat_type: 'conceded')
 		else
 			ObjectHandlingFailure.create(object_type: 'goal', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
+	end
+
+	def handle_goal(fixture, appearance, event, scorer_player_season, team_season, is_home)
+		goal = create_goal(fixture, appearance, event['type'], is_home, event['time']['elapsed'], scorer_player_season, team_season)
+		if is_home
+			update_goals_stats_for_home_score(team_season, fixture, event)
+		else
+			update_goals_stats_for_away_score(team_season, fixture, event)
+		end
+		if event['assist']['id'].present?
+			handle_assist(goal, event, fixture, team_season)
+		end
+	end
+
+	def handle_assist(goal, event, fixture, team_season)
+		assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']))
+		create_assist(goal, assist_appearance, fixture, team_season, event['time']['elapsed'], true) if assist_appearance
+
+		ObjectHandlingFailure.create(object_type: 'assist', api_response_element: event['assist'], related_team_season_id: team_season.id, related_fixture_id: fixture.id) unless assist_appearance
+	end
+
+	def create_goal(fixture, appearance, goal_type, is_home, minute, scorer_player_season, team_season)
+		Goal.create(
+			fixture_id: fixture.id,
+			appearance_id: appearance.id,
+			goal_type: goal_type.downcase,
+			is_home: is_home,
+			minute: minute,
+			player_season_id: scorer_player_season.id,
+			team_season_id: team_season.id,
+			referee_fixture_id: fixture.referee_fixture&.id,
+		)
+	end
+
+	def create_assist(goal, appearance, fixture, team_season, minute, is_home)
+		Assist.create(
+			goal: goal,
+			appearance: appearance,
+			fixture: fixture,
+			team_season: team_season,
+			player_season: appearance.player_season,
+			minute: minute,
+			is_home: is_home
+		)
+	end
+
+	def update_goals_stats_for_home_score(team_season, fixture, event)
+		update_goals_stat(team_season, event['time']['elapsed'], team_type: 'home', stat_type: 'scored')
+		update_goals_stat(fixture.away_team_season, event['time']['elapsed'], team_type: 'away', stat_type: 'conceded')
+	end
+
+	def update_goals_stats_for_away_score(team_season, fixture, event)
+		update_goals_stat(team_season, event['time']['elapsed'], team_type: 'away', stat_type: 'scored')
+		update_goals_stat(fixture.home_team_season, event['time']['elapsed'], team_type: 'home', stat_type: 'conceded')
+	end
+
+	def update_goals_stat(team_season, minute, team_type:, stat_type:)
+		goals_stat = team_season.send("goals_#{stat_type}_stat")
+		half_key = minute < 45 ? 'first_half' : 'second_half'
+		# Increment the appropriate counters
+		goals_stat.increment("#{half_key}")
+		goals_stat.increment("#{team_type}_#{half_key}")
+		goals_stat.increment("#{team_type}")
+		goals_stat.increment(:total)
+
+		goals_stat.save
 	end
 end
