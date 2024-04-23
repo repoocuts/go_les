@@ -75,7 +75,7 @@
 		</table>
 	</div>
 </div>
-<div class="grid grid-cols-4 tablet:grid-cols-4 gap-4 justify-center mx-auto mt-5">
+<div class="grid laptop:grid-cols-4 tablet:grid-cols-4 phone:grid-cols-1 gap-4 justify-center mx-auto mt-5">
 	<div class="p-4" data-controller="dashboard">
 		<h5 class="text-center">Top Scorers</h5>
 		<div class="scrollies" data-dashboard-target="scrollies" data-next-page="<%= @next_page %>">
@@ -83,10 +83,10 @@
 				<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 				<tr>
 					<th class="px-4 py-2"></th>
-					<th class="px-4 py-2 hidden lg:block"></th>
+					<th class="px-4 py-2 hidden laptop:block"></th>
 					<th class="px-4 py-2 text-center">
-						<span class="hidden lg:inline">Goals</span>
-						<span class="lg:hidden">G</span>
+						<span class="hidden laptop:inline">Goals</span>
+						<span class="laptop:hidden">G</span>
 					</th>
 				</tr>
 				</thead>
@@ -103,10 +103,10 @@
 				<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 				<tr>
 					<th class="px-4 py-2"></th>
-					<th class="px-4 py-2 hidden lg:block"></th>
+					<th class="px-4 py-2 hidden laptop:block"></th>
 					<th class="px-4 py-2 text-center">
-						<span class="hidden lg:inline">Assists</span>
-						<span class="lg:hidden">A</span>
+						<span class="hidden laptop:inline">Assists</span>
+						<span class="laptop:hidden">A</span>
 					</th>
 				</tr>
 				</thead>
@@ -123,10 +123,10 @@
 				<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 				<tr>
 					<th class="px-4 py-2"></th>
-					<th class="px-4 py-2 hidden lg:block"></th>
+					<th class="px-4 py-2 hidden laptop:block"></th>
 					<th class="px-4 py-2 text-center">
-						<span class="hidden lg:inline">Bookings</span>
-						<span class="lg:hidden">YC</span>
+						<span class="hidden laptop:inline">Bookings</span>
+						<span class="laptop:hidden">YC</span>
 					</th>
 				</tr>
 				</thead>
@@ -143,10 +143,10 @@
 				<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 				<tr>
 					<th class="px-4 py-2"></th>
-					<th class="px-4 py-2 hidden lg:block"></th>
+					<th class="px-4 py-2 hidden laptop:block"></th>
 					<th class="px-4 py-2 text-center">
-						<span class="hidden lg:inline">Reds</span>
-						<span class="lg:hidden">RC</span>
+						<span class="hidden laptop:inline">Reds</span>
+						<span class="laptop:hidden">RC</span>
 					</th>
 				</tr>
 				</thead>
