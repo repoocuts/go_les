@@ -10,7 +10,7 @@ module ApiFootball
 			def call
 				response = make_api_call
 
-				return if response['response'][0]['lineups'].empty?
+				return response['response'][0]['fixture']['date'] if response['response'][0]['lineups'].empty?
 
 				fixture_api_response.update(finished_fixture: response['response'][0], fixture: fixture)
 

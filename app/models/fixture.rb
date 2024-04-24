@@ -66,6 +66,8 @@ class Fixture < ApplicationRecord
 			.order(:kick_off)
 	}
 
+	scope :next_seven_days, -> { where(kick_off: Time.zone.now..Time.zone.now + 7.days) }
+
 	def update_stats_post_match
 		update_from_api_football_response
 	end
