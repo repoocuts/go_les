@@ -25,16 +25,18 @@
 #  fk_rails_...  (league_id => leagues.id)
 #
 class Team < ApplicationRecord
-  has_many :players
-  belongs_to :league
-  has_many :team_seasons
-  has_many :head_to_heads
+	has_many :players
+	has_many :team_seasons
+	has_many :head_to_heads
+	has_many :player_seasons, through: :team_seasons
 
-  def current_team_season
-    team_seasons.find_by(current_season: true)
-  end
+	belongs_to :league
 
-  def next_match
-    Fixture.where()
-  end
+	def current_team_season
+		team_seasons.find_by(current_season: true)
+	end
+
+	def next_match
+		Fixture.where()
+	end
 end

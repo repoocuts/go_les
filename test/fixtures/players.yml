@@ -4,7 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  full_name       :string
-#  position        :integer
+#  position        :string
 #  short_name      :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
