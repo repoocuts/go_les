@@ -1,82 +1,61 @@
 module ApiFootball
-  module Creators
-    class FixtureCreator
-      include ApiFootball
+	module Creators
+		class FixtureCreator
 
-      ENDPOINT = 'fixtures'
+			ENDPOINT = 'fixtures'
 
-      def initialize(options: { league: league_api_football_id, season: season_start_date_year })
-        @options = options
-      end
+			def initialize(league:, season:)
+				@league = league
+				@season = season
+			end
 
-      def create_fixture
-        fixtures = call['response']
-        fixtures.map { |elem| create_from_response(elem) }
-      end
+			def call
+				fixtures = make_api_call['response']
 
-      def create_old_fixture
-        fixtures = call['response']
-        fixtures.map { |elem| create_old_from_response(elem) }
-      end
+				game_weeks = fixtures.map { |f| f['league']['round'] }.uniq
+				game_weeks.each_with_index do |_game_week, index|
+					SeasonGameWeek.create(season_id: season.id, game_week_number: index + 1)
+				end
 
-      private
+				fixtures.map { |elem| create_from_response(elem) }
+			end
 
-      attr_reader :league_api_football_id
+			def create_old_fixture
+				fixtures = call['response']
+				fixtures.map { |elem| create_old_from_response(elem) }
+			end
 
-      def interpolate_endpoint
-        base_uri + ENDPOINT
-      end
+			private
 
-      def create_from_response(response_element)
-        league = League.first
-        season = league.current_season
-        fixture = Fixture.create(
-          api_football_id: response_element['fixture']['id'],
-          away_team_season_id: get_current_away_team_season_id(response_element['teams']['away']),
-          home_team_season_id: get_current_home_team_season_id(response_element['teams']['home']),
-          kick_off: response_element['fixture']['date'],
-          league_id: league.id,
-          season_id: season.id,
-          game_week: response_element['league']['round'].split('-').last.strip.to_i,
-        )
-        FixtureApiResponse.create(fixture_id: fixture.id, pre_fixture: response_element)
-      end
+			attr_reader :league, :season
 
-      def get_current_home_team_season_id(response_home_team_element)
-        team = Team.find_by(api_football_id: response_home_team_element['id'])
-        team.team_seasons.where(current_season: true).first.id
-      end
+			def make_api_call
+				ApiFootball::ApiFootballCall.new(endpoint: ENDPOINT, options: { league: league.api_football_id, season: season.start_date.year }).make_api_call
+			end
 
-      def get_current_away_team_season_id(response_away_team_element)
-        team = Team.find_by(api_football_id: response_away_team_element['id'])
-        team.team_seasons.where(current_season: true).first.id
-      end
+			def create_from_response(response_element)
+				season_game_week = season.season_game_weeks.find_by(game_week_number: response_element['league']['round'].split('-').last.strip.to_i)
+				fixture = Fixture.create(
+					api_football_id: response_element['fixture']['id'],
+					away_team_season_id: get_current_away_team_season_id(response_element['teams']['away']),
+					home_team_season_id: get_current_home_team_season_id(response_element['teams']['home']),
+					kick_off: response_element['fixture']['date'],
+					league_id: league.id,
+					season_id: season.id,
+					season_game_week_id: season_game_week.id,
+				)
+				FixtureApiResponse.create(fixture_id: fixture.id, pre_fixture: response_element)
+			end
 
-      def create_old_from_response(response_element)
-        league = League.first
-        season = league.last_season
-        Fixture.create(
-          api_football_id: response_element['fixture']['id'],
-          away_team_season_id: get_old_away_team_season_id(response_element['teams']['away']),
-          home_team_season_id: get_old_home_team_season_id(response_element['teams']['home']),
-          kick_off: response_element['fixture']['date'],
-          league_id: league.id,
-          season_id: season.id,
-          away_score: response_element['score']['fulltime']['away'],
-          game_week: response_element['league']['round'].split('-').last.strip.to_i,
-          home_score: response_element['score']['fulltime']['home'],
-        )
-      end
+			def get_current_home_team_season_id(response_home_team_element)
+				team = Team.find_by(api_football_id: response_home_team_element['id'])
+				team.current_team_season.id
+			end
 
-      def get_old_home_team_season_id(response_home_team_element)
-        team = Team.find_by(api_football_id: response_home_team_element['id'])
-        team.team_seasons.first.id
-      end
-
-      def get_old_away_team_season_id(response_away_team_element)
-        team = Team.find_by(api_football_id: response_away_team_element['id'])
-        team.team_seasons.first.id
-      end
-    end
-  end
+			def get_current_away_team_season_id(response_away_team_element)
+				team = Team.find_by(api_football_id: response_away_team_element['id'])
+				team.current_team_season.id
+			end
+		end
+	end
 end
