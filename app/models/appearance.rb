@@ -43,7 +43,7 @@ class Appearance < ApplicationRecord
 	def create_appearance_for_player(player_id, fixture, team_season, is_home = nil)
 		update(
 			player_season: get_player_season(player_id),
-			team_season: team_season,
+			team_season_id: team_season.id,
 			fixture_id: fixture.id,
 			appearance_type: 'start',
 			is_home: is_home,

@@ -2,11 +2,12 @@ module DbUpdater
 	class HeadToHeadUpdater
 
 		FIXTURE_INCREMENT = 1
+
 		def initialize(fixture:)
 			@fixture = fixture
 		end
 
-		def update_head_to_head_objects
+		def call
 			home_team_head_to_head_update
 			away_team_head_to_head_update
 		end

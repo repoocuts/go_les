@@ -227,7 +227,17 @@ class Fixture < ApplicationRecord
 	end
 
 	def format_kick_off
-		kick_off.strftime("%d %b %H:%M")
+		# Define the time zone for British Standard/Summer Time
+		british_time_zone = ActiveSupport::TimeZone.new("London")
+
+		# Check if the kick_off time is during British Summer Time (BST)
+		in_bst = british_time_zone.period_for_utc(kick_off).dst?
+
+		# If in BST, add one hour to the kick_off time
+		kick_off_to_format = in_bst ? kick_off + 1.hour : kick_off
+
+		# Return the formatted string
+		kick_off_to_format.strftime("%d %b %H:%M")
 	end
 
 	def completed?

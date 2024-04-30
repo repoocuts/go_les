@@ -51,7 +51,8 @@ module ApiFootball
 					# If extra_time is nil, it will be sorted as 0, otherwise it will be sorted by its value
 					[elapsed_time, extra_time || 0]
 				end
-				ApiFootball::Updaters::FixtureEvents.new.create_fixture_events(sorted_events, fixture)
+
+				ApiFootball::Updaters::FixtureEvents.new(fixture:, events: sorted_events).call
 			end
 
 			def updater_fixture_home_starts(home_team_api_object, fixture)
@@ -87,7 +88,7 @@ module ApiFootball
 			end
 
 			def head_to_head_updater(fixture)
-				@head_to_head_updater ||= DbUpdater::HeadToHeadUpdater.new(fixture: fixture).update_head_to_head_objects
+				@head_to_head_updater ||= DbUpdater::HeadToHeadUpdater.new(fixture: fixture).call
 			end
 		end
 	end

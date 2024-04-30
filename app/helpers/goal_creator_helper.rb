@@ -15,7 +15,7 @@ module GoalCreatorHelper
 
 	def goal_for_home(event, fixture, team_season)
 		scorer_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
-		home_start = fixture.appearances.where(player_season: scorer_player_season)&.first
+		home_start = fixture.appearances.find_by(player_season: scorer_player_season)
 
 		if scorer_player_season && home_start
 			handle_goal(fixture, home_start, event, scorer_player_season, team_season, true)
@@ -26,7 +26,7 @@ module GoalCreatorHelper
 
 	def goal_for_away(event, fixture, team_season)
 		scorer_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
-		away_start = fixture.appearances.where(player_season: scorer_player_season)&.first
+		away_start = fixture.appearances.find_by(player_season: scorer_player_season)
 
 		if scorer_player_season && away_start
 			handle_goal(fixture, away_start, event, scorer_player_season, team_season, nil)
@@ -37,7 +37,7 @@ module GoalCreatorHelper
 
 	def own_goal_for_home(event, fixture, team_season)
 		scorer_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
-		away_start = fixture.appearances.where(player_season: scorer_player_season)&.first
+		away_start = fixture.appearances.find_by(player_season: scorer_player_season)
 		if scorer_player_season && away_start
 			Goal.create(
 				appearance_id: away_start.id,
@@ -58,7 +58,7 @@ module GoalCreatorHelper
 
 	def own_goal_for_away(event, fixture, team_season)
 		scorer_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
-		home_start = fixture.appearances.where(player_season: scorer_player_season)&.first
+		home_start = fixture.appearances.find_by(player_season: scorer_player_season)
 		if scorer_player_season && home_start
 			Goal.create(
 				fixture_id: fixture.id,

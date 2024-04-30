@@ -1,46 +1,46 @@
 module ApiFootball
-  module Creators
-    class PlayerCreator < ApplicationService
-      include PlayerSeasonCreatorHelper
+	module Creators
+		class PlayerCreator < ApplicationService
+			include PlayerSeasonCreatorHelper
 
-      def initialize(team:)
-        @team = team
-      end
+			def initialize(team:)
+				@team = team
+			end
 
-      def call
-        create_players
+			def call
+				create_players
 
-        :success
-      end
+				:success
+			end
 
-      private
+			private
 
-      attr_reader :team
+			attr_reader :team
 
-      def make_api_call
-        ApiFootball::ApiFootballCall.new(endpoint: 'players/squads', options: { team: team.api_football_id }).make_api_call
-      end
+			def make_api_call
+				ApiFootball::ApiFootballCall.new(endpoint: 'players/squads', options: { team: team.api_football_id }).make_api_call
+			end
 
-      def create_players
-        players = make_api_call['response'][0]['players']
-        players.map { |elem| create_from_response(elem) }
-      end
+			def create_players
+				players = make_api_call['response'][0]['players']
+				players.map { |elem| create_from_response(elem) }
+			end
 
-      def create_from_response(response_element)
-        player = Player.find_or_create_by(
-          full_name: response_element['name'],
-          api_football_id: response_element['id'],
-          position: response_element['position'],
-          team_id: team.id
-        )
-        create_player_season(player.api_football_id, team.current_team_season)
+			def create_from_response(response_element)
+				player = Player.find_or_create_by(
+					full_name: response_element['name'],
+					api_football_id: response_element['id'],
+					position: response_element['position'],
+					team_id: team.id
+				)
+				create_player_season(player, team.current_team_season)
 
-        object_handling_failure(response_element, team.id) if player.nil?
-      end
+				object_handling_failure(response_element, team.id) if player.nil?
+			end
 
-      def object_handling_failure(element, related_team_id)
-        ObjectHandlingFailure.create(object_type: 'player', api_response_element: element, related_team_id:)
-      end
-    end
-  end
+			def object_handling_failure(element, related_team_id)
+				ObjectHandlingFailure.create(object_type: 'player', api_response_element: element, related_team_id:)
+			end
+		end
+	end
 end
