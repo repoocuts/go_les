@@ -64,6 +64,6 @@ class DashboardsController < ApplicationController
 	attr_reader :season, :current_game_week
 
 	def set_season
-		@season ||= Season.find_by(current_season: true)
+		@season ||= Season.find_by(current_season: true, league_id: 1)
 	end
 end
