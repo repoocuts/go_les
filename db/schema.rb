@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_01_125424) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_01_125943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -138,6 +138,29 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_01_125424) do
     t.integer "clean_sheet_home_second_half"
     t.integer "clean_sheet_away_second_half"
     t.index ["player_season_id"], name: "index_defensive_stats_on_player_season_id"
+  end
+
+  create_table "discipline_stats", force: :cascade do |t|
+    t.bigint "player_season_id", null: false
+    t.integer "yellow_card_total"
+    t.integer "yellow_card_home"
+    t.integer "yellow_card_away"
+    t.integer "yellow_card_first_half"
+    t.integer "yellow_card_second_half"
+    t.integer "yellow_card_home_first_half"
+    t.integer "yellow_card_away_first_half"
+    t.integer "yellow_card_home_second_half"
+    t.integer "yellow_card_away_second_half"
+    t.integer "red_card_total"
+    t.integer "red_card_home"
+    t.integer "red_card_away"
+    t.integer "red_card_first_half"
+    t.integer "red_card_second_half"
+    t.integer "red_card_home_first_half"
+    t.integer "red_card_away_first_half"
+    t.integer "red_card_home_second_half"
+    t.integer "red_card_away_second_half"
+    t.index ["player_season_id"], name: "index_discipline_stats_on_player_season_id"
   end
 
   create_table "fixture_api_responses", force: :cascade do |t|
@@ -451,6 +474,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_01_125424) do
   add_foreign_key "corners", "fixtures"
   add_foreign_key "corners", "team_seasons"
   add_foreign_key "defensive_stats", "player_seasons"
+  add_foreign_key "discipline_stats", "player_seasons"
   add_foreign_key "fixture_api_responses", "fixtures"
   add_foreign_key "fixtures", "leagues"
   add_foreign_key "fixtures", "season_game_weeks"
