@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :discipline_stats
+  resources :defensive_stats
+  resources :attacking_stats
   resources :corners
 	resources :head_to_heads
 	resources :referee_fixtures
