@@ -11,10 +11,10 @@
 		<td></td>
 		<td class="text-center">
 			<span class="laptop:hidden">
-				<%= link_to kick_off_or_score, fixture_path(fixture[:fixture]) %>
+				<%= link_to kick_off_or_score, country_league_season_fixture_path(fixture[:fixture].league.country_id, fixture[:fixture].league, fixture[:fixture].season, fixture[:fixture]) %>
 			</span>
 			<span class="hidden laptop:inline">
-				<%= link_to kick_off_or_score, fixture_path(fixture[:fixture]) %>
+				<%= link_to kick_off_or_score, country_league_season_fixture_path(fixture[:fixture].league.country_id, fixture[:fixture].league, fixture[:fixture].season, fixture[:fixture]) %>
 			</span></td>
 		<td></td>
 		<td>

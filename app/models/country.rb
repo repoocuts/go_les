@@ -10,5 +10,9 @@
 #  api_football_id :integer
 #
 class Country < ApplicationRecord
-  has_many :leagues
+	has_many :leagues
+
+	def to_param
+		name.parameterize
+	end
 end

@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :discipline_stats
-  resources :defensive_stats
-  resources :attacking_stats
-  resources :corners
+	resources :discipline_stats
+	resources :defensive_stats
+	resources :attacking_stats
+	resources :corners
 	resources :head_to_heads
 	resources :referee_fixtures
 	resources :referees
@@ -31,15 +31,22 @@ Rails.application.routes.draw do
 	resources :dashboards
 	resources :cards
 	resources :goals
-	resources :appearances
-	resources :player_seasons
 	resources :players
 	resources :fixtures
 	resources :team_seasons
 	resources :teams
 	resources :seasons
 	resources :leagues
-	resources :countries
+	resources :countries do
+		resources :leagues do
+			resources :teams
+			resources :seasons do
+				resources :team_seasons
+				resources :player_seasons
+				resources :fixtures
+			end
+		end
+	end
 
 	get 'team_player_season_goals/:team_season_id', to: 'charts#team_player_season_goals', as: 'team_player_season_goals'
 	get 'team_player_season_assists/:team_season_id', to: 'charts#team_player_season_assists', as: 'team_player_season_assists'

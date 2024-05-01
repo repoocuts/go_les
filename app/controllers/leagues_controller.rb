@@ -67,7 +67,7 @@ class LeaguesController < ApplicationController
 	end
 
 	def set_season
-		@season = Season.current_season
+		@season = @league.current_season
 	end
 
 	# Only allow a list of trusted parameters through.

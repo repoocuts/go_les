@@ -1,52 +1,52 @@
 <% if @next_game_week %>
-  <table class="table-auto text-base text-sm w-full">
-    <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-    <tr>
-      <th class="text-right">
-        Home Team
-      </th>
-      <th>
-      </th>
-      <th class="text-center">
-        Kick Off
-      </th>
-      <th>
-      </th>
-      <th>
-        Away Team
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @next_game_week.each do |fixture| %>
-      <tr class="border-b dark:border-gray-700">
-        <td class="text-right">
+	<table class="table-auto text-base text-sm w-full">
+		<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+		<tr>
+			<th class="text-right">
+				Home Team
+			</th>
+			<th>
+			</th>
+			<th class="text-center">
+				Kick Off
+			</th>
+			<th>
+			</th>
+			<th>
+				Away Team
+			</th>
+		</tr>
+		</thead>
+		<tbody>
+		<% @next_game_week.each do |fixture| %>
+			<tr class="border-b dark:border-gray-700">
+				<td class="text-right">
           <span class="laptop:hidden">
             <%= link_to fixture.home_team_name_acronym, team_path(fixture.home_team_object) %>
           </span>
-          <span class="hidden laptop:inline">
+					<span class="hidden laptop:inline">
             <%= link_to fixture.home_team_name, team_path(fixture.home_team_object) %>
           </span>
-        </td>
-        <td></td>
-        <td class="text-center">
+				</td>
+				<td></td>
+				<td class="text-center">
           <span class="laptop:hidden">
-            <%= link_to convert_datetime_short(fixture.kick_off), fixture_path(fixture) %>
+            <%= link_to convert_datetime_short(fixture.kick_off), country_league_season_fixture_path(fixture.league.country_id, fixture.league, fixture.season, fixture) %>
           </span>
-          <span class="hidden laptop:inline">
-            <%= link_to convert_datetime_long(fixture.kick_off), fixture_path(fixture) %>
+					<span class="hidden laptop:inline">
+            <%= link_to convert_datetime_long(fixture.kick_off), country_league_season_fixture_path(fixture.league.country_id, fixture.league, fixture.season, fixture) %>
           </span></td>
-        <td></td>
-        <td>
+				<td></td>
+				<td>
           <span class="laptop:hidden">
             <%= link_to fixture.away_team_name_acronym, team_path(fixture.away_team_object) %>
           </span>
-          <span class="hidden laptop:inline">
+					<span class="hidden laptop:inline">
             <%= link_to fixture.away_team_name, team_path(fixture.away_team_object) %>
           </span>
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+				</td>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
 <% end %>
