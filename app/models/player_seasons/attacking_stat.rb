@@ -3,24 +3,24 @@
 # Table name: attacking_stats
 #
 #  id                       :bigint           not null, primary key
-#  assists_away             :integer
-#  assists_away_first_half  :integer
-#  assists_away_second_half :integer
-#  assists_first_half       :integer
-#  assists_home             :integer
-#  assists_home_first_half  :integer
-#  assists_home_second_half :integer
-#  assists_second_half      :integer
-#  assists_total            :integer
-#  scored_away              :integer
-#  scored_away_first_half   :integer
-#  scored_away_second_half  :integer
-#  scored_first_half        :integer
-#  scored_home              :integer
-#  scored_home_first_half   :integer
-#  scored_home_second_half  :integer
-#  scored_second_half       :integer
-#  scored_total             :integer
+#  assists_away             :integer          default(0)
+#  assists_away_first_half  :integer          default(0)
+#  assists_away_second_half :integer          default(0)
+#  assists_first_half       :integer          default(0)
+#  assists_home             :integer          default(0)
+#  assists_home_first_half  :integer          default(0)
+#  assists_home_second_half :integer          default(0)
+#  assists_second_half      :integer          default(0)
+#  assists_total            :integer          default(0)
+#  scored_away              :integer          default(0)
+#  scored_away_first_half   :integer          default(0)
+#  scored_away_second_half  :integer          default(0)
+#  scored_first_half        :integer          default(0)
+#  scored_home              :integer          default(0)
+#  scored_home_first_half   :integer          default(0)
+#  scored_home_second_half  :integer          default(0)
+#  scored_second_half       :integer          default(0)
+#  scored_total             :integer          default(0)
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  player_season_id         :bigint           not null

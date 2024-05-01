@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_01_125943) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_01_132839) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,24 +49,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_01_125943) do
 
   create_table "attacking_stats", force: :cascade do |t|
     t.bigint "player_season_id", null: false
-    t.integer "scored_total"
-    t.integer "scored_home"
-    t.integer "scored_away"
-    t.integer "scored_first_half"
-    t.integer "scored_second_half"
-    t.integer "scored_home_first_half"
-    t.integer "scored_away_first_half"
-    t.integer "scored_home_second_half"
-    t.integer "scored_away_second_half"
-    t.integer "assists_total"
-    t.integer "assists_home"
-    t.integer "assists_away"
-    t.integer "assists_first_half"
-    t.integer "assists_second_half"
-    t.integer "assists_home_first_half"
-    t.integer "assists_away_first_half"
-    t.integer "assists_home_second_half"
-    t.integer "assists_away_second_half"
+    t.integer "scored_total", default: 0
+    t.integer "scored_home", default: 0
+    t.integer "scored_away", default: 0
+    t.integer "scored_first_half", default: 0
+    t.integer "scored_second_half", default: 0
+    t.integer "scored_home_first_half", default: 0
+    t.integer "scored_away_first_half", default: 0
+    t.integer "scored_home_second_half", default: 0
+    t.integer "scored_away_second_half", default: 0
+    t.integer "assists_total", default: 0
+    t.integer "assists_home", default: 0
+    t.integer "assists_away", default: 0
+    t.integer "assists_first_half", default: 0
+    t.integer "assists_second_half", default: 0
+    t.integer "assists_home_first_half", default: 0
+    t.integer "assists_away_first_half", default: 0
+    t.integer "assists_home_second_half", default: 0
+    t.integer "assists_away_second_half", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["player_season_id"], name: "index_attacking_stats_on_player_season_id"
@@ -119,47 +119,47 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_01_125943) do
 
   create_table "defensive_stats", force: :cascade do |t|
     t.bigint "player_season_id", null: false
-    t.integer "conceded_total"
-    t.integer "conceded_home"
-    t.integer "conceded_away"
-    t.integer "conceded_first_half"
-    t.integer "conceded_second_half"
-    t.integer "conceded_home_first_half"
-    t.integer "conceded_away_first_half"
-    t.integer "conceded_home_second_half"
-    t.integer "conceded_away_second_half"
-    t.integer "clean_sheet_total"
-    t.integer "clean_sheet_home"
-    t.integer "clean_sheet_away"
-    t.integer "clean_sheet_first_half"
-    t.integer "clean_sheet_second_half"
-    t.integer "clean_sheet_home_first_half"
-    t.integer "clean_sheet_away_first_half"
-    t.integer "clean_sheet_home_second_half"
-    t.integer "clean_sheet_away_second_half"
+    t.integer "conceded_total", default: 0
+    t.integer "conceded_home", default: 0
+    t.integer "conceded_away", default: 0
+    t.integer "conceded_first_half", default: 0
+    t.integer "conceded_second_half", default: 0
+    t.integer "conceded_home_first_half", default: 0
+    t.integer "conceded_away_first_half", default: 0
+    t.integer "conceded_home_second_half", default: 0
+    t.integer "conceded_away_second_half", default: 0
+    t.integer "clean_sheet_total", default: 0
+    t.integer "clean_sheet_home", default: 0
+    t.integer "clean_sheet_away", default: 0
+    t.integer "clean_sheet_first_half", default: 0
+    t.integer "clean_sheet_second_half", default: 0
+    t.integer "clean_sheet_home_first_half", default: 0
+    t.integer "clean_sheet_away_first_half", default: 0
+    t.integer "clean_sheet_home_second_half", default: 0
+    t.integer "clean_sheet_away_second_half", default: 0
     t.index ["player_season_id"], name: "index_defensive_stats_on_player_season_id"
   end
 
   create_table "discipline_stats", force: :cascade do |t|
     t.bigint "player_season_id", null: false
-    t.integer "yellow_card_total"
-    t.integer "yellow_card_home"
-    t.integer "yellow_card_away"
-    t.integer "yellow_card_first_half"
-    t.integer "yellow_card_second_half"
-    t.integer "yellow_card_home_first_half"
-    t.integer "yellow_card_away_first_half"
-    t.integer "yellow_card_home_second_half"
-    t.integer "yellow_card_away_second_half"
-    t.integer "red_card_total"
-    t.integer "red_card_home"
-    t.integer "red_card_away"
-    t.integer "red_card_first_half"
-    t.integer "red_card_second_half"
-    t.integer "red_card_home_first_half"
-    t.integer "red_card_away_first_half"
-    t.integer "red_card_home_second_half"
-    t.integer "red_card_away_second_half"
+    t.integer "yellow_card_total", default: 0
+    t.integer "yellow_card_home", default: 0
+    t.integer "yellow_card_away", default: 0
+    t.integer "yellow_card_first_half", default: 0
+    t.integer "yellow_card_second_half", default: 0
+    t.integer "yellow_card_home_first_half", default: 0
+    t.integer "yellow_card_away_first_half", default: 0
+    t.integer "yellow_card_home_second_half", default: 0
+    t.integer "yellow_card_away_second_half", default: 0
+    t.integer "red_card_total", default: 0
+    t.integer "red_card_home", default: 0
+    t.integer "red_card_away", default: 0
+    t.integer "red_card_first_half", default: 0
+    t.integer "red_card_second_half", default: 0
+    t.integer "red_card_home_first_half", default: 0
+    t.integer "red_card_away_first_half", default: 0
+    t.integer "red_card_home_second_half", default: 0
+    t.integer "red_card_away_second_half", default: 0
     t.index ["player_season_id"], name: "index_discipline_stats_on_player_season_id"
   end
 
