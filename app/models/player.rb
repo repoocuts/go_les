@@ -28,7 +28,7 @@ class Player < ApplicationRecord
 	enum position: { :goalkeeper => 'Goalkeeper', :defender => 'Defender', :midfielder => 'Midfielder', :attacker => 'Attacker' }
 
 	def current_player_season
-		player_seasons.where(current_season: true).first || player_seasons.first
+		player_seasons.find_by(current_season: true) || player_seasons.first
 	end
 
 	def return_name

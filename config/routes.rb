@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :corners
 	resources :head_to_heads
 	resources :referee_fixtures
 	resources :referees

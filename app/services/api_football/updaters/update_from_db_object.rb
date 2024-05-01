@@ -23,6 +23,8 @@ module ApiFootball
 
 				parse_events(api_match_object['events'], fixture)
 
+				update_corner_kicks(api_match_object['statistics'], fixture)
+
 				update_fulltime_score(api_match_object['score']['fulltime'], fixture)
 
 				head_to_head_updater(fixture)
@@ -66,6 +68,16 @@ module ApiFootball
 			def update_fulltime_score(scores, fixture)
 				fixture.update(home_score: scores['home'], away_score: scores['away'])
 				update_team_season_points(scores, fixture.home_team_season, fixture.away_team_season)
+			end
+
+			def update_corner_kicks(statistics, fixture)
+				corner_objects = statistics.each_with_object({}) do |item, obj|
+					team_id = item['team']['id']
+					corner_kicks = item['statistics'].find { |stat| stat['type'] == 'Corner Kicks' }&.fetch('value', nil)
+					obj[team_id] = corner_kicks
+				end
+				binding.pry
+				fixture.update(home_corners: corner_objects[fixture.home_team_api_football_id], away_corners: corner_objects[fixture.away_team_api_football_id])
 			end
 
 			def update_team_season_points(scores, home_team_season, away_team_season)

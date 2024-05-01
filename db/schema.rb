@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_28_154946) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_30_121546) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,6 +66,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_28_154946) do
     t.index ["team_season_id"], name: "index_cards_on_team_season_id"
   end
 
+  create_table "corners", force: :cascade do |t|
+    t.bigint "team_season_id", null: false
+    t.bigint "fixture_id", null: false
+    t.boolean "is_home"
+    t.integer "minute"
+    t.boolean "is_first_half"
+    t.boolean "is_second_half"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fixture_id"], name: "index_corners_on_fixture_id"
+    t.index ["team_season_id"], name: "index_corners_on_team_season_id"
+  end
+
   create_table "countries", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -101,6 +114,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_28_154946) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "season_game_week_id"
+    t.integer "home_corners"
+    t.integer "away_corners"
     t.index ["away_score"], name: "index_fixtures_on_away_score"
     t.index ["away_team_season_id"], name: "index_fixtures_on_away_team_season_id"
     t.index ["game_week"], name: "index_fixtures_on_game_week"
@@ -384,6 +399,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_28_154946) do
   add_foreign_key "cards", "fixtures"
   add_foreign_key "cards", "player_seasons"
   add_foreign_key "cards", "team_seasons"
+  add_foreign_key "corners", "fixtures"
+  add_foreign_key "corners", "team_seasons"
   add_foreign_key "fixture_api_responses", "fixtures"
   add_foreign_key "fixtures", "leagues"
   add_foreign_key "fixtures", "season_game_weeks"

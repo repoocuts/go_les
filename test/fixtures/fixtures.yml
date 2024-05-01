@@ -3,8 +3,10 @@
 # Table name: fixtures
 #
 #  id                  :bigint           not null, primary key
+#  away_corners        :integer
 #  away_score          :integer
 #  game_week           :integer
+#  home_corners        :integer
 #  home_score          :integer
 #  kick_off            :datetime
 #  created_at          :datetime         not null
