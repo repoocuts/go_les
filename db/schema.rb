@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_30_121546) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_01_124742) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,6 +45,31 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_30_121546) do
     t.index ["goal_id"], name: "index_assists_on_goal_id"
     t.index ["player_season_id"], name: "index_assists_on_player_season_id"
     t.index ["team_season_id"], name: "index_assists_on_team_season_id"
+  end
+
+  create_table "attacking_stats", force: :cascade do |t|
+    t.bigint "player_season_id", null: false
+    t.integer "scored_total"
+    t.integer "scored_home"
+    t.integer "scored_away"
+    t.integer "scored_first_half"
+    t.integer "scored_second_half"
+    t.integer "scored_home_first_half"
+    t.integer "scored_away_first_half"
+    t.integer "scored_home_second_half"
+    t.integer "scored_away_second_half"
+    t.integer "assists_total"
+    t.integer "assists_home"
+    t.integer "assists_away"
+    t.integer "assists_first_half"
+    t.integer "assists_second_half"
+    t.integer "assists_home_first_half"
+    t.integer "assists_away_first_half"
+    t.integer "assists_home_second_half"
+    t.integer "assists_away_second_half"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_season_id"], name: "index_attacking_stats_on_player_season_id"
   end
 
   create_table "cards", force: :cascade do |t|
@@ -395,6 +420,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_30_121546) do
   add_foreign_key "assists", "goals"
   add_foreign_key "assists", "player_seasons"
   add_foreign_key "assists", "team_seasons"
+  add_foreign_key "attacking_stats", "player_seasons"
   add_foreign_key "cards", "appearances"
   add_foreign_key "cards", "fixtures"
   add_foreign_key "cards", "player_seasons"
