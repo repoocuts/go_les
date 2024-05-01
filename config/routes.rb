@@ -11,14 +11,29 @@ Rails.application.routes.draw do
 	namespace :ceefax do
 		resources :appearances
 		resources :assists
+		namespace :player_seasons do
+			resources :attacking_stats
+			resources :defensive_stats
+			resources :discipline_stats
+		end
+		namespace :team_seasons do
+			resources :goals_conceded_stats
+			resources :goals_scored_stats
+			resources :red_cards_stats
+			resources :yellow_cards_stats
+		end
 		resources :cards
+		resources :corners
 		resources :countries
 		resources :dashboards
 		resources :fixtures
 		resources :goals
+		resources :head_to_heads
 		resources :leagues
 		resources :players
 		resources :player_seasons
+		resources :referees
+		resources :referee_fixtures
 		resources :seasons
 		resources :season_game_weeks
 		resources :teams
