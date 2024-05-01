@@ -76,7 +76,7 @@ module ApiFootball
 					corner_kicks = item['statistics'].find { |stat| stat['type'] == 'Corner Kicks' }&.fetch('value', nil)
 					obj[team_id] = corner_kicks
 				end
-				binding.pry
+
 				fixture.update(home_corners: corner_objects[fixture.home_team_api_football_id], away_corners: corner_objects[fixture.away_team_api_football_id])
 			end
 
