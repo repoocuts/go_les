@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class SeasonDashboard < Administrate::BaseDashboard
+class RefereeFixtureDashboard < Administrate::BaseDashboard
 	# ATTRIBUTE_TYPES
 	# a hash that describes the type of each of the model's fields.
 	#
@@ -9,19 +9,11 @@ class SeasonDashboard < Administrate::BaseDashboard
 	# on pages throughout the dashboard.
 	ATTRIBUTE_TYPES = {
 		                  id: Field::Number,
-		                  api_football_id: Field::Number,
-		                  assists: Field::HasMany,
 		                  cards: Field::HasMany,
-		                  current_game_week: Field::Number,
-		                  current_season: Field::Boolean,
-		                  end_date: Field::DateTime,
-		                  fixtures: Field::HasMany,
+		                  fixture: Field::BelongsTo,
 		                  goals: Field::HasMany,
-		                  league: Field::BelongsTo,
-		                  player_seasons: Field::HasMany,
-		                  season_game_weeks: Field::HasMany,
-		                  start_date: Field::DateTime,
-		                  team_seasons: Field::HasMany,
+		                  referee: Field::BelongsTo,
+		                  season: Field::BelongsTo,
 		                  created_at: Field::DateTime,
 		                  updated_at: Field::DateTime,
 	                  }.freeze
@@ -33,28 +25,20 @@ class SeasonDashboard < Administrate::BaseDashboard
 	# Feel free to add, remove, or rearrange items.
 	COLLECTION_ATTRIBUTES = %i[
     id
-    start_date
-    end_date
     cards
+    fixture
+    goals
   ].freeze
 
 	# SHOW_PAGE_ATTRIBUTES
 	# an array of attributes that will be displayed on the model's show page.
 	SHOW_PAGE_ATTRIBUTES = %i[
     id
-    api_football_id
-    assists
     cards
-    current_game_week
-    current_season
-    end_date
-    fixtures
+    fixture
     goals
-    league
-    player_seasons
-    season_game_weeks
-    start_date
-    team_seasons
+    referee
+    season
     created_at
     updated_at
   ].freeze
@@ -63,14 +47,11 @@ class SeasonDashboard < Administrate::BaseDashboard
 	# an array of attributes that will be displayed
 	# on the model's form (`new` and `edit`) pages.
 	FORM_ATTRIBUTES = %i[
-    api_football_id
-    current_game_week
-    current_season
-    end_date
-    fixtures
-    league
-    season_game_weeks
-    start_date
+    cards
+    fixture
+    goals
+    referee
+    season
   ].freeze
 
 	# COLLECTION_FILTERS
@@ -85,10 +66,10 @@ class SeasonDashboard < Administrate::BaseDashboard
 	#   }.freeze
 	COLLECTION_FILTERS = {}.freeze
 
-	# Overwrite this method to customize how seasons are displayed
-	# across all pages of the ceefax dashboard.
+	# Overwrite this method to customize how referee fixtures are displayed
+	# across all pages of the admin dashboard.
 	#
-	def display_resource(season)
-		"#{season.start_date.strftime('%Y')}/#{season.end_date.strftime('%Y')}"
+	def display_resource(referee_fixture)
+		"#{referee_fixture.referee.name}:#{referee_fixture.fixture.home_team_name} vs #{referee_fixture.fixture.away_team_name}"
 	end
 end

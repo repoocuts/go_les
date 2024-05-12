@@ -31,6 +31,7 @@ class Team < ApplicationRecord
 	has_many :player_seasons, through: :team_seasons
 
 	belongs_to :league
+	belongs_to :country
 
 	def current_team_season
 		team_seasons.find_by(current_season: true)
