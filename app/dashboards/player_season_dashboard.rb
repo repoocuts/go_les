@@ -31,17 +31,19 @@ class PlayerSeasonDashboard < Administrate::BaseDashboard
 	# Feel free to add, remove, or rearrange items.
 	COLLECTION_ATTRIBUTES = %i[
     id
-    api_football_id
-    appearances
+    player
+    team_season
     appearances_count
   ].freeze
 
 	# SHOW_PAGE_ATTRIBUTES
 	# an array of attributes that will be displayed on the model's show page.
 	SHOW_PAGE_ATTRIBUTES = %i[
+	  player
+    team_season
+    appearances
     id
     api_football_id
-    appearances
     appearances_count
     assists
     assists_count
@@ -49,8 +51,6 @@ class PlayerSeasonDashboard < Administrate::BaseDashboard
     current_season
     goals
     goals_count
-    player
-    team_season
     created_at
     updated_at
   ].freeze
@@ -60,14 +60,7 @@ class PlayerSeasonDashboard < Administrate::BaseDashboard
 	# on the model's form (`new` and `edit`) pages.
 	FORM_ATTRIBUTES = %i[
     api_football_id
-    appearances
-    appearances_count
-    assists
-    assists_count
-    cards
     current_season
-    goals
-    goals_count
     player
     team_season
   ].freeze

@@ -33,6 +33,7 @@ class AppearanceDashboard < Administrate::BaseDashboard
     id
     player_season
     team_season
+    fixture
     assists_count
     goals_count
     cards
@@ -71,8 +72,6 @@ class AppearanceDashboard < Administrate::BaseDashboard
     goals_count
     is_home
     minutes
-    player_season
-    team_season
   ].freeze
 
 	# COLLECTION_FILTERS
