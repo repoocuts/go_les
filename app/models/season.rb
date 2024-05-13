@@ -93,6 +93,8 @@ class Season < ApplicationRecord
 	end
 
 	def next_season_game_week_fixtures
+		return [] if current_game_week == 38
+
 		@next_season_game_week ||= season_game_weeks.find_by(game_week_number: current_game_week + 1).fixtures
 	end
 

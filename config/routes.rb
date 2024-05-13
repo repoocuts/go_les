@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 		resources :leagues
 		resources :players
 		resources :player_seasons
+		resources :object_handling_failures
 		resources :referees
 		resources :referee_fixtures
 		resources :seasons
