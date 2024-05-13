@@ -47,6 +47,8 @@ class Season < ApplicationRecord
 	end
 
 	def fixtures_for_next_game_week
+		return [] if current_game_week == 38
+
 		next_season_game_week_fixtures.includes(home_team_season: :team, away_team_season: :team).order(:kick_off)
 	end
 
