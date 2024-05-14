@@ -1,5 +1,5 @@
 class LeaguesController < ApplicationController
-	before_action :set_league, only: %i[ index show edit update destroy ]
+	before_action :set_league, only: %i[ show edit update destroy ]
 	before_action :set_season, only: %i[ index show edit update destroy ]
 
 	# GET /leagues or /leagues.json
@@ -67,7 +67,7 @@ class LeaguesController < ApplicationController
 	end
 
 	def set_season
-		@season = @league.current_season
+		@season = League.first.current_season
 	end
 
 	# Only allow a list of trusted parameters through.
