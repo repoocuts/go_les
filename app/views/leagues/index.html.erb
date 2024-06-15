@@ -1,20 +1,14 @@
-<table class="w-full">
-  <thead>
-    <tr>
-      <th></th>
-      <th class="bg-gray-300 p-2 font-bold text-center"></th>
-      <th class="bg-gray-300 p-2 font-bold text-center">G</th>
-      <th class="bg-gray-300 p-2 font-bold text-center">Pts</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @league.each_with_index do |team_season,index| %>
-      <tr class="<%= cycle('bg-white', 'bg-gray-100') %>">
-        <td class="border border-gray-300 p-2 text-center"><%= index + 1 %></td>
-        <td class="border border-gray-300 p-2 text-center"><%= link_to team_season.team.name, team_path(team_season.team) %></td>
-        <td class="border border-gray-300 p-2 text-center"><%= team_season.completed_fixtures_count %>
-        <td class="border border-gray-300 p-2 text-center"><%= team_season.points %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container mx-auto px-4">
+	<div class="grid gap-4 phone:grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+		<% @leagues.each do |country, leagues| %>
+			<div class="border p-4">
+				<h2 class="text-xl font-bold mb-2"><%= country.name %></h2>
+				<ul>
+					<% leagues.each do |league| %>
+						<li><%= link_to league.name, country_league_path(league.country, league) %></li>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
+	</div>
+</div>

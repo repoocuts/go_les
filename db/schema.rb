@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_01_132839) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_15_201448) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -110,6 +110,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_01_132839) do
     t.integer "api_football_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_countries_on_slug", unique: true
   end
 
   create_table "dashboards", force: :cascade do |t|
@@ -284,7 +286,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_01_132839) do
     t.bigint "country_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["country_id"], name: "index_leagues_on_country_id"
+    t.index ["slug"], name: "index_leagues_on_slug", unique: true
   end
 
   create_table "object_handling_failures", force: :cascade do |t|
@@ -390,7 +394,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_01_132839) do
     t.bigint "league_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
+    t.string "years"
     t.index ["league_id"], name: "index_seasons_on_league_id"
+    t.index ["slug"], name: "index_seasons_on_slug", unique: true
   end
 
   create_table "team_seasons", force: :cascade do |t|

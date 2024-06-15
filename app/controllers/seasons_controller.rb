@@ -1,70 +1,83 @@
 class SeasonsController < ApplicationController
-  before_action :set_season, only: %i[ show edit update destroy ]
+	before_action :set_season, only: %i[ show edit update destroy ]
+	before_action :set_league, only: %i[ show edit update destroy ]
 
-  # GET /seasons or /seasons.json
-  def index
-    @seasons = Season.all
-  end
+	# GET /seasons or /seasons.json
+	def index
+		@seasons = Season.all
+	end
 
-  # GET /seasons/1 or /seasons/1.json
-  def show
-  end
+	# GET /seasons/1 or /seasons/1.json
+	def show
+		@current_season_table = season.team_seasons.order(points: :desc)
 
-  # GET /seasons/new
-  def new
-    @season = Season.new
-  end
+		respond_to do |format|
+			format.html
+			format.turbo_stream
+		end
+	end
 
-  # GET /seasons/1/edit
-  def edit
-  end
+	# GET /seasons/new
+	def new
+		@season = Season.new
+	end
 
-  # POST /seasons or /seasons.json
-  def create
-    @season = Season.new(season_params)
+	# GET /seasons/1/edit
+	def edit
+	end
 
-    respond_to do |format|
-      if @season.save
-        format.html { redirect_to season_url(@season), notice: "Season was successfully created." }
-        format.json { render :show, status: :created, location: @season }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @season.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+	# POST /seasons or /seasons.json
+	def create
+		@season = Season.new(season_params)
 
-  # PATCH/PUT /seasons/1 or /seasons/1.json
-  def update
-    respond_to do |format|
-      if @season.update(season_params)
-        format.html { redirect_to season_url(@season), notice: "Season was successfully updated." }
-        format.json { render :show, status: :ok, location: @season }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @season.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+		respond_to do |format|
+			if @season.save
+				format.html { redirect_to season_url(@season), notice: "Season was successfully created." }
+				format.json { render :show, status: :created, location: @season }
+			else
+				format.html { render :new, status: :unprocessable_entity }
+				format.json { render json: @season.errors, status: :unprocessable_entity }
+			end
+		end
+	end
 
-  # DELETE /seasons/1 or /seasons/1.json
-  def destroy
-    @season.destroy
+	# PATCH/PUT /seasons/1 or /seasons/1.json
+	def update
+		respond_to do |format|
+			if @season.update(season_params)
+				format.html { redirect_to season_url(@season), notice: "Season was successfully updated." }
+				format.json { render :show, status: :ok, location: @season }
+			else
+				format.html { render :edit, status: :unprocessable_entity }
+				format.json { render json: @season.errors, status: :unprocessable_entity }
+			end
+		end
+	end
 
-    respond_to do |format|
-      format.html { redirect_to seasons_url, notice: "Season was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+	# DELETE /seasons/1 or /seasons/1.json
+	def destroy
+		@season.destroy
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_season
-      @current_season = Season.find_by(current_season: true)
-    end
+		respond_to do |format|
+			format.html { redirect_to seasons_url, notice: "Season was successfully destroyed." }
+			format.json { head :no_content }
+		end
+	end
 
-    # Only allow a list of trusted parameters through.
-    def season_params
-      params.require(:season).permit(:start_date, :end_date, :api_football_id, :current_season, :current_game_week, :league_id)
-    end
+	private
+
+	attr_reader :season, :league
+	# Use callbacks to share common setup or constraints between actions.
+	def set_season
+		@season = Season.friendly.find(params[:id])
+	end
+
+	def set_league
+		@league = League.friendly.find(params[:league_id])
+	end
+
+	# Only allow a list of trusted parameters through.
+	def season_params
+		params.require(:season).permit(:start_date, :end_date, :api_football_id, :current_season, :current_game_week, :league_id)
+	end
 end

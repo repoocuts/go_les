@@ -21,9 +21,9 @@ html * {
     color: decoration-slate-500
 }
 
-a {
-    color: rgb(52, 1, 234);
-}
+/*a {*/
+/*    color: rgb(52, 1, 234);*/
+/*}*/
 
 .table {
     background-color: #ff0c11;

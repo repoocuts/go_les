@@ -6,7 +6,9 @@
 #  current_game_week :integer
 #  current_season    :boolean
 #  end_date          :datetime
+#  slug              :string
 #  start_date        :datetime
+#  years             :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  api_football_id   :integer
@@ -15,6 +17,7 @@
 # Indexes
 #
 #  index_seasons_on_league_id  (league_id)
+#  index_seasons_on_slug       (slug) UNIQUE
 #
 # Foreign Keys
 #

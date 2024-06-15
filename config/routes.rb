@@ -54,15 +54,17 @@ Rails.application.routes.draw do
 	resources :seasons
 	resources :leagues
 	resources :countries do
-		resources :leagues do
+		resources :leagues, only: [:index, :show, :update, :destroy] do
 			resources :teams
-			resources :seasons do
+			resources :seasons, only: [:show, :update, :destroy] do
 				resources :team_seasons
 				resources :player_seasons
 				resources :fixtures
 			end
 		end
 	end
+
+	resources :leagues, only: [:index]
 
 	get 'team_player_season_goals/:team_season_id', to: 'charts#team_player_season_goals', as: 'team_player_season_goals'
 	get 'team_player_season_assists/:team_season_id', to: 'charts#team_player_season_assists', as: 'team_player_season_assists'
