@@ -10,8 +10,8 @@ class LeaguesController < ApplicationController
 
 	# GET /leagues/1 or /leagues/1.json
 	def show
-		@current_season_table = season.team_seasons.includes(:team).order(:points).reverse
 		@seasons = league.seasons.order(:years)
+		@teams = league.teams.order(:name)
 	end
 
 	# GET /leagues/new

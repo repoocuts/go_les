@@ -1,5 +1,5 @@
 class SeasonsController < ApplicationController
-	before_action :set_season, only: %i[ show edit update destroy ]
+	before_action :set_season, only: %i[ show edit update destroy season ]
 	before_action :set_league, only: %i[ show edit update destroy ]
 
 	# GET /seasons or /seasons.json
@@ -9,7 +9,17 @@ class SeasonsController < ApplicationController
 
 	# GET /seasons/1 or /seasons/1.json
 	def show
-		@current_season_table = season.team_seasons.order(points: :desc)
+		@season_table = season.team_seasons.order(points: :desc)
+		@current_game_week = season.fixtures_for_current_game_week
+		@next_game_week = season.fixtures_for_next_game_week
+		@last_game_week = season.fixtures_for_last_game_week
+		@team_seasons = season.team_seasons
+		current_page = params[:page] || 1
+		@pagy_scorers, @top_scorers = pagy_countless(season.top_scorers, page: current_page)
+		@pagy_assists, @top_assists = pagy_countless(season.top_assists, page: current_page)
+		@pagy_booked, @most_booked = pagy_array(season.top_booked, page: current_page)
+		@pagy_reds, @most_reds = pagy_array(season.top_reds, page: current_page)
+		@next_page = @pagy_scorers.next
 
 		respond_to do |format|
 			format.html

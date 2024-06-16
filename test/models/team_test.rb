@@ -6,6 +6,7 @@
 #  acronym         :string
 #  name            :string
 #  short_name      :string
+#  slug            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  api_football_id :integer
@@ -18,6 +19,7 @@
 #  index_teams_on_country_id  (country_id)
 #  index_teams_on_league_id   (league_id)
 #  index_teams_on_name        (name)
+#  index_teams_on_slug        (slug) UNIQUE
 #
 # Foreign Keys
 #

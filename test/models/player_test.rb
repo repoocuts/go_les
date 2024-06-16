@@ -6,6 +6,7 @@
 #  full_name       :string
 #  position        :string
 #  short_name      :string
+#  slug            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  api_football_id :integer
@@ -15,6 +16,7 @@
 #
 #  index_players_on_full_name   (full_name)
 #  index_players_on_short_name  (short_name)
+#  index_players_on_slug        (slug) UNIQUE
 #  index_players_on_team_id     (team_id)
 #
 # Foreign Keys
