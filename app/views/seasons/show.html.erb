@@ -1,22 +1,161 @@
 <%= turbo_frame_tag "season-content" do %>
-	<table class="w-full mt-8">
-		<thead>
-		<tr>
-			<th></th>
-			<th class="bg-gray-300 p-2 font-bold text-center"></th>
-			<th class="bg-gray-300 p-2 font-bold text-center">G</th>
-			<th class="bg-gray-300 p-2 font-bold text-center">Pts</th>
-		</tr>
-		</thead>
-		<tbody>
-		<% @season_table.each_with_index do |team_season, index| %>
-			<tr class="<%= cycle('bg-white', 'bg-gray-100') %>">
-				<td class="border border-gray-300 p-2 text-center"><%= index + 1 %></td>
-				<td class="border border-gray-300 p-2 text-center"><%= link_to team_season.team.name, team_path(team_season.team) %></td>
-				<td class="border border-gray-300 p-2 text-center"><%= team_season.completed_fixtures_count %>
-				<td class="border border-gray-300 p-2 text-center"><%= team_season.points %></td>
-			</tr>
-		<% end %>
-		</tbody>
-	</table>
+	<div class="grid grid-cols-3 gap-4 justify-center mx-auto pb-5">
+		<div>
+			<h5 class="text-center">Last Week</h5>
+			<table class="table-auto text-base text-sm w-full">
+				<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+				<tr>
+					<th class="text-right">
+						Home
+					</th>
+					<th>
+					</th>
+					<th class="text-center">
+					</th>
+					<th>
+					</th>
+					<th class="text-left">
+						Away
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				<%= render LastGameWeekResultsComponent.with_collection(@last_game_week), cached: true %>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<h5 class="text-center">Current Week</h5>
+			<table class="table-auto text-base text-sm w-full">
+				<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+				<tr>
+					<th class="text-right">
+						Home
+					</th>
+					<th>
+					</th>
+					<th class="text-center">
+					</th>
+					<th>
+					</th>
+					<th class="text-left">
+						Away
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				<%= render CurrentGameWeekFixturesComponent.with_collection(@current_game_week), cached: true %>
+				</tbody>
+			</table>
+		</div>
+		<div class="align-items-right">
+			<h5 class="text-center">Next Week</h5>
+			<table class="table-auto text-base text-sm w-full">
+				<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+				<tr>
+					<th class="text-right">
+						Home
+					</th>
+					<th>
+					</th>
+					<th class="text-center">
+					</th>
+					<th>
+					</th>
+					<th class="text-left">
+						Away
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				<%= render NextGameWeekFixturesComponent.with_collection(@next_game_week), cached: true %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="grid tablet:grid-cols-4 phone:grid-cols-2 gap-4 justify-center mx-auto mt-5">
+		<div class="p-4" data-controller="dashboard">
+			<h5 class="text-center">Top Scorers</h5>
+			<div class="scrollies" data-dashboard-target="scrollies" data-next-page="<%= @next_page %>">
+				<table class="table-auto text-base text-sm w-full">
+					<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+					<tr>
+						<th class="px-4 py-2"></th>
+						<th class="px-4 py-2 hidden laptop:block"></th>
+						<th class="px-4 py-2 text-center">
+							<span class="hidden laptop:inline">Goals</span>
+							<span class="laptop:hidden">G</span>
+						</th>
+					</tr>
+					</thead>
+					<tbody id="scorers-table">
+					<%= render partial: 'top_scorers_partial', cached: true %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="p-4" data-controller="dashboard">
+			<h5 class="text-center">Top Assists</h5>
+			<div class="scrollies" data-dashboard-target="assisties" data-next-page="<%= @next_page %>">
+				<table class="table-auto text-base text-sm w-full">
+					<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+					<tr>
+						<th class="px-4 py-2"></th>
+						<th class="px-4 py-2 hidden laptop:block"></th>
+						<th class="px-4 py-2 text-center">
+							<span class="hidden laptop:inline">Assists</span>
+							<span class="laptop:hidden">A</span>
+						</th>
+					</tr>
+					</thead>
+					<tbody id="assists-table">
+					<%= render partial: 'top_assists_partial', cached: true %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="p-4" data-controller="dashboard">
+			<h5 class="text-center">Most Booked</h5>
+			<div class="scrollies" data-dashboard-target="bookies" data-next-page="<%= @next_page %>">
+				<table class="table-auto text-base text-sm w-full">
+					<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+					<tr>
+						<th class="px-4 py-2"></th>
+						<th class="px-4 py-2 hidden laptop:block"></th>
+						<th class="px-4 py-2 text-center">
+							<span class="hidden laptop:inline">Bookings</span>
+							<span class="laptop:hidden">YC</span>
+						</th>
+					</tr>
+					</thead>
+					<tbody id="most-booked-table">
+					<%= render partial: 'most_booked_partial', cached: true %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="p-4" data-controller="dashboard">
+			<h5 class="text-center">Most Reds</h5>
+			<div class="scrollies" data-dashboard-target="reddies" data-next-page="<%= @next_page %>">
+				<table class="table-auto text-base text-sm w-full">
+					<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+					<tr>
+						<th class="px-4 py-2"></th>
+						<th class="px-4 py-2 hidden laptop:block"></th>
+						<th class="px-4 py-2 text-center">
+							<span class="hidden laptop:inline">Reds</span>
+							<span class="laptop:hidden">RC</span>
+						</th>
+					</tr>
+					</thead>
+					<tbody id="most-reds-table">
+					<%= render partial: 'most_reds_partial', cached: true %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="grid grid-cols-1 justify-center mx-auto mt-5">
+		<%= render LeagueTableComponent.new(@team_seasons), cached: true %>
+	</div>
 <% end %>

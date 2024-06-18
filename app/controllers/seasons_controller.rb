@@ -1,6 +1,6 @@
 class SeasonsController < ApplicationController
-	before_action :set_season, only: %i[ show edit update destroy season ]
-	before_action :set_league, only: %i[ show edit update destroy ]
+	before_action :set_league
+	before_action :set_season
 
 	# GET /seasons or /seasons.json
 	def index
@@ -23,7 +23,7 @@ class SeasonsController < ApplicationController
 
 		respond_to do |format|
 			format.html
-			format.turbo_stream
+			# format.turbo_stream
 		end
 	end
 
@@ -74,12 +74,45 @@ class SeasonsController < ApplicationController
 		end
 	end
 
+	def scorers_streaming
+		set_season
+		@pagy_scorers, @top_scorers = pagy_countless(season.top_scorers, page: params[:page])
+		respond_to do |format|
+			format.turbo_stream
+		end
+	end
+
+	def assists_streaming
+		set_season
+		@pagy_assists, @top_assists = pagy_countless(season.top_assists, page: params[:page])
+		respond_to do |format|
+			format.turbo_stream
+		end
+	end
+
+	def bookings_streaming
+		set_season
+		@pagy_booked, @most_booked = pagy_array(season.top_booked, page: params[:page])
+		respond_to do |format|
+			format.turbo_stream
+		end
+	end
+
+	def reds_streaming
+		set_season
+		@pagy_reds, @most_reds = pagy_array(season.top_reds, page: params[:page])
+		respond_to do |format|
+			format.turbo_stream
+		end
+	end
+
 	private
 
 	attr_reader :season, :league
 	# Use callbacks to share common setup or constraints between actions.
 	def set_season
-		@season = Season.friendly.find(params[:id])
+		set_league
+		@season = league.seasons.friendly.find(params[:id])
 	end
 
 	def set_league

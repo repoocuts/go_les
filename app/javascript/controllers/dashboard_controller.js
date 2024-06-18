@@ -31,9 +31,18 @@ export default class extends Controller {
 
 	loadMore() {
 		const nextPage = parseInt(this.scrolliesTarget.dataset.nextPage);
+		const currentUrl = new URL(window.location.href);
+		const pathname = currentUrl.pathname;
+		const pathSegments = pathname.split('/');
+		const leagueParam = pathSegments[4]; // Adjust the index if needed
+		const seasonParam = pathSegments[6]; // Adjust the index if needed
+
 		if (nextPage) {
 			const url = new URL('/scorers_streaming', window.location.origin);
 			url.searchParams.set('page', nextPage);
+			url.searchParams.set('league_id', leagueParam);
+			url.searchParams.set('id', seasonParam);
+
 			fetch(url.toString(), {
 				headers: {
 					'Accept': 'text/vnd.turbo-stream.html'
@@ -48,9 +57,17 @@ export default class extends Controller {
 
 	loadMoreAssists() {
 		const nextPage = parseInt(this.assistiesTarget.dataset.nextPage);
+		const currentUrl = new URL(window.location.href);
+		const pathname = currentUrl.pathname;
+		const pathSegments = pathname.split('/');
+		const leagueParam = pathSegments[4]; // Adjust the index if needed
+		const seasonParam = pathSegments[6]; // Adjust the index if needed
 		if (nextPage) {
 			const url = new URL('/assists_streaming', window.location.origin);
 			url.searchParams.set('page', nextPage);
+			url.searchParams.set('league_id', leagueParam);
+			url.searchParams.set('id', seasonParam);
+
 			fetch(url.toString(), {
 				headers: {
 					'Accept': 'text/vnd.turbo-stream.html'
@@ -65,9 +82,16 @@ export default class extends Controller {
 
 	loadMoreBookings() {
 		const nextPage = parseInt(this.bookiesTarget.dataset.nextPage);
+		const currentUrl = new URL(window.location.href);
+		const pathname = currentUrl.pathname;
+		const pathSegments = pathname.split('/');
+		const leagueParam = pathSegments[4]; // Adjust the index if needed
+		const seasonParam = pathSegments[6]; // Adjust the index if needed
 		if (nextPage) {
 			const url = new URL('/bookings_streaming', window.location.origin);
 			url.searchParams.set('page', nextPage);
+			url.searchParams.set('league_id', leagueParam);
+			url.searchParams.set('id', seasonParam);
 			fetch(url.toString(), {
 				headers: {
 					'Accept': 'text/vnd.turbo-stream.html'
@@ -82,9 +106,16 @@ export default class extends Controller {
 
 	loadMoreReds() {
 		const nextPage = parseInt(this.reddiesTarget.dataset.nextPage);
+		const currentUrl = new URL(window.location.href);
+		const pathname = currentUrl.pathname;
+		const pathSegments = pathname.split('/');
+		const leagueParam = pathSegments[4]; // Adjust the index if needed
+		const seasonParam = pathSegments[6]; // Adjust the index if needed
 		if (nextPage) {
 			const url = new URL('/reds_streaming', window.location.origin);
 			url.searchParams.set('page', nextPage);
+			url.searchParams.set('league_id', leagueParam);
+			url.searchParams.set('id', seasonParam);
 			fetch(url.toString(), {
 				headers: {
 					'Accept': 'text/vnd.turbo-stream.html'
