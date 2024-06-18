@@ -1,5 +1,6 @@
 class SeasonsController < ApplicationController
-	before_action :set_league
+	before_action :set_country, only: [:show, :scorers_streaming, :assists_streaming, :bookings_streaming, :reds_streaming]
+	before_action :set_league, only: [:show, :scorers_streaming, :assists_streaming, :bookings_streaming, :reds_streaming]
 	before_action :set_season
 
 	# GET /seasons or /seasons.json
@@ -75,7 +76,6 @@ class SeasonsController < ApplicationController
 	end
 
 	def scorers_streaming
-		set_season
 		@pagy_scorers, @top_scorers = pagy_countless(season.top_scorers, page: params[:page])
 		respond_to do |format|
 			format.turbo_stream
@@ -83,7 +83,6 @@ class SeasonsController < ApplicationController
 	end
 
 	def assists_streaming
-		set_season
 		@pagy_assists, @top_assists = pagy_countless(season.top_assists, page: params[:page])
 		respond_to do |format|
 			format.turbo_stream
@@ -91,7 +90,6 @@ class SeasonsController < ApplicationController
 	end
 
 	def bookings_streaming
-		set_season
 		@pagy_booked, @most_booked = pagy_array(season.top_booked, page: params[:page])
 		respond_to do |format|
 			format.turbo_stream
@@ -99,7 +97,6 @@ class SeasonsController < ApplicationController
 	end
 
 	def reds_streaming
-		set_season
 		@pagy_reds, @most_reds = pagy_array(season.top_reds, page: params[:page])
 		respond_to do |format|
 			format.turbo_stream
@@ -108,15 +105,18 @@ class SeasonsController < ApplicationController
 
 	private
 
-	attr_reader :season, :league
+	attr_reader :season, :league, :country
 	# Use callbacks to share common setup or constraints between actions.
 	def set_season
-		set_league
-		@season = league.seasons.friendly.find(params[:id])
+		@season = league.seasons.friendly.find(params[:id]) || league.seasons.friendly.find(params[:season_id])
 	end
 
 	def set_league
-		@league = League.friendly.find(params[:league_id])
+		@league = country.leagues.friendly.find(params[:league_id])
+	end
+
+	def set_country
+		@country = Country.friendly.find(params[:country_id])
 	end
 
 	# Only allow a list of trusted parameters through.

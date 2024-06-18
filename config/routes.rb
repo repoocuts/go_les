@@ -85,9 +85,5 @@ Rails.application.routes.draw do
 	get 'team_goals_radar/:current_team_season_id/:opponent_team_season_id', to: 'charts#team_goals_radar', as: 'team_goals_radar'
 	get 'team_cards_line_chart/:current_team_season_id/:opponent_team_season_id', to: 'charts#team_cards_line_chart', as: 'team_cards_line_chart'
 	get '/search', to: 'dashboards#search', as: 'search'
-	get 'scorers_streaming', to: 'seasons#scorers_streaming'
-	get 'assists_streaming', to: 'seasons#assists_streaming'
-	get 'bookings_streaming', to: 'seasons#bookings_streaming'
-	get 'reds_streaming', to: 'seasons#reds_streaming'
 
 end
