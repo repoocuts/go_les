@@ -66,3 +66,4 @@ end
 away_team_two_player_seasons.first(11).each do |ps|
   Appearance.create(appearance_type: 'start', is_home: true, minutes: 90, fixture: fixture_two, player_season: ps, team_season: home_team_two)
 end
+Alchemy::Seeder.seed!

@@ -14,6 +14,7 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				sans: ['Noto San', ...defaultTheme.fontFamily.sans],
+				nunito: ['nunito', 'sans-serif'],
 			},
 		},
 		screens: {

@@ -39,3 +39,8 @@ html * {
     max-height: 400px;
     overflow-y: auto;
 }
+
+.container {
+    max-width: 2000px;
+    padding-top: 4rem;
+}

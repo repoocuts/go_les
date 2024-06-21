@@ -1,159 +1,48 @@
-<div class="grid grid-cols-3 gap-4 justify-center mx-auto pb-5">
-	<div>
-		<h5 class="text-center">Last Week</h5>
-		<table class="table-auto text-base text-sm w-full">
-			<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-			<tr>
-				<th class="text-right">
-					Home
-				</th>
-				<th>
-				</th>
-				<th class="text-center">
-				</th>
-				<th>
-				</th>
-				<th class="text-left">
-					Away
-				</th>
-			</tr>
-			</thead>
-			<tbody>
-			<%= render LastGameWeekResultsComponent.with_collection(@last_game_week), cached: true %>
-			</tbody>
-		</table>
+<section class="bg-green-50 w-full flex justify-center items-center">
+	<div class="w-full max-w-screen-xl flex justify-center items-center">
+		<div class="relative w-full aspect-w-16 aspect-h-9">
+			<iframe class="absolute inset-0 w-1/2 h-1/2 m-auto" src="https://www.youtube.com/embed/xOVsji5dL-k" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
 	</div>
-	<div>
-		<h5 class="text-center">Current Week</h5>
-		<table class="table-auto text-base text-sm w-full">
-			<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-			<tr>
-				<th class="text-right">
-					Home
-				</th>
-				<th>
-				</th>
-				<th class="text-center">
-				</th>
-				<th>
-				</th>
-				<th class="text-left">
-					Away
-				</th>
-			</tr>
-			</thead>
-			<tbody>
+</section>
+
+<!-- Second Section: Tables -->
+<section class="bg-white w-full py-10 px-10">
+	<div class="max-w-screen-xl mx-auto px-4 grid grid-cols-1 tablet:grid-cols-3 laptop:grid-cols-6 gap-4">
+		<div class="bg-gray-100 p-4 rounded shadow">
 			<%= render CurrentGameWeekFixturesComponent.with_collection(@current_game_week), cached: true %>
-			</tbody>
-		</table>
-	</div>
-	<div class="align-items-right">
-		<h5 class="text-center">Next Week</h5>
-		<table class="table-auto text-base text-sm w-full">
-			<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-			<tr>
-				<th class="text-right">
-					Home
-				</th>
-				<th>
-				</th>
-				<th class="text-center">
-				</th>
-				<th>
-				</th>
-				<th class="text-left">
-					Away
-				</th>
-			</tr>
-			</thead>
-			<tbody>
-			<%= render NextGameWeekFixturesComponent.with_collection(@next_game_week), cached: true %>
-			</tbody>
-		</table>
-	</div>
-</div>
-<div class="grid tablet:grid-cols-4 phone:grid-cols-2 gap-4 justify-center mx-auto mt-5">
-	<div class="p-4" data-controller="dashboard">
-		<h5 class="text-center">Top Scorers</h5>
-		<div class="scrollies" data-dashboard-target="scrollies" data-next-page="<%= @next_page %>">
-			<table class="table-auto text-base text-sm w-full">
-				<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-				<tr>
-					<th class="px-4 py-2"></th>
-					<th class="px-4 py-2 hidden laptop:block"></th>
-					<th class="px-4 py-2 text-center">
-						<span class="hidden laptop:inline">Goals</span>
-						<span class="laptop:hidden">G</span>
-					</th>
-				</tr>
-				</thead>
-				<tbody id="scorers-table">
-				<%= render partial: 'top_scorers_partial', cached: true %>
-				</tbody>
-			</table>
+		</div>
+		<div class="bg-gray-100 p-4 rounded shadow">
+			<%= render CurrentGameWeekFixturesComponent.with_collection(@current_game_week), cached: true %>
+		</div>
+		<div class="bg-gray-100 p-4 rounded shadow">
+			<%= render CurrentGameWeekFixturesComponent.with_collection(@current_game_week), cached: true %>
+		</div>
+		<div class="bg-gray-100 p-4 rounded shadow">
+			<%= render CurrentGameWeekFixturesComponent.with_collection(@current_game_week), cached: true %>
+		</div>
+		<div class="bg-gray-100 p-4 rounded shadow">
+			<%= render CurrentGameWeekFixturesComponent.with_collection(@current_game_week), cached: true %>
+		</div>
+		<div class="bg-gray-100 p-4 rounded shadow">
+			<%= render CurrentGameWeekFixturesComponent.with_collection(@current_game_week), cached: true %>
 		</div>
 	</div>
-	<div class="p-4" data-controller="dashboard">
-		<h5 class="text-center">Top Assists</h5>
-		<div class="scrollies" data-dashboard-target="assisties" data-next-page="<%= @next_page %>">
-			<table class="table-auto text-base text-sm w-full">
-				<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-				<tr>
-					<th class="px-4 py-2"></th>
-					<th class="px-4 py-2 hidden laptop:block"></th>
-					<th class="px-4 py-2 text-center">
-						<span class="hidden laptop:inline">Assists</span>
-						<span class="laptop:hidden">A</span>
-					</th>
-				</tr>
-				</thead>
-				<tbody id="assists-table">
-				<%= render partial: 'top_assists_partial', cached: true %>
-				</tbody>
-			</table>
-		</div>
+</section>
+
+<!-- Third Section: Text -->
+<section class="bg-purple-200 w-full flex justify-center items-center">
+	<div class="max-w-screen-lg text-black-700/75 text-center px-4">
+		<p class="leading-relaxed font-sans">
+			This is a text section with a royal blue background. The text is centrally aligned and styled so that all the end of the lines are aligned. Adjust the content here as needed to fit your specific requirements.
+			This is a text section with a royal blue background. The text is centrally aligned and styled so that all the end of the lines are aligned. Adjust the content here as needed to fit your specific requirements.
+			This is a text section with a royal blue background. The text is centrally aligned and styled so that all the end of the lines are aligned. Adjust the content here as needed to fit your specific requirements.
+			This is a text section with a royal blue background. The text is centrally aligned and styled so that all the end of the lines are aligned. Adjust the content here as needed to fit your specific requirements.
+			This is a text section with a royal blue background. The text is centrally aligned and styled so that all the end of the lines are aligned. Adjust the content here as needed to fit your specific requirements.
+			This is a text section with a royal blue background. The text is centrally aligned and styled so that all the end of the lines are aligned. Adjust the content here as needed to fit your specific requirements.
+			This is a text section with a royal blue background. The text is centrally aligned and styled so that all the end of the lines are aligned. Adjust the content here as needed to fit your specific requirements.
+			This is a text section with a royal blue background. The text is centrally aligned and styled so that all the end of the lines are aligned. Adjust the content here as needed to fit your specific requirements.
+			This is a text section with a royal blue background. The text is centrally aligned and styled so that all the end of the lines are aligned. Adjust the content here as needed to fit your specific requirements.
+		</p>
 	</div>
-	<div class="p-4" data-controller="dashboard">
-		<h5 class="text-center">Most Booked</h5>
-		<div class="scrollies" data-dashboard-target="bookies" data-next-page="<%= @next_page %>">
-			<table class="table-auto text-base text-sm w-full">
-				<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-				<tr>
-					<th class="px-4 py-2"></th>
-					<th class="px-4 py-2 hidden laptop:block"></th>
-					<th class="px-4 py-2 text-center">
-						<span class="hidden laptop:inline">Bookings</span>
-						<span class="laptop:hidden">YC</span>
-					</th>
-				</tr>
-				</thead>
-				<tbody id="most-booked-table">
-				<%= render partial: 'most_booked_partial', cached: true %>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<div class="p-4" data-controller="dashboard">
-		<h5 class="text-center">Most Reds</h5>
-		<div class="scrollies" data-dashboard-target="reddies" data-next-page="<%= @next_page %>">
-			<table class="table-auto text-base text-sm w-full">
-				<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-				<tr>
-					<th class="px-4 py-2"></th>
-					<th class="px-4 py-2 hidden laptop:block"></th>
-					<th class="px-4 py-2 text-center">
-						<span class="hidden laptop:inline">Reds</span>
-						<span class="laptop:hidden">RC</span>
-					</th>
-				</tr>
-				</thead>
-				<tbody id="most-reds-table">
-				<%= render partial: 'most_reds_partial', cached: true %>
-				</tbody>
-			</table>
-		</div>
-	</div>
-</div>
-<div class="grid grid-cols-1 justify-center mx-auto mt-5">
-	<%= render LeagueTableComponent.new(@team_seasons), cached: true %>
-</div>
+</section>
