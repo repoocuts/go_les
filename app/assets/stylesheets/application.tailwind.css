@@ -1,29 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Anaheim&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anaheim:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/*
-
-@layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
-  }
-}
-
-*/
-html * {
-    font-family: "Anaheim" !important;
-}
-
 .h4 {
     color: decoration-slate-500
 }
-
-/*a {*/
-/*    color: rgb(52, 1, 234);*/
-/*}*/
 
 .table {
     background-color: #ff0c11;
@@ -42,5 +26,8 @@ html * {
 
 .container {
     max-width: 2000px;
-    padding-top: 4rem;
+}
+
+a:hover {
+    @apply text-red-500;
 }

@@ -1,0 +1,6 @@
+<div data-controller="home-page--league-component" class="grid grid-cols-2 phone:grid-cols-1 justify-items-center">
+	<h1 class="text-lg underline text-blue-700 font-display pb-5"><%= link_to league.name, country_league_path(league.country, league) %></h1>
+	<% teams.each do |team| %>
+		<p><%= link_to team.name, country_league_team_path(league.country, league, team) %></p>
+	<% end %>
+</div>

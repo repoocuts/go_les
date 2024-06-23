@@ -5,7 +5,8 @@ module.exports = {
 		'./public/*.html',
 		'./app/helpers/**/*.rb',
 		'./app/javascript/**/*.js',
-		'./app/views/**/*.{erb,haml,html,slim}'
+		'./app/views/**/*.{erb,haml,html,slim}',
+		'./app/components/**/*.{erb,html}'
 	],
 	theme: {
 		container: {
@@ -13,25 +14,16 @@ module.exports = {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Noto San', ...defaultTheme.fontFamily.sans],
-				nunito: ['nunito', 'sans-serif'],
+				display: ['"Noto Sans Display"', 'sans'],
+				sans: ['Anaheim', 'sans'],
 			},
 		},
 		screens: {
 			'phone': '340px',
-			// => @media (min-width: 640px) { ... }
-
 			'tablet': '768px',
-			// => @media (min-width: 768px) { ... }
-
 			'laptop': '1024px',
-			// => @media (min-width: 1024px) { ... }
-
 			'xl': '1280px',
-			// => @media (min-width: 1280px) { ... }
-
 			'2xl': '1536px',
-			// => @media (min-width: 1536px) { ... }
 		},
 	},
 	plugins: [
