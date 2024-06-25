@@ -1,32 +1,37 @@
 <%= turbo_frame_tag "fixture_list", class: "min-w-full", autoscroll: "true" do %>
-	<table class="w-full">
-		<thead>
-		<tr>
-			<th class="bg-gray-300 p-2 font-bold text-center">Game Week</th>
-			<th class="bg-gray-300 p-2 font-bold text-center">Home Team</th>
-			<th class="bg-gray-300 p-2 font-bold text-center">Kick-off</th>
-			<th class="bg-gray-300 p-2 font-bold text-center">Away Team</th>
-		</tr>
-		</thead>
-		<tbody>
-		<% @fixtures.each do |fixture| %>
-			<% country = fixture.league.country %>
-			<% league = fixture.league %>
-			<% season = fixture.season %>
-			<tr>
-				<td class="border border-gray-300 p-2 text-center"><%= fixture.game_week %></td>
-				<td class="border border-gray-300 p-2 text-center"><%= link_to fixture.home_team_season.team.name, country_league_season_fixture_path(country, league, season, fixture), data: { turbo_frame: '_top' } %></td>
-				<td class="border border-gray-300 p-2 text-center"><%= fixture.kick_off_or_score %></td>
-				<td class="border border-gray-300 p-2 text-center"><%= link_to fixture.away_team_season.team.name, country_league_season_fixture_path(country, league, season, fixture), data: { turbo_frame: '_top' } %></td>
-			</tr>
+	<div class="max-w-screen-xl mx-auto px-4 grid grid-cols-1 tablet:grid-cols-3 laptop:grid-cols-6 gap-4">
+		<% @leagues.each do |league| %>
+			<div class="league-container">
+				<h2 class="text-lg font-display text-center"><%= link_to league.name, country_league_path(league.country, league), data: { turbo_frame: '_top' } %></h2>
+				<% season = league.current_season %>
+				<table class="w-full mb-4">
+					<thead>
+					<tr>
+						<th class="bg-gray-300 p-2 font-bold text-center">H</th>
+						<th class="bg-gray-300 p-2 font-bold text-center">KO</th>
+						<th class="bg-gray-300 p-2 font-bold text-center">A</th>
+					</tr>
+					</thead>
+					<tbody>
+					<% @fixtures.select { |fixture| fixture.season == season }.each do |fixture| %>
+						<tr>
+							<td class="border border-gray-300 p-2 text-center"><%= link_to fixture.home_team_season.team.acronym, country_league_season_fixture_path(fixture.league.country, fixture.league, fixture.season, fixture), data: { turbo_frame: '_top' } %></td>
+							<td class="border border-gray-300 p-2 text-center"><%= fixture.kick_off_or_score %></td>
+							<td class="border border-gray-300 p-2 text-center"><%= link_to fixture.away_team_season.team.acronym, country_league_season_fixture_path(fixture.league.country, fixture.league, fixture.season, fixture), data: { turbo_frame: '_top' } %></td>
+						</tr>
+					<% end %>
+					</tbody>
+				</table>
+			</div>
 		<% end %>
-		</tbody>
-	</table>
-	<div class="mt-5">
-		<%= select_tag :game_week,
-									 options_for_select((1..@season_game_week_count).map { |week| ["#{week}", week] },
-																			params[:game_week] || @season.current_game_week),
-									 onchange: 'window.location = "' + fixtures_path + '?game_week=" + this.value;' %>
 	</div>
+	<div class="mt-5 mb-10 text-center">
+		<div class="flex justify-center items-center space-x-4">
+			<h3 class="text-lg font-display">Game Week</h3>
+			<%= select_tag :game_week,
+										 options_for_select((1..@season_game_week_count).map { |week| ["#{week}", week] }, params[:game_week]),
+										 onchange: 'window.location = "' + fixtures_path + '?game_week=" + this.value;', class: "rounded-full" %>
 
+		</div>
+	</div>
 <% end %>

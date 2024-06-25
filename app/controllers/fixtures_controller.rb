@@ -4,9 +4,15 @@ class FixturesController < ApplicationController
 
 	# GET /fixtures or /fixtures.json
 	def index
-		game_week_number = params[:game_week] || season.current_game_week
-		@pagy_fixtures, @fixtures = pagy_array(Fixture.includes(home_team_season: [:team], away_team_season: [:team]).for_game_week(season, game_week_number))
-		@season_game_week_count = season.season_game_weeks.count
+		game_week_number = params[:game_week] || default_game_week
+		@leagues = League.all.order(:name)
+		@fixtures = @leagues.map do |league|
+			league.seasons.flat_map do |season|
+				Fixture.includes(home_team_season: [:team], away_team_season: [:team]).for_game_week(season, game_week_number)
+			end
+		end.flatten
+		@season_game_week_count = 38 # Assuming all seasons have the same number of game weeks
+
 		respond_to do |format|
 			format.html
 			format.turbo_stream
@@ -100,6 +106,10 @@ class FixturesController < ApplicationController
 
 	def set_season
 		@season = Season.current_season
+	end
+
+	def default_game_week
+		Season.current_season.try(:current_game_week) || 1
 	end
 
 	def set_team_season(team_season_id)
