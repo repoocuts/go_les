@@ -1,28 +1,28 @@
 <tr class="border-b dark:border-gray-700 text-blue-600">
 	<td class="text-right">
 		<span class="laptop:hidden">
-			<%= link_to home_team_acronym, team_path(home_team_object) %>
+			<%= link_to home_team_acronym, team_path(home_team_object), data: { turbo_frame: '_top' } %>
 		</span>
 		<span class="hidden laptop:inline">
-			<%= link_to home_team_name, team_path(home_team_object) %>
+			<%= link_to home_team_name, team_path(home_team_object), data: { turbo_frame: '_top' } %>
 		</span>
 	</td>
 	<td></td>
 	<td class="text-center">
 		<span class="laptop:hidden">
-			<%= link_to kick_off_or_score, country_league_season_fixture_path(fixture[:fixture].league.country_id, fixture[:fixture].league, fixture[:fixture].season, fixture[:fixture]) %>
+			<%= link_to kick_off_or_score, country_league_season_fixture_path(fixture[:fixture].league.country_id, fixture[:fixture].league, fixture[:fixture].season, fixture[:fixture]), data: { turbo_frame: '_top' } %>
 		</span>
 		<span class="hidden laptop:inline">
-			<%= link_to kick_off_or_score, country_league_season_fixture_path(fixture[:fixture].league.country_id, fixture[:fixture].league, fixture[:fixture].season, fixture[:fixture]) %>
+			<%= link_to kick_off_or_score, country_league_season_fixture_path(fixture[:fixture].league.country_id, fixture[:fixture].league, fixture[:fixture].season, fixture[:fixture]), data: { turbo_frame: '_top' } %>
 		</span>
 	</td>
 	<td></td>
 	<td>
 		<span class="laptop:hidden">
-			<%= link_to away_team_acronym, team_path(away_team_object) %>
+			<%= link_to away_team_acronym, team_path(away_team_object), data: { turbo_frame: '_top' } %>
 		</span>
 		<span class="hidden laptop:inline">
-			<%= link_to away_team_name, team_path(away_team_object) %>
+			<%= link_to away_team_name, team_path(away_team_object), data: { turbo_frame: '_top' } %>
 		</span>
 	</td>
 </tr>

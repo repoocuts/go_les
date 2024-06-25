@@ -3,7 +3,7 @@ class TeamsController < ApplicationController
 
 	# GET /teams or /teams.json
 	def index
-		@teams = Team.all.order(:name)
+		@teams = Team.includes(:league).order('teams.name').group_by(&:league)
 	end
 
 	# GET /teams/1 or /teams/1.json

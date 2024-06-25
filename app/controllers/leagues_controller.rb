@@ -5,7 +5,7 @@ class LeaguesController < ApplicationController
 
 	# GET /leagues or /leagues.json
 	def index
-		@leagues = League.includes(:country).group_by(&:country)
+		@leagues = League.includes(:country).order('countries.name').group_by(&:country)
 	end
 
 	# GET /leagues/1 or /leagues/1.json
