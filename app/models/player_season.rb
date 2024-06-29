@@ -112,10 +112,30 @@ class PlayerSeason < ApplicationRecord
 		appearances.sum(:minutes)
 	end
 
+	def total_home_minutes_played
+		appearances.where(is_home: true).sum(:minutes)
+	end
+
+	def total_away_minutes_played
+		appearances.where(is_home: [false, nil]).sum(:minutes)
+	end
+
 	def average_minutes_per_goal
 		return ZERO if season_goals.zero?
 
 		total_minutes_played / season_goals
+	end
+
+	def average_minutes_per_home_goal
+		return ZERO if season_goals.zero?
+
+		total_home_minutes_played / home_goals
+	end
+
+	def average_minutes_per_away_goal
+		return ZERO if season_goals.zero?
+
+		total_away_minutes_played / away_goals
 	end
 
 	def home_goals
@@ -152,6 +172,18 @@ class PlayerSeason < ApplicationRecord
 
 	def average_minutes_per_assist
 		appearances.sum(:minutes) / season_assists if season_assists > 0
+
+		ZERO
+	end
+
+	def average_minutes_per_home_assist
+		return appearances.where(is_home: true).sum(:minutes) / home_assists if home_assists > 0
+
+		ZERO
+	end
+
+	def average_minutes_per_away_assist
+		return appearances.where(is_home: [false, nil]).sum(:minutes) / away_assists if away_assists > 0
 
 		ZERO
 	end

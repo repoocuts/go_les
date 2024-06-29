@@ -1,13 +1,13 @@
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
+<div class="w-full mx-10 my-10">
+	<% if notice.present? %>
+		<p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+	<% end %>
 
-  <% if !@players.blank? %>
-    <div id="players" class="w-full mt-4 pl-5">
-      <%= turbo_frame_tag "player_list" do %>
-        <%= render partial: 'player_list', locals: { players: @players } %>
-      <% end %>
-    </div>
-  <% end %>
+	<% if !@players.blank? %>
+		<div id="players" class="w-full mt-4 pl-5">
+			<%= turbo_frame_tag "player_list" do %>
+				<%= render partial: 'player_list', locals: { players: @players } %>
+			<% end %>
+		</div>
+	<% end %>
 </div>
