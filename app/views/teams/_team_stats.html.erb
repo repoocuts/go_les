@@ -12,10 +12,10 @@
 			<%= link_to "#{@top_scorer.return_name} - #{@top_scorer.goals_count}", country_league_team_player_path(@team.country, @team.league, @team, @top_scorer.player) %>
 		<% end %>
 		<% if @most_booked %>
-			<%= link_to "#{@most_booked.return_name} - #{@most_booked.season_yellows}", country_league_team_player_path(@team.country, @team.league, @team, @most_booked.player) %>
+			<%= link_to "#{@most_booked.return_name} - #{@most_booked.season_yellows_count}", country_league_team_player_path(@team.country, @team.league, @team, @most_booked.player) %>
 		<% end %>
 		<% if @most_reds %>
-			<%= link_to "#{@most_reds.return_name} - #{@most_reds.season_reds}", country_league_team_player_path(@team.country, @team.league, @team, @most_reds.player) %>
+			<%= link_to "#{@most_reds.return_name} - #{@most_reds.season_reds_count}", country_league_team_player_path(@team.country, @team.league, @team, @most_reds.player) %>
 		<% else %>
 			<p>N/A</p>
 		<% end %>

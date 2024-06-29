@@ -19,35 +19,35 @@ class Player::PlayerSeasonAssistsComponent < ViewComponent::Base
 	end
 
 	def home_assists
-		player_season.home_assists
+		player_season.home_assists_count
 	end
 
 	def away_assists
-		player_season.away_assists
+		player_season.away_assists_count
 	end
 
 	def first_half_assists
-		player_season.first_half_assists
+		player_season.first_half_assists_count
 	end
 
 	def second_half_assists
-		player_season.second_half_assists
+		player_season.second_half_assists_count
 	end
 
 	def first_half_home_assists
-		player_season.first_half_home_assists
+		player_season.first_half_home_assists_count
 	end
 
 	def first_half_away_assists
-		player_season.first_half_away_assists
+		player_season.first_half_away_assists_count
 	end
 
 	def second_half_home_assists
-		player_season.second_half_home_assists
+		player_season.second_half_home_assists_count
 	end
 
 	def second_half_away_assists
-		player_season.second_half_away_assists
+		player_season.second_half_away_assists_count
 	end
 
 	private

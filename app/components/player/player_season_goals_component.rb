@@ -19,35 +19,35 @@ class Player::PlayerSeasonGoalsComponent < ViewComponent::Base
 	end
 
 	def home_goals
-		player_season.home_goals
+		player_season.home_goals_count
 	end
 
 	def away_goals
-		player_season.away_goals
+		player_season.away_goals_count
 	end
 
 	def first_half_goals
-		player_season.first_half_goals
+		player_season.first_half_goals_count
 	end
 
 	def second_half_goals
-		player_season.second_half_goals
+		player_season.second_half_goals_count
 	end
 
 	def first_half_home_goals
-		player_season.first_half_home_goals
+		player_season.first_half_home_goals_count
 	end
 
 	def first_half_away_goals
-		player_season.first_half_away_goals
+		player_season.first_half_away_goals_count
 	end
 
 	def second_half_home_goals
-		player_season.second_half_home_goals
+		player_season.second_half_home_goals_count
 	end
 
 	def second_half_away_goals
-		player_season.second_half_away_goals
+		player_season.second_half_away_goals_count
 	end
 
 	private

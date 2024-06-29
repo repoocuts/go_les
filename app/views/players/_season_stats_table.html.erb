@@ -1,22 +1,22 @@
 <table class="table-auto season-stats-table mt-3 w-3/4">
-  <thead>
-  <tr>
-    <th class='text-left'>Starts</th>
-    <th class='text-left'>Subs</th>
-    <th class='text-left'>Goals</th>
-    <th class='text-left'>Assists</th>
-    <th class='text-left'>Yellow Cards</th>
-    <th class='text-left'>Red Card</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td><%= @player_season.appearances.count %></td>
-    <td><%= @player_season.sub_appearances.count %></td>
-    <td><%= @player_season.season_goals %></td>
-    <td><%= @player_season.season_assists %></td>
-    <td><%= @player_season.season_yellows %></td>
-    <td><%= @player_season.season_reds %></td>
-  </tr>
-  </tbody>
+	<thead>
+	<tr>
+		<th class='text-left'>Starts</th>
+		<th class='text-left'>Subs</th>
+		<th class='text-left'>Goals</th>
+		<th class='text-left'>Assists</th>
+		<th class='text-left'>Yellow Cards</th>
+		<th class='text-left'>Red Card</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td><%= @player_season.appearances.count %></td>
+		<td><%= @player_season.sub_appearances.count %></td>
+		<td><%= @player_season.season_goals_size %></td>
+		<td><%= @player_season.season_assists_size %></td>
+		<td><%= @player_season.season_yellows_count %></td>
+		<td><%= @player_season.season_reds_count %></td>
+	</tr>
+	</tbody>
 </table>

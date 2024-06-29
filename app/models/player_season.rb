@@ -65,20 +65,28 @@ class PlayerSeason < ApplicationRecord
 		team_acronym
 	end
 
-	def season_goals
+	def season_goals_size
 		goals.size
 	end
 
-	def season_assists
+	def season_assists_size
 		assists.size
 	end
 
-	def season_yellows
-		cards.where(card_type: "yellow").count
+	def season_yellows_count
+		yellow_cards.count
 	end
 
-	def season_reds
-		cards.where(card_type: "red").count
+	def season_home_yellows_count
+		yellow_cards.where(is_home: true).count
+	end
+
+	def season_away_yellows_count
+		yellow_cards.where(is_home: [false, nil]).count
+	end
+
+	def season_reds_count
+		red_cards.count
 	end
 
 	def sub_appearances
@@ -113,7 +121,7 @@ class PlayerSeason < ApplicationRecord
 	end
 
 	def total_home_minutes_played
-		appearances.where(is_home: true).sum(:minutes)
+		home_appearances.sum(:minutes)
 	end
 
 	def total_away_minutes_played
@@ -121,103 +129,103 @@ class PlayerSeason < ApplicationRecord
 	end
 
 	def average_minutes_per_goal
-		return ZERO if season_goals.zero?
+		return ZERO if season_goals_size.zero?
 
-		total_minutes_played / season_goals
+		total_minutes_played / season_goals_size
 	end
 
 	def average_minutes_per_home_goal
-		return ZERO if season_goals.zero?
+		return ZERO if season_goals_size.zero?
 
-		total_home_minutes_played / home_goals
+		total_home_minutes_played / home_goals_count
 	end
 
 	def average_minutes_per_away_goal
-		return ZERO if season_goals.zero?
+		return ZERO if season_goals_size.zero?
 
-		total_away_minutes_played / away_goals
+		total_away_minutes_played / away_goals_count
 	end
 
-	def home_goals
+	def home_goals_count
 		goals.where(is_home: true).count
 	end
 
-	def away_goals
+	def away_goals_count
 		goals.where(is_home: [false, nil]).count
 	end
 
-	def first_half_goals
-		goals.where(minute: 0..45).count
+	def first_half_goals_count
+		first_half_goals.count
 	end
 
-	def second_half_goals
+	def second_half_goals_count
 		goals.where(minute: 46..100).count
 	end
 
-	def first_half_home_goals
-		goals.where(minute: 0..45, is_home: true).count
+	def first_half_home_goals_count
+		first_half_goals.where(is_home: true).count
 	end
 
-	def first_half_away_goals
-		goals.where(minute: 0..45, is_home: nil).count
+	def first_half_away_goals_count
+		first_half_goals.where(is_home: nil).count
 	end
 
-	def second_half_home_goals
-		goals.where(minute: 46..100, is_home: true).count
+	def second_half_home_goals_count
+		second_half_goals.where(is_home: true).count
 	end
 
-	def second_half_away_goals
-		goals.where(minute: 46..100, is_home: nil).count
+	def second_half_away_goals_count
+		second_half_goals.where(is_home: nil).count
 	end
 
 	def average_minutes_per_assist
-		appearances.sum(:minutes) / season_assists if season_assists > 0
+		appearances.sum(:minutes) / season_assists_size if season_assists_size > 0
 
 		ZERO
 	end
 
 	def average_minutes_per_home_assist
-		return appearances.where(is_home: true).sum(:minutes) / home_assists if home_assists > 0
+		return home_appearances.sum(:minutes) / home_assists_count if home_assists_count > 0
 
 		ZERO
 	end
 
 	def average_minutes_per_away_assist
-		return appearances.where(is_home: [false, nil]).sum(:minutes) / away_assists if away_assists > 0
+		return away_appearances.sum(:minutes) / away_assists_count if away_assists_count > 0
 
 		ZERO
 	end
 
-	def home_assists
+	def home_assists_count
 		assists.where(is_home: true).count
 	end
 
-	def away_assists
+	def away_assists_count
 		assists.where(is_home: nil).count
 	end
 
-	def first_half_assists
-		assists.where(minute: 0..45).count
+	def first_half_assists_count
+		first_half_assists.count
 	end
 
-	def second_half_assists
-		assists.where(minute: 46..100).count
+	def second_half_assists_count
+		second_half_assists.count
 	end
 
-	def first_half_home_assists
-		assists.where(minute: 0..45, is_home: true).count
+	def first_half_home_assists_count
+		first_half_assists.where(is_home: true).count
 	end
 
-	def first_half_away_assists
-		assists.where(minute: 0..45, is_home: nil).count
+	def first_half_away_assists_count
+		first_half_assists.where(is_home: nil).count
 	end
 
-	def second_half_home_assists
-		assists.where(minute: 46..100, is_home: true).count
+	def second_half_home_assists_count
+		second_half_assists.where(is_home: true).count
 	end
 
-	def second_half_away_assists
-		assists.where(minute: 46..100, is_home: nil).count
+	def second_half_away_assists_count
+		second_half_assists.where(is_home: nil).count
 	end
 
 	private
@@ -228,5 +236,45 @@ class PlayerSeason < ApplicationRecord
 
 	def team_acronym
 		@team_acronym ||= team_season.acronym
+	end
+
+	def yellow_cards
+		@yellow_cards ||= cards.where(card_type: "yellow")
+	end
+
+	def red_cards
+		@red_cards ||= cards.where(card_type: "red")
+	end
+
+	def home_appearances
+		@home_appearances ||= appearances.where(is_home: true)
+	end
+
+	def away_appearances
+		@away_appearances ||= appearances.where(is_home: false)
+	end
+
+	def first_half_assists
+		@first_half_assists ||= assists.where(minute: 0..45)
+	end
+
+	def second_half_assists
+		@second_half_assists ||= assists.where(minute: 46..100)
+	end
+
+	def home_goals
+		@home_goals ||= goals.where(is_home: true)
+	end
+
+	def away_goals
+		@away_goals ||= goals.where(is_home: [false, nil])
+	end
+
+	def first_half_goals
+		@first_half_goals ||= goals.where(minute: 0..45)
+	end
+
+	def second_half_goals
+		@second_half_goals ||= goals.where(minute: 46..100)
 	end
 end
