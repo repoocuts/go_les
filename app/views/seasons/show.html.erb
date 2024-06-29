@@ -1,78 +1,9 @@
 <div class="mx-10 my-10">
 	<%= turbo_frame_tag "season-content" do %>
 		<div class="grid grid-cols-3 gap-4 justify-center">
-			<div>
-				<h5 class="text-center">Last Week</h5>
-				<table class="table-auto text-base text-sm w-full">
-					<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-					<tr>
-						<th class="text-right">
-							Home
-						</th>
-						<th>
-						</th>
-						<th class="text-center">
-						</th>
-						<th>
-						</th>
-						<th class="text-left">
-							Away
-						</th>
-					</tr>
-					</thead>
-					<tbody>
-					<%= render LastGameWeekResultsComponent.with_collection(@last_game_week), cached: true %>
-					</tbody>
-				</table>
-			</div>
-			<div>
-				<h5 class="text-center">Current Week</h5>
-				<table class="table-auto text-base text-sm w-full">
-					<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-					<tr>
-						<th class="text-right">
-							Home
-						</th>
-						<th>
-						</th>
-						<th class="text-center">
-						</th>
-						<th>
-						</th>
-						<th class="text-left">
-							Away
-						</th>
-					</tr>
-					</thead>
-					<tbody>
-					<%= render CurrentGameWeekFixturesComponent.with_collection(@current_game_week), cached: true %>
-					</tbody>
-				</table>
-			</div>
-			<div class="align-items-right">
-				<h5 class="text-center">Next Week</h5>
-				<table class="table-auto text-base text-sm w-full">
-					<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-					<tr>
-						<th class="text-right">
-							Home
-						</th>
-						<th>
-						</th>
-						<th class="text-center">
-						</th>
-						<th>
-						</th>
-						<th class="text-left">
-							Away
-						</th>
-					</tr>
-					</thead>
-					<tbody>
-					<%= render NextGameWeekFixturesComponent.with_collection(@next_game_week), cached: true %>
-					</tbody>
-				</table>
-			</div>
+			<%= render 'fixtures_week', title: 'Last Week', component: LastGameWeekResultsComponent, collection: @last_game_week %>
+			<%= render 'fixtures_week', title: 'Current Week', component: CurrentGameWeekFixturesComponent, collection: @current_game_week %>
+			<%= render 'fixtures_week', title: 'Next Week', component: NextGameWeekFixturesComponent, collection: @next_game_week %>
 		</div>
 		<div class="grid laptop:grid-cols-4 tablet:grid-cols-2 phone:grid-cols-1 gap-4 justify-center mt-5">
 			<div class="p-4" data-controller="dashboard">
