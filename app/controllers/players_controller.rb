@@ -70,7 +70,7 @@ class PlayersController < ApplicationController
 	attr_reader :player, :player_season
 	# Use callbacks to share common setup or constraints between actions.
 	def set_player
-		@player = Player.find(params[:id])
+		@player = Player.friendly.find(params[:id])
 	end
 
 	# Only allow a list of trusted parameters through.

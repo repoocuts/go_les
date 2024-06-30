@@ -10,9 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_01_132839) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_16_162122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "alchemy_users", id: :serial, force: :cascade do |t|
+    t.string "firstname"
+    t.string "lastname"
+    t.string "login"
+    t.string "email"
+    t.string "language"
+    t.string "encrypted_password", limit: 128, default: "", null: false
+    t.string "password_salt", limit: 128, default: "", null: false
+    t.integer "sign_in_count", default: 0, null: false
+    t.integer "failed_attempts", default: 0, null: false
+    t.datetime "last_request_at", precision: nil
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.integer "creator_id"
+    t.integer "updater_id"
+    t.text "cached_tag_list"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.string "alchemy_roles", default: "member"
+    t.index ["alchemy_roles"], name: "index_alchemy_users_on_alchemy_roles"
+    t.index ["email"], name: "index_alchemy_users_on_email", unique: true
+    t.index ["login"], name: "index_alchemy_users_on_login", unique: true
+    t.index ["reset_password_token"], name: "index_alchemy_users_on_reset_password_token", unique: true
+  end
 
   create_table "appearances", force: :cascade do |t|
     t.integer "minutes"
@@ -110,6 +139,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_01_132839) do
     t.integer "api_football_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_countries_on_slug", unique: true
   end
 
   create_table "dashboards", force: :cascade do |t|
@@ -284,7 +315,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_01_132839) do
     t.bigint "country_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["country_id"], name: "index_leagues_on_country_id"
+    t.index ["slug"], name: "index_leagues_on_slug", unique: true
   end
 
   create_table "object_handling_failures", force: :cascade do |t|
@@ -330,8 +363,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_01_132839) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "position"
+    t.string "slug"
     t.index ["full_name"], name: "index_players_on_full_name"
     t.index ["short_name"], name: "index_players_on_short_name"
+    t.index ["slug"], name: "index_players_on_slug", unique: true
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
@@ -390,7 +425,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_01_132839) do
     t.bigint "league_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
+    t.string "years"
     t.index ["league_id"], name: "index_seasons_on_league_id"
+    t.index ["slug"], name: "index_seasons_on_slug", unique: true
   end
 
   create_table "team_seasons", force: :cascade do |t|
@@ -424,10 +462,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_01_132839) do
     t.bigint "country_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["acronym"], name: "index_teams_on_acronym"
     t.index ["country_id"], name: "index_teams_on_country_id"
     t.index ["league_id"], name: "index_teams_on_league_id"
     t.index ["name"], name: "index_teams_on_name"
+    t.index ["slug"], name: "index_teams_on_slug", unique: true
   end
 
   create_table "users", force: :cascade do |t|

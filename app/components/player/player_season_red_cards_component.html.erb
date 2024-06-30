@@ -1,0 +1,33 @@
+<div class="overflow-x-auto" data-controller="player--player-season-red-cards-component">
+	<table class="table-auto divide-y divide-gray-200">
+		<thead class="bg-gray-50">
+		<tr>
+			<th scope="col" class="px-6 py-3 tracking-wider">H</th>
+			<th scope="col" class="px-6 py-3 tracking-wider"></th>
+			<th scope="col" class="px-6 py-3 tracking-wider">A</th>
+		</tr>
+		</thead>
+		<tbody class="bg-white divide-y divide-gray-200">
+		<tr>
+			<td class="px-6 py-4 text-center"><%= home_red_cards %></td>
+			<td class="px-6 py-4 text-center">Red Cards</td>
+			<td class="px-6 py-4 text-center"><%= away_red_cards %></td>
+		</tr>
+		<tr>
+			<td class="px-6 py-4 text-center"><%= first_half_home_red_cards_count %></td>
+			<td class="px-6 py-4 text-center">1st half</td>
+			<td class="px-6 py-4 text-center"><%= first_half_away_red_cards_count %></td>
+		</tr>
+		<tr>
+			<td class="px-6 py-4 text-center"><%= second_half_home_red_cards_count %></td>
+			<td class="px-6 py-4 text-center">2nd half</td>
+			<td class="px-6 py-4 text-center"><%= second_half_away_red_cards_count %></td>
+		</tr>
+		<tr>
+			<td class="px-6 py-4 text-center"><%= average_minutes_per_home_red_card %></td>
+			<td class="px-6 py-4 text-center">Average minutes per red card</td>
+			<td class="px-6 py-4 text-center"><%= average_minutes_per_away_red_card %></td>
+		</tr>
+		</tbody>
+	</table>
+</div>

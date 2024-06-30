@@ -4,6 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  name            :string
+#  slug            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  api_football_id :integer
@@ -12,6 +13,7 @@
 # Indexes
 #
 #  index_leagues_on_country_id  (country_id)
+#  index_leagues_on_slug        (slug) UNIQUE
 #
 # Foreign Keys
 #

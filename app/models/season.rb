@@ -6,7 +6,9 @@
 #  current_game_week :integer
 #  current_season    :boolean
 #  end_date          :datetime
+#  slug              :string
 #  start_date        :datetime
+#  years             :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  api_football_id   :integer
@@ -15,12 +17,15 @@
 # Indexes
 #
 #  index_seasons_on_league_id  (league_id)
+#  index_seasons_on_slug       (slug) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_...  (league_id => leagues.id)
 #
 class Season < ApplicationRecord
+	extend FriendlyId
+	friendly_id :years, use: :slugged
 	ONE = 1.freeze
 
 	belongs_to :league
@@ -39,6 +44,8 @@ class Season < ApplicationRecord
 	end
 
 	def fixtures_for_last_game_week
+		return unless last_season_game_week_fixtures
+
 		last_season_game_week_fixtures.includes(home_team_season: :team, away_team_season: :team).order(:kick_off)
 	end
 
@@ -91,6 +98,8 @@ class Season < ApplicationRecord
 	end
 
 	def last_season_game_week_fixtures
+		return if current_game_week == 1
+
 		@last_season_game_week ||= season_game_weeks.find_by(game_week_number: current_game_week - 1).fixtures
 	end
 

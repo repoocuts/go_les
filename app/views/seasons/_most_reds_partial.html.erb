@@ -1,0 +1,16 @@
+<% if @most_reds %>
+	<% @most_reds.each do |player_season| %>
+		<tr class="dark:border-gray-700">
+			<td class="px-4 py-2 text-blue-600">
+				<%= link_to player_season.return_name, player_path(player_season.player), data: { turbo_frame: '_top' } %>
+			</td>
+			<td class="px-4 py-2 text-center hidden laptop:table-cell text-blue-600">
+				<%= link_to player_season.return_team_name, team_path(player_season.team_season.team), data: { turbo_frame: '_top' }, class: "hidden laptop:inline-block" %>
+				<%= link_to player_season.return_team_acronym, team_path(player_season.team_season.team), data: { turbo_frame: '_top' }, class: "tablet:hidden phone:inline-block" %>
+			</td>
+			<td class="px-4 py-2 text-center">
+				<%= player_season.cards_count %>
+			</td>
+		</tr>
+	<% end %>
+<% end %>

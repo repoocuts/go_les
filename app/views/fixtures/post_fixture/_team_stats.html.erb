@@ -1,66 +1,72 @@
-<table class="w-full border-separate">
-  <thead class='border-separate'>
-  <tr>
-    <th class="pr-3 text-center"></th>
-    <th class="text-center">M</th>
-    <th class="text-center">G</th>
-    <th class="text-center">A</th>
-    <th class="text-center">YC</th>
-    <th class="text-center">RC</th>
-  </tr>
-  </thead>
-  <tbody class='border-separate'>
-  <% starts.each do |start| %>
-    <tr>
-      <td>
-        <%= link_to start.player_season.player.return_name, player_path(start.player_season.player) %>
-      </td>
-      <td class="text-center">
-        <%= start.minutes %>
-      </td>
-      <td class="text-center">
-        <%= start.goals.where.not(goal_type: 1).count %>
-      </td>
-      <td class="text-center">
-        <%= start.assists.count %>
-      </td>
-      <td class="text-center">
-        <%= start.yellow_cards.count %>
-      </td>
-      <td class="text-center">
-        <%= start.red_cards.count %>
-      </td>
-    </tr>
-  <% end %>
-  <tr>
-    <td>Substitutes</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <% subs.each do |sub| %>
-    <tr>
-      <td>
-        <%= link_to sub.player_season.player.return_name, player_path(sub.player_season.player) %>
-      </td>
-      <td class="text-center">
-        <%= sub.minutes %>
-      </td>
-      <td class="text-center">
-        <%= sub.goals.where.not(goal_type: 1).count %>
-      </td>
-      <td class="text-center">
-        <%= sub.assists.count %>
-      </td>
-      <td class="text-center">
-        <%= sub.yellow_card_count %>
-      </td>
-      <td class="text-center">
-        <%= sub.red_card_count %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+<div>
+	<table class="w-full border-separate">
+		<thead class='border-separate'>
+		<tr>
+			<th class="pr-3 text-center"></th>
+			<th class="text-center">M</th>
+			<th class="text-center">G</th>
+			<th class="text-center">A</th>
+			<th class="text-center">YC</th>
+			<th class="text-center">RC</th>
+		</tr>
+		</thead>
+		<tbody class='border-separate'>
+		<% starts.each do |start| %>
+			<tr class="pb-3">
+				<td>
+					<%= link_to start.player_season.player.return_name, player_path(start.player_season.player) %>
+				</td>
+				<td class=" text-center">
+					<%= start.minutes %>
+				</td>
+				<td class="text-center">
+					<%= start.goals.where.not(goal_type: 1).count %>
+				</td>
+				<td class="text-center">
+					<%= start.assists.count %>
+				</td>
+				<td class="text-center">
+					<%= start.yellow_cards.count %>
+				</td>
+				<td class="text-center">
+					<%= start.red_cards.count %>
+				</td>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
+	<table class="w-full border-separate mt-10">
+		<tbody>
+		<tr>
+			<td>Substitutes</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<% subs.each do |sub| %>
+			<tr>
+				<td>
+					<%= link_to sub.player_season.player.return_name, player_path(sub.player_season.player) %>
+				</td>
+				<td class="text-center">
+					<%= sub.minutes %>
+				</td>
+				<td class="text-center">
+					<%= sub.goals.where.not(goal_type: 1).count %>
+				</td>
+				<td class="text-center">
+					<%= sub.assists.count %>
+				</td>
+				<td class="text-center">
+					<%= sub.yellow_card_count %>
+				</td>
+				<td class="text-center">
+					<%= sub.red_card_count %>
+				</td>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
+</div>

@@ -1,13 +1,10 @@
 Rails.application.routes.draw do
-	resources :discipline_stats
-	resources :defensive_stats
-	resources :attacking_stats
-	resources :corners
-	resources :head_to_heads
-	resources :referee_fixtures
-	resources :referees
-	resources :goals_conceded_stats
-	resources :goals_scored_stats
+
+	# Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+	# Defines the root path route ("/")
+	root 'dashboards#index'
+
 	namespace :ceefax do
 		resources :appearances
 		resources :assists
@@ -43,26 +40,44 @@ Rails.application.routes.draw do
 		root to: "dashboards#index"
 	end
 
-	resources :assists
 	resources :dashboards
-	resources :cards
-	resources :goals
-	resources :players
-	resources :fixtures
-	resources :team_seasons
-	resources :teams
-	resources :seasons
-	resources :leagues
+
 	resources :countries do
-		resources :leagues do
-			resources :teams
-			resources :seasons do
-				resources :team_seasons
+		resources :leagues, only: [:index, :show, :update, :destroy] do
+			resources :teams do
+				resources :players, only: [:show, :update, :destroy]
+			end
+			resources :seasons, only: [:show, :update, :destroy] do
+				member do
+					get 'scorers_streaming'
+					get 'assists_streaming'
+					get 'bookings_streaming'
+					get 'reds_streaming'
+				end
 				resources :player_seasons
 				resources :fixtures
+				resources :assists
+				resources :cards
+				resources :goals
+				resources :referees, only: [:index, :show, :update, :destroy]
 			end
 		end
 	end
+
+	resources :discipline_stats
+	resources :defensive_stats
+	resources :attacking_stats
+	resources :corners
+	resources :head_to_heads
+	resources :fixtures, only: [:index]
+	resources :referee_fixtures
+	resources :referees
+	resources :goals_conceded_stats
+	resources :goals_scored_stats
+	resources :leagues, only: [:index]
+	resources :players, only: [:index, :show, :update, :destroy]
+	resources :team_seasons
+	resources :teams, only: [:index, :show, :update, :destroy]
 
 	get 'team_player_season_goals/:team_season_id', to: 'charts#team_player_season_goals', as: 'team_player_season_goals'
 	get 'team_player_season_assists/:team_season_id', to: 'charts#team_player_season_assists', as: 'team_player_season_assists'
@@ -70,13 +85,5 @@ Rails.application.routes.draw do
 	get 'team_goals_radar/:current_team_season_id/:opponent_team_season_id', to: 'charts#team_goals_radar', as: 'team_goals_radar'
 	get 'team_cards_line_chart/:current_team_season_id/:opponent_team_season_id', to: 'charts#team_cards_line_chart', as: 'team_cards_line_chart'
 	get '/search', to: 'dashboards#search', as: 'search'
-	get 'scorers_streaming', to: 'dashboards#scorers_streaming'
-	get 'assists_streaming', to: 'dashboards#assists_streaming'
-	get 'bookings_streaming', to: 'dashboards#bookings_streaming'
-	get 'reds_streaming', to: 'dashboards#reds_streaming'
 
-	# Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-	# Defines the root path route ("/")
-	root 'dashboards#index'
 end

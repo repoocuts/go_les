@@ -58,6 +58,7 @@ gem 'dotenv-rails'
 gem 'pagy', '~> 6.0'
 gem "chartkick"
 gem "view_component"
+gem 'friendly_id', '~> 5.5.0'
 
 group :development, :test do
 	# See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -1,37 +1,20 @@
-<div id="<%= dom_id season %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Start date:</strong>
-    <%= season.start_date %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">End date:</strong>
-    <%= season.end_date %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Api football:</strong>
-    <%= season.api_football_id %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Current season:</strong>
-    <%= season.current_season %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Current game week:</strong>
-    <%= season.current_game_week %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">League:</strong>
-    <%= season.league_id %>
-  </p>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this season", season, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this season', edit_season_path(season), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
-</div>
+<table class="w-full">
+	<thead>
+	<tr>
+		<th></th>
+		<th class="bg-gray-300 p-2 font-bold text-center"></th>
+		<th class="bg-gray-300 p-2 font-bold text-center">G</th>
+		<th class="bg-gray-300 p-2 font-bold text-center">Pts</th>
+	</tr>
+	</thead>
+	<tbody>
+	<% @current_season_table.each_with_index do |team_season, index| %>
+		<tr class="<%= cycle('bg-white', 'bg-gray-100') %>">
+			<td class="border border-gray-300 p-2 text-center"><%= index + 1 %></td>
+			<td class="border border-gray-300 p-2 text-center"><%= link_to team_season.team.name, team_path(team_season.team) %></td>
+			<td class="border border-gray-300 p-2 text-center"><%= team_season.completed_fixtures_count %>
+			<td class="border border-gray-300 p-2 text-center"><%= team_season.points %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>

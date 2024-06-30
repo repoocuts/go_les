@@ -1,0 +1,24 @@
+<div>
+	<h5 class="text-center"><%= title %></h5>
+	<table class="table-auto text-base text-sm w-full">
+		<thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+		<tr>
+			<th class="text-right">
+				Home
+			</th>
+			<th>
+			</th>
+			<th class="text-center">
+			</th>
+			<th>
+			</th>
+			<th class="text-left">
+				Away
+			</th>
+		</tr>
+		</thead>
+		<tbody>
+		<%= render component.with_collection(collection), cached: true %>
+		</tbody>
+	</table>
+</div>

@@ -1,17 +1,21 @@
-<div class="flex flex-col space-y-4">
-  <div>
-    <%= render partial: 'player_details' %>
-  </div>
-  <div>
-    <%= render partial: 'season_stats_table' %>
-  </div>
-  <div class="grid grid-cols-2">
-    <%= render PlayerSeasonGoalsComponent.new(player_season: @player_season) %>
-    <%= render PlayerSeasonAssistsComponent.new(player_season: @player_season) %>
-  </div>
-  <div>
-    <div id="finished-fixtures-table">
-      <%= render 'appearances' %>
-    </div>
-  </div>
+<div class="container mx-10 my-10">
+	<div class="flex flex-col space-y-4 mx-10 my-10">
+		<div>
+			<%= render partial: 'player_details' %>
+		</div>
+		<div class="pb-5">
+			<%= render partial: 'season_stats_table' %>
+		</div>
+		<div class="grid grid-cols-1 tablet:grid-cols-4 pb-5 gap-4">
+			<%= render Player::PlayerSeasonGoalsComponent.new(player_season: @player_season) %>
+			<%= render Player::PlayerSeasonAssistsComponent.new(player_season: @player_season) %>
+			<%= render Player::PlayerSeasonYellowCardsComponent.new(player_season: @player_season) %>
+			<%= render Player::PlayerSeasonRedCardsComponent.new(player_season: @player_season) %>
+		</div>
+		<div>
+			<div id="finished-fixtures-table">
+				<%= render 'appearances' %>
+			</div>
+		</div>
+	</div>
 </div>

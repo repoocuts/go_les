@@ -1,15 +1,23 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+<div class="mx-10 my-10">
+	<div class="overflow-x-auto whitespace-nowrap mb-10">
+		<ul class="flex flex-wrap text-sm font-medium text-center text-gray-50 border-gray-200 dark:border-gray-700 dark:text-gray-400 justify-items-center">
+			<% @seasons.each do |season| %>
+				<li class="me-2">
+					<a href="<%= country_league_season_path(@league.country, @league, season) %>" data-season-id="<%= season.id %>" class="inline-block px-4 py-3 text-white bg-blue-600 rounded-lg season-link active"><%= season.years %></a>
+				</li>
+			<% end %>
+		</ul>
+	</div>
 
-    <%= render @league %>
-
-    <%= link_to 'Edit this league', edit_league_path(@league), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this league', league_path(@league), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to leagues', leagues_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </div>
+	<div class="container">
+		<div class="grid gap-4 phone:grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 xl:grid-cols-4">
+			<% @teams.each do |team| %>
+				<div class="border p-4">
+					<ul>
+						<li><%= link_to team.name, country_league_team_path(team.country, team.league, team) %></li>
+					</ul>
+				</div>
+			<% end %>
+		</div>
+	</div>
 </div>

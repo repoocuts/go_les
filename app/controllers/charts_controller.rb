@@ -51,7 +51,7 @@ class ChartsController < ApplicationController
 			labels: ['Scored', 'Home Scored', 'Away Scored', 'Home Conceded', 'Away Conceded', 'Conceded'],
 			datasets: [
 				{
-					label: current_team_season.team_name,
+					label: current_team_season.name,
 					data: [
 						current_team_season.goals_for.size,
 						current_team_season.home_goals_scored_count,
@@ -69,7 +69,7 @@ class ChartsController < ApplicationController
 					pointHoverBorderColor: 'rgb(255, 99, 132)'
 				},
 				{
-					label: opponent_team_season.team_name,
+					label: opponent_team_season.name,
 					data: [
 						opponent_team_season.goals_for.size,
 						opponent_team_season.home_goals_scored_count,
@@ -97,7 +97,7 @@ class ChartsController < ApplicationController
 
 		render json: team_seasons.map { |team_season|
 			{
-				name: team_season.team_name,
+				name: team_season.name,
 				data: { "Home Bookings" => team_season.home_yellow_cards.size,
 				        "Away Bookings" => team_season.away_yellow_cards.size,
 				        "Total Bookings" => team_season.yellow_cards_count,

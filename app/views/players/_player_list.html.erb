@@ -1,13 +1,17 @@
 <%= turbo_frame_tag "player_list" do %>
-  <h1 class='text-xl ml-4 pl-4'><%= @players[0][:team_name] %></h1>
-  <div class="grid grid-cols-4 ml-4 pl-4 mt-5">
-    <% players.each_slice(15).with_index do |player_slice, index| %>
-      <% player_slice[0][:players].each do |player| %>
-        <ul class='mt-3'><%= link_to player.return_name, player_path(player), data: { 'turbo_frame': '_top'} %></ul>
-      <% end %>
-    <% end %>
-  </div>
-  <div class='mt-5'>
-    <%== pagy_nav @pagy_players %>
-  </div>
+	<h1 class='text-xl ml-4 pl-4'><%= @players[0][:team_name] %></h1>
+	<div class="grid grid-cols-4 ml-4 pl-4 mt-5">
+		<% players.each_slice(15).with_index do |player_slice, index| %>
+			<% player_slice[0][:players].each do |player| %>
+				<% if player.current_player_season %>
+					<ul class='mt-3'><%= link_to player.return_name, country_league_team_player_path(player.team.country, player.team.league, player.team, player), data: { 'turbo_frame': '_top' } %></ul>
+				<% else %>
+					<ul class='mt-3'><%= link_to player.return_name, player_path(player), data: { 'turbo_frame': '_top' } %></ul>
+				<% end %>
+			<% end %>
+			</div>
+			<div class='mt-5'>
+				<%== pagy_nav @pagy_players %>
+			</div>
+		<% end %>
 <% end %>

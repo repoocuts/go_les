@@ -1,28 +1,28 @@
 <div class="columns-1">
-  <%= turbo_frame_tag "player-season-stats", class: "shadow overflow-hidden rounded border-b border-gray-200" do %>
-    <table class="table-auto text-base text-md w-full">
-      <thead class="text-base uppercase bg-red-50 dark:bg-red-700">
-      <th id="players-name" class="px-4 py-2 text-left"><%= sort_link(column: "full_name", label: "Player") %></th>
-      <th class="px-4 py-2 text-left"><%= sort_link(column: "position", label: "Position") %></th>
-      <th class="px-4 py-2"><%= sort_link(column: "appearances", label: "Apps") %></th>
-      <th class="px-4 py-2"><%= sort_link(column: "goals", label: "Goals") %></th>
-      <th class="px-4 py-2"><%= sort_link(column: "yellow_cards", label: "Yellows") %></th>
-      <th class="px-4 py-2"><%= sort_link(column: "red_cards", label: "Reds") %></th>
-      </thead>
-      <tbody>
-      <% @player_seasons.each do |player_season| %>
-        <tr class="border-t border-b">
-          <td class="px-4 py-2 text-left">
-            <%= link_to player_season.player.return_name, player_path(player_season.player), data: { turbo_frame: '_top' } %>
-          </td>
-          <td class="px-4 py-2 text-left"><%= player_season.player.position %></td>
-          <td class="px-4 py-2 text-center"><%= player_season.appearances.size %></td>
-          <td class="px-4 py-2 text-center"><%= player_season.goals.size %></td>
-          <td class="px-4 py-2 text-center"><%= player_season.season_yellows %></td>
-          <td class="px-4 py-2 text-center"><%= player_season.season_reds %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  <% end %>
+	<%= turbo_frame_tag "player-season-stats", class: "shadow overflow-hidden rounded border-b border-gray-200" do %>
+		<table class="table-auto text-base text-md w-full">
+			<thead class="text-base uppercase bg-red-50 dark:bg-red-700">
+			<th id="players-name" class="px-4 py-2 text-left"><%= sort_link(column: "full_name", label: "Player") %></th>
+			<th class="px-4 py-2 text-left"><%= sort_link(column: "position", label: "Position") %></th>
+			<th class="px-4 py-2"><%= sort_link(column: "appearances", label: "Apps") %></th>
+			<th class="px-4 py-2"><%= sort_link(column: "goals", label: "Goals") %></th>
+			<th class="px-4 py-2"><%= sort_link(column: "yellow_cards", label: "Yellows") %></th>
+			<th class="px-4 py-2"><%= sort_link(column: "red_cards", label: "Reds") %></th>
+			</thead>
+			<tbody>
+			<% @player_seasons.each do |player_season| %>
+				<tr class="border-t border-b">
+					<td class="px-4 py-2 text-left">
+						<%= link_to player_season.player.return_name, player_path(player_season.player), data: { turbo_frame: '_top' } %>
+					</td>
+					<td class="px-4 py-2 text-left"><%= player_season.player.position %></td>
+					<td class="px-4 py-2 text-center"><%= player_season.appearances.size %></td>
+					<td class="px-4 py-2 text-center"><%= player_season.goals.size %></td>
+					<td class="px-4 py-2 text-center"><%= player_season.season_yellows_count %></td>
+					<td class="px-4 py-2 text-center"><%= player_season.season_reds_count %></td>
+				</tr>
+			<% end %>
+			</tbody>
+		</table>
+	<% end %>
 </div>

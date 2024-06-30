@@ -5,9 +5,14 @@
 #  id              :bigint           not null, primary key
 #  code            :string
 #  name            :string
+#  slug            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  api_football_id :integer
+#
+# Indexes
+#
+#  index_countries_on_slug  (slug) UNIQUE
 #
 
 one:

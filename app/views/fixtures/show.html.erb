@@ -1,29 +1,29 @@
-<div class='flex grid'>
-  <div class="grid justify-center">
-    <h6>
-      <%= "Game Week #{@fixture.game_week}" %>
-    </h6>
-  </div>
-  <div class="grid grid-cols-3 justify-center text-center mt-5">
-    <h5 class="text-3xl text-right">
-      <%= link_to @fixture.home_team_season.team.name, team_path(@fixture.home_team_season.team) %>
-    </h5>
-    <% if @fixture.home_score.nil? %>
-      <h5 class="text-3xl">
-        <%= @fixture.kick_off_or_score %>
-      </h5>
-    <% else %>
-      <h5 class="text-3xl">
-        <%= "#{@fixture.home_score} - #{@fixture.away_score}" %>
-      </h5>
-    <% end %>
-    <h5 class="text-3xl text-left">
-      <%= link_to @fixture.away_team_season.team.name, team_path(@fixture.away_team_season.team) %>
-    </h5>
-  </div>
-  <% if !@fixture.home_score.nil? %>
-    <%= render '/fixtures/post_fixture/post_fixture' %>
-  <% else %>
-    <%= render '/fixtures/pre_fixture/pre_fixture' %>
-  <% end %>
+<div class='flex grid mx-10 my-10'>
+	<div class="grid justify-center">
+		<h6>
+			<%= "Game Week #{@fixture.game_week}" %>
+		</h6>
+	</div>
+	<div class="grid grid-cols-3 justify-center text-center mt-5">
+		<h5 class="text-3xl text-right">
+			<%= link_to @fixture.home_team_season.team.name, team_path(@fixture.home_team_season.team) %>
+		</h5>
+		<% if @fixture.home_score.nil? %>
+			<h5 class="text-3xl">
+				<%= @fixture.kick_off_or_score %>
+			</h5>
+		<% else %>
+			<h5 class="text-3xl">
+				<%= "#{@fixture.home_score} - #{@fixture.away_score}" %>
+			</h5>
+		<% end %>
+		<h5 class="text-3xl text-left">
+			<%= link_to @fixture.away_team_season.team.name, team_path(@fixture.away_team_season.team) %>
+		</h5>
+	</div>
+	<% if !@fixture.home_score.nil? %>
+		<%= render '/fixtures/post_fixture/post_fixture' %>
+	<% else %>
+		<%= render '/fixtures/pre_fixture/pre_fixture' %>
+	<% end %>
 </div>

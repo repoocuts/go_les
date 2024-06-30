@@ -1,15 +1,94 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
-
-    <%= render @season %>
-
-    <%= link_to 'Edit this season', edit_season_path(@season), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this season', season_path(@season), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to seasons', seasons_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </div>
+<div class="mx-10 my-10">
+	<%= turbo_frame_tag "season-content" do %>
+		<div class="grid grid-cols-3 gap-4 justify-center">
+			<%= render 'fixtures_week', title: 'Last Week', component: LastGameWeekResultsComponent, collection: @last_game_week %>
+			<%= render 'fixtures_week', title: 'Current Week', component: CurrentGameWeekFixturesComponent, collection: @current_game_week %>
+			<%= render 'fixtures_week', title: 'Next Week', component: NextGameWeekFixturesComponent, collection: @next_game_week %>
+		</div>
+		<div class="grid laptop:grid-cols-4 tablet:grid-cols-2 phone:grid-cols-1 gap-4 justify-center mt-5">
+			<div class="p-4" data-controller="dashboard">
+				<h5 class="text-center">Top Scorers</h5>
+				<div class="scrollies" data-dashboard-target="scrollies" data-next-page="<%= @next_page %>">
+					<table class="table-auto text-base text-sm w-full">
+						<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+						<tr>
+							<th class="px-4 py-2"></th>
+							<th class="px-4 py-2 hidden laptop:block"></th>
+							<th class="px-4 py-2 text-center">
+								<span class="hidden laptop:inline">Goals</span>
+								<span class="laptop:hidden">G</span>
+							</th>
+						</tr>
+						</thead>
+						<tbody id="scorers-table">
+						<%= render partial: 'top_scorers_partial', cached: true %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="p-4" data-controller="dashboard">
+				<h5 class="text-center">Top Assists</h5>
+				<div class="scrollies" data-dashboard-target="assisties" data-next-page="<%= @next_page %>">
+					<table class="table-auto text-base text-sm w-full">
+						<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+						<tr>
+							<th class="px-4 py-2"></th>
+							<th class="px-4 py-2 hidden laptop:block"></th>
+							<th class="px-4 py-2 text-center">
+								<span class="hidden laptop:inline">Assists</span>
+								<span class="laptop:hidden">A</span>
+							</th>
+						</tr>
+						</thead>
+						<tbody id="assists-table">
+						<%= render partial: 'top_assists_partial', cached: true %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="p-4" data-controller="dashboard">
+				<h5 class="text-center">Most Booked</h5>
+				<div class="scrollies" data-dashboard-target="bookies" data-next-page="<%= @next_page %>">
+					<table class="table-auto text-base text-sm w-full">
+						<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+						<tr>
+							<th class="px-4 py-2"></th>
+							<th class="px-4 py-2 hidden laptop:block"></th>
+							<th class="px-4 py-2 text-center">
+								<span class="hidden laptop:inline">Bookings</span>
+								<span class="laptop:hidden">YC</span>
+							</th>
+						</tr>
+						</thead>
+						<tbody id="most-booked-table">
+						<%= render partial: 'most_booked_partial', cached: true %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="p-4" data-controller="dashboard">
+				<h5 class="text-center">Most Reds</h5>
+				<div class="scrollies" data-dashboard-target="reddies" data-next-page="<%= @next_page %>">
+					<table class="table-auto text-base text-sm w-full">
+						<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+						<tr>
+							<th class="px-4 py-2"></th>
+							<th class="px-4 py-2 hidden laptop:block"></th>
+							<th class="px-4 py-2 text-center">
+								<span class="hidden laptop:inline">Reds</span>
+								<span class="laptop:hidden">RC</span>
+							</th>
+						</tr>
+						</thead>
+						<tbody id="most-reds-table">
+						<%= render partial: 'most_reds_partial', cached: true %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="grid grid-cols-1 justify-center mt-5">
+			<%= render LeagueTableComponent.new(@team_seasons), cached: true %>
+		</div>
+	<% end %>
 </div>
