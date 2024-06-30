@@ -1,6 +1,6 @@
 <div data-controller="player--player-season-yellow-cards-component">
 	<div class="overflow-x-auto">
-		<table class="min-w-full divide-y divide-gray-200">
+		<table class="table-auto divide-y divide-gray-200">
 			<thead class="bg-gray-50">
 			<tr>
 				<th scope="col" class="px-6 py-3 tracking-wider">H</th>
@@ -15,19 +15,19 @@
 				<td class="px-6 py-4 text-center"><%= away_yellow_cards %></td>
 			</tr>
 			<tr>
-				<td class="px-6 py-4 text-center"><%= %></td>
+				<td class="px-6 py-4 text-center"><%= first_half_home_yellow_cards_count %></td>
 				<td class="px-6 py-4 text-center">1st half</td>
-				<td class="px-6 py-4 text-center"><%= %></td>
+				<td class="px-6 py-4 text-center"><%= first_half_away_yellow_cards_count %></td>
 			</tr>
 			<tr>
-				<td class="px-6 py-4 text-center"><%= %></td>
+				<td class="px-6 py-4 text-center"><%= second_half_home_yellow_cards_count %></td>
 				<td class="px-6 py-4 text-center">2nd half</td>
-				<td class="px-6 py-4 text-center"><%= %></td>
+				<td class="px-6 py-4 text-center"><%= second_half_away_yellow_cards_count %></td>
 			</tr>
 			<tr>
-				<td class="px-6 py-4 text-center"><%= %></td>
+				<td class="px-6 py-4 text-center"><%= average_minutes_per_home_yellow_card %></td>
 				<td class="px-6 py-4 text-center">Average minutes per yellow</td>
-				<td class="px-6 py-4 text-center"><%= %></td>
+				<td class="px-6 py-4 text-center"><%= average_minutes_per_away_yellow_card %></td>
 			</tr>
 			</tbody>
 		</table>

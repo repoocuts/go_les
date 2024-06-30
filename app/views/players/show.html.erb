@@ -6,15 +6,11 @@
 		<div class="pb-5">
 			<%= render partial: 'season_stats_table' %>
 		</div>
-		<div class="grid grid-cols-2 pb-5 gap-4">
-			<div>
-				<%= render Player::PlayerSeasonGoalsComponent.new(player_season: @player_season) %>
-				<%= render Player::PlayerSeasonAssistsComponent.new(player_season: @player_season) %>
-			</div>
-			<div>
-				<%= render Player::PlayerSeasonYellowCardsComponent.new(player_season: @player_season) %>
-				<%= render Player::PlayerSeasonRedCardsComponent.new(player_season: @player_season) %>
-			</div>
+		<div class="grid grid-cols-1 tablet:grid-cols-4 pb-5 gap-4">
+			<%= render Player::PlayerSeasonGoalsComponent.new(player_season: @player_season) %>
+			<%= render Player::PlayerSeasonAssistsComponent.new(player_season: @player_season) %>
+			<%= render Player::PlayerSeasonYellowCardsComponent.new(player_season: @player_season) %>
+			<%= render Player::PlayerSeasonRedCardsComponent.new(player_season: @player_season) %>
 		</div>
 		<div>
 			<div id="finished-fixtures-table">
