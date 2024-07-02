@@ -73,12 +73,14 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def next_match_opponent_name
+		return nil unless next_match
 		return next_match.home_team_name + home_or_away_string(next_match) if team.name == next_match.away_team_name
 
 		next_match.away_team_name + home_or_away_string(next_match)
 	end
 
 	def next_match_opponent_id
+		return nil unless next_match
 		return next_match.home_team_season_id if team.name == next_match.away_team_name
 
 		next_match.away_team_season_id
