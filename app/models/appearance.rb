@@ -31,9 +31,9 @@ class Appearance < ApplicationRecord
 	belongs_to :player_season, counter_cache: true
 	belongs_to :fixture
 
-	has_many :goals
-	has_many :cards
-	has_many :assists
+	has_many :goals, dependent: :destroy
+	has_many :cards, dependent: :destroy
+	has_many :assists, dependent: :destroy
 
 	scope :home_starts, ->(fixture) { where(is_home: true, fixture_id: fixture.id, appearance_type: 'start') }
 	scope :away_starts, ->(fixture) { where(is_home: nil, fixture_id: fixture.id, appearance_type: 'start') }
