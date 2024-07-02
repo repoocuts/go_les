@@ -19,7 +19,7 @@ class TeamsController < ApplicationController
 		@pagy_team_upcoming_fixtures, @upcoming_fixtures = pagy(current_team_season.upcoming_fixtures.includes(:home_team_season, :away_team_season))
 		@pagy_team_finished_fixtures, @finished_fixtures = pagy(current_team_season.completed_fixtures.includes(:home_team_season, :away_team_season), page_param: :page_results)
 		@next_match = current_team_season.next_match
-		@next_opponent = @next_match.opponent_team_season_object(@current_team_season.id)
+		@next_opponent = @next_match&.opponent_team_season_object(@current_team_season.id)
 		respond_to do |format|
 			format.html
 			format.turbo_stream
