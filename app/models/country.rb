@@ -19,6 +19,7 @@ class Country < ApplicationRecord
 	friendly_id :name, use: :slugged
 
 	has_many :leagues, dependent: :destroy
+	has_many :teams, through: :leagues
 
 	def to_param
 		name.parameterize

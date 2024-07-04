@@ -32,7 +32,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (league_id => leagues.id)
+#  fk_rails_...  (league_id => leagues.id) ON DELETE => cascade
 #  fk_rails_...  (season_game_week_id => season_game_weeks.id)
 #  fk_rails_...  (season_id => seasons.id)
 #
@@ -50,7 +50,7 @@ class Fixture < ApplicationRecord
 	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 
-	has_one :fixture_api_response
+	has_one :fixture_api_response, dependent: :destroy
 	has_one :referee_fixture
 
 	belongs_to :season

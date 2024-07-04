@@ -28,17 +28,17 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (season_id => seasons.id)
-#  fk_rails_...  (team_id => teams.id)
+#  fk_rails_...  (season_id => seasons.id) ON DELETE => cascade
+#  fk_rails_...  (team_id => teams.id) ON DELETE => cascade
 #
 class TeamSeason < ApplicationRecord
 	belongs_to :team
 	belongs_to :season
 
-	has_one :goals_scored_stat, class_name: 'TeamSeasons::GoalsScoredStat'
-	has_one :goals_conceded_stat, class_name: 'TeamSeasons::GoalsConcededStat'
-	has_one :yellow_cards_stat, class_name: 'TeamSeasons::YellowCardsStat'
-	has_one :red_cards_stat, class_name: 'TeamSeasons::RedCardsStat'
+	has_one :goals_scored_stat, class_name: 'TeamSeasons::GoalsScoredStat', dependent: :destroy
+	has_one :goals_conceded_stat, class_name: 'TeamSeasons::GoalsConcededStat', dependent: :destroy
+	has_one :yellow_cards_stat, class_name: 'TeamSeasons::YellowCardsStat', dependent: :destroy
+	has_one :red_cards_stat, class_name: 'TeamSeasons::RedCardsStat', dependent: :destroy
 
 	has_many :appearances
 	has_many :player_seasons

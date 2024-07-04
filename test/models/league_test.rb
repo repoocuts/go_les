@@ -17,7 +17,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (country_id => countries.id)
+#  fk_rails_...  (country_id => countries.id) ON DELETE => cascade
 #
 require "test_helper"
 

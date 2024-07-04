@@ -23,8 +23,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (country_id => countries.id)
-#  fk_rails_...  (league_id => leagues.id)
+#  fk_rails_...  (country_id => countries.id) ON DELETE => cascade
+#  fk_rails_...  (league_id => leagues.id) ON DELETE => cascade
 #
 
 one:

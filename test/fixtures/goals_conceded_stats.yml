@@ -22,7 +22,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (team_season_id => team_seasons.id)
+#  fk_rails_...  (team_season_id => team_seasons.id) ON DELETE => cascade
 #
 
 # This model initially had no columns defined. If you add columns to the

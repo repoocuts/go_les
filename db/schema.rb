@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_16_162122) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_04_200216) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -499,46 +499,46 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_16_162122) do
   end
 
   add_foreign_key "appearances", "fixtures"
-  add_foreign_key "appearances", "player_seasons"
+  add_foreign_key "appearances", "player_seasons", on_delete: :cascade
   add_foreign_key "appearances", "team_seasons"
   add_foreign_key "assists", "appearances"
   add_foreign_key "assists", "fixtures"
   add_foreign_key "assists", "goals"
-  add_foreign_key "assists", "player_seasons"
+  add_foreign_key "assists", "player_seasons", on_delete: :cascade
   add_foreign_key "assists", "team_seasons"
   add_foreign_key "attacking_stats", "player_seasons"
   add_foreign_key "cards", "appearances"
   add_foreign_key "cards", "fixtures"
-  add_foreign_key "cards", "player_seasons"
+  add_foreign_key "cards", "player_seasons", on_delete: :cascade
   add_foreign_key "cards", "team_seasons"
   add_foreign_key "corners", "fixtures"
   add_foreign_key "corners", "team_seasons"
   add_foreign_key "defensive_stats", "player_seasons"
   add_foreign_key "discipline_stats", "player_seasons"
-  add_foreign_key "fixture_api_responses", "fixtures"
-  add_foreign_key "fixtures", "leagues"
+  add_foreign_key "fixture_api_responses", "fixtures", on_delete: :cascade
+  add_foreign_key "fixtures", "leagues", on_delete: :cascade
   add_foreign_key "fixtures", "season_game_weeks"
   add_foreign_key "fixtures", "seasons"
   add_foreign_key "goals", "appearances"
   add_foreign_key "goals", "fixtures"
-  add_foreign_key "goals", "player_seasons"
+  add_foreign_key "goals", "player_seasons", on_delete: :cascade
   add_foreign_key "goals", "team_seasons"
-  add_foreign_key "goals_conceded_stats", "team_seasons"
-  add_foreign_key "goals_scored_stats", "team_seasons"
-  add_foreign_key "head_to_heads", "teams"
-  add_foreign_key "leagues", "countries"
-  add_foreign_key "player_seasons", "players"
-  add_foreign_key "player_seasons", "team_seasons"
+  add_foreign_key "goals_conceded_stats", "team_seasons", on_delete: :cascade
+  add_foreign_key "goals_scored_stats", "team_seasons", on_delete: :cascade
+  add_foreign_key "head_to_heads", "teams", on_delete: :cascade
+  add_foreign_key "leagues", "countries", on_delete: :cascade
+  add_foreign_key "player_seasons", "players", on_delete: :cascade
+  add_foreign_key "player_seasons", "team_seasons", on_delete: :cascade
   add_foreign_key "players", "teams"
-  add_foreign_key "red_cards_stats", "team_seasons"
+  add_foreign_key "red_cards_stats", "team_seasons", on_delete: :cascade
   add_foreign_key "referee_fixtures", "fixtures"
   add_foreign_key "referee_fixtures", "referees"
   add_foreign_key "referee_fixtures", "seasons"
   add_foreign_key "referees", "seasons"
-  add_foreign_key "seasons", "leagues"
-  add_foreign_key "team_seasons", "seasons"
-  add_foreign_key "team_seasons", "teams"
-  add_foreign_key "teams", "countries"
-  add_foreign_key "teams", "leagues"
-  add_foreign_key "yellow_cards_stats", "team_seasons"
+  add_foreign_key "seasons", "leagues", on_delete: :cascade
+  add_foreign_key "team_seasons", "seasons", on_delete: :cascade
+  add_foreign_key "team_seasons", "teams", on_delete: :cascade
+  add_foreign_key "teams", "countries", on_delete: :cascade
+  add_foreign_key "teams", "leagues", on_delete: :cascade
+  add_foreign_key "yellow_cards_stats", "team_seasons", on_delete: :cascade
 end

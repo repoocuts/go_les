@@ -21,7 +21,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (league_id => leagues.id)
+#  fk_rails_...  (league_id => leagues.id) ON DELETE => cascade
 #
 class Season < ApplicationRecord
 	extend FriendlyId
