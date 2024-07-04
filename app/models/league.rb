@@ -22,10 +22,10 @@
 class League < ApplicationRecord
 	extend FriendlyId
 	friendly_id :name, use: :slugged
-  
+
 	belongs_to :country
-	has_many :seasons
-	has_many :teams
+	has_many :seasons, dependent: :destroy
+	has_many :teams, dependent: :destroy
 
 	def current_season
 		seasons.find_by(current_season: true)

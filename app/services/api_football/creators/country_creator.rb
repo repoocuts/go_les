@@ -2,7 +2,7 @@ module ApiFootball
 	module Creators
 		class CountryCreator < ApplicationService
 
-			COUNTRIES = %w[brazil england france germany italy portugal scotland spain].freeze
+			COUNTRIES = %w[brazil england portugal spain mexico turkey].freeze
 
 			def call
 				countries = make_api_call['response']

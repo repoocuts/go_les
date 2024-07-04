@@ -29,8 +29,8 @@ class Season < ApplicationRecord
 	ONE = 1.freeze
 
 	belongs_to :league
-	has_many :season_game_weeks
-	has_many :fixtures
+	has_many :season_game_weeks, dependent: :destroy
+	has_many :fixtures, dependent: :destroy
 	has_many :team_seasons
 	has_many :player_seasons, through: :team_seasons
 	has_many :goals, through: :team_seasons

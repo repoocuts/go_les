@@ -37,10 +37,10 @@
 #  fk_rails_...  (season_id => seasons.id)
 #
 class Fixture < ApplicationRecord
-	has_many :appearances
-	has_many :goals
-	has_many :cards
-	has_many :assists
+	has_many :appearances, dependent: :destroy
+	has_many :goals, dependent: :destroy
+	has_many :cards, dependent: :destroy
+	has_many :assists, dependent: :destroy
 	has_many :home_starts, -> { where(is_home: true, appearance_type: 'start') }, class_name: 'Appearance'
 	has_many :away_starts, -> { where(is_home: false, appearance_type: 'start') }, class_name: 'Appearance'
 	has_many :home_goals_with_player_season_and_assist, -> { includes(:player_season, :assist) }, class_name: 'Goal'

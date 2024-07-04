@@ -28,7 +28,7 @@ class Player < ApplicationRecord
 	friendly_id :full_name, use: :slugged
 
 	belongs_to :team
-	has_many :player_seasons
+	has_many :player_seasons, dependent: :destroy
 
 	enum position: { :goalkeeper => 'Goalkeeper', :defender => 'Defender', :midfielder => 'Midfielder', :attacker => 'Attacker' }
 
