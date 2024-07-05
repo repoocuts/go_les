@@ -10,7 +10,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  api_football_id :integer
-#  team_id         :bigint           not null
+#  team_id         :bigint
 #
 # Indexes
 #
@@ -21,13 +21,13 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (team_id => teams.id)
+#  fk_rails_...  (team_id => teams.id) ON DELETE => nullify
 #
 class Player < ApplicationRecord
 	extend FriendlyId
 	friendly_id :full_name, use: :slugged
 
-	belongs_to :team
+	belongs_to :team, optional: true
 	has_many :player_seasons, dependent: :destroy
 
 	enum position: { :goalkeeper => 'Goalkeeper', :defender => 'Defender', :midfielder => 'Midfielder', :attacker => 'Attacker' }

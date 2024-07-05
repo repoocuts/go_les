@@ -51,7 +51,7 @@ class Fixture < ApplicationRecord
 	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 
 	has_one :fixture_api_response, dependent: :destroy
-	has_one :referee_fixture
+	has_one :referee_fixture, dependent: :destroy
 
 	belongs_to :season
 	belongs_to :league

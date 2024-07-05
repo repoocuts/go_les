@@ -30,7 +30,7 @@ class Team < ApplicationRecord
 	extend FriendlyId
 	friendly_id :name, use: :slugged
 
-	has_many :players, dependent: :destroy
+	has_many :players, dependent: :nullify
 	has_many :team_seasons, dependent: :destroy
 	has_many :head_to_heads, dependent: :destroy
 	has_many :player_seasons, through: :team_seasons

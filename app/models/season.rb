@@ -36,6 +36,8 @@ class Season < ApplicationRecord
 	has_many :goals, through: :team_seasons
 	has_many :assists, through: :goals
 	has_many :cards, through: :team_seasons
+	has_many :referees, dependent: :destroy
+	has_many :referee_fixtures, dependent: :destroy
 
 	scope :current_season, -> { find_by(current_season: true) }
 
