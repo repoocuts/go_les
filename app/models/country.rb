@@ -4,6 +4,8 @@
 #
 #  id              :bigint           not null, primary key
 #  code            :string
+#  flag            :string
+#  hidden          :boolean
 #  name            :string
 #  slug            :string
 #  created_at      :datetime         not null

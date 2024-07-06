@@ -6,12 +6,12 @@ module ApiFootball
 
 			def call
 				countries = make_api_call['response']
+
 				countries.each do |elem|
-					if COUNTRIES.include?(elem['name'].downcase)
-						country = create_from_response(elem)
-						Rails.logger.info("Created #{country}")
-						ObjectHandlingFailure.create(object_type: 'country', api_response_element: elem) if country.nil?
-					end
+					country = create_from_response(elem)
+
+					Rails.logger.info("Created #{country}")
+					ObjectHandlingFailure.create(object_type: 'country', api_response_element: elem) if country.nil?
 				end
 
 				Rails.logger.info("Created #{Country.count} countries")
@@ -24,9 +24,13 @@ module ApiFootball
 			end
 
 			def create_from_response(response_element)
-				country_exists = Country.where(name: response_element['name']).any?
+				country_name = response_element['name']
+				country_exists = Country.where(name: country_name).any?
+				formatted_name = country_name.downcase
+				slug = formatted_name.split(' ').join('-')
+				hidden = COUNTRIES.include?(formatted_name) ? false : true
 
-				Country.create(name: response_element['name'], code: response_element['code']) unless country_exists
+				Country.create(name: country_name, code: response_element['code'], slug: slug, hidden: hidden, flag: response_element['flag']) unless country_exists
 			end
 		end
 	end
