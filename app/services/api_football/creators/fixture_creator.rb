@@ -10,6 +10,7 @@ module ApiFootball
 			end
 
 			def call
+				Rails.logger.info "Creating fixtures for #{league.name} #{season.years}"
 				fixtures = make_api_call['response']
 
 				game_weeks = fixtures.map { |f| f['league']['round'] }.uniq
@@ -30,10 +31,13 @@ module ApiFootball
 			attr_reader :league, :season
 
 			def make_api_call
+				Rails.logger.info "Making API call for #{ENDPOINT} options : { league: #{league.api_football_id}, season: #{season.start_date.year} }"
 				ApiFootball::ApiFootballCall.new(endpoint: ENDPOINT, options: { league: league.api_football_id, season: season.start_date.year }).make_api_call
 			end
 
 			def create_from_response(response_element)
+				return if Fixture.where(api_football_id: response_element['fixture']['id']).any?
+				Rails.logger.info "Creating fixture for fixture.api_football_id #{response_element['fixture']['id']}"
 				season_game_week = season.season_game_weeks.find_by(game_week_number: response_element['league']['round'].split('-').last.strip.to_i)
 				fixture = Fixture.create(
 					api_football_id: response_element['fixture']['id'],
@@ -42,8 +46,9 @@ module ApiFootball
 					kick_off: response_element['fixture']['date'],
 					league_id: league.id,
 					season_id: season.id,
-					season_game_week_id: season_game_week.id,
+					season_game_week_id: season_game_week&.id,
 				)
+
 				FixtureApiResponse.create(fixture_id: fixture.id, pre_fixture: response_element)
 			end
 

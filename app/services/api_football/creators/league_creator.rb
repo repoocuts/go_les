@@ -1,7 +1,7 @@
 module ApiFootball
 	module Creators
 		class LeagueCreator < ApplicationService
-			LEAGUES = ['Liga MX', 'Serie A', 'Primeira Liga', 'La Liga', '1. Lig', 'Premier League']
+			LEAGUES = ['Liga MX', 'Serie A', 'Primeira Liga', 'La Liga', 'Super Lig', 'Premier League']
 
 			def call
 				leagues = make_api_call['response']

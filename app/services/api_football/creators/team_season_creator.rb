@@ -8,9 +8,12 @@ module ApiFootball
 			end
 
 			def call
+				return if team.team_seasons.where(season_id: season.id).any?
+
 				team_season = TeamSeason.create(team_id: team.id, season_id: season.id, current_season: true)
 				create_association_objects(team_season)
 				create_head_to_heads_for_team(team, team_season, season.league)
+				Rails.logger.info "Team season creator for #{team.name} season #{season.years} succeeded"
 			end
 
 			private

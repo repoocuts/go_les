@@ -8,8 +8,13 @@ module ApiFootball
 			end
 
 			def call
-				create_teams
+				teams = make_api_call['response']
 
+				return :failure if teams.nil?
+
+				teams.map { |elem| create_from_response(elem) }
+
+				Rails.logger.info("Teams creator succeeded")
 				:success
 			end
 
@@ -19,11 +24,6 @@ module ApiFootball
 
 			def make_api_call
 				ApiFootball::ApiFootballCall.new(endpoint: 'teams', options: { league: league.api_football_id, season: season.start_date.year }).make_api_call
-			end
-
-			def create_teams
-				teams = make_api_call['response']
-				teams.map { |elem| create_from_response(elem) }
 			end
 
 			def create_from_response(response_element)
@@ -39,7 +39,7 @@ module ApiFootball
 
 					object_handling_failure(response_element, league.country.id, league.id) if team.nil?
 				end
-				
+
 				ApiFootball::Creators::TeamSeasonCreator.new(team:, season:).call
 			end
 
