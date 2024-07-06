@@ -3,6 +3,8 @@
 # Table name: leagues
 #
 #  id              :bigint           not null, primary key
+#  hidden          :boolean
+#  logo            :string
 #  name            :string
 #  slug            :string
 #  created_at      :datetime         not null
