@@ -34,7 +34,8 @@ module ApiFootball
 						api_football_id: response_element['team']['id'],
 						league_id: league.id,
 						country_id: league.country.id,
-						name: response_element['team']['name']
+						name: response_element['team']['name'],
+						slug: response_element['team']['name'].parameterize
 					)
 
 					object_handling_failure(response_element, league.country.id, league.id) if team.nil?

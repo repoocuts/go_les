@@ -8,7 +8,11 @@ module ApiFootball
 			end
 
 			def call
-				create_players
+				players = make_api_call['response'][0]['players']
+
+				return :failure if players.blank?
+
+				players.map { |elem| create_from_response(elem) }
 
 				:success
 			end
@@ -21,17 +25,14 @@ module ApiFootball
 				ApiFootball::ApiFootballCall.new(endpoint: 'players/squads', options: { team: team.api_football_id }).make_api_call
 			end
 
-			def create_players
-				players = make_api_call['response'][0]['players']
-				players.map { |elem| create_from_response(elem) }
-			end
-
 			def create_from_response(response_element)
+				slug = response_element['name'].parameterize + SecureRandom.hex(3)
 				player = Player.find_or_create_by(
 					full_name: response_element['name'],
 					api_football_id: response_element['id'],
 					position: response_element['position'],
-					team_id: team.id
+					team_id: team.id,
+					slug: slug,
 				)
 				create_player_season(player, team.current_team_season)
 

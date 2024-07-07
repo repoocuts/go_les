@@ -31,7 +31,6 @@ module ApiFootball
 			attr_reader :league, :season
 
 			def make_api_call
-				Rails.logger.info "Making API call for #{ENDPOINT} options : { league: #{league.api_football_id}, season: #{season.start_date.year} }"
 				ApiFootball::ApiFootballCall.new(endpoint: ENDPOINT, options: { league: league.api_football_id, season: season.start_date.year }).make_api_call
 			end
 

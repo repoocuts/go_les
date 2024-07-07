@@ -69,7 +69,9 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def next_match
-		all_fixtures_sorted_by_game_week.find_by(game_week: completed_fixtures.last.game_week + 1)
+		return nil unless all_fixtures_sorted_by_game_week && !completed_fixtures.empty?
+
+		all_fixtures_sorted_by_game_week.find_by(game_week: completed_fixtures&.last&.game_week + 1)
 	end
 
 	def next_match_opponent_name
@@ -87,6 +89,8 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def last_match
+		return fixtures.first if completed_fixtures.empty?
+
 		completed_fixtures.last
 	end
 
@@ -97,6 +101,8 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def last_match_result
+		return 'N/A' unless last_match
+
 		if last_match.home_team_season_id == id
 			"#{last_match.home_score} - #{last_match.away_score}"
 		else
@@ -105,6 +111,8 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def last_match_details_string
+		return 'N/A' unless last_match
+
 		home_or_away_string(last_match).to_s + ' ' + last_match_opponent_name.to_s
 	end
 
