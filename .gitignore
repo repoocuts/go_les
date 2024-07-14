@@ -36,3 +36,6 @@ dev_dump.psql
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+/lib/tasks/sync_database.rake
+lib/tasks/sync_database.rake

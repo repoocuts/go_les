@@ -21,7 +21,8 @@ module ApiFootball
 				start_date = season_object["start"].to_time
 				end_date = season_object["end"].to_time
 				years = start_date.year.to_s + "-" + end_date.year.to_s
-				slug = league.country.slug + '-' + league.slug + '-' + years
+				league_name_initials = league.name.split(' ').map(&:first).join.downcase
+				slug = league.country.slug[0] + league_name_initials + '-' + years
 
 				return if league.seasons.where(slug:).any?
 
@@ -35,7 +36,8 @@ module ApiFootball
 				start_date = season_object["start"].to_time
 				end_date = season_object["end"].to_time
 				years = start_date.year.to_s + "-" + end_date.year.to_s
-				slug = league.country.slug + '-' + league.slug + '-' + years
+				league_name_initials = league.name.split(' ').map(&:first).join.downcase
+				slug = league.country.slug[0] + league_name_initials + '-' + years
 
 				return if league.seasons.where(slug:).any?
 

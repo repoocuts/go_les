@@ -14,7 +14,7 @@
 </h6>
 <h6 class="text-l">
 	<% if team.most_booked_player %>
-		<%= link_to "#{team.most_booked_player.return_name}, (#{team.most_booked_player.season_yellows})", player_path(team.most_booked_player.player) %>
+		<%= link_to "#{team.most_booked_player.return_name}, (#{team.most_booked_player.season_yellows_count})", player_path(team.most_booked_player.player) %>
 	<% else %>
 		No cards
 	<% end %>

@@ -34,6 +34,9 @@ class PlayerSeason < ApplicationRecord
 	has_many :goals
 	has_many :cards
 	has_many :assists
+	has_one :player_seasons_attacking_stat, :class_name => 'PlayerSeasons::AttackingStat', dependent: :destroy
+	has_one :player_seasons_defensive_stat, :class_name => 'PlayerSeasons::DefensiveStat', dependent: :destroy
+	has_one :player_seasons_discipline_stat, :class_name => 'PlayerSeasons::DisciplineStat', dependent: :destroy
 
 	scope :scorers, -> { joins(:goals).reverse }
 	scope :booked_players, -> { joins(:cards).where('cards.card_type = ?', "yellow") }
