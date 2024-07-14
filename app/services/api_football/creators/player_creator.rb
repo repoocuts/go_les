@@ -30,6 +30,8 @@ module ApiFootball
 
 				player = Player.find_by(api_football_id: response_element['id']) || Player.create(full_name: response_element['name'], api_football_id: response_element['id'], position: response_element['position'], team_id: team.id, slug: slug)
 
+				player.update(position: response_element['position'], slug: slug) if player.slug.nil?
+
 				create_player_season(player, team.current_team_season)
 
 				object_handling_failure(response_element, team.id) if player.nil?

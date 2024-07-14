@@ -29,12 +29,9 @@ class Player < ApplicationRecord
 
 	belongs_to :team, optional: true
 	has_many :player_seasons, dependent: :destroy
+	has_one :current_player_season, -> { where(current_season: true) }, class_name: 'PlayerSeason', foreign_key: :player_id
 
 	enum position: { :goalkeeper => 'Goalkeeper', :defender => 'Defender', :midfielder => 'Midfielder', :attacker => 'Attacker' }
-
-	def current_player_season
-		player_seasons.find_by(current_season: true) || player_seasons.first
-	end
 
 	def return_name
 		short_name.presence || full_name

@@ -5,7 +5,8 @@ module PlayerSeasonCreatorHelper
 		return if team_season.nil?
 		return if player.player_seasons.where(team_season: team_season.id).exists?
 
-		update_old_current_season(player:) if player.current_player_season
+		old_current_season = player.current_player_season
+		update_old_current_season(old_current_season:) if old_current_season
 
 		player_season = PlayerSeason.create(
 			player_id: player.id,
@@ -32,7 +33,7 @@ module PlayerSeasonCreatorHelper
 		PlayerSeasons::DisciplineStat.create(player_season:)
 	end
 
-	def update_old_current_season(player:)
-		player.current_player_season.update(current_season: false)
+	def update_old_current_season(old_current_season:)
+		old_current_season.update(current_season: false)
 	end
 end
