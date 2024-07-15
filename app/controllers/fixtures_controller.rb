@@ -5,7 +5,7 @@ class FixturesController < ApplicationController
 	# GET /fixtures or /fixtures.json
 	def index
 		game_week_number = params[:game_week] || default_game_week
-		@leagues = League.all.order(:name)
+		@leagues = League.not_hidden.order(:name)
 		@fixtures = @leagues.map do |league|
 			league.seasons.flat_map do |season|
 				Fixture.includes(home_team_season: [:team], away_team_season: [:team]).for_game_week(season, game_week_number)

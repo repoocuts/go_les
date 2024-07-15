@@ -32,15 +32,15 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (league_id => leagues.id)
+#  fk_rails_...  (league_id => leagues.id) ON DELETE => cascade
 #  fk_rails_...  (season_game_week_id => season_game_weeks.id)
 #  fk_rails_...  (season_id => seasons.id)
 #
 class Fixture < ApplicationRecord
-	has_many :appearances
-	has_many :goals
-	has_many :cards
-	has_many :assists
+	has_many :appearances, dependent: :destroy
+	has_many :goals, dependent: :destroy
+	has_many :cards, dependent: :destroy
+	has_many :assists, dependent: :destroy
 	has_many :home_starts, -> { where(is_home: true, appearance_type: 'start') }, class_name: 'Appearance'
 	has_many :away_starts, -> { where(is_home: false, appearance_type: 'start') }, class_name: 'Appearance'
 	has_many :home_goals_with_player_season_and_assist, -> { includes(:player_season, :assist) }, class_name: 'Goal'
@@ -50,8 +50,8 @@ class Fixture < ApplicationRecord
 	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 
-	has_one :fixture_api_response
-	has_one :referee_fixture
+	has_one :fixture_api_response, dependent: :destroy
+	has_one :referee_fixture, dependent: :destroy
 
 	belongs_to :season
 	belongs_to :league

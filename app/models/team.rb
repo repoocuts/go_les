@@ -23,16 +23,16 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (country_id => countries.id)
-#  fk_rails_...  (league_id => leagues.id)
+#  fk_rails_...  (country_id => countries.id) ON DELETE => cascade
+#  fk_rails_...  (league_id => leagues.id) ON DELETE => cascade
 #
 class Team < ApplicationRecord
 	extend FriendlyId
 	friendly_id :name, use: :slugged
-	
-	has_many :players
-	has_many :team_seasons
-	has_many :head_to_heads
+
+	has_many :players, dependent: :nullify
+	has_many :team_seasons, dependent: :destroy
+	has_many :head_to_heads, dependent: :destroy
 	has_many :player_seasons, through: :team_seasons
 
 	belongs_to :league

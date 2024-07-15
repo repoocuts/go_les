@@ -10,7 +10,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  api_football_id :integer
-#  team_id         :bigint           not null
+#  team_id         :bigint
 #
 # Indexes
 #
@@ -21,20 +21,17 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (team_id => teams.id)
+#  fk_rails_...  (team_id => teams.id) ON DELETE => nullify
 #
 class Player < ApplicationRecord
 	extend FriendlyId
 	friendly_id :full_name, use: :slugged
 
-	belongs_to :team
-	has_many :player_seasons
+	belongs_to :team, optional: true
+	has_many :player_seasons, dependent: :destroy
+	has_one :current_player_season, -> { where(current_season: true) }, class_name: 'PlayerSeason', foreign_key: :player_id
 
 	enum position: { :goalkeeper => 'Goalkeeper', :defender => 'Defender', :midfielder => 'Midfielder', :attacker => 'Attacker' }
-
-	def current_player_season
-		player_seasons.find_by(current_season: true) || player_seasons.first
-	end
 
 	def return_name
 		short_name.presence || full_name

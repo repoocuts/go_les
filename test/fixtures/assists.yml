@@ -23,11 +23,11 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (appearance_id => appearances.id)
-#  fk_rails_...  (fixture_id => fixtures.id)
-#  fk_rails_...  (goal_id => goals.id)
-#  fk_rails_...  (player_season_id => player_seasons.id)
-#  fk_rails_...  (team_season_id => team_seasons.id)
+#  fk_rails_...  (appearance_id => appearances.id) ON DELETE => cascade
+#  fk_rails_...  (fixture_id => fixtures.id) ON DELETE => cascade
+#  fk_rails_...  (goal_id => goals.id) ON DELETE => cascade
+#  fk_rails_...  (player_season_id => player_seasons.id) ON DELETE => cascade
+#  fk_rails_...  (team_season_id => team_seasons.id) ON DELETE => cascade
 #
 
 one:

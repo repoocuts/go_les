@@ -14,7 +14,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (season_id => seasons.id)
+#  fk_rails_...  (season_id => seasons.id) ON DELETE => cascade
 #
 
 one:

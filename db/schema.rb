@@ -10,38 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_16_162122) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_06_085607) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "alchemy_users", id: :serial, force: :cascade do |t|
-    t.string "firstname"
-    t.string "lastname"
-    t.string "login"
-    t.string "email"
-    t.string "language"
-    t.string "encrypted_password", limit: 128, default: "", null: false
-    t.string "password_salt", limit: 128, default: "", null: false
-    t.integer "sign_in_count", default: 0, null: false
-    t.integer "failed_attempts", default: 0, null: false
-    t.datetime "last_request_at", precision: nil
-    t.datetime "current_sign_in_at", precision: nil
-    t.datetime "last_sign_in_at", precision: nil
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "creator_id"
-    t.integer "updater_id"
-    t.text "cached_tag_list"
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at", precision: nil
-    t.string "alchemy_roles", default: "member"
-    t.index ["alchemy_roles"], name: "index_alchemy_users_on_alchemy_roles"
-    t.index ["email"], name: "index_alchemy_users_on_email", unique: true
-    t.index ["login"], name: "index_alchemy_users_on_login", unique: true
-    t.index ["reset_password_token"], name: "index_alchemy_users_on_reset_password_token", unique: true
-  end
 
   create_table "appearances", force: :cascade do |t|
     t.integer "minutes"
@@ -140,6 +111,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_16_162122) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
+    t.string "flag"
+    t.boolean "hidden"
     t.index ["slug"], name: "index_countries_on_slug", unique: true
   end
 
@@ -316,6 +289,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_16_162122) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
+    t.string "logo"
+    t.boolean "hidden"
     t.index ["country_id"], name: "index_leagues_on_country_id"
     t.index ["slug"], name: "index_leagues_on_slug", unique: true
   end
@@ -359,7 +334,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_16_162122) do
     t.string "full_name"
     t.string "short_name"
     t.integer "api_football_id"
-    t.bigint "team_id", null: false
+    t.bigint "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "position"
@@ -389,7 +364,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_16_162122) do
   create_table "referee_fixtures", force: :cascade do |t|
     t.bigint "fixture_id", null: false
     t.bigint "referee_id", null: false
-    t.bigint "season_id", null: false
+    t.bigint "season_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["fixture_id"], name: "index_referee_fixtures_on_fixture_id"
@@ -498,47 +473,47 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_16_162122) do
     t.index ["team_season_id"], name: "index_yellow_cards_stats_on_team_season_id"
   end
 
-  add_foreign_key "appearances", "fixtures"
-  add_foreign_key "appearances", "player_seasons"
-  add_foreign_key "appearances", "team_seasons"
-  add_foreign_key "assists", "appearances"
-  add_foreign_key "assists", "fixtures"
-  add_foreign_key "assists", "goals"
-  add_foreign_key "assists", "player_seasons"
-  add_foreign_key "assists", "team_seasons"
+  add_foreign_key "appearances", "fixtures", on_delete: :cascade
+  add_foreign_key "appearances", "player_seasons", on_delete: :cascade
+  add_foreign_key "appearances", "team_seasons", on_delete: :cascade
+  add_foreign_key "assists", "appearances", on_delete: :cascade
+  add_foreign_key "assists", "fixtures", on_delete: :cascade
+  add_foreign_key "assists", "goals", on_delete: :cascade
+  add_foreign_key "assists", "player_seasons", on_delete: :cascade
+  add_foreign_key "assists", "team_seasons", on_delete: :cascade
   add_foreign_key "attacking_stats", "player_seasons"
-  add_foreign_key "cards", "appearances"
-  add_foreign_key "cards", "fixtures"
-  add_foreign_key "cards", "player_seasons"
-  add_foreign_key "cards", "team_seasons"
+  add_foreign_key "cards", "appearances", on_delete: :cascade
+  add_foreign_key "cards", "fixtures", on_delete: :cascade
+  add_foreign_key "cards", "player_seasons", on_delete: :cascade
+  add_foreign_key "cards", "team_seasons", on_delete: :cascade
   add_foreign_key "corners", "fixtures"
   add_foreign_key "corners", "team_seasons"
   add_foreign_key "defensive_stats", "player_seasons"
   add_foreign_key "discipline_stats", "player_seasons"
-  add_foreign_key "fixture_api_responses", "fixtures"
-  add_foreign_key "fixtures", "leagues"
+  add_foreign_key "fixture_api_responses", "fixtures", on_delete: :cascade
+  add_foreign_key "fixtures", "leagues", on_delete: :cascade
   add_foreign_key "fixtures", "season_game_weeks"
   add_foreign_key "fixtures", "seasons"
-  add_foreign_key "goals", "appearances"
-  add_foreign_key "goals", "fixtures"
-  add_foreign_key "goals", "player_seasons"
-  add_foreign_key "goals", "team_seasons"
-  add_foreign_key "goals_conceded_stats", "team_seasons"
-  add_foreign_key "goals_scored_stats", "team_seasons"
-  add_foreign_key "head_to_heads", "teams"
-  add_foreign_key "leagues", "countries"
-  add_foreign_key "player_seasons", "players"
-  add_foreign_key "player_seasons", "team_seasons"
-  add_foreign_key "players", "teams"
-  add_foreign_key "red_cards_stats", "team_seasons"
+  add_foreign_key "goals", "appearances", on_delete: :cascade
+  add_foreign_key "goals", "fixtures", on_delete: :cascade
+  add_foreign_key "goals", "player_seasons", on_delete: :cascade
+  add_foreign_key "goals", "team_seasons", on_delete: :cascade
+  add_foreign_key "goals_conceded_stats", "team_seasons", on_delete: :cascade
+  add_foreign_key "goals_scored_stats", "team_seasons", on_delete: :cascade
+  add_foreign_key "head_to_heads", "teams", on_delete: :cascade
+  add_foreign_key "leagues", "countries", on_delete: :cascade
+  add_foreign_key "player_seasons", "players", on_delete: :cascade
+  add_foreign_key "player_seasons", "team_seasons", on_delete: :cascade
+  add_foreign_key "players", "teams", on_delete: :nullify
+  add_foreign_key "red_cards_stats", "team_seasons", on_delete: :cascade
   add_foreign_key "referee_fixtures", "fixtures"
-  add_foreign_key "referee_fixtures", "referees"
-  add_foreign_key "referee_fixtures", "seasons"
-  add_foreign_key "referees", "seasons"
-  add_foreign_key "seasons", "leagues"
-  add_foreign_key "team_seasons", "seasons"
-  add_foreign_key "team_seasons", "teams"
-  add_foreign_key "teams", "countries"
-  add_foreign_key "teams", "leagues"
-  add_foreign_key "yellow_cards_stats", "team_seasons"
+  add_foreign_key "referee_fixtures", "referees", on_delete: :cascade
+  add_foreign_key "referee_fixtures", "seasons", on_delete: :cascade
+  add_foreign_key "referees", "seasons", on_delete: :cascade
+  add_foreign_key "seasons", "leagues", on_delete: :cascade
+  add_foreign_key "team_seasons", "seasons", on_delete: :cascade
+  add_foreign_key "team_seasons", "teams", on_delete: :cascade
+  add_foreign_key "teams", "countries", on_delete: :cascade
+  add_foreign_key "teams", "leagues", on_delete: :cascade
+  add_foreign_key "yellow_cards_stats", "team_seasons", on_delete: :cascade
 end

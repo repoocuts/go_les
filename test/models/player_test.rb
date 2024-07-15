@@ -10,7 +10,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  api_football_id :integer
-#  team_id         :bigint           not null
+#  team_id         :bigint
 #
 # Indexes
 #
@@ -21,7 +21,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (team_id => teams.id)
+#  fk_rails_...  (team_id => teams.id) ON DELETE => nullify
 #
 require "test_helper"
 

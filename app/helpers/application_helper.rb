@@ -9,4 +9,11 @@ module ApplicationHelper
 		time.strftime("%d/%m/%y")
 	end
 
+	def true?(attribute)
+		attribute == true
+	end
+
+	def false?(attribute)
+		attribute == false
+	end
 end

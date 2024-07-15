@@ -14,8 +14,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (season_id => seasons.id)
+#  fk_rails_...  (season_id => seasons.id) ON DELETE => cascade
 #
 class Referee < ApplicationRecord
-  belongs_to :season
+	belongs_to :season, optional: true
 end

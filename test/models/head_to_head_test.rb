@@ -33,7 +33,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (team_id => teams.id)
+#  fk_rails_...  (team_id => teams.id) ON DELETE => cascade
 #
 require "test_helper"
 

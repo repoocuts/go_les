@@ -32,7 +32,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (league_id => leagues.id)
+#  fk_rails_...  (league_id => leagues.id) ON DELETE => cascade
 #  fk_rails_...  (season_game_week_id => season_game_weeks.id)
 #  fk_rails_...  (season_id => seasons.id)
 #

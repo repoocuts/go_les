@@ -7,7 +7,7 @@
 #  updated_at :datetime         not null
 #  fixture_id :bigint           not null
 #  referee_id :bigint           not null
-#  season_id  :bigint           not null
+#  season_id  :bigint
 #
 # Indexes
 #
@@ -18,14 +18,14 @@
 # Foreign Keys
 #
 #  fk_rails_...  (fixture_id => fixtures.id)
-#  fk_rails_...  (referee_id => referees.id)
-#  fk_rails_...  (season_id => seasons.id)
+#  fk_rails_...  (referee_id => referees.id) ON DELETE => cascade
+#  fk_rails_...  (season_id => seasons.id) ON DELETE => cascade
 #
 class RefereeFixture < ApplicationRecord
-  belongs_to :fixture
-  belongs_to :referee
-  belongs_to :season
+	belongs_to :fixture
+	belongs_to :referee, dependent: :destroy
+	belongs_to :season, optional: true
 
-  has_many :cards
-  has_many :goals
+	has_many :cards
+	has_many :goals
 end

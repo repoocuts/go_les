@@ -21,7 +21,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (league_id => leagues.id)
+#  fk_rails_...  (league_id => leagues.id) ON DELETE => cascade
 #
 class Season < ApplicationRecord
 	extend FriendlyId
@@ -29,13 +29,15 @@ class Season < ApplicationRecord
 	ONE = 1.freeze
 
 	belongs_to :league
-	has_many :season_game_weeks
-	has_many :fixtures
+	has_many :season_game_weeks, dependent: :destroy
+	has_many :fixtures, dependent: :destroy
 	has_many :team_seasons
 	has_many :player_seasons, through: :team_seasons
 	has_many :goals, through: :team_seasons
 	has_many :assists, through: :goals
 	has_many :cards, through: :team_seasons
+	has_many :referees, dependent: :destroy
+	has_many :referee_fixtures, dependent: :destroy
 
 	scope :current_season, -> { find_by(current_season: true) }
 

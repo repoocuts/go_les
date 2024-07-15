@@ -3,6 +3,8 @@
 # Table name: leagues
 #
 #  id              :bigint           not null, primary key
+#  hidden          :boolean
+#  logo            :string
 #  name            :string
 #  slug            :string
 #  created_at      :datetime         not null
@@ -17,7 +19,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (country_id => countries.id)
+#  fk_rails_...  (country_id => countries.id) ON DELETE => cascade
 #
 require "test_helper"
 

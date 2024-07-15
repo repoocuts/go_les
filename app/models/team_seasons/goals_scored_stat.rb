@@ -22,7 +22,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (team_season_id => team_seasons.id)
+#  fk_rails_...  (team_season_id => team_seasons.id) ON DELETE => cascade
+#
 
 module TeamSeasons
 	class GoalsScoredStat < ApplicationRecord

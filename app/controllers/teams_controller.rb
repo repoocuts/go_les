@@ -3,7 +3,12 @@ class TeamsController < ApplicationController
 
 	# GET /teams or /teams.json
 	def index
-		@teams = Team.includes(:league).order('teams.name').group_by(&:league)
+		@teams = Team.joins(:league)
+		         .joins(:team_seasons)
+		         .where(leagues: { hidden: false })
+		         .where(team_seasons: { season_id: League.joins(:seasons).select('seasons.id').where(seasons: { current_season: true }) })
+		         .order('teams.name')
+		         .group_by(&:league)
 	end
 
 	# GET /teams/1 or /teams/1.json
@@ -11,7 +16,12 @@ class TeamsController < ApplicationController
 		@players = team.players
 		sorting_column = params[:column].presence_in(['full_name', 'position', 'appearances', 'goals', 'yellow_cards', 'red_cards']) || 'position'
 		sorting_direction = params[:direction].presence_in(['asc', 'desc']) || 'asc'
-		@player_seasons = PlayerSeason.joins(:player).where(player: @players).sorted_by(sorting_column, sorting_direction)
+		@player_seasons = PlayerSeason
+		                  .joins(:player)
+		                  .joins(team_season: :season)
+		                  .where(player: @players)
+		                  .where(seasons: { current_season: true })
+		                  .sorted_by(sorting_column, sorting_direction)
 		@current_team_season = current_team_season
 		@top_scorer = current_team_season.top_scorer
 		@most_booked = current_team_season.most_booked_player

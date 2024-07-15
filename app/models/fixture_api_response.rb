@@ -15,7 +15,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (fixture_id => fixtures.id)
+#  fk_rails_...  (fixture_id => fixtures.id) ON DELETE => cascade
 #
 class FixtureApiResponse < ApplicationRecord
 	belongs_to :fixture

@@ -4,6 +4,8 @@
 #
 #  id              :bigint           not null, primary key
 #  code            :string
+#  flag            :string
+#  hidden          :boolean
 #  name            :string
 #  slug            :string
 #  created_at      :datetime         not null
@@ -18,7 +20,8 @@ class Country < ApplicationRecord
 	extend FriendlyId
 	friendly_id :name, use: :slugged
 
-	has_many :leagues
+	has_many :leagues, dependent: :destroy
+	has_many :teams, through: :leagues
 
 	def to_param
 		name.parameterize

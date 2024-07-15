@@ -22,9 +22,9 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (fixture_id => fixtures.id)
-#  fk_rails_...  (player_season_id => player_seasons.id)
-#  fk_rails_...  (team_season_id => team_seasons.id)
+#  fk_rails_...  (fixture_id => fixtures.id) ON DELETE => cascade
+#  fk_rails_...  (player_season_id => player_seasons.id) ON DELETE => cascade
+#  fk_rails_...  (team_season_id => team_seasons.id) ON DELETE => cascade
 #
 require "test_helper"
 

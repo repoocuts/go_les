@@ -1,6 +1,13 @@
 module PlayerSeasonCreatorHelper
 
 	def create_player_season(player, team_season)
+		return if player.nil?
+		return if team_season.nil?
+		return if player.player_seasons.where(team_season: team_season.id).exists?
+
+		old_current_season = player.current_player_season
+		update_old_current_season(old_current_season:) if old_current_season
+
 		player_season = PlayerSeason.create(
 			player_id: player.id,
 			team_season_id: team_season.id,
@@ -9,6 +16,7 @@ module PlayerSeasonCreatorHelper
 		create_attacking_stat(player_season:)
 		create_defensive_stat(player_season:)
 		create_discipline_stat(player_season:)
+		Rails.logger.info "Made Player Season data for #{player.return_name} - #{team_season.name} - #{team_season.season.years}"
 	end
 
 	private
@@ -23,5 +31,9 @@ module PlayerSeasonCreatorHelper
 
 	def create_discipline_stat(player_season:)
 		PlayerSeasons::DisciplineStat.create(player_season:)
+	end
+
+	def update_old_current_season(old_current_season:)
+		old_current_season.update(current_season: false)
 	end
 end
