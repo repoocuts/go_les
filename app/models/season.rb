@@ -40,6 +40,7 @@ class Season < ApplicationRecord
 	has_many :referee_fixtures, dependent: :destroy
 
 	scope :current_season, -> { find_by(current_season: true) }
+	scope :last_season, ->(start_date) { find_by(start_date: start_date - 1.year) }
 
 	def completed_fixtures
 		fixtures.where('kick_off < ? AND (SELECT COUNT(*) FROM appearances WHERE appearances.fixture_id = fixtures.id) = ?', 12.hours.ago, 0)

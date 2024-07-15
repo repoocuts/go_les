@@ -48,6 +48,9 @@ class TeamSeason < ApplicationRecord
 
 	has_many :home_fixtures, -> { order(game_week: :asc) }, class_name: "Fixture", foreign_key: "home_team_season_id"
 	has_many :away_fixtures, -> { order(game_week: :asc) }, class_name: "Fixture", foreign_key: "away_team_season_id"
+	has_many :played_home_fixtures, -> { where.not(home_score: nil).order(game_week: :asc) }, class_name: "Fixture", foreign_key: "home_team_season_id"
+	has_many :played_away_fixtures, -> { where.not(home_score: nil).order(game_week: :asc) }, class_name: "Fixture", foreign_key: "away_team_season_id"
+
 	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 
@@ -69,7 +72,8 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def next_match
-		return nil unless all_fixtures_sorted_by_game_week && !completed_fixtures.empty?
+		return nil unless all_fixtures_sorted_by_game_week && !completed_fixtures.any?
+		return all_fixtures_sorted_by_game_week.first if season.current_game_week == 1
 
 		all_fixtures_sorted_by_game_week.find_by(game_week: completed_fixtures&.last&.game_week + 1)
 	end
@@ -86,6 +90,13 @@ class TeamSeason < ApplicationRecord
 		return next_match.home_team_season_id if team.name == next_match.away_team_name
 
 		next_match.away_team_season_id
+	end
+
+	def next_match_opponent_object
+		return nil unless next_match
+
+		return next_match.home_team_object if team.name == next_match.away_team_name
+		next_match.away_team_object
 	end
 
 	def last_match
@@ -444,8 +455,8 @@ class TeamSeason < ApplicationRecord
 				goals_scored_stat: goals_scored_stat,
 				goals_conceded_stat: goals_conceded_stat,
 				completed_fixtures_count: completed_fixtures_count,
-				home_fixtures_count: home_fixtures.count,
-				away_fixtures_count: away_fixtures.count,
+				home_fixtures_count: played_home_fixtures.count,
+				away_fixtures_count: played_away_fixtures.count,
 			)
 	end
 

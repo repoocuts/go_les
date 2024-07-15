@@ -26,10 +26,14 @@ module Calculators
 			end
 
 			def average_goals_scored_per_match
+				return 0 if completed_fixtures_count.zero?
+
 				(goals_scored_stat.total.to_f / completed_fixtures_count.to_f).round(2)
 			end
 
 			def average_goals_conceded_per_match
+				return 0 if completed_fixtures_count.zero?
+
 				(goals_conceded_stat.total.to_f / completed_fixtures_count).round(2)
 			end
 
@@ -106,50 +110,74 @@ module Calculators
 			end
 
 			def average_goals_scored_first_half
+				return 0 if completed_fixtures_count.zero?
+
 				(goals_scored_stat.first_half.to_f / completed_fixtures_count).round(2)
 			end
 
 			def average_goals_scored_second_half
+				return 0 if completed_fixtures_count.zero?
+
 				(goals_scored_stat.second_half.to_f / completed_fixtures_count).round(2)
 			end
 
 			def average_goals_conceded_first_half
+				return 0 if completed_fixtures_count.zero?
+
 				(goals_conceded_stat.first_half.to_f / completed_fixtures_count).round(2)
 			end
 
 			def average_goals_conceded_second_half
+				return 0 if completed_fixtures_count.zero?
+
 				(goals_conceded_stat.second_half.to_f / completed_fixtures_count).round(2)
 			end
 
 			def average_goals_scored_home_first_half
+				return 0 if home_fixtures_count.zero?
+
 				(goals_scored_stat.home_first_half.to_f / home_fixtures_count).round(2)
 			end
 
 			def average_goals_scored_away_first_half
+				return 0 if away_fixtures_count.zero?
+
 				(goals_scored_stat.away_first_half.to_f / away_fixtures_count).round(2)
 			end
 
 			def average_goals_scored_home_second_half
+				return 0 if home_fixtures_count.zero?
+
 				(goals_scored_stat.home_second_half.to_f / home_fixtures_count).round(2)
 			end
 
 			def average_goals_scored_away_second_half
+				return 0 if away_fixtures_count.zero?
+
 				(goals_scored_stat.away_second_half.to_f / away_fixtures_count).round(2)
 			end
 
 			def average_goals_conceded_home_first_half
+				return 0 if home_fixtures_count.zero?
+
 				(goals_conceded_stat.home_first_half.to_f / home_fixtures_count).round(2)
 			end
 
 			def average_goals_conceded_away_first_half
+				return 0 if away_fixtures_count.zero?
+
 				(goals_conceded_stat.away_first_half.to_f / away_fixtures_count).round(2)
 			end
 
 			def average_goals_conceded_home_second_half
+				return 0 if home_fixtures_count.zero?
+
 				(goals_conceded_stat.home_second_half.to_f / home_fixtures_count).round(2)
 			end
 
 			def average_goals_conceded_away_second_half
+				return 0 if away_fixtures_count.zero?
+
 				(goals_conceded_stat.away_second_half.to_f / away_fixtures_count).round(2)
 			end
 
