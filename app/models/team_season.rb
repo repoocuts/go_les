@@ -54,32 +54,22 @@ class TeamSeason < ApplicationRecord
 	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 
-	delegate :acronym, :name, to: :team
-
-	scope :current_season_goals, -> {
-		joins(:season, :goals)
-			.where(seasons: { current_season: true })
-			.where('goals.team_season_id = team_seasons.id')
-	}
-
-	scope :current_season_home_goals, -> {
-		joins(:season, :goals)
-			.where(seasons: { current_season: true }, goals: { is_home: true })
-	}
-
-	def fixtures
-		Fixture.where("home_team_season_id = ? OR away_team_season_id = ?", id, id).order(game_week: :asc, kick_off: :asc)
-	end
+	delegate :acronym, :name, :head_to_heads, to: :team
 
 	def next_match
-		return nil unless all_fixtures_sorted_by_game_week && !completed_fixtures.any?
-		return all_fixtures_sorted_by_game_week.first if season.current_game_week == 1
+		return @next_match if defined?(@next_match)
 
-		all_fixtures_sorted_by_game_week.find_by(game_week: completed_fixtures&.last&.game_week + 1)
+		@next_match = if fixtures.blank?
+			              nil
+			            elsif season.current_game_week == 1
+				            fixtures.first
+			            else
+				            fixtures.find_by(game_week: season.current_game_week + 1)
+		              end
 	end
 
 	def next_match_opponent_name
-		return nil unless next_match
+		return nil unless fixtures
 		return next_match.home_team_name + home_or_away_string(next_match) if team.name == next_match.away_team_name
 
 		next_match.away_team_name + home_or_away_string(next_match)
@@ -399,24 +389,19 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def last_match_vs_opponent(next_match_opponent_id)
-		fixture = (fixtures.where("home_team_season_id = ? OR away_team_season_id = ?", next_match_opponent_id, next_match_opponent_id) - [next_match]).first
-		return get_fixture_result(fixture) if fixture.home_score
+		fixture = head_to_heads.find_by(opponent_id: next_match_opponent_id).last_match_id
+		return 'N/A' unless fixture
 
-		last_season = season.league.last_season
-		return 'N/A' unless last_season.present?
-
-		first_fixture = Fixture.find_by(home_team_season_id: id, away_team_season_id: next_match_opponent_id, season_id: last_season.id)
-		second_fixture = Fixture.find_by(home_team_season_id: next_match_opponent_id, away_team_season_id: id, season_id: last_season.id)
-		return get_fixture_result(first_fixture) if first_fixture && first_fixture.game_week > second_fixture.game_week
-
-		return 'N/A' unless second_fixture
-
-		get_fixture_result(second_fixture)
+		get_fixture_result(fixture) if fixture.home_score
 	end
 
 	private
 
 	attr_reader :total_goals_calculator
+
+	def fixtures
+		@fixtures ||= Fixture.for_team_season(id)
+	end
 
 	def results_formatter(match, hash: {})
 		outcome = if match.home_score.nil?

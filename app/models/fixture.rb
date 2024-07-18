@@ -61,13 +61,15 @@ class Fixture < ApplicationRecord
 	belongs_to :home_team_season, class_name: 'TeamSeason', foreign_key: 'home_team_season_id'
 
 	scope :with_teams, -> { includes(:home_team_season => :team, :away_team_season => :team) }
-
 	scope :for_game_week, ->(season, game_week_number) {
 		joins(:season_game_week)
 			.where(season: season, season_game_weeks: { game_week_number: game_week_number })
 			.order(:kick_off)
 	}
-
+	scope :for_team_season, ->(team_season_id) {
+		where("home_team_season_id = :id OR away_team_season_id = :id", id: team_season_id)
+			.order(game_week: :asc, kick_off: :asc)
+	}
 	scope :next_seven_days, -> { where(kick_off: Time.zone.now..Time.zone.now + 7.days) }
 
 	def update_stats_post_match

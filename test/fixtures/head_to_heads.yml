@@ -19,6 +19,7 @@
 #  created_at                           :datetime         not null
 #  updated_at                           :datetime         not null
 #  current_team_season_id               :integer
+#  last_match_id                        :integer
 #  opponent_id                          :integer          default(0)
 #  opponent_top_assist_player_season_id :integer
 #  opponent_top_scorer_player_season_id :integer

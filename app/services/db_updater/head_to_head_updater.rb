@@ -35,6 +35,7 @@ module DbUpdater
 				reds_received: home_team_reds_received_increment,
 				scored_against_opponent: home_team_scored_against_opponent_increment,
 				scored_home: home_team_scored_home_increment,
+				last_match_id: fixture.id,
 			)
 		end
 
@@ -49,6 +50,7 @@ module DbUpdater
 				reds_received: away_team_reds_received_increment,
 				scored_against_opponent: away_team_scored_against_opponent_increment,
 				scored_away: away_team_scored_away_increment,
+				last_match_id: fixture.id
 			)
 		end
 

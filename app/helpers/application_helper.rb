@@ -1,5 +1,6 @@
 module ApplicationHelper
 	include Pagy::Frontend
+	include RoutesHelper
 
 	def convert_datetime_long(time)
 		time.strftime("%a %e %b %H:%M")
