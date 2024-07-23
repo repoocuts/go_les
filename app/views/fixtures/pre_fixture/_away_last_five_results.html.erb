@@ -1,4 +1,4 @@
-<% team.played_away_matches.reverse.each do |match| %>
+<% team.played_away_fixtures.reverse.each do |match| %>
 	<ul class="max-w-md space-y-1 list-none list-inside text-right">
 		<li class="list-group-item text-sm">
 			<%= link_to "(GW#{match.game_week})#{match.home_team_name} #{match.home_score} - #{match.away_score}", country_league_season_fixture_path(match.league.country_id, match.league, match.season, match) %>

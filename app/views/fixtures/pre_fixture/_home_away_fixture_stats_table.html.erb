@@ -1,114 +1,114 @@
 <table class="table-responsive match-goals-table text-center w-full">
-  <thead>
-    <tr>
-      <th class="w-1/5">av</th>
-      <th class="w-1/10">Home</th>
-      <th class="w-2/5"></th>
-      <th class="w-1/10">Away</th>
-      <th class="w-1/5">av</th>
-    </tr>
-  </thead>
-  <tbody class="table-bordered">
-    <tr>
-      <td class="w-1/5"></td>
-      <td class="w-1/10 text-center">
-        <%= @home_team_season.played_home_matches.length %>
-      </td>
-      <td class="w-2/5 h-a-stat-title ">Matches</td>
-      <td class="w-1/10">
-        <%= @away_team_season.played_away_matches.length %>
-      </td>
-      <td class="w-1/5"></td>
-    </tr>
-    <tr>
-      <td class="w-1/5 text-center">
-        <%= @home_team_season.average_goals_scored_at_home %>
-      </td>
-      <td class="w-1/10 text-center">
-        <%= @home_team_season.home_goals_scored_count %>
-      </td>
-      <td class="w-2/5 h-a-stat-title">Goals</td>
-      <td class="w-1/10 text-center">
-        <%= @away_team_season.away_goals_scored_count %>
-      </td>
-      <td class="w-1/5 text-center">
-        <%= @away_team_season.average_goals_scored_at_away %>
-      </td>
-    </tr>
-    <tr>
-      <td class="w-1/5 text-center">
-        <%= @home_team_season.average_first_half_goals %>
-      </td>
-      <td class="w-1/10 text-center">
-        <%= @home_team_season.first_half_goals_total %>
-      </td>
-      <td class="w-2/5 h-a-stat-title">1st half goals</td>
-      <td class="w-1/10 text-center">
-        <%= @away_team_season.first_half_goals_total %>
-      </td>
-      <td class="w-1/5 text-center">
-        <%= @away_team_season.average_first_half_goals %>
-      </td>
-    </tr>
-    <tr>
-      <td class="w-1/5 text-center">
-        <%= @home_team_season.average_second_half_goals %>
-      </td>
-      <td class="w-1/10 text-center">
-        <%= @home_team_season.second_half_goals_total %>
-      </td>
-      <td class="w-2/5 h-a-stat-title">2nd half goals</td>
-      <td class="w-1/10 text-center">
-        <%= @away_team_season.second_half_goals_total %>
-      </td>
-      <td class="w-1/5 text-center">
-        <%= @away_team_season.average_second_half_goals %>
-      </td>
-    </tr>
-    <tr>
-      <td class="w-1/5 text-center">
-        <%= @home_team_season.average_goals_conceded_home %>
-      </td>
-      <td class="w-1/10 text-center">
-        <%= @home_team_season.home_goals_conceded_count %>
-      </td>
-      <td class="w-2/5 h-a-stat-title">conceded</td>
-      <td class="w-1/10 text-center">
-        <%= @away_team_season.away_goals_conceded_count %>
-      </td>
-      <td class="w-1/5 text-center">
-        <%= @away_team_season.average_goals_conceded_away %>
-      </td>
-    </tr>
-    <tr>
-      <td class="w-1/5 text-center">
-        <%= @home_team_season.average_first_half_goals_conceded_home %>
-      </td>
-      <td class="w-1/10 text-center">
-        <%= @home_team_season.first_half_home_goals_conceded %>
-      </td>
-      <td class="w-2/5 h-a-stat-title">1st half conceded</td>
-      <td class="w-1/10 text-center">
-        <%= @away_team_season.first_half_away_goals_conceded %>
-      </td>
-      <td class="w-1/5 text-center">
-        <%= @away_team_season.average_first_half_goals_conceded_away %>
-      </td>
-    </tr>
-    <tr>
-      <td class="w-1/5 text-center">
-        <%= @home_team_season.average_second_half_goals_conceded_home %>
-      </td>
-      <td class="w-1/10 text-center">
-        <%= @home_team_season.second_half_home_goals_conceded %>
-      </td>
-      <td class="w-2/5 h-a-stat-title">2nd half conceded</td>
-      <td class="w-1/10 text-center">
-        <%= @away_team_season.second_half_away_goals_conceded %>
-      </td>
-      <td class="w-1/5 text-center">
-        <%= @away_team_season.average_second_half_goals_conceded_away %>
-      </td>
-    </tr>
-  </tbody>
+	<thead>
+	<tr>
+		<th class="w-1/5">av</th>
+		<th class="w-1/10">Home</th>
+		<th class="w-2/5"></th>
+		<th class="w-1/10">Away</th>
+		<th class="w-1/5">av</th>
+	</tr>
+	</thead>
+	<tbody class="table-bordered">
+	<tr>
+		<td class="w-1/5"></td>
+		<td class="w-1/10 text-center">
+			<%= @home_team_season.played_home_matches_count %>
+		</td>
+		<td class="w-2/5 h-a-stat-title ">Matches</td>
+		<td class="w-1/10">
+			<%= @away_team_season.played_away_matches_count %>
+		</td>
+		<td class="w-1/5"></td>
+	</tr>
+	<tr>
+		<td class="w-1/5 text-center">
+			<%= @home_team_season.average_goals_scored_at_home %>
+		</td>
+		<td class="w-1/10 text-center">
+			<%= @home_team_season.home_goals_scored_count %>
+		</td>
+		<td class="w-2/5 h-a-stat-title">Goals</td>
+		<td class="w-1/10 text-center">
+			<%= @away_team_season.away_goals_scored_count %>
+		</td>
+		<td class="w-1/5 text-center">
+			<%= @away_team_season.average_goals_scored_at_away %>
+		</td>
+	</tr>
+	<tr>
+		<td class="w-1/5 text-center">
+			<%= @home_team_season.average_first_half_goals %>
+		</td>
+		<td class="w-1/10 text-center">
+			<%= @home_team_season.first_half_goals_total %>
+		</td>
+		<td class="w-2/5 h-a-stat-title">1st half goals</td>
+		<td class="w-1/10 text-center">
+			<%= @away_team_season.first_half_goals_total %>
+		</td>
+		<td class="w-1/5 text-center">
+			<%= @away_team_season.average_first_half_goals %>
+		</td>
+	</tr>
+	<tr>
+		<td class="w-1/5 text-center">
+			<%= @home_team_season.average_second_half_goals %>
+		</td>
+		<td class="w-1/10 text-center">
+			<%= @home_team_season.second_half_goals_total %>
+		</td>
+		<td class="w-2/5 h-a-stat-title">2nd half goals</td>
+		<td class="w-1/10 text-center">
+			<%= @away_team_season.second_half_goals_total %>
+		</td>
+		<td class="w-1/5 text-center">
+			<%= @away_team_season.average_second_half_goals %>
+		</td>
+	</tr>
+	<tr>
+		<td class="w-1/5 text-center">
+			<%= @home_team_season.average_goals_conceded_home %>
+		</td>
+		<td class="w-1/10 text-center">
+			<%= @home_team_season.home_goals_conceded_count %>
+		</td>
+		<td class="w-2/5 h-a-stat-title">conceded</td>
+		<td class="w-1/10 text-center">
+			<%= @away_team_season.away_goals_conceded_count %>
+		</td>
+		<td class="w-1/5 text-center">
+			<%= @away_team_season.average_goals_conceded_away %>
+		</td>
+	</tr>
+	<tr>
+		<td class="w-1/5 text-center">
+			<%= @home_team_season.average_first_half_goals_conceded_home %>
+		</td>
+		<td class="w-1/10 text-center">
+			<%= @home_team_season.first_half_home_goals_conceded %>
+		</td>
+		<td class="w-2/5 h-a-stat-title">1st half conceded</td>
+		<td class="w-1/10 text-center">
+			<%= @away_team_season.first_half_away_goals_conceded %>
+		</td>
+		<td class="w-1/5 text-center">
+			<%= @away_team_season.average_first_half_goals_conceded_away %>
+		</td>
+	</tr>
+	<tr>
+		<td class="w-1/5 text-center">
+			<%= @home_team_season.average_second_half_goals_conceded_home %>
+		</td>
+		<td class="w-1/10 text-center">
+			<%= @home_team_season.second_half_home_goals_conceded %>
+		</td>
+		<td class="w-2/5 h-a-stat-title">2nd half conceded</td>
+		<td class="w-1/10 text-center">
+			<%= @away_team_season.second_half_away_goals_conceded %>
+		</td>
+		<td class="w-1/5 text-center">
+			<%= @away_team_season.average_second_half_goals_conceded_away %>
+		</td>
+	</tr>
+	</tbody>
 </table>

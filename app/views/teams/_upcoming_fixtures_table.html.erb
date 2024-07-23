@@ -10,9 +10,15 @@
 		<tbody>
 		<% @upcoming_fixtures.each do |fixture| %>
 			<tr>
-				<td><%= link_to fixture.kick_off_or_score, country_league_season_fixture_path(fixture.league.country_id, fixture.league, fixture.season, fixture), data: { turbo_frame: "_top" } %></td>
-				<td class="text-right"><%= link_to @current_team_season.home_or_away_string(fixture), country_league_season_fixture_path(fixture.league.country_id, fixture.league, fixture.season, fixture), data: { turbo_frame: "_top" } %></td>
-				<td><%= link_to @current_team_season.match_opponent_name(fixture), country_league_season_fixture_path(fixture.league.country_id, fixture.league, fixture.season, fixture), data: { turbo_frame: "_top" } %></td>
+				<td>
+					<%= link_to fixture.kick_off_or_score, fixture_path_by_fixture(fixture), data: { turbo_frame: "_top" } %>
+				</td>
+				<td class="text-right">
+					<%= link_to fixture_home_or_away_string(fixture:, team_season: @current_team_season), fixture_path_by_fixture(fixture), data: { turbo_frame: "_top" } %>
+				</td>
+				<td>
+					<%= link_to @current_team_season.fixture_opponent_name(fixture), fixture_path_by_fixture(fixture), data: { turbo_frame: "_top" } %>
+				</td>
 			</tr>
 		<% end %>
 		</tbody>

@@ -32,6 +32,8 @@
 #  fk_rails_...  (team_id => teams.id) ON DELETE => cascade
 #
 class TeamSeason < ApplicationRecord
+	include TeamSeasonsHelper
+
 	belongs_to :team
 	belongs_to :season
 
@@ -56,73 +58,44 @@ class TeamSeason < ApplicationRecord
 
 	delegate :acronym, :name, :head_to_heads, to: :team
 
-	def next_match
-		return @next_match if defined?(@next_match)
-
-		@next_match = if fixtures.blank?
-			              nil
-			            elsif season.current_game_week == 1
-				            fixtures.first
-			            else
-				            fixtures.find_by(game_week: season.current_game_week + 1)
-		              end
+	def next_fixture
+		next_match
 	end
 
-	def next_match_opponent_name
-		return nil unless fixtures
-		return next_match.home_team_name + home_or_away_string(next_match) if team.name == next_match.away_team_name
-
-		next_match.away_team_name + home_or_away_string(next_match)
+	def next_fixture_opponent_team_object
+		next_fixture_details.next_opponent_object
 	end
 
-	def next_match_opponent_id
-		return nil unless next_match
-		return next_match.home_team_season_id if team.name == next_match.away_team_name
-
-		next_match.away_team_season_id
+	def next_opponent_string
+		next_fixture_details.next_opponent_string
 	end
 
-	def next_match_opponent_object
-		return nil unless next_match
-
-		return next_match.home_team_object if team.name == next_match.away_team_name
-		next_match.away_team_object
+	def next_fixture_home_or_away_identifier
+		next_fixture_details.home_or_away_identifier
 	end
 
-	def last_match
-		return fixtures.first if completed_fixtures.empty?
-
-		completed_fixtures.last
+	def previous_fixture
+		previous_match
 	end
 
-	def last_match_opponent_name
-		return last_match.home_team_name if team.name == last_match.away_team_name
-
-		last_match.away_team_name
+	def last_fixture_opponent_name
+		previous_fixture_details.previous_opponent_name
 	end
 
-	def last_match_result
-		return 'N/A' unless last_match
-
-		if last_match.home_team_season_id == id
-			"#{last_match.home_score} - #{last_match.away_score}"
-		else
-			"#{last_match.home_score} - #{last_match.away_score}"
-		end
+	def last_fixture_result_string
+		previous_fixture_details.previous_fixture_result_as_string
 	end
 
-	def last_match_details_string
-		return 'N/A' unless last_match
-
-		home_or_away_string(last_match).to_s + ' ' + last_match_opponent_name.to_s
+	def last_fixture_opponent_string
+		previous_fixture_details.previous_opponent_string
 	end
 
-	def top_scorer
-		player_seasons.order(:goals_count).reverse.first
+	def top_scorer_player_season
+		top_individual_player.top_scoring_player_season
 	end
 
-	def top_assists
-		player_seasons.order(:assists_count).reverse.first
+	def top_assisting_player_season
+		top_individual_player.top_assists_player_season
 	end
 
 	def booked_players
@@ -133,66 +106,60 @@ class TeamSeason < ApplicationRecord
 		player_seasons.sent_off_players
 	end
 
-	def most_booked_player
-		player_seasons.booked_players.first || player_seasons.first
+	def most_booked_player_season
+		top_individual_player.most_booked_player_season
 	end
 
-	def most_reds_player
-		player_seasons.sent_off_players.first || player_seasons.first
-	end
-
-	def home_or_away_string(match)
-		return ' (H)' if match.home_team_season_id == id
-
-		' (A)'
-	end
-
-	def all_fixtures_sorted_by_game_week
-		fixtures.order(:game_week, :kick_off)
+	def most_reds_player_season
+		top_individual_player.most_reds_player_season
 	end
 
 	def completed_fixtures
-		all_fixtures_sorted_by_game_week.where('kick_off < ? AND home_score IS NOT NULL', Date.today)
+		all_fixture_details.completed_fixtures
 	end
 
 	def completed_fixtures_count
-		completed_fixtures.size
-	end
-
-	def upcoming_fixtures
-		all_fixtures_sorted_by_game_week.where(home_score: nil)
+		all_fixture_details.completed_fixtures_size
 	end
 
 	def completed_fixtures_reversed
-		all_fixtures_sorted_by_game_week.where.not(home_score: nil).reverse
+		all_fixture_details.completed_fixtures.reverse
+	end
+
+	def upcoming_fixtures
+		all_fixture_details.remaining_fixtures
 	end
 
 	def upcoming_fixtures_reversed
-		all_fixtures_sorted_by_game_week.where(home_score: nil).reverse
+		all_fixture_details.remaining_fixtures.reverse
 	end
 
-	def match_opponent_name(match)
-		return match.home_team_name if id == match.away_team_season_id
-
-		match.away_team_name
+	def fixture_opponent_name(fixture)
+		TeamSeasons::IndividualFixtureDetails.new(fixture:, team_season: self).fixture_opponent_name
 	end
 
-	def last_five_matches
-		completed_fixtures.last(5)
+	def last_five_fixtures
+		all_fixture_details.last_five_fixtures
 	end
 
 	def last_five_results
-		last_five_matches.map do |match|
-			results_formatter(match)
-		end
+		all_fixture_details.last_five_results_hash
 	end
 
-	def played_home_matches
-		home_fixtures.where.not(home_score: nil)
+	def played_home_matches_count
+		played_home_matches.size
 	end
 
-	def played_away_matches
-		away_fixtures.where.not(away_score: nil)
+	def played_away_matches_count
+		played_away_matches.size
+	end
+
+	def played_home_fixtures
+		played_home_matches
+	end
+
+	def played_away_fixtures
+		played_away_matches
 	end
 
 	def goals_for
@@ -229,10 +196,6 @@ class TeamSeason < ApplicationRecord
 
 	def home_goals_scored_count
 		goals_scored_stat.home
-	end
-
-	def away_goals_scored
-		goals_for.select { |goal| goal.is_home.nil? }
 	end
 
 	def away_goals_scored_count
@@ -280,8 +243,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def average_first_half_goals_conceded_home
-		# (home_goals_conceded.where('minute < ?', 46).size / completed_fixtures.size.to_f.round(2))
-		0
+		total_goals_calculator.average_goals_conceded_home_first_half
 	end
 
 	def average_first_half_goals_conceded_away
@@ -313,7 +275,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def first_half_goals
-		total_goals_calculator.first_half_goals
+		goals.first_half
 	end
 
 	def first_half_goals_total
@@ -321,7 +283,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def second_half_goals
-		goals.where('minute > ?', 45)
+		goals.second_half
 	end
 
 	def second_half_goals_total
@@ -329,7 +291,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def first_half_yellow_cards
-		Card.first_half_yellow_cards(id)
+		cards.first_half_yellow_cards(id)
 	end
 
 	def first_half_yellow_cards_total
@@ -337,7 +299,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def second_half_yellow_cards
-		Card.second_half_yellow_cards(id)
+		cards.second_half_yellow_cards(id)
 	end
 
 	def second_half_yellow_cards_total
@@ -345,7 +307,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def first_half_red_cards
-		Card.first_half_red_cards(id)
+		cards.first_half_red_cards(id)
 	end
 
 	def first_half_red_cards_total
@@ -353,7 +315,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def second_half_red_cards
-		Card.second_half_red_cards(id)
+		cards.second_half_red_cards(id)
 	end
 
 	def second_half_red_cards_total
@@ -403,29 +365,26 @@ class TeamSeason < ApplicationRecord
 		@fixtures ||= Fixture.for_team_season(id)
 	end
 
-	def results_formatter(match, hash: {})
-		outcome = if match.home_score.nil?
-			          '-'
-			        elsif match.home_team_season_id == self.id
-				        if match.home_score > match.away_score
-					        'W'
-				        elsif match.home_score == match.away_score
-					        'D'
-				        else
-					        'L'
-				        end
-			        else
-				        if match.away_score > match.home_score
-					        'W'
-				        elsif match.home_score == match.away_score
-					        'D'
-				        else
-					        'L'
-				        end
-		          end
+	def next_match
+		return @next_match if defined?(@next_match)
 
-		hash[match.game_week] = outcome
-		hash
+		@next_match = if fixtures.blank?
+			              nil
+			            elsif season.current_game_week == 1
+				            fixtures.first
+			            else
+				            fixtures.find_by(game_week: season.current_game_week + 1)
+		              end
+	end
+
+	def previous_match
+		return @previous_match if defined?(@previous_match)
+
+		@previous_match = if fixtures.blank? || season.current_game_week == 1
+			                  nil
+			                else
+				                fixtures.find_by(game_week: season.current_game_week - 1)
+		                  end
 	end
 
 	def get_fixture_result(fixture)
@@ -434,14 +393,26 @@ class TeamSeason < ApplicationRecord
 		"#{fixture.away_score} - #{fixture.home_score}"
 	end
 
+	def next_fixture_details
+		@next_fixture_details ||= TeamSeasons::NextFixtureDetails.new(fixture: next_match, team_season: self)
+	end
+
+	def previous_fixture_details
+		@previous_fixture_details ||= TeamSeasons::PreviousFixtureDetails.new(fixture: previous_match, team_season: self)
+	end
+
+	def all_fixture_details
+		@all_fixture_details ||= TeamSeasons::AllFixtureDetails.new(team_season: self, fixtures:)
+	end
+
+	def top_individual_player
+		@top_individual_player ||= TeamSeasons::TopIndividualPlayer.new(team_season: self)
+	end
+
 	def total_goals_calculator
 		@total_goals_calculator ||=
 			Calculators::TeamGoals::GoalsCalculator.new(
-				goals_scored_stat: goals_scored_stat,
-				goals_conceded_stat: goals_conceded_stat,
-				completed_fixtures_count: completed_fixtures_count,
-				home_fixtures_count: played_home_fixtures.count,
-				away_fixtures_count: played_away_fixtures.count,
+				team_season: self,
 			)
 	end
 
@@ -465,4 +436,11 @@ class TeamSeason < ApplicationRecord
 			)
 	end
 
+	def played_home_matches
+		home_fixtures.where.not(home_score: nil)
+	end
+
+	def played_away_matches
+		away_fixtures.where.not(away_score: nil)
+	end
 end
