@@ -56,15 +56,15 @@ class Appearance < ApplicationRecord
 	end
 
 	def appearance_team_name
-		team_season.team_name
+		team_season.name
 	end
 
 	def yellow_cards
-		cards.where(card_type: "yellow")
+		cards.yellow_cards
 	end
 
 	def red_cards
-		cards.where(card_type: "red")
+		cards.red_cards
 	end
 
 	def card_counts

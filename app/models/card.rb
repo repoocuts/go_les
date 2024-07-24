@@ -66,7 +66,7 @@ class Card < ApplicationRecord
 	end
 
 	def card_team_name
-		team_season.team_name
+		team_season.name
 	end
 
 end

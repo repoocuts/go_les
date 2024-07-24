@@ -59,12 +59,4 @@ class Goal < ApplicationRecord
 	scope :for_team_season, ->(team_season_id) {
 		where(team_season_id: team_season_id)
 	}
-
-	def goal_scorer_name
-		player_season.return_name
-	end
-
-	def goal_team_name
-		team_season.team_name
-	end
 end
