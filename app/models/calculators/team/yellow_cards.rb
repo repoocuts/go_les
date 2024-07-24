@@ -1,6 +1,6 @@
 module Calculators
-	module TeamCards
-		class YellowCardsCalculator
+	module Team
+		class YellowCards
 
 			def initialize(yellow_cards_stat:, completed_fixtures_count:, home_fixtures_count:, away_fixtures_count:)
 				@yellow_cards_stat = yellow_cards_stat

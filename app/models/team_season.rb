@@ -411,14 +411,14 @@ class TeamSeason < ApplicationRecord
 
 	def total_goals_calculator
 		@total_goals_calculator ||=
-			Calculators::TeamGoals::GoalsCalculator.new(
+			Calculators::Team::Goals.new(
 				team_season: self,
 			)
 	end
 
 	def total_yellow_cards_calculator
 		@total_yellow_cards_calculator ||=
-			Calculators::TeamCards::YellowCardsCalculator.new(
+			Calculators::Team::YellowCards.new(
 				yellow_cards_stat: yellow_cards_stat,
 				completed_fixtures_count: completed_fixtures_count,
 				home_fixtures_count: home_fixtures.count,
@@ -428,7 +428,7 @@ class TeamSeason < ApplicationRecord
 
 	def total_red_cards_calculator
 		@total_red_cards_calculator ||=
-			Calculators::TeamCards::RedCardsCalculator.new(
+			Calculators::Team::RedCards.new(
 				red_cards_stat: red_cards_stat,
 				completed_fixtures_count: completed_fixtures_count,
 				home_fixtures_count: home_fixtures.count,

@@ -1,6 +1,6 @@
 module Calculators
-	module TeamGoals
-		class GoalsCalculator
+	module Team
+		class Goals
 
 			def initialize(team_season:)
 				@goals_scored_stat = team_season.goals_scored_stat
