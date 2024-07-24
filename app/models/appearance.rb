@@ -35,10 +35,10 @@ class Appearance < ApplicationRecord
 	has_many :cards, dependent: :destroy
 	has_many :assists, dependent: :destroy
 
-	scope :home_starts, ->(fixture) { where(is_home: true, fixture_id: fixture.id, appearance_type: 'start') }
-	scope :away_starts, ->(fixture) { where(is_home: nil, fixture_id: fixture.id, appearance_type: 'start') }
-	scope :home_subs, ->(fixture) { where(is_home: true, fixture_id: fixture.id, appearance_type: 'substitute') }
-	scope :away_subs, ->(fixture) { where(is_home: nil, fixture_id: fixture.id, appearance_type: 'substitute') }
+	scope :home_starts, -> { where(is_home: true, appearance_type: 'start') }
+	scope :away_starts, -> { where(is_home: nil, appearance_type: 'start') }
+	scope :home_subs, -> { where(is_home: true, appearance_type: 'substitute') }
+	scope :away_subs, -> { where(is_home: nil, appearance_type: 'substitute') }
 
 	def create_appearance_for_player(player_id, fixture, team_season, is_home = nil)
 		update(

@@ -56,7 +56,7 @@ class TeamSeason < ApplicationRecord
 	has_many :yellow_cards, -> { where(cards: { card_type: 'yellow' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 	has_many :red_cards, -> { where(cards: { card_type: 'red' }) }, class_name: "Card", counter_cache: true, foreign_key: "team_season_id"
 
-	delegate :acronym, :name, :head_to_heads, to: :team
+	delegate :acronym, :name, :head_to_heads, :api_football_id, to: :team
 
 	def next_fixture
 		next_match
