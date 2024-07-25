@@ -33,6 +33,7 @@
 .env
 dev_dump.psql
 .idea/
+*.dump
 
 /app/assets/builds/*
 !/app/assets/builds/.keep

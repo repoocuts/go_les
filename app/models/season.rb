@@ -26,7 +26,11 @@
 class Season < ApplicationRecord
 	extend FriendlyId
 	friendly_id :years, use: :slugged
-	ONE = 1.freeze
+
+	FINAL_GAME_WEEK = 38.freeze
+	CURRENT_GAME_WEEK_OFFSET = 0.freeze
+	LAST_GAME_WEEK_OFFSET = -1.freeze
+	NEXT_GAME_WEEK_OFFSET = 1.freeze
 
 	belongs_to :league
 	has_many :season_game_weeks, dependent: :destroy
@@ -40,25 +44,23 @@ class Season < ApplicationRecord
 	has_many :referee_fixtures, dependent: :destroy
 
 	scope :current_season, -> { find_by(current_season: true) }
+	scope :last_season, ->(start_date) { find_by(start_date: start_date - 1.year) }
 
 	def completed_fixtures
-		fixtures.where('kick_off < ? AND (SELECT COUNT(*) FROM appearances WHERE appearances.fixture_id = fixtures.id) = ?', 12.hours.ago, 0)
+		fixtures.left_joins(:appearances)
+		.where('kick_off < ? AND appearances.fixture_id IS NULL', 12.hours.ago)
 	end
 
 	def fixtures_for_last_game_week
-		return unless last_season_game_week_fixtures
-
-		last_season_game_week_fixtures.includes(home_team_season: :team, away_team_season: :team).order(:kick_off)
+		SeasonGameWeek.fixtures_for_game_week(self, LAST_GAME_WEEK_OFFSET)
 	end
 
 	def fixtures_for_current_game_week
-		current_season_game_week_fixtures.includes(home_team_season: :team, away_team_season: :team).order(:kick_off)
+		current_season_game_week_fixtures
 	end
 
 	def fixtures_for_next_game_week
-		return [] if current_game_week == 38
-
-		next_season_game_week_fixtures.includes(home_team_season: :team, away_team_season: :team).order(:kick_off)
+		SeasonGameWeek.fixtures_for_game_week(self, NEXT_GAME_WEEK_OFFSET)
 	end
 
 	def fixtures_requiring_update
@@ -83,32 +85,8 @@ class Season < ApplicationRecord
 
 	private
 
-	def top_scorers_array
-		@season_goals ||= Goal.by_season(id)
-	end
-
-	def top_assists_array
-		@season_assists ||= Assist.by_season(id)
-	end
-
-	def top_booked_array
-		@season_yellows ||= Card.by_season(id)
-	end
-
 	def current_season_game_week_fixtures
-		@current_season_game_week ||= season_game_weeks.find_by(game_week_number: current_game_week).fixtures
-	end
-
-	def last_season_game_week_fixtures
-		return if current_game_week == 1
-
-		@last_season_game_week ||= season_game_weeks.find_by(game_week_number: current_game_week - 1).fixtures
-	end
-
-	def next_season_game_week_fixtures
-		return [] if current_game_week == 38
-
-		@next_season_game_week ||= season_game_weeks.find_by(game_week_number: current_game_week + 1).fixtures
+		@current_season_game_week ||= SeasonGameWeek.fixtures_for_game_week(self, CURRENT_GAME_WEEK_OFFSET)
 	end
 
 	def rearranged_fixtures

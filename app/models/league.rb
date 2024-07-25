@@ -16,7 +16,7 @@
 #
 #  index_leagues_on_country_id  (country_id)
 #  index_leagues_on_slug        (slug) UNIQUE
-# l
+# ls
 # Foreign Keys
 #
 #  fk_rails_...  (country_id => countries.id) ON DELETE => cascade
@@ -32,10 +32,10 @@ class League < ApplicationRecord
 	scope :not_hidden, -> { where(hidden: false) }
 
 	def current_season
-		seasons.find_by(current_season: true)
+		@current_season ||= seasons.current_season
 	end
 
 	def last_season
-		seasons.find_by(start_date: current_season.start_date - 1.year)
+		@last_season ||= seasons.last_season(current_season&.start_date)
 	end
 end

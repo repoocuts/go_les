@@ -41,8 +41,4 @@ class Team < ApplicationRecord
 	def current_team_season
 		team_seasons.find_by(current_season: true)
 	end
-
-	def next_match
-		Fixture.where()
-	end
 end

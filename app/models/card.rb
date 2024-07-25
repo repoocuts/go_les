@@ -37,12 +37,12 @@ class Card < ApplicationRecord
 	belongs_to :fixture
 	belongs_to :referee_fixture
 
-	scope :home_cards, ->(fixture) { where(is_home: true, fixture_id: fixture.id) }
-	scope :away_cards, ->(fixture) { where(is_home: nil, fixture_id: fixture.id) }
-	scope :home_yellow_cards, ->(fixture) { where(is_home: true, fixture_id: fixture.id, card_type: 'yellow') }
-	scope :away_yellow_cards, ->(fixture) { where(is_home: nil, fixture_id: fixture.id, card_type: 'yellow') }
-	scope :home_red_cards, ->(fixture) { where(is_home: true, fixture_id: fixture.id, card_type: 'red') }
-	scope :away_red_cards, ->(fixture) { where(is_home: nil, fixture_id: fixture.id, card_type: 'red') }
+	scope :home_cards, -> { where(is_home: true) }
+	scope :away_cards, -> { where(is_home: nil) }
+	scope :home_yellow_cards, -> { where(is_home: true, card_type: 'yellow') }
+	scope :away_yellow_cards, -> { where(is_home: nil, card_type: 'yellow') }
+	scope :home_red_cards, -> { where(is_home: true, card_type: 'red') }
+	scope :away_red_cards, -> { where(is_home: nil, card_type: 'red') }
 	scope :yellow_cards, -> { where(card_type: 'yellow') }
 	scope :red_cards, -> { where(card_type: 'red') }
 	scope :yellow_cards_for_team_season, ->(team_season_id) { where(card_type: 'yellow', team_season_id: team_season_id) }
@@ -66,7 +66,7 @@ class Card < ApplicationRecord
 	end
 
 	def card_team_name
-		team_season.team_name
+		team_season.name
 	end
 
 end

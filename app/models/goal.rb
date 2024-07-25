@@ -41,11 +41,13 @@ class Goal < ApplicationRecord
 
 	has_one :assist
 
-	scope :home_goals, ->(fixture) { where(is_home: true, fixture_id: fixture.id).order(:minute) }
-	scope :away_goals, ->(fixture) { where(is_home: nil, fixture_id: fixture.id).order(:minute) }
+	scope :home_goals, -> { where(is_home: true) }
+	scope :away_goals, -> { where(is_home: nil) }
+	scope :fixture_home_goals, ->(fixture) { where(is_home: true, fixture_id: fixture.id).order(:minute) }
+	scope :fixture_away_goals, ->(fixture) { where(is_home: nil, fixture_id: fixture.id).order(:minute) }
 	scope :group_by_player_season, -> { group(:player_season_id) }
-	scope :first_half_goals, ->(team_season_id) { where('minute < ? AND team_season_id = ?', 46, team_season_id) }
-	scope :second_half_goals, ->(team_season_id) { where('minute > ? AND team_season_id = ?', 45, team_season_id) }
+	scope :first_half, -> { where('minute < ?', 46) }
+	scope :second_half, -> { where('minute > ?', 45) }
 	scope :by_season, -> (season_id) {
 		select('player_season_id, count(goals.id) as goal_count')
 			.joins(:team_season)
@@ -57,12 +59,4 @@ class Goal < ApplicationRecord
 	scope :for_team_season, ->(team_season_id) {
 		where(team_season_id: team_season_id)
 	}
-
-	def goal_scorer_name
-		player_season.return_name
-	end
-
-	def goal_team_name
-		team_season.team_name
-	end
 end

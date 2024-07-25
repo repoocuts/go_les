@@ -14,8 +14,8 @@ class TeamsController < ApplicationController
 	# GET /teams/1 or /teams/1.json
 	def show
 		@players = team.players
-		sorting_column = params[:column].presence_in(['full_name', 'position', 'appearances', 'goals', 'yellow_cards', 'red_cards']) || 'position'
-		sorting_direction = params[:direction].presence_in(['asc', 'desc']) || 'asc'
+		sorting_column = params[:column].presence_in(%w[full_name position appearances goals yellow_cards red_cards]) || 'position'
+		sorting_direction = params[:direction].presence_in(%w[asc desc]) || 'asc'
 		@player_seasons = PlayerSeason
 		                  .joins(:player)
 		                  .joins(team_season: :season)
@@ -23,12 +23,12 @@ class TeamsController < ApplicationController
 		                  .where(seasons: { current_season: true })
 		                  .sorted_by(sorting_column, sorting_direction)
 		@current_team_season = current_team_season
-		@top_scorer = current_team_season.top_scorer
-		@most_booked = current_team_season.most_booked_player
-		@most_reds = current_team_season.most_reds_player
-		@pagy_team_upcoming_fixtures, @upcoming_fixtures = pagy(current_team_season.upcoming_fixtures.includes(:home_team_season, :away_team_season))
-		@pagy_team_finished_fixtures, @finished_fixtures = pagy(current_team_season.completed_fixtures.includes(:home_team_season, :away_team_season), page_param: :page_results)
-		@next_match = current_team_season.next_match
+		@top_scorer = current_team_season.top_scorer_player_season
+		@most_booked = current_team_season.most_booked_player_season
+		@most_reds = current_team_season.most_reds_player_season
+		@pagy_team_upcoming_fixtures, @upcoming_fixtures = pagy_array(current_team_season.upcoming_fixtures)
+		@pagy_team_finished_fixtures, @finished_fixtures = pagy_array(current_team_season.completed_fixtures, page_param: :page_results)
+		@next_match = current_team_season.next_fixture
 		@next_opponent = @next_match&.opponent_team_season_object(@current_team_season.id)
 		respond_to do |format|
 			format.html
