@@ -60,6 +60,25 @@ class PlayerSeason < ApplicationRecord
 
 	ZERO = 0
 
+	def self.sorted_by(column, direction)
+		case column
+		when 'full_name'
+			joins(:player).order("players.full_name #{direction}")
+		when 'position'
+			joins(:player).order("players.position #{direction}")
+		when 'appearances'
+			joins(:appearances).group('player_seasons.id').order("COUNT(appearances.id) #{direction}")
+		when 'goals'
+			joins(:goals).group('player_seasons.id').order("COUNT(goals.id) #{direction}")
+		when 'yellow_cards'
+			joins(:cards).where(cards: { card_type: 'yellow' }).group('player_seasons.id').order("COUNT(cards.id) #{direction}")
+		when 'red_cards'
+			joins(:cards).where(cards: { card_type: 'red' }).group('player_seasons.id').order("COUNT(cards.id) #{direction}")
+		else
+			joins(:player).order("players.position #{direction}") # default order
+		end
+	end
+
 	def return_team_name
 		team_name
 	end

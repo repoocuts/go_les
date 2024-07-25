@@ -14,8 +14,8 @@ class TeamsController < ApplicationController
 	# GET /teams/1 or /teams/1.json
 	def show
 		@players = team.players
-		sorting_column = params[:column].presence_in(['full_name', 'position', 'appearances', 'goals', 'yellow_cards', 'red_cards']) || 'position'
-		sorting_direction = params[:direction].presence_in(['asc', 'desc']) || 'asc'
+		sorting_column = params[:column].presence_in(%w[full_name position appearances goals yellow_cards red_cards]) || 'position'
+		sorting_direction = params[:direction].presence_in(%w[asc desc]) || 'asc'
 		@player_seasons = PlayerSeason
 		                  .joins(:player)
 		                  .joins(team_season: :season)

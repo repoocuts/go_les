@@ -179,19 +179,19 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def average_first_half_goals
-		total_goals_calculator.average_first_half_goals
+		total_goals_calculator.average_goals(type: :scored, half: :first_half)
 	end
 
 	def average_second_half_goals
-		total_goals_calculator.average_second_half_goals
+		total_goals_calculator.average_goals(type: :scored, half: :second_half)
 	end
 
 	def average_goals_scored_per_match
-		total_goals_calculator.average_goals_scored_per_match
+		total_goals_calculator.average_goals(type: :scored)
 	end
 
 	def average_goals_conceded_per_match
-		total_goals_calculator.average_goals_conceded_per_match
+		total_goals_calculator.average_goals(type: :conceded)
 	end
 
 	def home_goals_scored_count
@@ -219,43 +219,43 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def average_goals_conceded_home
-		total_goals_calculator.average_goals_conceded_home
+		total_goals_calculator.average_goals(type: :conceded, location: :home)
 	end
 
 	def average_goals_conceded_away
-		total_goals_calculator.average_goals_conceded_away
+		total_goals_calculator.average_goals(type: :conceded, location: :away)
 	end
 
 	def average_goals_scored_first_half
-		total_goals_calculator.average_goals_scored_first_half
+		total_goals_calculator.average_goals(type: :scored, half: :first_half)
 	end
 
 	def average_goals_scored_second_half
-		total_goals_calculator.average_goals_scored_second_half
+		total_goals_calculator.average_goals(type: :scored, half: :second_half)
 	end
 
 	def average_goals_scored_at_home
-		total_goals_calculator.average_goals_scored_home
+		total_goals_calculator.average_goals(type: :scored, location: :home)
 	end
 
 	def average_goals_scored_at_away
-		total_goals_calculator.average_goals_scored_away
+		total_goals_calculator.average_goals(type: :scored, location: :away)
 	end
 
 	def average_first_half_goals_conceded_home
-		total_goals_calculator.average_goals_conceded_home_first_half
+		total_goals_calculator.average_goals(type: :conceded, half: :first_half, location: :home)
 	end
 
 	def average_first_half_goals_conceded_away
-		total_goals_calculator.average_goals_conceded_away_first_half
+		total_goals_calculator.average_goals(type: :conceded, half: :first_half, location: :away)
 	end
 
 	def average_second_half_goals_conceded_home
-		total_goals_calculator.average_goals_conceded_home_second_half
+		total_goals_calculator.average_goals(type: :conceded, half: :second_half, location: :home)
 	end
 
 	def average_second_half_goals_conceded_away
-		total_goals_calculator.average_goals_conceded_away_second_half
+		total_goals_calculator.average_goals(type: :conceded, half: :second_half, location: :away)
 	end
 
 	def first_half_home_goals_conceded
