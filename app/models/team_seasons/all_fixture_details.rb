@@ -45,7 +45,7 @@ module TeamSeasons
 		def results_formatter(match, hash: {})
 			outcome = if match.home_score.nil?
 				          '-'
-				        elsif match.home_team_season_id == self.id
+				        elsif match.home_team_season_id == team_season.id
 					        if match.home_score > match.away_score
 						        'W'
 					        elsif match.home_score == match.away_score
