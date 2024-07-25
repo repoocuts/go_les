@@ -4,7 +4,7 @@ class DashboardsController < ApplicationController
 	before_action :set_season
 
 	def index
-		@leagues = League.all.order(:name)
+		@leagues = League.not_hidden.order(:name)
 
 		respond_to do |format|
 			format.html
