@@ -21,7 +21,7 @@ class SeasonsController < ApplicationController
 		@pagy_booked, @most_booked = pagy_array(season.top_booked, page: current_page)
 		@pagy_reds, @most_reds = pagy_array(season.top_reds, page: current_page)
 		@next_page = @pagy_scorers.next
-
+		@current_season = league.current_season
 		respond_to do |format|
 			format.html
 			# format.turbo_stream

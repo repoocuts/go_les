@@ -33,7 +33,7 @@ module TeamSeasons
 		def previous_fixture_result_as_string
 			return 'N/A' unless fixture
 
-			if fixture.home_team_season_id == id
+			if fixture.home_team_season_id == team_season.id
 				"#{fixture.home_score} - #{fixture.away_score}"
 			else
 				"#{fixture.home_score} - #{fixture.away_score}"

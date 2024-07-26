@@ -10,6 +10,10 @@ module TeamSeasons
 			fixture_opponent_team_name
 		end
 
+		def fixture_opponent_acronym
+			fixture.opponent_acronym_for_team_season(team_season.id)
+		end
+
 		def fixture_opponent_id
 			return fixture.home_team_season_id if team_season == fixture.away_team_season
 
@@ -22,8 +26,12 @@ module TeamSeasons
 			fixture.away_team_object
 		end
 
-		def fixture_opponent_string
-			next_fixture_team_name + home_or_away_string
+		def fixture_opponent_name_with_location_string
+			fixture_opponent_team_name + home_or_away_string
+		end
+
+		def fixture_opponent_acronym_with_location_string
+			fixture_opponent_acronym + home_or_away_string
 		end
 
 		def home_or_away_identifier

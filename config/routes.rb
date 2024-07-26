@@ -54,6 +54,11 @@ Rails.application.routes.draw do
 					get 'bookings_streaming'
 					get 'reds_streaming'
 				end
+
+				resources :teams, only: [:show] do
+					resources :players, only: [:show, :update, :destroy]
+				end
+
 				resources :player_seasons
 				resources :fixtures
 				resources :assists

@@ -13,15 +13,21 @@
 			<tr>
 				<td>
           <span class="laptop:hidden">
-            <%= link_to fixture.kick_off.strftime("%d %b"), country_league_season_fixture_path(@team.country, @team.league, @team.current_team_season, fixture), data: { turbo_frame: '_top' } %>
+            <%= link_to fixture.kick_off.strftime("%d %b"), fixture_path_by_fixture(fixture), data: { turbo_frame: '_top' } %>
           </span>
 					<span class="hidden laptop:inline">
-            <%= link_to fixture.readable_kick_off, country_league_season_fixture_path(@team.country, @team.league, @team.current_team_season, fixture), data: { turbo_frame: '_top' } %>
+            <%= link_to fixture.readable_kick_off, fixture_path_by_fixture(fixture), data: { turbo_frame: '_top' } %>
           </span>
 				</td>
-				<td class="text-center"><%= link_to fixture.kick_off_or_score, country_league_season_fixture_path(@team.country, @team.league, @team.current_team_season, fixture), data: { turbo_frame: '_top' } %></td>
-				<td class="text-center"><%= link_to @current_team_season.home_or_away_string(fixture), country_league_season_fixture_path(@team.country, @team.league, @team.current_team_season, fixture), data: { turbo_frame: '_top' } %></td>
-				<td><%= link_to @current_team_season.match_opponent_name(fixture), country_league_season_fixture_path(@team.country, @team.league, @team.current_team_season, fixture), data: { turbo_frame: '_top' } %></td>
+				<td class="text-center"><%= link_to fixture.kick_off_or_score, fixture_path_by_fixture(fixture), data: { turbo_frame: '_top' } %></td>
+				<td class="text-center">
+					<span class="laptop:hidden">
+            <%= link_to @team_season.fixture_opponent_acronym_with_location_string(fixture), fixture_path_by_fixture(fixture), data: { turbo_frame: '_top' } %>
+          </span>
+					<span class="hidden laptop:inline text-left">
+            <%= link_to @team_season.fixture_opponent_name_with_location_string(fixture), fixture_path_by_fixture(fixture), data: { turbo_frame: '_top' } %>
+          </span>
+				</td>
 			</tr>
 		<% end %>
 		</tbody>

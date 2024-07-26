@@ -23,6 +23,8 @@ module TeamSeasons
 		end
 
 		def next_opponent_string
+			return 'N/A' if fixture.nil?
+			
 			next_fixture_team_name + home_or_away_string
 		end
 

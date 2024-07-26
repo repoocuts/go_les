@@ -1,4 +1,9 @@
 <div class="mx-10 my-10">
+	<% if false?(@season.current_season) %>
+		<div class="flex justify-end">
+			<%= link_to @current_season.years, season_path_by_season(@current_season), class: "px-4 py-3 text-white bg-blue-600 rounded-lg active" %>
+		</div>
+	<% end %>
 	<%= turbo_frame_tag "season-content" do %>
 		<div class="grid grid-cols-3 gap-4 justify-center">
 			<%= render 'fixtures_week', title: 'Last Week', component: LastGameWeekResultsComponent, collection: @last_game_week %>

@@ -36,6 +36,10 @@ class LastGameWeekResultsComponent < ViewComponent::Base
 		fixture[:fixture].kick_off_or_score
 	end
 
+	def season
+		fixture[:fixture].season
+	end
+
 	private
 
 	attr_reader :fixture

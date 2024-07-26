@@ -7,7 +7,7 @@
 		<p>last result</p>
 	</div>
 	<div class='grid grid-cols-5'>
-		<p><%= link_to @current_team_season.next_opponent_string, next_match_opponent_path_by_team(@team) %></p>
+		<p><%= link_to @team_season.next_opponent_string, next_match_opponent_path_by_team(@team) %></p>
 		<% if @top_scorer %>
 			<%= link_to "#{@top_scorer.return_name} - #{@top_scorer.goals_count}", player_path_by_team_and_player(@team, @top_scorer) %>
 		<% end %>
@@ -20,11 +20,11 @@
 			<p>N/A</p>
 		<% end %>
 		<p>
-			<span><%= @current_team_season.last_fixture_result_string %></span>
-			<% if @current_team_season.previous_fixture %>
-				<span><%= link_to @current_team_season.last_match_details_string, fixture_path_by_team(@team) %></span>
+			<span><%= @team_season.last_fixture_result_string %></span>
+			<% if @team_season.previous_fixture %>
+				<span><%= link_to @team_season.last_fixture_result_string, fixture_path_by_fixture(@team_season.previous_fixture) %></span>
 			<% else %>
-				<span><%= @current_team_season.last_fixture_opponent_string %></span>
+				<span><%= @team_season.last_fixture_opponent_string %></span>
 			<% end %>
 		</p>
 	</div>

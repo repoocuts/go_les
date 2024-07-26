@@ -72,6 +72,8 @@ class Fixture < ApplicationRecord
 	}
 	scope :next_seven_days, -> { where(kick_off: Time.zone.now..Time.zone.now + 7.days) }
 
+	delegate :current_season, to: :season
+
 	def home_team_object
 		home_team_season.team
 	end
@@ -124,6 +126,12 @@ class Fixture < ApplicationRecord
 
 	def opponent_team_season_object(team_season_id)
 		team_season_id == home_team_season_id ? away_team_season : home_team_season
+	end
+
+	def opponent_acronym_for_team_season(team_season_id)
+		return home_team_name_acronym if team_season_id == away_team_season_id
+
+		away_team_name_acronym
 	end
 
 	def home_or_away_checker(team_season_id)

@@ -138,6 +138,18 @@ class TeamSeason < ApplicationRecord
 		TeamSeasons::IndividualFixtureDetails.new(fixture:, team_season: self).fixture_opponent_name
 	end
 
+	def fixture_opponent_acronym(fixture)
+		TeamSeasons::IndividualFixtureDetails.new(fixture:, team_season: self).fixture_opponent_acronym
+	end
+
+	def fixture_opponent_name_with_location_string(fixture)
+		TeamSeasons::IndividualFixtureDetails.new(fixture:, team_season: self).fixture_opponent_name_with_location_string
+	end
+
+	def fixture_opponent_acronym_with_location_string(fixture)
+		TeamSeasons::IndividualFixtureDetails.new(fixture:, team_season: self).fixture_opponent_acronym_with_location_string
+	end
+
 	def last_five_fixtures
 		all_fixture_details.last_five_fixtures
 	end
