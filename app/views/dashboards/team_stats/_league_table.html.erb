@@ -1,32 +1,32 @@
 <table class="w-full divide-y divide-gray-200">
-  <thead>
-    <tr>
-      <th></th>
-      <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">GP</th>
-      <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">W</th>
-      <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">D</th>
-      <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">L</th>
-      <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">GF</th>
-      <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">GA</th>
-      <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">GD</th>
-      <th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">Pts</th>
-    </tr>
-  </thead>
-  <tbody class="divide-y divide-gray-200">
-    <% team_seasons.each do |team_season| %>
-      <tr>
-        <td>
-          <%= link_to team_season.team.short_name, team_path(team_season.team), class: "text-sm font-medium text-gray-900" %>
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.all_played_matches.count %></td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.wins %></td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.draws %></td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.losses %></td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.goals_for %></td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.goals_against %></td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.goal_difference %></td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.points %></td>
-      </tr>
-    <% end %>
-  </tbody>
+	<thead>
+	<tr>
+		<th></th>
+		<th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">GP</th>
+		<th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">W</th>
+		<th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">D</th>
+		<th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">L</th>
+		<th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">GF</th>
+		<th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">GA</th>
+		<th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">GD</th>
+		<th class="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">Pts</th>
+	</tr>
+	</thead>
+	<tbody class="divide-y divide-gray-200">
+	<% team_seasons.each do |team_season| %>
+		<tr>
+			<td>
+				<%= link_to team_season.team.short_name, team_season_path_by_season_and_team(team_season.season, team_season.team), class: "text-sm font-medium text-gray-900" %>
+			</td>
+			<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.all_played_matches.count %></td>
+			<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.wins %></td>
+			<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.draws %></td>
+			<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.losses %></td>
+			<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.goals_for %></td>
+			<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.goals_against %></td>
+			<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.goal_difference %></td>
+			<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center"><%= team_season.points %></td>
+		</tr>
+	<% end %>
+	</tbody>
 </table>

@@ -93,7 +93,15 @@ class TeamsController < ApplicationController
 	end
 
 	def set_season
-		@season = Season.friendly.find(params[:season_id])
+		@season = if params[:season_id].present?
+			          Season.includes(
+				          league: :country,
+				          team_seasons: [:team, :goals_scored_stat, :goals_conceded_stat, :yellow_cards_stat, :red_cards_stat],
+				          fixtures: [:home_team_season, :away_team_season]
+			          ).friendly.find(params[:season_id])
+			        else
+				        team.current_team_season.season
+		          end
 	end
 
 	def set_team_season

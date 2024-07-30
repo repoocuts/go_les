@@ -12,10 +12,10 @@
 		<% else %>
 			<td class="text-right">
 			<span class="laptop:hidden">
-				<%= link_to home_team_acronym, old_team_season_path_by_season_and_team(season, home_team_object), data: { turbo_frame: '_top' } %>
+				<%= link_to home_team_acronym, team_season_path_by_season_and_team(season, home_team_object), data: { turbo_frame: '_top' } %>
 			</span>
 				<span class="hidden laptop:inline">
-				<%= link_to home_team_name, old_team_season_path_by_season_and_team(season, home_team_object), data: { turbo_frame: '_top' } %>
+				<%= link_to home_team_name, team_season_path_by_season_and_team(season, home_team_object), data: { turbo_frame: '_top' } %>
 			</span>
 			</td>
 		<% end %>
@@ -30,10 +30,10 @@
 		<td></td>
 		<td>
 			<span class="laptop:hidden">
-				<%= link_to away_team_acronym, old_team_season_path_by_season_and_team(season, away_team_object), data: { turbo_frame: '_top' } %>
+				<%= link_to away_team_acronym, team_season_path_by_season_and_team(season, away_team_object), data: { turbo_frame: '_top' } %>
 			</span>
 			<span class="hidden laptop:inline">
-			<%= link_to away_team_name, old_team_season_path_by_season_and_team(season, away_team_object), data: { turbo_frame: '_top' } %>
+			<%= link_to away_team_name, team_season_path_by_season_and_team(season, away_team_object), data: { turbo_frame: '_top' } %>
 		</span>
 		</td>
 	</tr>
