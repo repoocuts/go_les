@@ -23,10 +23,12 @@
 #  index_fixtures_on_away_score                           (away_score)
 #  index_fixtures_on_away_team_season_id                  (away_team_season_id)
 #  index_fixtures_on_away_team_season_id_and_away_score   (away_team_season_id,away_score)
+#  index_fixtures_on_away_ts_id_kick_off_away_score       (away_team_season_id,kick_off,away_score) UNIQUE
 #  index_fixtures_on_game_week                            (game_week)
 #  index_fixtures_on_home_score                           (home_score)
 #  index_fixtures_on_home_team_season_id                  (home_team_season_id)
 #  index_fixtures_on_home_team_season_id_and_home_score   (home_team_season_id,home_score)
+#  index_fixtures_on_home_ts_id_kick_off_home_score       (home_team_season_id,kick_off,home_score) UNIQUE
 #  index_fixtures_on_kick_off                             (kick_off)
 #  index_fixtures_on_kick_off_and_home_score              (kick_off,home_score)
 #  index_fixtures_on_league_id                            (league_id)
