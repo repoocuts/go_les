@@ -138,6 +138,18 @@ class TeamSeason < ApplicationRecord
 		TeamSeasons::IndividualFixtureDetails.new(fixture:, team_season: self).fixture_opponent_name
 	end
 
+	def fixture_opponent_acronym(fixture)
+		TeamSeasons::IndividualFixtureDetails.new(fixture:, team_season: self).fixture_opponent_acronym
+	end
+
+	def fixture_opponent_name_with_location_string(fixture)
+		TeamSeasons::IndividualFixtureDetails.new(fixture:, team_season: self).fixture_opponent_name_with_location_string
+	end
+
+	def fixture_opponent_acronym_with_location_string(fixture)
+		TeamSeasons::IndividualFixtureDetails.new(fixture:, team_season: self).fixture_opponent_acronym_with_location_string
+	end
+
 	def last_five_fixtures
 		all_fixture_details.last_five_fixtures
 	end
@@ -351,7 +363,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def last_match_vs_opponent(next_match_opponent_id)
-		fixture = head_to_heads.find_by(opponent_id: next_match_opponent_id).last_match_id
+		fixture = head_to_heads.find_by(opponent_id: next_match_opponent_id)&.last_match_id
 		return 'N/A' unless fixture
 
 		get_fixture_result(fixture) if fixture.home_score

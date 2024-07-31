@@ -10,7 +10,7 @@ class LeaguesController < ApplicationController
 
 	# GET /leagues/1 or /leagues/1.json
 	def show
-		@seasons = league.seasons.order(:years)
+		@seasons = league.seasons.not_hidden.order(:years)
 		@teams = league.teams.order(:name)
 	end
 

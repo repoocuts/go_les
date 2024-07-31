@@ -34,6 +34,7 @@ class PlayerSeason < ApplicationRecord
 	has_many :goals
 	has_many :cards
 	has_many :assists
+	has_one :season, through: :team_season
 	has_one :player_seasons_attacking_stat, :class_name => 'PlayerSeasons::AttackingStat', dependent: :destroy
 	has_one :player_seasons_defensive_stat, :class_name => 'PlayerSeasons::DefensiveStat', dependent: :destroy
 	has_one :player_seasons_discipline_stat, :class_name => 'PlayerSeasons::DisciplineStat', dependent: :destroy

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_15_202612) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_31_180333) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -192,10 +192,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_15_202612) do
     t.integer "home_corners"
     t.integer "away_corners"
     t.index ["away_score"], name: "index_fixtures_on_away_score"
+    t.index ["away_team_season_id", "away_score"], name: "index_fixtures_on_away_team_season_id_and_away_score"
+    t.index ["away_team_season_id", "kick_off", "away_score"], name: "index_fixtures_on_away_ts_id_kick_off_away_score", unique: true
     t.index ["away_team_season_id"], name: "index_fixtures_on_away_team_season_id"
     t.index ["game_week"], name: "index_fixtures_on_game_week"
     t.index ["home_score"], name: "index_fixtures_on_home_score"
+    t.index ["home_team_season_id", "away_team_season_id", "kick_off", "home_score"], name: "index_fixtures_on_team_seasons_and_kick_off_and_score"
+    t.index ["home_team_season_id", "home_score"], name: "index_fixtures_on_home_team_season_id_and_home_score"
+    t.index ["home_team_season_id", "kick_off", "home_score"], name: "index_fixtures_on_home_ts_id_kick_off_home_score", unique: true
     t.index ["home_team_season_id"], name: "index_fixtures_on_home_team_season_id"
+    t.index ["kick_off", "home_score"], name: "index_fixtures_on_kick_off_and_home_score"
     t.index ["kick_off"], name: "index_fixtures_on_kick_off"
     t.index ["league_id"], name: "index_fixtures_on_league_id"
     t.index ["season_game_week_id"], name: "index_fixtures_on_season_game_week_id"
@@ -403,6 +409,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_15_202612) do
     t.datetime "updated_at", null: false
     t.string "slug"
     t.string "years"
+    t.boolean "hidden"
     t.index ["league_id"], name: "index_seasons_on_league_id"
     t.index ["slug"], name: "index_seasons_on_slug", unique: true
   end

@@ -20,15 +20,21 @@
 #
 # Indexes
 #
-#  index_fixtures_on_away_score           (away_score)
-#  index_fixtures_on_away_team_season_id  (away_team_season_id)
-#  index_fixtures_on_game_week            (game_week)
-#  index_fixtures_on_home_score           (home_score)
-#  index_fixtures_on_home_team_season_id  (home_team_season_id)
-#  index_fixtures_on_kick_off             (kick_off)
-#  index_fixtures_on_league_id            (league_id)
-#  index_fixtures_on_season_game_week_id  (season_game_week_id)
-#  index_fixtures_on_season_id            (season_id)
+#  index_fixtures_on_away_score                           (away_score)
+#  index_fixtures_on_away_team_season_id                  (away_team_season_id)
+#  index_fixtures_on_away_team_season_id_and_away_score   (away_team_season_id,away_score)
+#  index_fixtures_on_away_ts_id_kick_off_away_score       (away_team_season_id,kick_off,away_score) UNIQUE
+#  index_fixtures_on_game_week                            (game_week)
+#  index_fixtures_on_home_score                           (home_score)
+#  index_fixtures_on_home_team_season_id                  (home_team_season_id)
+#  index_fixtures_on_home_team_season_id_and_home_score   (home_team_season_id,home_score)
+#  index_fixtures_on_home_ts_id_kick_off_home_score       (home_team_season_id,kick_off,home_score) UNIQUE
+#  index_fixtures_on_kick_off                             (kick_off)
+#  index_fixtures_on_kick_off_and_home_score              (kick_off,home_score)
+#  index_fixtures_on_league_id                            (league_id)
+#  index_fixtures_on_season_game_week_id                  (season_game_week_id)
+#  index_fixtures_on_season_id                            (season_id)
+#  index_fixtures_on_team_seasons_and_kick_off_and_score  (home_team_season_id,away_team_season_id,kick_off,home_score)
 #
 # Foreign Keys
 #
@@ -71,6 +77,8 @@ class Fixture < ApplicationRecord
 			.order(game_week: :asc, kick_off: :asc)
 	}
 	scope :next_seven_days, -> { where(kick_off: Time.zone.now..Time.zone.now + 7.days) }
+
+	delegate :current_season, to: :season
 
 	def home_team_object
 		home_team_season.team
@@ -124,6 +132,12 @@ class Fixture < ApplicationRecord
 
 	def opponent_team_season_object(team_season_id)
 		team_season_id == home_team_season_id ? away_team_season : home_team_season
+	end
+
+	def opponent_acronym_for_team_season(team_season_id)
+		return home_team_name_acronym if team_season_id == away_team_season_id
+
+		away_team_name_acronym
 	end
 
 	def home_or_away_checker(team_season_id)

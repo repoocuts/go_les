@@ -6,6 +6,7 @@
 #  current_game_week :integer
 #  current_season    :boolean
 #  end_date          :datetime
+#  hidden            :boolean
 #  slug              :string
 #  start_date        :datetime
 #  years             :string

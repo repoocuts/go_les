@@ -19,4 +19,16 @@ module RoutesHelper
 	def fixture_path_by_fixture(fixture)
 		country_league_season_fixture_path(fixture.league.country_id, fixture.league, fixture.season, fixture)
 	end
+
+	def season_path_by_season(season)
+		country_league_season_path(season.league.country, season.league, season)
+	end
+
+	def team_season_path_by_season_and_team(season, team)
+		country_league_season_team_path(team.country, team.league, season, team)
+	end
+
+	def team_season_path_by_team_season(team_season)
+		country_league_season_team_path(team_season.team.country, team_season.team.league, team_season.season, team_season.team)
+	end
 end

@@ -6,6 +6,7 @@
 #  current_game_week :integer
 #  current_season    :boolean
 #  end_date          :datetime
+#  hidden            :boolean
 #  slug              :string
 #  start_date        :datetime
 #  years             :string
@@ -45,6 +46,7 @@ class Season < ApplicationRecord
 
 	scope :current_season, -> { find_by(current_season: true) }
 	scope :last_season, ->(start_date) { find_by(start_date: start_date - 1.year) }
+	scope :not_hidden, -> { where(hidden: false) }
 
 	def completed_fixtures
 		fixtures.left_joins(:appearances)

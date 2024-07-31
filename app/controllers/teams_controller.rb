@@ -1,5 +1,7 @@
 class TeamsController < ApplicationController
 	before_action :set_team, only: %i[ show edit update destroy ]
+	before_action :set_season, only: %i[ show ]
+	before_action :set_team_season, only: %i[ show ]
 
 	# GET /teams or /teams.json
 	def index
@@ -22,14 +24,13 @@ class TeamsController < ApplicationController
 		                  .where(player: @players)
 		                  .where(seasons: { current_season: true })
 		                  .sorted_by(sorting_column, sorting_direction)
-		@current_team_season = current_team_season
-		@top_scorer = current_team_season.top_scorer_player_season
-		@most_booked = current_team_season.most_booked_player_season
-		@most_reds = current_team_season.most_reds_player_season
-		@pagy_team_upcoming_fixtures, @upcoming_fixtures = pagy_array(current_team_season.upcoming_fixtures)
-		@pagy_team_finished_fixtures, @finished_fixtures = pagy_array(current_team_season.completed_fixtures, page_param: :page_results)
-		@next_match = current_team_season.next_fixture
-		@next_opponent = @next_match&.opponent_team_season_object(@current_team_season.id)
+		@top_scorer = team_season.top_scorer_player_season
+		@most_booked = team_season.most_booked_player_season
+		@most_reds = team_season.most_reds_player_season
+		@pagy_team_upcoming_fixtures, @upcoming_fixtures = pagy_array(team_season.upcoming_fixtures)
+		@pagy_team_finished_fixtures, @finished_fixtures = pagy_array(team_season.completed_fixtures, page_param: :page_results)
+		@next_match = team_season.next_fixture
+		@next_opponent = @next_match&.opponent_team_season_object(team_season.id)
 		respond_to do |format|
 			format.html
 			format.turbo_stream
@@ -85,14 +86,26 @@ class TeamsController < ApplicationController
 
 	private
 
-	attr_reader :team
+	attr_reader :team, :season, :team_season
 	# Use callbacks to share common setup or constraints between actions.
 	def set_team
 		@team = Team.friendly.find(params[:id])
 	end
 
-	def current_team_season
-		team.current_team_season
+	def set_season
+		@season = if params[:season_id].present?
+			          Season.includes(
+				          league: :country,
+				          team_seasons: [:team, :goals_scored_stat, :goals_conceded_stat, :yellow_cards_stat, :red_cards_stat],
+				          fixtures: [:home_team_season, :away_team_season]
+			          ).friendly.find(params[:season_id])
+			        else
+				        team.current_team_season.season
+		          end
+	end
+
+	def set_team_season
+		@team_season = TeamSeason.find_by(team_id: @team.id, season_id: @season.id) || team.current_team_season
 	end
 
 	# Only allow a list of trusted parameters through.

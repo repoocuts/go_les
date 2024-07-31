@@ -6,7 +6,7 @@
 	</div>
 	<div class="grid grid-cols-3 justify-center text-center mt-5">
 		<h5 class="text-3xl text-right">
-			<%= link_to @fixture.home_team_season.team.name, team_path(@fixture.home_team_season.team) %>
+			<%= link_to @fixture.home_team_season.team.name, team_season_path_by_team_season(@fixture.home_team_season) %>
 		</h5>
 		<% if @fixture.home_score.nil? %>
 			<h5 class="text-3xl">
@@ -18,7 +18,7 @@
 			</h5>
 		<% end %>
 		<h5 class="text-3xl text-left">
-			<%= link_to @fixture.away_team_season.team.name, team_path(@fixture.away_team_season.team) %>
+			<%= link_to @fixture.away_team_season.team.name, team_season_path_by_team_season(@fixture.away_team_season) %>
 		</h5>
 	</div>
 	<% if !@fixture.home_score.nil? %>

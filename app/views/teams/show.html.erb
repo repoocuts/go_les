@@ -1,7 +1,12 @@
 <div class="mx-10 my-10">
 	<div class="grid">
 		<div class="row">
-			<h1 class='text-6xl'><%= @team.name %></h1>
+			<div class="flex items-center justify-between">
+				<h1 class='text-6xl'><%= @team.name %></h1>
+				<% if params[:season_id].present? %>
+					<%= link_to 'Current Season', team_season_path_by_season_and_team(@team.current_team_season.season, @team), class: "px-4 py-2 text-white bg-blue-600 rounded-lg" %>
+				<% end %>
+			</div>
 		</div>
 		<%= render 'team_stats' %>
 		<div class="grid grid-cols-3 mt-5">
@@ -39,8 +44,8 @@
 					<%= render Team::OpponentGoalStatsComponent.new(@next_match, @next_opponent) %>
 					<%= render Team::OpponentCardStatsComponent.new(@next_match, @next_opponent) %>
 				</div>
-				<%= render Team::TeamVsOpponentComponent.new(@current_team_season, @next_match, @next_opponent) %>
-				<%= render Team::PlayerVsOpponentComponent.new(@current_team_season, @next_match, @next_opponent) %>
+				<%= render Team::TeamVsOpponentComponent.new(@team_season, @next_match, @next_opponent) %>
+				<%= render Team::PlayerVsOpponentComponent.new(@team_season, @next_match, @next_opponent) %>
 			</div>
 		<% else %>
 			<div class="grid grid-cols-4 gap-4 mt-5">
@@ -51,7 +56,7 @@
 	<div class="grid grid-cols-2 tablet:grid-cols-2 mt-5 gap-4">
 		<% if @next_opponent %>
 			<div data-controller="team-goals-radar-chart"
-					 data-team-goals-radar-chart-current-team-season-id-value="<%= @current_team_season.id %>"
+					 data-team-goals-radar-chart-current-team-season-id-value="<%= @team_season.id %>"
 					 data-team-goals-radar-chart-opponent-team-season-id-value="<%= @next_opponent.id %>" , class="tablet:flex justify-center items-center">
 				<canvas id="TeamGoalsRadarChart" width="500" height="500"></canvas>
 			</div>

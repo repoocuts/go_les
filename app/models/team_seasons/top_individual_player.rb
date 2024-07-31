@@ -15,21 +15,21 @@ module TeamSeasons
 		end
 
 		def most_booked_player_season
-			player_seasons
-			.booked_players
-			.select('player_seasons.*, COUNT(cards.id) as cards_count')
-			.group('player_seasons.id')
-			.order('cards_count DESC')
-			.first || player_seasons.first
+			@most_booked_player_season ||= player_seasons
+			                               .booked_players
+			                               .select('player_seasons.*, COUNT(cards.id) as cards_count')
+			                               .group('player_seasons.id')
+			                               .order('cards_count DESC')
+			                               .first
 		end
 
 		def most_reds_player_season
-			player_seasons
-			.sent_off_players
-			.select('player_seasons.*, COUNT(cards.id) as cards_count')
-			.group('player_seasons.id')
-			.order('cards_count DESC')
-			.first || player_seasons.first
+			@most_reds_player_season ||= player_seasons
+			                             .sent_off_players
+			                             .select('player_seasons.*, COUNT(cards.id) as cards_count')
+			                             .group('player_seasons.id')
+			                             .order('cards_count DESC')
+			                             .first
 		end
 
 		def previous_fixture_result_as_string

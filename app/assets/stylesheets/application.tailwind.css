@@ -31,3 +31,7 @@
 a:hover {
     @apply text-red-500;
 }
+
+.justify-end {
+    justify-content: end;
+}
