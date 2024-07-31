@@ -2,7 +2,7 @@
 	<table class="table-auto text-base text-md w-full">
 		<thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 		<tr>
-			<th>Kick Off</th>
+			<th class="text-right">Kick Off</th>
 			<th>Final Score</th>
 			<th></th>
 			<th></th>
@@ -11,7 +11,7 @@
 		<tbody>
 		<% @finished_fixtures.each do |fixture| %>
 			<tr>
-				<td>
+				<td class="text-right">
           <span class="laptop:hidden">
             <%= link_to fixture.kick_off.strftime("%d %b"), fixture_path_by_fixture(fixture), data: { turbo_frame: '_top' } %>
           </span>
@@ -20,7 +20,7 @@
           </span>
 				</td>
 				<td class="text-center"><%= link_to fixture.kick_off_or_score, fixture_path_by_fixture(fixture), data: { turbo_frame: '_top' } %></td>
-				<td class="text-center">
+				<td>
 					<span class="laptop:hidden">
             <%= link_to @team_season.fixture_opponent_acronym_with_location_string(fixture), fixture_path_by_fixture(fixture), data: { turbo_frame: '_top' } %>
           </span>

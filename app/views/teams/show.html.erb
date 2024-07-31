@@ -4,7 +4,7 @@
 			<div class="flex items-center justify-between">
 				<h1 class='text-6xl'><%= @team.name %></h1>
 				<% if params[:season_id].present? %>
-					<%= link_to 'Current Season', team_path_by_team(@team), class: "px-4 py-2 text-white bg-blue-600 rounded-lg" %>
+					<%= link_to 'Current Season', team_season_path_by_season_and_team(@team.current_team_season.season, @team), class: "px-4 py-2 text-white bg-blue-600 rounded-lg" %>
 				<% end %>
 			</div>
 		</div>

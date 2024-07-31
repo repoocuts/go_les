@@ -363,7 +363,7 @@ class TeamSeason < ApplicationRecord
 	end
 
 	def last_match_vs_opponent(next_match_opponent_id)
-		fixture = head_to_heads.find_by(opponent_id: next_match_opponent_id).last_match_id
+		fixture = head_to_heads.find_by(opponent_id: next_match_opponent_id)&.last_match_id
 		return 'N/A' unless fixture
 
 		get_fixture_result(fixture) if fixture.home_score

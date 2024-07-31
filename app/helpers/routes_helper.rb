@@ -27,4 +27,8 @@ module RoutesHelper
 	def team_season_path_by_season_and_team(season, team)
 		country_league_season_team_path(team.country, team.league, season, team)
 	end
+
+	def team_season_path_by_team_season(team_season)
+		country_league_season_team_path(team_season.team.country, team_season.team.league, team_season.season, team_season.team)
+	end
 end

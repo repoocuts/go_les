@@ -16,8 +16,6 @@
 		<% end %>
 		<% if @most_reds %>
 			<%= link_to "#{@most_reds.return_name} - #{@most_reds.season_reds_count}", player_path_by_team_and_player(@team, @most_reds) %>
-		<% else %>
-			<p>N/A</p>
 		<% end %>
 		<p>
 			<span><%= @team_season.last_fixture_result_string %></span>
