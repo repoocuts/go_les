@@ -18,12 +18,7 @@ class TeamsController < ApplicationController
 		@players = team.players
 		sorting_column = params[:column].presence_in(%w[full_name position appearances goals yellow_cards red_cards]) || 'position'
 		sorting_direction = params[:direction].presence_in(%w[asc desc]) || 'asc'
-		@player_seasons = PlayerSeason
-		                  .joins(:player)
-		                  .joins(team_season: :season)
-		                  .where(player: @players)
-		                  .where(seasons: { current_season: true })
-		                  .sorted_by(sorting_column, sorting_direction)
+		@player_seasons = team_season.player_seasons.sorted_by(sorting_column, sorting_direction)
 		@top_scorer = team_season.top_scorer_player_season
 		@most_booked = team_season.most_booked_player_season
 		@most_reds = team_season.most_reds_player_season

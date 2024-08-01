@@ -102,7 +102,8 @@ class ChartsController < ApplicationController
 				        "Away Bookings" => team_season.away_yellow_cards.size,
 				        "Total Bookings" => team_season.yellow_cards_count,
 				        "Reds" => team_season.red_card_count
-				} }
+				}
+			}
 		}
 	end
 

@@ -1,5 +1,7 @@
 class PlayersController < ApplicationController
 	before_action :set_player, only: %i[ show edit update destroy ]
+	before_action :set_team_season, only: %i[ show edit update destroy ]
+	before_action :set_player_season, only: %i[ show edit update destroy ]
 
 	# GET /players or /players.json
 	def index
@@ -13,8 +15,6 @@ class PlayersController < ApplicationController
 
 	# GET /players/1 or /players/1.json
 	def show
-		@player_season = player.current_player_season
-		@team_season = player_season.team_season
 		@fixtures = @team_season.completed_fixtures_reversed
 	end
 
@@ -67,10 +67,20 @@ class PlayersController < ApplicationController
 
 	private
 
-	attr_reader :player, :player_season
+	attr_reader :player, :player_season, :team_season
 	# Use callbacks to share common setup or constraints between actions.
 	def set_player
 		@player = Player.friendly.find(params[:id])
+	end
+
+	def set_team_season
+		season = Season.friendly.find(params[:season_id])
+		team = Team.friendly.find(params[:team_id])
+		@team_season = TeamSeason.find_by(season:, team:)
+	end
+
+	def set_player_season
+		@player_season = PlayerSeason.find_by(team_season: @team_season)
 	end
 
 	# Only allow a list of trusted parameters through.
