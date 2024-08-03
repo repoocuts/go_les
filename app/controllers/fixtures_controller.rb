@@ -105,11 +105,11 @@ class FixturesController < ApplicationController
 	end
 
 	def set_season
-		@season = Season.current_season
+		@season = fixture.season
 	end
 
 	def default_game_week
-		Season.current_season.try(:current_game_week) || 1
+		season.try(:current_game_week) || 1
 	end
 
 	def set_team_season(team_season_id)
