@@ -1,6 +1,6 @@
 class FixturesController < ApplicationController
 	before_action :set_fixture, only: %i[ show edit update destroy ]
-	before_action :set_season, only: %i[ index show edit update destroy ]
+	before_action :set_season, only: %i[ show edit update destroy ]
 
 	# GET /fixtures or /fixtures.json
 	def index
@@ -105,7 +105,7 @@ class FixturesController < ApplicationController
 	end
 
 	def set_season
-		@season = fixture.season
+		@season = fixture.season || Season.friendly.find(params[:season_id])
 	end
 
 	def default_game_week
