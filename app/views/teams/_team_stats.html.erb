@@ -18,9 +18,8 @@
 			<%= link_to "#{@most_reds.return_name} - #{@most_reds.season_reds_count}", player_path_by_season_team_and_player(@season, @team, @most_reds) %>
 		<% end %>
 		<p>
-			<span><%= @team_season.last_fixture_result_string %></span>
 			<% if @team_season.previous_fixture %>
-				<span><%= link_to @team_season.last_fixture_result_string, fixture_path_by_fixture(@team_season.previous_fixture) %></span>
+				<span><%= link_to "#{@team_season.last_fixture_result_string} #{@team_season.last_fixture_opponent_string}", fixture_path_by_fixture(@team_season.previous_fixture) %></span>
 			<% else %>
 				<span><%= @team_season.last_fixture_opponent_string %></span>
 			<% end %>

@@ -47,10 +47,6 @@
 				<%= render Team::TeamVsOpponentComponent.new(@team_season, @next_match, @next_opponent) %>
 				<%= render Team::PlayerVsOpponentComponent.new(@team_season, @next_match, @next_opponent) %>
 			</div>
-		<% else %>
-			<div class="grid grid-cols-4 gap-4 mt-5">
-				<p>Season finished</p>
-			</div>
 		<% end %>
 	</div>
 	<div class="grid grid-cols-2 tablet:grid-cols-2 mt-5 gap-4">
