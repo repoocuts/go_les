@@ -7,7 +7,7 @@
 		<p>last result</p>
 	</div>
 	<div class='grid grid-cols-5'>
-		<p><%= link_to @team_season.next_opponent_string, next_match_opponent_path_by_team(@team) %></p>
+		<p><%= link_to @team_season.next_opponent_string, team_season_path_by_season_and_team(@season, @team) %></p>
 		<% if @top_scorer %>
 			<%= link_to "#{@top_scorer.return_name} - #{@top_scorer.goals_count}", player_path_by_season_team_and_player(@season, @team, @top_scorer) %>
 		<% end %>
