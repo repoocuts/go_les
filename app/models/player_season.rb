@@ -64,19 +64,29 @@ class PlayerSeason < ApplicationRecord
 	def self.sorted_by(column, direction)
 		case column
 		when 'full_name'
-			joins(:player).order("players.full_name #{direction}")
+			joins(:player).order("players.full_name #{direction}, players.short_name #{direction}")
 		when 'position'
-			joins(:player).order("players.position #{direction}")
+			joins(:player).order(Arel.sql("CASE players.position
+                                      WHEN 'goalkeeper' THEN 1
+                                      WHEN 'defender' THEN 2
+                                      WHEN 'midfielder' THEN 3
+                                      WHEN 'attacker' THEN 4
+                                      ELSE 5 END #{direction}"))
 		when 'appearances'
-			joins(:appearances).group('player_seasons.id').order("COUNT(appearances.id) #{direction}")
+			order("appearances_count #{direction}")
 		when 'goals'
-			joins(:goals).group('player_seasons.id').order("COUNT(goals.id) #{direction}")
+			order("goals_count #{direction}")
 		when 'yellow_cards'
 			joins(:cards).where(cards: { card_type: 'yellow' }).group('player_seasons.id').order("COUNT(cards.id) #{direction}")
 		when 'red_cards'
 			joins(:cards).where(cards: { card_type: 'red' }).group('player_seasons.id').order("COUNT(cards.id) #{direction}")
 		else
-			joins(:player).order("players.position #{direction}") # default order
+			joins(:player).order(Arel.sql("CASE players.position
+                                      WHEN 'goalkeeper' THEN 1
+                                      WHEN 'defender' THEN 2
+                                      WHEN 'midfielder' THEN 3
+                                      WHEN 'attacker' THEN 4
+                                      ELSE 5 END #{direction}"))
 		end
 	end
 

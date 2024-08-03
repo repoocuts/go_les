@@ -98,11 +98,12 @@ class ChartsController < ApplicationController
 		render json: team_seasons.map { |team_season|
 			{
 				name: team_season.name,
-				data: { "Home Bookings" => team_season.home_yellow_cards.size,
-				        "Away Bookings" => team_season.away_yellow_cards.size,
-				        "Total Bookings" => team_season.yellow_cards_count,
-				        "Reds" => team_season.red_card_count
-				} }
+				data: { "Home Bookings" => team_season.yellow_cards_stat.home || 0,
+				        "Away Bookings" => team_season.yellow_cards_stat.away || 0,
+				        "Total Bookings" => team_season.yellow_cards_count || 0,
+				        "Reds" => team_season.red_card_count || 0
+				}
+			}
 		}
 	end
 

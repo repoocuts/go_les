@@ -27,7 +27,7 @@ module TeamSeasons
 		def previous_opponent_string
 			return 'N/A' unless fixture
 
-			home_or_away_string + previous_fixture_team_name
+			home_or_away_string + ' ' + previous_fixture_team_name
 		end
 
 		def previous_fixture_result_as_string

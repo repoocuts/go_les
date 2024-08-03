@@ -1,7 +1,7 @@
 module TeamPlayerChartHelper
 
 	def team_player_season_goals
-		column_chart team_player_season_goals_path(@team.current_team_season.id),
+		column_chart team_player_season_goals_path(@team_season.id),
 		             colors: ['red'],
 		             library: {
 			             plugins: {
@@ -18,7 +18,7 @@ module TeamPlayerChartHelper
 	end
 
 	def team_player_season_assists
-		column_chart team_player_season_assists_path(@team.current_team_season.id),
+		column_chart team_player_season_assists_path(@team_season.id),
 		             colors: ['black'],
 		             library: {
 			             plugins: {
@@ -34,7 +34,7 @@ module TeamPlayerChartHelper
 	end
 
 	def team_player_season_yellow_cards
-		column_chart team_player_season_assists_path(@team.current_team_season.id),
+		column_chart team_player_season_assists_path(@team_season.id),
 		             colors: ['yellow'],
 		             library: {
 			             plugins: {
@@ -50,7 +50,7 @@ module TeamPlayerChartHelper
 	end
 
 	def team_cards_line_chart
-		line_chart team_cards_line_chart_path(@team.id, @next_opponent.id),
+		line_chart team_cards_line_chart_path(@team_season.id, @next_opponent.id),
 		           library: {
 			           backgroundColor: 'transparent',
 			           scales: {

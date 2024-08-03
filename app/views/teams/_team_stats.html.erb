@@ -9,18 +9,17 @@
 	<div class='grid grid-cols-5'>
 		<p><%= link_to @team_season.next_opponent_string, next_match_opponent_path_by_team(@team) %></p>
 		<% if @top_scorer %>
-			<%= link_to "#{@top_scorer.return_name} - #{@top_scorer.goals_count}", player_path_by_team_and_player(@team, @top_scorer) %>
+			<%= link_to "#{@top_scorer.return_name} - #{@top_scorer.goals_count}", player_path_by_season_team_and_player(@season, @team, @top_scorer) %>
 		<% end %>
 		<% if @most_booked %>
-			<%= link_to "#{@most_booked.return_name} - #{@most_booked.season_yellows_count}", player_path_by_team_and_player(@team, @most_booked) %>
+			<%= link_to "#{@most_booked.return_name} - #{@most_booked.season_yellows_count}", player_path_by_season_team_and_player(@season, @team, @most_booked) %>
 		<% end %>
 		<% if @most_reds %>
-			<%= link_to "#{@most_reds.return_name} - #{@most_reds.season_reds_count}", player_path_by_team_and_player(@team, @most_reds) %>
+			<%= link_to "#{@most_reds.return_name} - #{@most_reds.season_reds_count}", player_path_by_season_team_and_player(@season, @team, @most_reds) %>
 		<% end %>
 		<p>
-			<span><%= @team_season.last_fixture_result_string %></span>
 			<% if @team_season.previous_fixture %>
-				<span><%= link_to @team_season.last_fixture_result_string, fixture_path_by_fixture(@team_season.previous_fixture) %></span>
+				<span><%= link_to "#{@team_season.last_fixture_result_string} #{@team_season.last_fixture_opponent_string}", fixture_path_by_fixture(@team_season.previous_fixture) %></span>
 			<% else %>
 				<span><%= @team_season.last_fixture_opponent_string %></span>
 			<% end %>
