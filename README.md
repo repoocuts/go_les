@@ -1,24 +1,11 @@
-# README
+# Goles
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Goles is a simple application for keeping track of basic statistics relating to various football leagues.
 
-Things you may want to cover:
+I find it a useful environment to play with various tools and libraries in the Ruby ecosystem which I generally encounter in the real world.
 
-* Ruby version
+It's a Rails 7 app, with a postgres db and uses Stimulus, ViewComponent and Tailwind.
 
-* System dependencies
+The data is grabbed via the api-football API.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+It's hosted at goles.soccer on an Ubuntu droplet from Digital Ocean.
