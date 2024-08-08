@@ -1,16 +1,23 @@
 namespace :update_kickoffs do
 	desc "update kick offs for next seven days"
 	task setup: :environment do
-		count = 0
-		League.all.each do |league|
+		counter = ApiCallCount.first_or_create(count: 0)
+
+		League.not_hidden.each do |league|
 			season = league.current_season
 			fixtures = season.fixtures.next_seven_days
-			fixtures.all.each do |fixture|
-				response_kick_off = ApiFootball::Updaters::FixtureApiCall.new(fixture: fixture, options: { id: fixture.api_football_id }).call
-				parsed_time = Time.parse(response_kick_off)
-				fixture.update(kick_off: parsed_time) if fixture.kick_off != Time.parse(response_kick_off)
-				puts "Fixture #{fixture.id} updated"
-				count += 1
+			count_required = fixtures.count
+			puts "Counter count is #{counter.count}"
+			puts "Required count is #{count_required}"
+			if counter.can_make_api_call?(count_required)
+				fixtures.all.each do |fixture|
+					counter.increment_count
+					response = ApiFootball::Updaters::FixtureApiCall.new(fixture: fixture, options: { id: fixture.api_football_id }).call
+					sleep 3
+					parsed_time = Time.parse(response['fixture']['date'])
+					fixture.update(kick_off: parsed_time) if fixture.kick_off != parsed_time
+					puts "Fixture #{fixture.id} updated"
+				end
 			end
 		end
 	end

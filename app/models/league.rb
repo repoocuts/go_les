@@ -38,4 +38,10 @@ class League < ApplicationRecord
 	def last_season
 		@last_season ||= seasons.last_season(current_season&.start_date)
 	end
+
+	def teams_for_current_season
+		Team.joins(:team_seasons)
+		.where(team_seasons: { season_id: current_season&.id, team_id: teams.pluck(:id) })
+		.distinct
+	end
 end
