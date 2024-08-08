@@ -12,7 +12,9 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  api_football_id     :integer
+#  away_team_id        :integer
 #  away_team_season_id :integer
+#  home_team_id        :integer
 #  home_team_season_id :integer
 #  league_id           :bigint           not null
 #  season_game_week_id :bigint

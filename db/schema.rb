@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_07_182545) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_08_175509) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -199,6 +199,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_07_182545) do
     t.bigint "season_game_week_id"
     t.integer "home_corners"
     t.integer "away_corners"
+    t.integer "home_team_id"
+    t.integer "away_team_id"
     t.index ["away_score"], name: "index_fixtures_on_away_score"
     t.index ["away_team_season_id", "away_score"], name: "index_fixtures_on_away_team_season_id_and_away_score"
     t.index ["away_team_season_id", "kick_off", "away_score"], name: "index_fixtures_on_away_ts_id_kick_off_away_score", unique: true
