@@ -21,7 +21,10 @@ module CardCreatorHelper
 	private
 
 	def yellow_card_for_home(event, fixture, team_season)
-		booked_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
+		booked_player_season = Player.find_by_api_football_id(event['player']['id'])&.current_player_season
+
+		object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id) unless booked_player_season
+		
 		home_start = fixture.appearances.find_by(player_season: booked_player_season)
 		if booked_player_season && home_start
 			Card.create(
@@ -40,7 +43,10 @@ module CardCreatorHelper
 	end
 
 	def yellow_card_for_away(event, fixture, team_season)
-		booked_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
+		booked_player_season = Player.find_by_api_football_id(event['player']['id'])&.current_player_season
+
+		object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id) unless booked_player_season
+
 		away_start = fixture.appearances.find_by(player_season: booked_player_season)
 		if booked_player_season && away_start
 			Card.create(
@@ -53,12 +59,15 @@ module CardCreatorHelper
 				referee_fixture_id: fixture.referee_fixture.id,
 			)
 		else
-			ObjectHandlingFailure.create(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
+			object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
 	end
 
 	def red_card_for_home(event, fixture, team_season)
-		booked_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
+		booked_player_season = Player.find_by_api_football_id(event['player']['id'])&.current_player_season
+
+		object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
+
 		home_start = fixture.appearances.find_by(player_season: booked_player_season)
 		if booked_player_season && home_start
 			Card.create(
@@ -72,12 +81,15 @@ module CardCreatorHelper
 				referee_fixture_id: fixture.referee_fixture.id,
 			)
 		else
-			ObjectHandlingFailure.create(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
+			object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
 	end
 
 	def red_card_for_away(event, fixture, team_season)
-		booked_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
+		booked_player_season = Player.find_by_api_football_id(event['player']['id'])&.current_player_season
+
+		object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id) unless booked_player_season
+
 		away_start = fixture.appearances.find_by(player_season: booked_player_season)
 		if booked_player_season && away_start
 			Card.create(
@@ -90,7 +102,11 @@ module CardCreatorHelper
 				referee_fixture_id: fixture.referee_fixture.id,
 			)
 		else
-			ObjectHandlingFailure.create(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
+			object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
+	end
+
+	def object_handling_failure(object_type:, api_response_element:, related_team_season_id:, related_fixture_id:)
+		ObjectHandlingFailure.create(object_type:, api_response_element:, related_team_season_id:, related_fixture_id:)
 	end
 end

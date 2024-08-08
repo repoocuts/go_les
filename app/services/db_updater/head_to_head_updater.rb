@@ -8,6 +8,10 @@ module DbUpdater
 		end
 
 		def call
+			failed = object_handling_failure
+
+			return if failed
+
 			home_team_head_to_head_update
 			away_team_head_to_head_update
 		end
@@ -148,6 +152,10 @@ module DbUpdater
 
 		def fixtures_played_increment
 			home_team_head_to_head.fixtures_played += 1
+		end
+
+		def object_handling_failure
+			ObjectHandlingFailure.create(object_type: 'head_to_head', related_fixture_id: fixture.id, related_team_id: fixture.home_team_season.team.id) unless home_team_head_to_head && away_team_head_to_head
 		end
 	end
 end
