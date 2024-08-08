@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_31_180333) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_07_182545) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_call_counts", force: :cascade do |t|
+    t.integer "count"
+    t.integer "last_team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "last_league_ids", default: [], array: true
+  end
 
   create_table "appearances", force: :cascade do |t|
     t.integer "minutes"
