@@ -90,7 +90,7 @@ module GoalCreatorHelper
 	end
 
 	def handle_assist(goal, event, fixture, team_season)
-		assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']))
+		assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']).current_player_season)
 		create_assist(goal, assist_appearance, fixture, team_season, event['time']['elapsed'], true) if assist_appearance
 
 		ObjectHandlingFailure.create(object_type: 'assist', api_response_element: event['assist'], related_team_season_id: team_season.id, related_fixture_id: fixture.id) unless assist_appearance
