@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class LeagueTableComponent < ViewComponent::Base
+	include ApplicationHelper
 
 	def initialize(team_seasons)
 		@team_seasons = team_seasons
