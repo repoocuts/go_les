@@ -2,10 +2,10 @@
 	<% if true?(fixture[:fixture].current_season) %>
 		<td class="text-right">
 			<span class="laptop:hidden">
-				<%= link_to home_team_acronym, team_path(home_team_object), data: { turbo_frame: '_top' } %>
+				<%= link_to home_team_acronym, team_season_path_by_season_and_team(season, home_team_object), data: { turbo_frame: '_top' } %>
 			</span>
 			<span class="hidden laptop:inline">
-				<%= link_to home_team_name, team_path(home_team_object), data: { turbo_frame: '_top' } %>
+				<%= link_to home_team_name, team_season_path_by_season_and_team(season, home_team_object), data: { turbo_frame: '_top' } %>
 			</span>
 		</td>
 	<% else %>
@@ -21,10 +21,10 @@
 	<td></td>
 	<td class="text-center">
 		<span class="laptop:hidden">
-			<%= link_to kick_off_or_score, country_league_season_fixture_path(fixture[:fixture].league.country_id, fixture[:fixture].league, fixture[:fixture].season, fixture[:fixture]), data: { turbo_frame: '_top' } %>
+			<%= link_to kick_off_or_score, fixture_path_by_fixture(fixture[:fixture]), data: { turbo_frame: '_top' } %>
 		</span>
 		<span class="hidden laptop:inline">
-			<%= link_to kick_off_or_score, country_league_season_fixture_path(fixture[:fixture].league.country_id, fixture[:fixture].league, fixture[:fixture].season, fixture[:fixture]), data: { turbo_frame: '_top' } %>
+			<%= link_to kick_off_or_score, fixture_path_by_fixture(fixture[:fixture]), data: { turbo_frame: '_top' } %>
 		</span>
 	</td>
 	<td></td>
