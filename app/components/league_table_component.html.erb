@@ -16,7 +16,7 @@
 	<% league_table_order.each_with_index do |team_season, index| %>
 		<tr class="<%= cycle('bg-white', 'bg-gray-100') %>">
 			<td class="border border-gray-300 p-2 text-center"><%= index + 1 %></td>
-			<td class="border border-gray-300 p-2 text-center text-blue-600"><%= link_to team_season.team.name, country_league_season_team_path(team_season.team.country, team_season.team.league, team_season.season, team_season.team), data: { turbo_frame: '_top' } %></td>
+			<td class="border border-gray-300 p-2 text-center text-blue-600"><%= link_to team_season.team.name, team_season_path_by_team_season(team_season), data: { turbo_frame: '_top' } %></td>
 			<td class="border border-gray-300 p-2 text-center"><%= team_season.completed_fixtures_count %>
 			<td class="border border-gray-300 p-2 text-center"><%= team_season.goals_count %>
 			<td class="border border-gray-300 p-2 text-center"><%= team_season.goals_against_number %>
