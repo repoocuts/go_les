@@ -2,11 +2,11 @@
 	<% @most_booked.each do |player_season| %>
 		<tr class="dark:border-gray-700">
 			<td class="px-4 py-2 text-blue-600">
-				<%= link_to player_season.return_name, player_path(player_season.player), data: { turbo_frame: '_top' } %>
+				<%= link_to player_season.return_name, player_path_by_player_season(player_season), data: { turbo_frame: '_top' } %>
 			</td>
 			<td class="px-4 py-2 text-center hidden laptop:table-cell text-blue-600">
-				<%= link_to player_season.return_team_name, team_season_path_by_season_and_team(player_season.season, player_season.team_season.team), data: { turbo_frame: '_top' }, class: "hidden laptop:inline-block" %>
-				<%= link_to player_season.return_team_acronym, team_season_path_by_season_and_team(player_season.season, player_season.team_season.team), data: { turbo_frame: '_top' }, class: "tablet:hidden phone:inline-block" %>
+				<%= link_to player_season.return_team_name, team_season_path_by_player_season(player_season), data: { turbo_frame: '_top' }, class: "hidden laptop:inline-block" %>
+				<%= link_to player_season.return_team_acronym, team_season_path_by_player_season(player_season), data: { turbo_frame: '_top' }, class: "tablet:hidden phone:inline-block" %>
 			</td>
 			<td class="px-4 py-2 text-center">
 				<%= player_season.season_yellows_count %>

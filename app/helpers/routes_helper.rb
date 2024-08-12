@@ -8,6 +8,13 @@ module RoutesHelper
 		country_league_team_path(team.country, team.league, team)
 	end
 
+	def player_path_by_player_season(player_season)
+		player = player_season.player
+		season = player_season.season
+		team = player.team
+		country_league_season_team_player_path(team.country, team.league, season, team, player)
+	end
+
 	def player_path_by_team_and_player(team, player)
 		country_league_team_player_path(team.country, team.league, team, player)
 	end
@@ -35,5 +42,13 @@ module RoutesHelper
 	def team_season_path_by_team_season(team_season)
 		team_season = team_season[:team_season] if team_season.is_a? Hash
 		country_league_season_team_path(team_season.team.country, team_season.team.league, team_season.season, team_season.team)
+	end
+
+	def team_season_path_by_player_season(player_season)
+		team_season = player_season.team_season
+		season = player_season.season
+		league = team_season.team.league
+		country = team_season.team.country
+		country_league_season_team_path(country, league, season, team_season)
 	end
 end
