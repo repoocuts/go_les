@@ -80,7 +80,7 @@ class PlayersController < ApplicationController
 	end
 
 	def set_player_season
-		@player_season = PlayerSeason.find_by(team_season: @team_season)
+		@player_season = PlayerSeason.find_by(team_season: @team_season, player: @player)
 	end
 
 	# Only allow a list of trusted parameters through.

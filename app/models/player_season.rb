@@ -57,7 +57,7 @@ class PlayerSeason < ApplicationRecord
 			.group('player_seasons.id')
 	}
 
-	delegate :return_name, to: :player, prefix: false
+	delegate :return_name, :position, to: :player, prefix: false
 
 	ZERO = 0
 
@@ -81,12 +81,7 @@ class PlayerSeason < ApplicationRecord
 		when 'red_cards'
 			joins(:cards).where(cards: { card_type: 'red' }).group('player_seasons.id').order("COUNT(cards.id) #{direction}")
 		else
-			joins(:player).order(Arel.sql("CASE players.position
-                                      WHEN 'goalkeeper' THEN 1
-                                      WHEN 'defender' THEN 2
-                                      WHEN 'midfielder' THEN 3
-                                      WHEN 'attacker' THEN 4
-                                      ELSE 5 END #{direction}"))
+			joins(:player).order("players.#{column} #{direction}")
 		end
 	end
 

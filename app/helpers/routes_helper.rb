@@ -8,6 +8,10 @@ module RoutesHelper
 		country_league_team_path(team.country, team.league, team)
 	end
 
+	def player_sorting_path(team:, season_id:, column:, direction:)
+		country_league_team_path(team.country, team.league, team, season_id: season_id, column: column, direction: direction)
+	end
+
 	def player_path_by_player_season(player_season)
 		player = player_season.player
 		season = player_season.season

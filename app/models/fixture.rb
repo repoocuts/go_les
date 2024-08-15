@@ -50,7 +50,7 @@ class Fixture < ApplicationRecord
 	has_many :cards, dependent: :destroy
 	has_many :assists, dependent: :destroy
 	has_many :home_starts, -> { where(is_home: true, appearance_type: 'start') }, class_name: 'Appearance'
-	has_many :away_starts, -> { where(is_home: false, appearance_type: 'start') }, class_name: 'Appearance'
+	has_many :away_starts, -> { where(is_home: nil, appearance_type: 'start') }, class_name: 'Appearance'
 	has_many :home_goals_with_player_season_and_assist, -> { includes(:player_season, :assist) }, class_name: 'Goal'
 	has_many :away_goals_with_player_season_and_assist, -> { includes(:player_season, :assist) }, class_name: 'Goal'
 	has_many :home_assists_with_player_season, -> { includes(:player_season) }, class_name: 'Assist'
