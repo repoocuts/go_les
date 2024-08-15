@@ -17,6 +17,7 @@ module TeamSeasons
 		end
 
 		def next_opponent_object
+			return unless fixture
 			return fixture.home_team_object if team_season == fixture.away_team_season
 
 			fixture.away_team_object

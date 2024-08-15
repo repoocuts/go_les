@@ -2,7 +2,7 @@
 	<div class="max-w-screen-xl mx-auto px-4 grid grid-cols-1 tablet:grid-cols-3 laptop:grid-cols-6 gap-4">
 		<% @leagues.each do |league| %>
 			<div class="league-container">
-				<h2 class="text-lg font-display text-center"><%= link_to league.name, country_league_path(league.country, league), data: { turbo_frame: '_top' } %></h2>
+				<h2 class="text-lg font-display text-center"><%= link_to league.name, league_path_by_league(league), data: { turbo_frame: '_top' } %></h2>
 				<% season = league.current_season %>
 				<table class="w-full mb-4">
 					<thead>
@@ -15,9 +15,9 @@
 					<tbody>
 					<% @fixtures.select { |fixture| fixture.season == season }.each do |fixture| %>
 						<tr>
-							<td class="border border-gray-300 p-2 text-center"><%= link_to fixture.home_team_season.team.acronym, country_league_season_fixture_path(fixture.league.country, fixture.league, fixture.season, fixture), data: { turbo_frame: '_top' } %></td>
+							<td class="border border-gray-300 p-2 text-center"><%= link_to fixture.home_team_season.team.acronym, fixture_path_by_fixture(fixture), data: { turbo_frame: '_top' } %></td>
 							<td class="border border-gray-300 p-2 text-center"><%= fixture.kick_off_or_score %></td>
-							<td class="border border-gray-300 p-2 text-center"><%= link_to fixture.away_team_season.team.acronym, country_league_season_fixture_path(fixture.league.country, fixture.league, fixture.season, fixture), data: { turbo_frame: '_top' } %></td>
+							<td class="border border-gray-300 p-2 text-center"><%= link_to fixture.away_team_season.team.acronym, fixture_path_by_fixture(fixture), data: { turbo_frame: '_top' } %></td>
 						</tr>
 					<% end %>
 					</tbody>

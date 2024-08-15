@@ -34,7 +34,7 @@ module Calculators
 			end
 
 			def away_appearances
-				player_season.appearances.where(is_home: false)
+				player_season.appearances.where(is_home: nil)
 			end
 		end
 	end

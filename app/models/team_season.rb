@@ -290,6 +290,22 @@ class TeamSeason < ApplicationRecord
 		goals.first_half
 	end
 
+	def home_first_half_goals_count
+		goals_scored_stat.home_first_half
+	end
+
+	def away_first_half_goals_count
+		goals_scored_stat.away_first_half
+	end
+
+	def home_second_half_goals_count
+		goals_scored_stat.home_second_half
+	end
+
+	def away_second_half_goals_count
+		goals_scored_stat.away_second_half
+	end
+
 	def first_half_goals_total
 		goals_scored_stat.first_half
 	end
@@ -381,12 +397,14 @@ class TeamSeason < ApplicationRecord
 	def next_match
 		return @next_match if defined?(@next_match)
 
+		season_game_week = season.season_game_weeks.find_by(game_week_number: season.current_game_week + 1)
+
 		@next_match = if fixtures.blank?
 			              nil
 			            elsif season.current_game_week == 1
 				            fixtures.first
 			            else
-				            fixtures.find_by(game_week: season.current_game_week + 1)
+				            fixtures.find_by(season_game_week: season_game_week)
 		              end
 	end
 

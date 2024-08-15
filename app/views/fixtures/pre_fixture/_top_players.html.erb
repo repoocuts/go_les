@@ -1,20 +1,20 @@
 <h6 class="text-l">
 	<% if team.top_scorer_player_season %>
-		<%= link_to "#{team.top_scorer_player_season.return_name}, (#{team.top_scorer_player_season.goals_count})", player_path(team.top_scorer_player_season.player) %>
+		<%= link_to "#{team.top_scorer_player_season.return_name}, (#{team.top_scorer_player_season.goals_count})", player_path_by_player_season(team.top_scorer_player_season) %>
 	<% else %>
 		No goals
 	<% end %>
 </h6>
 <h6>
 	<% if team.top_assisting_player_season %>
-		<%= link_to "#{team.top_assisting_player_season.return_name}, (#{team.top_assisting_player_season.assists_count})", player_path(team.top_assisting_player_season.player) %>
+		<%= link_to "#{team.top_assisting_player_season.return_name}, (#{team.top_assisting_player_season.assists_count})", player_path_by_player_season(team.top_assisting_player_season) %>
 	<% else %>
 		No Assists
 	<% end %>
 </h6>
 <h6 class="text-l">
 	<% if team.most_booked_player_season %>
-		<%= link_to "#{team.most_booked_player_season.return_name}, (#{team.most_booked_player_season.season_yellows_count})", player_path(team.most_booked_player_season.player) %>
+		<%= link_to "#{team.most_booked_player_season.return_name}, (#{team.most_booked_player_season.season_yellows_count})", player_path_by_player_season(team.most_booked_player_season) %>
 	<% else %>
 		No cards
 	<% end %>

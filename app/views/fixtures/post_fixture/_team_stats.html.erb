@@ -14,7 +14,7 @@
 		<% starts.each do |start| %>
 			<tr class="pb-3">
 				<td>
-					<%= link_to start.player_season.player.return_name, player_path(start.player_season.player) %>
+					<%= link_to start.player_season.player.return_name, player_path_by_player_season(start.player_season) %>
 				</td>
 				<td class=" text-center">
 					<%= start.minutes %>
@@ -33,22 +33,19 @@
 				</td>
 			</tr>
 		<% end %>
-		</tbody>
-	</table>
-	<table class="w-full border-separate mt-10">
-		<tbody>
 		<tr>
-			<td>Substitutes</td>
 			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+		</tr>
+		<tr>
+			<td>-----------------</td>
+		</tr>
+		<tr>
 			<td></td>
 		</tr>
 		<% subs.each do |sub| %>
 			<tr>
 				<td>
-					<%= link_to sub.player_season.player.return_name, player_path(sub.player_season.player) %>
+					<%= link_to sub.player_season.player.return_name, player_path_by_player_season(sub.player_season) %>
 				</td>
 				<td class="text-center">
 					<%= sub.minutes %>

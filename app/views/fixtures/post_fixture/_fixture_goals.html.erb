@@ -1,27 +1,27 @@
 <div class='grid-cols-1'>
-  <% collection.each do |_appearance_id, goals| %>
-    <p class="mb-0 goal-scorer">
-      <%
-        player_name = goals[0].player_season.player.return_name
-        goals_minutes = goals.map do |goal|
-          goal_minute = goal.minute.to_s
-          goal_type_annotation = case goal.goal_type
-                                 when 'penalty' then '(P)'
-                                 when nil then '(OG)'
-                                 else ''
-                                 end
-          "#{goal_type_annotation} #{goal_minute}"
-        end.join(', ')
-      %>
+	<% collection.each do |_appearance_id, goals| %>
+		<p class="mb-0 goal-scorer">
+			<%
+				player_name = goals[0].player_season.player.return_name
+				goals_minutes = goals.map do |goal|
+					goal_minute = goal.minute.to_s
+					goal_type_annotation = case goal.goal_type
+																 when 'penalty' then '(P)'
+																 when nil then '(OG)'
+																 else ''
+																 end
+					"#{goal_type_annotation} #{goal_minute}"
+				end.join(', ')
+			%>
 
-      <%= link_to "#{player_name}, #{goals_minutes}", player_path(goals[0].player_season.player) %>
-    </p>
-    <% goals.each do |goal| %>
-      <% if goal.assist && goal.is_home %>
-        <p class>
-          <%= link_to "(#{goal.assist.player_season.player.return_name}, #{goal.minute})", player_path(goal.assist.player_season.player) %>
-        </p>
-      <% end %>
-    <% end %>
-  <% end %>
+			<%= link_to "#{player_name}, #{goals_minutes}", player_path_by_player_season(goals[0].player_season) %>
+		</p>
+		<% goals.each do |goal| %>
+			<% if goal.assist && goal.is_home %>
+				<p class>
+					<%= link_to "(#{goal.assist.player_season.player.return_name}, #{goal.minute})", player_path_by_player_season(goal.assist.player_season) %>
+				</p>
+			<% end %>
+		<% end %>
+	<% end %>
 </div>
