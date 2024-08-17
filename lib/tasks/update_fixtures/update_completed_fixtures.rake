@@ -5,7 +5,7 @@ namespace :update_completed_fixtures do
 		counter.update(count: 0)
 		League.not_hidden.each do |league|
 			season = league.current_season
-			fixtures = season.fixtures_requiring_update
+			fixtures = season.completed_fixtures
 			puts "Updating #{league.name}"
 			count_required = fixtures.count
 			puts "Counter count is #{counter.count}"
