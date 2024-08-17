@@ -67,10 +67,10 @@ class PlayerSeason < ApplicationRecord
 			joins(:player).order("players.full_name #{direction}, players.short_name #{direction}")
 		when 'position'
 			joins(:player).order(Arel.sql("CASE players.position
-                                      WHEN 'goalkeeper' THEN 1
-                                      WHEN 'defender' THEN 2
-                                      WHEN 'midfielder' THEN 3
-                                      WHEN 'attacker' THEN 4
+                                      WHEN 'Goalkeeper' THEN 1
+                                      WHEN 'Defender' THEN 2
+                                      WHEN 'Midfielder' THEN 3
+                                      WHEN 'Attacker' THEN 4
                                       ELSE 5 END #{direction}"))
 		when 'appearances'
 			order("appearances_count #{direction}")
