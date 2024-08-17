@@ -87,11 +87,15 @@ module GoalCreatorHelper
 		if event['assist']['id'].present?
 			handle_assist(goal, event, fixture, team_season)
 		end
+		update_player_season_attacking_stat_goal(scorer_player_season.attacking_stat, goal)
 	end
 
 	def handle_assist(goal, event, fixture, team_season)
-		assist_appearance = fixture.appearances.find_by(player_season: Player.find_by_api_football_id(event['assist']['id']).current_player_season)
-		create_assist(goal, assist_appearance, fixture, team_season, event['time']['elapsed'], true) if assist_appearance
+		assist_player_season = Player.find_by_api_football_id(event['assist']['id']).current_player_season
+		assist_appearance = fixture.appearances.find_by(player_season: assist_player_season)
+		assist = create_assist(goal, assist_appearance, fixture, team_season, event['time']['elapsed'], true) if assist_appearance
+
+		update_player_season_attacking_stat_assist(assist_player_season.attacking_stat, assist) if assist
 
 		ObjectHandlingFailure.create(object_type: 'assist', api_response_element: event['assist'], related_team_season_id: team_season.id, related_fixture_id: fixture.id) unless assist_appearance
 	end
@@ -141,5 +145,53 @@ module GoalCreatorHelper
 		goals_stat.increment(:total)
 
 		goals_stat.save
+	end
+
+	def update_player_season_attacking_stat_goal(attacking_stat, goal)
+		attacking_stat.increment(:scored_total)
+		if goal.is_home
+			attacking_stat.increment(:scored_home)
+			if goal.minute < 45
+				attacking_stat.increment(:scored_first_half)
+				attacking_stat.increment(:scored_home_first_half)
+			else
+				attacking_stat.increment(:scored_second_half)
+				attacking_stat.increment(:scored_home_second_half)
+			end
+		else
+			attacking_stat.increment(:scored_away)
+			if goal.minute < 45
+				attacking_stat.increment(:scored_second_half)
+				attacking_stat.increment(:scored_away_second_half)
+			else
+				attacking_stat.increment(:scored_first_half)
+				attacking_stat.increment(:scored_away_first_half)
+			end
+		end
+		attacking_stat.save
+	end
+
+	def update_player_season_attacking_stat_assist(attacking_stat, assist)
+		attacking_stat.increment(:assists_total)
+		if assist.is_home
+			attacking_stat.increment(:assists_home)
+			if assist.minute < 45
+				attacking_stat.increment(:assists_first_half)
+				attacking_stat.increment(:assists_home_first_half)
+			else
+				attacking_stat.increment(:assists_second_half)
+				attacking_stat.increment(:assists_home_second_half)
+			end
+		else
+			attacking_stat.increment(:assists_away)
+			if assist.minute < 45
+				attacking_stat.increment(:assists_second_half)
+				attacking_stat.increment(:assists_away_second_half)
+			else
+				attacking_stat.increment(:assists_first_half)
+				attacking_stat.increment(:assists_away_first_half)
+			end
+		end
+		attacking_stat.save
 	end
 end
