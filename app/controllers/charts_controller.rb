@@ -34,7 +34,6 @@ class ChartsController < ApplicationController
 
 		# Eager load player_seasons and their associated players
 		yellow_cards = team_season.yellow_cards.includes(player_season: :player)
-
 		# Transform the hash
 		transformed_yellow_cards = yellow_cards.each_with_object(Hash.new(0)) do |card, new_hash|
 			player_name = card.player_season.return_name

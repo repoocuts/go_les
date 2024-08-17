@@ -34,7 +34,7 @@ module TeamPlayerChartHelper
 	end
 
 	def team_player_season_yellow_cards
-		column_chart team_player_season_assists_path(@team_season.id),
+		column_chart team_player_season_yellow_cards_path(@team_season.id),
 		             colors: ['yellow'],
 		             library: {
 			             plugins: {
