@@ -21,11 +21,11 @@ module DbUpdater
 		attr_reader :fixture
 
 		def home_team_head_to_head
-			@home_team_head_to_head ||= HeadToHead.find_by(team_id: fixture.home_team_season.team.id, opponent_id: fixture.away_team_season.team.id)
+			@home_team_head_to_head ||= HeadToHead.find_by(team_id: fixture.home_team_id, opponent_id: fixture.away_team_id)
 		end
 
 		def away_team_head_to_head
-			@away_team_head_to_head ||= HeadToHead.find_by(team_id: fixture.away_team_season.team.id, opponent_id: fixture.home_team_season.team.id)
+			@away_team_head_to_head ||= HeadToHead.find_by(team_id: fixture.away_team_id, opponent_id: fixture.home_team_id)
 		end
 
 		def home_team_head_to_head_update
