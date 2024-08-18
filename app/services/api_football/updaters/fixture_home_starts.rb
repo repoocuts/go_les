@@ -14,7 +14,7 @@ module ApiFootball
 			def check_player_objects_exist(api_object, fixture)
 				api_object.each do |object|
 					player = Player.find_by(api_football_id: object['player']['id'])
-					next if player && player.current_player_season.team_season_id == fixture.home_team_season_id
+					next if player && player.current_player_season&.team_season_id == fixture.home_team_season_id
 
 					player = create_new_player(object) if player.nil?
 					create_player_season(player, fixture.home_team_season) unless player.current_player_season&.team_season_id == fixture.home_team_season_id

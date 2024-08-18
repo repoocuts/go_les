@@ -8,10 +8,11 @@ namespace :check_for_new_players do
 		League.not_hidden.each do |league|
 			next if counter.last_league_ids.include? league.id
 			puts "Updating #{league.name}"
-			count_required = league.teams.count
+			teams_to_update = league.teams_for_current_season
+			count_required = teams_to_update.count
 			puts "Counter count is #{counter.count}"
 			if counter.can_make_api_call?(count_required)
-				league.teams_for_current_season.each do |team|
+				teams_to_update.each do |team|
 					players = team.players
 					team_season_id = team.current_team_season.id
 					counter.increment_count
