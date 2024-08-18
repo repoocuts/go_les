@@ -7,24 +7,24 @@ namespace :update_player_season_defensive_stat do
 			team_season_id = player_season.team_season_id
 			fixture_ids = Appearance.where(player_season_id: player_season.id).pluck(:fixture_id).uniq
 			fixtures = Fixture.where(id: fixture_ids)
-			clean_sheet_away = 0
-			clean_sheet_away_first_half = 0
-			clean_sheet_away_second_half = 0
-			clean_sheet_first_half = 0
-			clean_sheet_home = 0
-			clean_sheet_home_first_half = 0
-			clean_sheet_home_second_half = 0
-			clean_sheet_second_half = 0
-			clean_sheet_total = 0
-			conceded_away = 0
-			conceded_away_first_half = 0
-			conceded_away_second_half = 0
-			conceded_first_half = 0
-			conceded_home = 0
-			conceded_home_first_half = 0
-			conceded_home_second_half = 0
-			conceded_second_half = 0
-			conceded_total = 0
+			clean_sheet_away = defensive_stat.clean_sheet_away
+			clean_sheet_away_first_half = defensive_stat.clean_sheet_away_first_half
+			clean_sheet_away_second_half = defensive_stat.clean_sheet_away_second_half
+			clean_sheet_first_half = defensive_stat.clean_sheet_first_half
+			clean_sheet_home = defensive_stat.clean_sheet_home
+			clean_sheet_home_first_half = defensive_stat.clean_sheet_home_first_half
+			clean_sheet_home_second_half = defensive_stat.clean_sheet_home_second_half
+			clean_sheet_second_half = defensive_stat.clean_sheet_second_half
+			clean_sheet_total = defensive_stat.clean_sheet_total
+			conceded_away = defensive_stat.conceded_away
+			conceded_away_first_half = defensive_stat.conceded_away_first_half
+			conceded_away_second_half = defensive_stat.conceded_away_second_half
+			conceded_first_half = defensive_stat.conceded_first_half
+			conceded_home = defensive_stat.conceded_home
+			conceded_home_first_half = defensive_stat.conceded_home_first_half
+			conceded_home_second_half = defensive_stat.conceded_home_second_half
+			conceded_second_half = defensive_stat.conceded_second_half
+			conceded_total = defensive_stat.conceded_total
 
 			fixtures.each do |fixture|
 				if fixture.home_team_season_id == team_season_id

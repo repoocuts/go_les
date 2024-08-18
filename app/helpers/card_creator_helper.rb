@@ -38,7 +38,8 @@ module CardCreatorHelper
 				referee_fixture_id: fixture.referee_fixture.id,
 			)
 
-			update_player_season_defensive_stat_yellow_card(booked_player_season.discipline_stat, card)
+			handle_card_for_team_season_cards_stat(card, team_season.yellow_cards_stat)
+			update_player_season_discipline_stat(booked_player_season.discipline_stat, card)
 		else
 			ObjectHandlingFailure.create(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
@@ -61,7 +62,8 @@ module CardCreatorHelper
 				referee_fixture_id: fixture.referee_fixture.id,
 			)
 
-			update_player_season_defensive_stat_yellow_card(booked_player_season.discipline_stat, card)
+			handle_card_for_team_season_cards_stat(card, team_season.yellow_cards_stat)
+			update_player_season_discipline_stat(booked_player_season.discipline_stat, card)
 		else
 			object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
@@ -85,7 +87,8 @@ module CardCreatorHelper
 				referee_fixture_id: fixture.referee_fixture.id,
 			)
 
-			update_player_season_defensive_stat_red_card(booked_player_season.discipline_stat, card)
+			handle_card_for_team_season_cards_stat(card, team_season.red_cards_stat)
+			update_player_season_discipline_stat(booked_player_season.discipline_stat, card)
 		else
 			object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
@@ -108,58 +111,34 @@ module CardCreatorHelper
 				referee_fixture_id: fixture.referee_fixture.id,
 			)
 
-			update_player_season_defensive_stat_red_card(booked_player_season.discipline_stat, card)
+			handle_card_for_team_season_cards_stat(card, team_season.red_cards_stat)
+			update_player_season_discipline_stat(booked_player_season.discipline_stat, card)
 		else
 			object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
 	end
 
-	def update_player_season_defensive_stat_yellow_card(discipline_stat, card)
-		discipline_stat.increment(:yellow_card_total)
-		if card.is_home
-			discipline_stat.increment(:yellow_card_home)
-			if card.minute < 45
-				discipline_stat.increment(:yellow_card_first_half)
-				discipline_stat.increment(:yellow_card_home_first_half)
-			else
-				discipline_stat.increment(:yellow_card_second_half)
-				discipline_stat.increment(:yellow_card_home_second_half)
-			end
-		else
-			discipline_stat.increment(:yellow_card_away)
-			if card.minute < 45
-				discipline_stat.increment(:yellow_card_second_half)
-				discipline_stat.increment(:yellow_card_away_second_half)
-			else
-				discipline_stat.increment(:yellow_card_first_half)
-				discipline_stat.increment(:yellow_card_away_first_half)
-			end
-		end
+	def update_player_season_discipline_stat(discipline_stat, card)
+		discipline_stat.increment("#{card_type}_total".to_sym)
+
+		home_or_away = card.is_home ? :home : :away
+		half = card.minute < 45 ? :first_half : :second_half
+
+		discipline_stat.increment("#{card_type}_#{home_or_away}".to_sym)
+		discipline_stat.increment("#{card_type}_#{half}".to_sym)
+		discipline_stat.increment("#{card_type}_#{home_or_away}_#{half}".to_sym)
+
 		discipline_stat.save
 	end
 
-	def update_player_season_defensive_stat_red_card(discipline_stat, card)
-		discipline_stat.increment(:red_card_total)
-		if card.is_home
-			discipline_stat.increment(:red_card_home)
-			if card.minute < 45
-				discipline_stat.increment(:red_card_first_half)
-				discipline_stat.increment(:red_card_home_first_half)
-			else
-				discipline_stat.increment(:red_card_second_half)
-				discipline_stat.increment(:red_card_home_second_half)
-			end
-		else
-			discipline_stat.increment(:red_card_away)
-			if card.minute < 45
-				discipline_stat.increment(:red_card_second_half)
-				discipline_stat.increment(:red_card_away_second_half)
-			else
-				discipline_stat.increment(:red_card_first_half)
-				discipline_stat.increment(:red_card_away_first_half)
-			end
-		end
-		discipline_stat.save
+	def handle_card_for_team_season_cards_stat(card, team_season_cards_stat)
+		half = card.minute < 46 ? :first_half : :second_half
+		home_or_away = card.is_home ? :home : :away
+
+		team_season_cards_stat.increment(home_or_away)
+		team_season_cards_stat.increment("#{home_or_away}_#{half}".to_sym)
+		team_season_cards_stat.increment(half)
+		team_season_cards_stat.increment(:total)
 	end
 
 	def object_handling_failure(object_type:, api_response_element:, related_team_season_id:, related_fixture_id:)
