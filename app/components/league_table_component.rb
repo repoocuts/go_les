@@ -8,7 +8,9 @@ class LeagueTableComponent < ViewComponent::Base
 	end
 
 	def league_table_order
-		team_seasons.includes(:team, :goals_scored_stat, :goals_conceded_stat, :yellow_cards_stat, :red_cards_stat).order(:points)
+		team_seasons.includes(:team, :goals_scored_stat, :goals_conceded_stat, :yellow_cards_stat, :red_cards_stat)
+		.sort_by { |team_season| [team_season.points, team_season.goal_difference] }
+		.reverse
 	end
 
 	def team_name
