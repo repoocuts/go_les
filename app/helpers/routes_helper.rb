@@ -52,11 +52,11 @@ module RoutesHelper
 	end
 
 	def team_season_path_by_player_season(player_season)
-		team_season = player_season.team_season
+		team = player_season.team_season.team
 		season = player_season.season
-		league = team_season.team.league
-		country = team_season.team.country
-		country_league_season_team_path(country, league, season, team_season)
+		league = team.league
+		country = team.country
+		country_league_season_team_path(country, league, season, team)
 	end
 
 	def league_path_by_league(league)
