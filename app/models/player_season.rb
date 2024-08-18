@@ -35,9 +35,9 @@ class PlayerSeason < ApplicationRecord
 	has_many :cards
 	has_many :assists
 	has_one :season, through: :team_season
-	has_one :player_seasons_attacking_stat, :class_name => 'PlayerSeasons::AttackingStat', dependent: :destroy
-	has_one :player_seasons_defensive_stat, :class_name => 'PlayerSeasons::DefensiveStat', dependent: :destroy
-	has_one :player_seasons_discipline_stat, :class_name => 'PlayerSeasons::DisciplineStat', dependent: :destroy
+	has_one :attacking_stat, :class_name => 'PlayerSeasons::AttackingStat', dependent: :destroy
+	has_one :defensive_stat, :class_name => 'PlayerSeasons::DefensiveStat', dependent: :destroy
+	has_one :discipline_stat, :class_name => 'PlayerSeasons::DisciplineStat', dependent: :destroy
 
 	scope :scorers, -> { joins(:goals).reverse }
 	scope :booked_players, -> { joins(:cards).where('cards.card_type = ?', "yellow") }
@@ -56,6 +56,7 @@ class PlayerSeason < ApplicationRecord
 			.where(cards: { card_type: 'red' })
 			.group('player_seasons.id')
 	}
+	scope :for_current_season, -> { where(current_season: true) }
 
 	delegate :return_name, :position, to: :player, prefix: false
 

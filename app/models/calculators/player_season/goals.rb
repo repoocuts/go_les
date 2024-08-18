@@ -48,13 +48,13 @@ module Calculators
 			end
 
 			def average_minutes_per_home_goal
-				return ::PlayerSeason::ZERO if season_goals_size.zero?
+				return ::PlayerSeason::ZERO if home_goals.count.zero?
 
 				player_season.total_home_minutes_played / home_goals_count
 			end
 
 			def average_minutes_per_away_goal
-				return ::PlayerSeason::ZERO if season_goals_size.zero?
+				return ::PlayerSeason::ZERO if away_goals.count.zero?
 
 				player_season.total_away_minutes_played / away_goals_count
 			end
