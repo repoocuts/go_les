@@ -119,6 +119,8 @@ module CardCreatorHelper
 	end
 
 	def update_player_season_discipline_stat(discipline_stat, card)
+		card_type = card.card_type == "yellow" ? "yellow_card" : "red_card"
+
 		discipline_stat.increment("#{card_type}_total".to_sym)
 
 		home_or_away = card.is_home ? :home : :away

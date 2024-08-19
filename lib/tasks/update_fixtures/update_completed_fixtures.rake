@@ -14,7 +14,8 @@ namespace :update_completed_fixtures do
 					if fixture.home_score.nil?
 						ApiFootball::Updaters::FixtureApiCall.new(fixture: fixture, options: { id: fixture.api_football_id }).call
 						puts "Fixture #{fixture.id} updated"
-
+						counter.increment_count
+						counter.save
 						sleep 3
 						if fixture.fixture_api_response.finished_fixture
 							ApiFootball::Updaters::UpdateFromDbObject.new(fixture: fixture).call
