@@ -38,8 +38,9 @@ module CardCreatorHelper
 				referee_fixture_id: fixture.referee_fixture.id,
 			)
 
+			discipline_stat = PlayerSeasons::DisciplineStat.find_or_create_by(player_season: booked_player_season)
 			handle_card_for_team_season_cards_stat(card, team_season.yellow_cards_stat)
-			update_player_season_discipline_stat(booked_player_season.discipline_stat, card)
+			update_player_season_discipline_stat(discipline_stat, card)
 		else
 			ObjectHandlingFailure.create(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
@@ -62,8 +63,9 @@ module CardCreatorHelper
 				referee_fixture_id: fixture.referee_fixture.id,
 			)
 
+			discipline_stat = PlayerSeasons::DisciplineStat.find_or_create_by(player_season: booked_player_season)
 			handle_card_for_team_season_cards_stat(card, team_season.yellow_cards_stat)
-			update_player_season_discipline_stat(booked_player_season.discipline_stat, card)
+			update_player_season_discipline_stat(discipline_stat, card)
 		else
 			object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
@@ -87,8 +89,9 @@ module CardCreatorHelper
 				referee_fixture_id: fixture.referee_fixture.id,
 			)
 
+			discipline_stat = PlayerSeasons::DisciplineStat.find_or_create_by(player_season: booked_player_season)
 			handle_card_for_team_season_cards_stat(card, team_season.red_cards_stat)
-			update_player_season_discipline_stat(booked_player_season.discipline_stat, card)
+			update_player_season_discipline_stat(discipline_stat, card)
 		else
 			object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
@@ -111,8 +114,9 @@ module CardCreatorHelper
 				referee_fixture_id: fixture.referee_fixture.id,
 			)
 
+			discipline_stat = PlayerSeasons::DisciplineStat.find_or_create_by(player_season: booked_player_season)
 			handle_card_for_team_season_cards_stat(card, team_season.red_cards_stat)
-			update_player_season_discipline_stat(booked_player_season.discipline_stat, card)
+			update_player_season_discipline_stat(discipline_stat, card)
 		else
 			object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
 		end
