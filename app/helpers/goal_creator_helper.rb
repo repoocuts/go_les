@@ -87,7 +87,9 @@ module GoalCreatorHelper
 		if event['assist']['id'].present?
 			handle_assist(goal, event, fixture, team_season)
 		end
-		update_player_season_attacking_stat_goal(scorer_player_season.attacking_stat, goal)
+
+		attacking_stat = PlayerSeasons::AttackingStat.find_or_create_by(player_season: scorer_player_season)
+		update_player_season_attacking_stat_goal(attacking_stat, goal)
 	end
 
 	def handle_assist(goal, event, fixture, team_season)
@@ -95,7 +97,8 @@ module GoalCreatorHelper
 		assist_appearance = fixture.appearances.find_by(player_season: assist_player_season)
 		assist = create_assist(goal, assist_appearance, fixture, team_season, event['time']['elapsed'], true) if assist_appearance
 
-		update_player_season_attacking_stat_assist(assist_player_season.attacking_stat, assist) if assist
+		attacking_stat = PlayerSeasons::AttackingStat.find_or_create_by(player_season: assist_player_season)
+		update_player_season_attacking_stat_assist(attacking_stat, assist) if assist
 
 		ObjectHandlingFailure.create(object_type: 'assist', api_response_element: event['assist'], related_team_season_id: team_season.id, related_fixture_id: fixture.id) unless assist_appearance
 	end
