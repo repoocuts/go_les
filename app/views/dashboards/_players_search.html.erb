@@ -1,7 +1,7 @@
 <% @players.each do |player| %>
 	<div id="<%= dom_id player %>" class="grid grid-cols-1 lg:grid-cols-2">
 		<ul>
-			<%= link_to player.return_name, player_path(player) %>
+			<%= link_to player.return_name, player_path_by_player_season(player.current_player_season) %>
 		</ul>
 	</div>
 <% end %>
