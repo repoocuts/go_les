@@ -2,7 +2,7 @@ namespace :update_player_season_stat_objects do
 	desc "Update AttackingStat and DefensiveStat and DisciplineStat"
 	task player_seasons_attacking_stat: :environment do
 		PlayerSeason.for_current_season.each do |player_season|
-			player_seasons_attacking_stat = player_season.player_seasons_attacking_stat || player_season.build_player_seasons_attacking_stat
+			player_seasons_attacking_stat = player_season.attacking_stat || player_season.build_attacking_stat
 
 			goals_count = player_season.season_goals_size
 			assists_count = player_season.season_assists_size
@@ -44,24 +44,24 @@ namespace :update_player_season_stat_objects do
 			if player_seasons_defensive_stat.scored_total != goals_count ||
 				player_seasons_defensive_stat.assists_total != assists_count
 				player_seasons_defensive_stat.update!(
-					conceded_total: 0,
-					conceded_home: 0,
-					conceded_away: 0,
-					conceded_first_half: 0,
-					conceded_second_half: 0,
-					conceded_home_first_half: 0,
-					conceded_away_first_half: 0,
-					conceded_home_second_half: 0,
-					conceded_away_second_half: 0,
-					clean_sheet_total: 0,
-					clean_sheet_home: 0,
-					clean_sheet_away: 0,
-					clean_sheet_first_half: 0,
-					clean_sheet_second_half: 0,
-					clean_sheet_home_first_half: 0,
-					clean_sheet_away_first_half: 0,
-					clean_sheet_home_second_half: 0,
-					clean_sheet_away_second_half: 0,
+					conceded_total: player_season.conceded_total,
+					conceded_home: player_season.conceded_home,
+					conceded_away: player_season.conceded_away,
+					conceded_first_half: player_season.conceded_first_half,
+					conceded_second_half: player_season.concdeded_second_half,
+					conceded_home_first_half: player_season.conceded_home_first_half,
+					conceded_away_first_half: player_season.conceded_away_first_half,
+					conceded_home_second_half: player_season.conceded_home_second_half,
+					conceded_away_second_half: player_season.concdeded_away_second_half,
+					clean_sheet_total: player_season.clean_sheet_total,
+					clean_sheet_home: player_season.clean_sheet_home,
+					clean_sheet_away: player_season.clean_sheet_away,
+					clean_sheet_first_half: player_season.clean_sheet_first_half,
+					clean_sheet_second_half: player_season.clean_sheet_second_half,
+					clean_sheet_home_first_half: player_season.clean_sheet_home_first_half,
+					clean_sheet_away_first_half: player_season.clean_sheet_away_first_half,
+					clean_sheet_home_second_half: player_season.clean_sheet_home_second_half,
+					clean_sheet_away_second_half: player_season.clean_sheet_away_second_half,
 				)
 			end
 			puts "Updated #{player_season.return_name} player_seasons_attacking_stat"

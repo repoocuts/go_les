@@ -141,7 +141,7 @@ module GoalCreatorHelper
 	def update_goals_stat(team_season, minute, team_type:, stat_type:)
 		goals_stat = team_season.send("goals_#{stat_type}_stat")
 		half_key = minute < 45 ? 'first_half' : 'second_half'
-		# Increment the appropriate counters
+
 		goals_stat.increment("#{half_key}")
 		goals_stat.increment("#{team_type}_#{half_key}")
 		goals_stat.increment("#{team_type}")
@@ -164,11 +164,11 @@ module GoalCreatorHelper
 		else
 			attacking_stat.increment(:scored_away)
 			if goal.minute < 45
-				attacking_stat.increment(:scored_second_half)
-				attacking_stat.increment(:scored_away_second_half)
-			else
 				attacking_stat.increment(:scored_first_half)
 				attacking_stat.increment(:scored_away_first_half)
+			else
+				attacking_stat.increment(:scored_second_half)
+				attacking_stat.increment(:scored_away_second_half)
 			end
 		end
 		attacking_stat.save
@@ -188,11 +188,11 @@ module GoalCreatorHelper
 		else
 			attacking_stat.increment(:assists_away)
 			if assist.minute < 45
-				attacking_stat.increment(:assists_second_half)
-				attacking_stat.increment(:assists_away_second_half)
-			else
 				attacking_stat.increment(:assists_first_half)
 				attacking_stat.increment(:assists_away_first_half)
+			else
+				attacking_stat.increment(:assists_second_half)
+				attacking_stat.increment(:assists_away_second_half)
 			end
 		end
 		attacking_stat.save
