@@ -64,7 +64,6 @@ module GoalCreatorHelper
 				fixture_id: fixture.id,
 				appearance_id: home_start.id,
 				minute: event['time']['elapsed'],
-				is_home: true,
 				own_goal: true,
 				player_season_id: scorer_player_season.id,
 				team_season_id: team_season.id,
