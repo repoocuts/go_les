@@ -27,36 +27,75 @@ namespace :update_player_season_defensive_stat do
 			conceded_total = defensive_stat.conceded_total
 
 			fixtures.each do |fixture|
-				if fixture.home_team_season_id == team_season_id
-					conceded_home += fixture.away_score
-				else
-					conceded_away += fixture.home_score
-				end
+				home_team = fixture.home_team_season_id == team_season_id
+				goals_conceded = 0
+				first_half_goals_conceded = 0
+				second_half_goals_conceded = 0
+
 				fixture.goals.each do |goal|
-					if goal.minute < 45 && goal.is_home
+					if goal.team_season_id != team_season_id
+						# It's a conceded goal
+						goals_conceded += 1
+						if goal.minute < 46
+							first_half_goals_conceded += 1
+						else
+							second_half_goals_conceded += 1
+						end
 					end
 				end
-				defensive_stat.update(
-					clean_sheet_away: clean_sheet_away,
-					clean_sheet_away_first_half: clean_sheet_away_first_half,
-					clean_sheet_away_second_half: clean_sheet_away_second_half,
-					clean_sheet_first_half: clean_sheet_first_half,
-					clean_sheet_home: clean_sheet_home,
-					clean_sheet_home_first_half: clean_sheet_home_first_half,
-					clean_sheet_home_second_half: clean_sheet_home_second_half,
-					clean_sheet_second_half: clean_sheet_second_half,
-					clean_sheet_total: clean_sheet_total,
-					conceded_away: conceded_away,
-					conceded_away_first_half: conceded_away_first_half,
-					conceded_away_second_half: conceded_away_second_half,
-					conceded_first_half: conceded_first_half,
-					conceded_home: conceded_home,
-					conceded_home_first_half: conceded_home_first_half,
-					conceded_home_second_half: conceded_home_second_half,
-					conceded_second_half: conceded_second_half,
-					conceded_total: conceded_total,
-				)
+
+				if home_team
+					conceded_home += goals_conceded
+					conceded_home_first_half += first_half_goals_conceded
+					conceded_home_second_half += second_half_goals_conceded
+				else
+					conceded_away += goals_conceded
+					conceded_away_first_half += first_half_goals_conceded
+					conceded_away_second_half += second_half_goals_conceded
+				end
+
+				conceded_first_half += first_half_goals_conceded
+				conceded_second_half += second_half_goals_conceded
+				conceded_total += goals_conceded
+
+				# Clean sheet checks
+				if goals_conceded == 0
+					clean_sheet_total += 1
+					if home_team
+						clean_sheet_home += 1
+						clean_sheet_home_first_half += 1 if first_half_goals_conceded == 0
+						clean_sheet_home_second_half += 1 if second_half_goals_conceded == 0
+					else
+						clean_sheet_away += 1
+						clean_sheet_away_first_half += 1 if first_half_goals_conceded == 0
+						clean_sheet_away_second_half += 1 if second_half_goals_conceded == 0
+					end
+
+					clean_sheet_first_half += 1 if first_half_goals_conceded == 0
+					clean_sheet_second_half += 1 if second_half_goals_conceded == 0
+				end
 			end
+
+			defensive_stat.update(
+				clean_sheet_away: clean_sheet_away,
+				clean_sheet_away_first_half: clean_sheet_away_first_half,
+				clean_sheet_away_second_half: clean_sheet_away_second_half,
+				clean_sheet_first_half: clean_sheet_first_half,
+				clean_sheet_home: clean_sheet_home,
+				clean_sheet_home_first_half: clean_sheet_home_first_half,
+				clean_sheet_home_second_half: clean_sheet_home_second_half,
+				clean_sheet_second_half: clean_sheet_second_half,
+				clean_sheet_total: clean_sheet_total,
+				conceded_away: conceded_away,
+				conceded_away_first_half: conceded_away_first_half,
+				conceded_away_second_half: conceded_away_second_half,
+				conceded_first_half: conceded_first_half,
+				conceded_home: conceded_home,
+				conceded_home_first_half: conceded_home_first_half,
+				conceded_home_second_half: conceded_home_second_half,
+				conceded_second_half: conceded_second_half,
+				conceded_total: conceded_total,
+			)
 		end
 	end
 end
