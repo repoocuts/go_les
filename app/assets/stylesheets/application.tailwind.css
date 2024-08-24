@@ -35,3 +35,8 @@ a:hover {
 .justify-end {
     justify-content: end;
 }
+
+.players-scrollies {
+    max-height: 85vh;
+    overflow-y: auto;
+}

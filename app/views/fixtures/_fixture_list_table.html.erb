@@ -1,8 +1,11 @@
 <%= turbo_frame_tag "fixture_list", class: "min-w-full", autoscroll: "true" do %>
 	<div class="max-w-screen-xl mx-auto px-4 grid grid-cols-1 tablet:grid-cols-3 laptop:grid-cols-6 gap-4">
 		<% @leagues.each do |league| %>
+			<% country_game_week_param = "#{league.country.name.downcase}_game_week" %>
+			<% current_game_week = params[country_game_week_param] %>
 			<div class="league-container">
 				<h2 class="text-lg font-display text-center"><%= link_to league.name, league_path_by_league(league), data: { turbo_frame: '_top' } %></h2>
+				<h3 class="text-lg font-display text-center"><%= "gw #{current_game_week}" %></h3>
 				<% season = league.current_season %>
 				<table class="w-full mb-4">
 					<thead>
@@ -25,13 +28,12 @@
 			</div>
 		<% end %>
 	</div>
-	<div class="mt-5 mb-10 text-center">
-		<div class="flex justify-center items-center space-x-4">
-			<h3 class="text-lg font-display">Game Week</h3>
-			<%= select_tag :game_week,
-										 options_for_select((1..@season_game_week_count).map { |week| ["#{week}", week] }, params[:game_week]),
-										 onchange: 'window.location = "' + fixtures_path + '?game_week=" + this.value;', class: "rounded-full" %>
 
+	<div class="mt-5 mb-10 text-center">
+		<div class="flex justify-center items-center">
+			<%= link_to "Previous Week", fixtures_path(increment: -1), class: "text-blue-500 mr-10", data: { turbo_frame: "fixture_list" } %>
+			<%= link_to "Current Week", fixtures_path, class: "text-blue-500", data: { turbo_frame: "fixture_list" } %>
+			<%= link_to "Next Week", fixtures_path(increment: 1), class: "text-blue-500 ml-10", data: { turbo_frame: "fixture_list" } %>
 		</div>
 	</div>
 <% end %>
