@@ -227,7 +227,7 @@ class Fixture < ApplicationRecord
 	end
 
 	def completed?
-		kick_off.to_date < Date.current
+		kick_off.to_date < Date.current && home_score && away_score
 	end
 
 	def interpolate_final_score

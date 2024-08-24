@@ -80,7 +80,11 @@ Rails.application.routes.draw do
 	resources :goals_conceded_stats
 	resources :goals_scored_stats
 	resources :leagues, only: [:index]
-	resources :players, only: [:index, :show, :update, :destroy]
+	resources :players, only: [:index, :show] do
+		collection do
+			get 'players_streaming'
+		end
+	end
 	resources :team_seasons
 	resources :teams, only: [:index, :show, :update, :destroy]
 

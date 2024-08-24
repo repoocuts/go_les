@@ -5,7 +5,11 @@ class PlayersController < ApplicationController
 
 	# GET /players or /players.json
 	def index
-		@pagy_players, @players = pagy_array(sorted_players, items: 1)
+		@pagy_players, @players = Rails.cache.fetch("players_page_#{params[:page]}", expires_in: 5.days) do
+			pagy(Player.includes(:team, :player_seasons).order(:short_name, :full_name), items: 100)
+		end
+
+		@next_page = @pagy_players.next
 
 		respond_to do |format|
 			format.html
@@ -62,6 +66,18 @@ class PlayersController < ApplicationController
 		respond_to do |format|
 			format.html { redirect_to players_url, notice: "Player was successfully destroyed." }
 			format.json { head :no_content }
+		end
+	end
+
+	def players_streaming
+		@pagy_players, @players = Rails.cache.fetch("players_streaming_page_#{params[:page]}", expires_in: 5.days) do
+			pagy_countless(Player.includes(:team, :player_seasons).order(:short_name, :full_name), items: 40)
+		end
+
+		@next_page = @pagy_players.next
+
+		respond_to do |format|
+			format.turbo_stream
 		end
 	end
 

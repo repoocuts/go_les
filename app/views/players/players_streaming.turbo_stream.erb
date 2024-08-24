@@ -1,0 +1,3 @@
+<%= turbo_stream.append "players" do %>
+	<%= render partial: 'player_list', locals: { players: @players } %>
+<% end %>

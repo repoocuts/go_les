@@ -4,14 +4,21 @@ class FixturesController < ApplicationController
 
 	# GET /fixtures or /fixtures.json
 	def index
-		game_week_number = params[:game_week] || default_game_week
-		@leagues = League.not_hidden.order(:name)
+		@leagues = League.includes(:country).not_hidden.order(:name)
 		@fixtures = @leagues.map do |league|
-			league.seasons.flat_map do |season|
-				Fixture.includes(home_team_season: [:team], away_team_season: [:team]).for_game_week(season, game_week_number)
+			season = league.current_season
+			country_game_week_param = "#{league.country.name.downcase}_game_week"
+
+			current_game_week = (params[country_game_week_param] || default_game_week(season: season)).to_i
+
+			if params[:increment].present?
+				current_game_week += params[:increment].to_i
 			end
+
+			params[country_game_week_param] = current_game_week
+
+			season.fixtures.includes(home_team_season: :team, away_team_season: :team).for_game_week(season, current_game_week)
 		end.flatten
-		@season_game_week_count = 38 # Assuming all seasons have the same number of game weeks
 
 		respond_to do |format|
 			format.html
@@ -108,7 +115,7 @@ class FixturesController < ApplicationController
 		@season = fixture.season || Season.friendly.find(params[:season_id])
 	end
 
-	def default_game_week
+	def default_game_week(season:)
 		season.try(:current_game_week) || 1
 	end
 
