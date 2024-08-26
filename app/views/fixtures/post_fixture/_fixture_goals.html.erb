@@ -17,7 +17,7 @@
 			<%= link_to "#{player_name}, #{goals_minutes}", player_path_by_player_season(goals[0].player_season) %>
 		</p>
 		<% goals.each do |goal| %>
-			<% if goal.assist && goal.is_home %>
+			<% if goal.assist %>
 				<p class>
 					<%= link_to "(#{goal.assist.player_season.player.return_name}, #{goal.minute})", player_path_by_player_season(goal.assist.player_season) %>
 				</p>
