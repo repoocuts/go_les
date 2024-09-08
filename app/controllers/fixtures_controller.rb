@@ -106,6 +106,7 @@ class FixturesController < ApplicationController
 		                            :away_goals_with_player_season_and_assist,
 		                            :home_assists_with_player_season,
 		                            :away_assists_with_player_season,
+		                            referee_fixture: [:referee],
 		                            home_team_season: [:team],
 		                            away_team_season: [:team],
 		).find(params[:id])

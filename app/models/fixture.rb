@@ -60,6 +60,7 @@ class Fixture < ApplicationRecord
 
 	has_one :fixture_api_response, dependent: :destroy
 	has_one :referee_fixture, dependent: :destroy
+	has_one :referee, through: :referee_fixture
 
 	belongs_to :season
 	belongs_to :league
@@ -217,6 +218,10 @@ class Fixture < ApplicationRecord
 
 	def return_red_cards_for_player_season(player_season_id)
 		appearances.find_by(player_season_id: player_season_id)&.cards&.where(card_type: 'red')&.size || 0
+	end
+
+	def referee_name
+		referee.name
 	end
 
 	private
