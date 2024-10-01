@@ -13,10 +13,11 @@ module CheckPlayerExists
 
 			all_data.each do |player_data|
 				# This puts is so you can find the appearance & player for a borked fixture_event
-				puts "find_or_create_players method API FOOTBALL ID = #{player_data['player']['id']}"
+				puts "find_or_create_players method API FOOTBALL ID = #{player_data['player']['id']} FIXTURE ID = #{fixture.id}"
 				player = Player.find_or_initialize_by(api_football_id: player_data['player']['id'])
 
-				unless player.persisted? && player.player_seasons.exists?
+				unless player.persisted? && player.current_player_season&.season == fixture.season
+					puts "Updating player API FOOTBALL ID = #{player_data['player']['id']} and creating player season"
 					player.assign_attributes(
 						short_name: player_data['player']['name'],
 						position: map_position_initial(player_data['player']['pos']),

@@ -74,7 +74,7 @@ module CardCreatorHelper
 	def red_card_for_home(event, fixture, team_season)
 		booked_player_season = Player.find_by_api_football_id(event['player']['id'])&.current_player_season
 
-		object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id)
+		object_handling_failure(object_type: 'card', api_response_element: event, related_team_season_id: team_season.id, related_fixture_id: fixture.id) unless booked_player_season
 
 		home_start = fixture.appearances.find_by(player_season: booked_player_season)
 		if booked_player_season && home_start

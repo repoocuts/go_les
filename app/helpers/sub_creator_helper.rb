@@ -12,13 +12,15 @@ module SubCreatorHelper
 	private
 
 	def substitute_for_home(event, fixture, team_season)
-		player_out_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
-		player_in_player_season = Player.find_by_api_football_id(event['assist']['id']).current_player_season
+		return handle_missing_data(event, fixture, team_season) if event['player']['id'].blank? || event['assist']['id'].blank?
+
+		player_out_player_season = Player.find_by(api_football_id: event['player']['id']).current_player_season
+		player_in_player_season = Player.find_by(api_football_id: event['assist']['id']).current_player_season
 		player_out_start = fixture.appearances.find_by(player_season: player_out_player_season)
 		if player_out_player_season.nil? || player_in_player_season.nil? || player_out_start.nil?
 			# Fixture 13 is where to get this fixed
 			puts "Fixture #{fixture.id} substitute_for_home in sub creator helper"
-			ObjectHandlingFailure.create(object_type: 'player_season', api_response_element: event, related_team_id: team_season.id, related_fixture_id: fixture.id)
+			return ObjectHandlingFailure.create(object_type: 'player_season', api_response_element: event, related_team_id: team_season.id, related_fixture_id: fixture.id)
 		end
 		Appearance.create(
 			fixture_id: fixture.id,
@@ -32,12 +34,14 @@ module SubCreatorHelper
 	end
 
 	def substitute_for_away(event, fixture, team_season)
-		player_out_player_season = Player.find_by_api_football_id(event['player']['id']).current_player_season
-		player_in_player_season = Player.find_by_api_football_id(event['assist']['id']).current_player_season
+		return handle_missing_data(event, fixture, team_season) if event['player']['id'].blank? || event['assist']['id'].blank?
+
+		player_out_player_season = Player.find_by(api_football_id: event['player']['id']).current_player_season
+		player_in_player_season = Player.find_by(api_football_id: event['assist']['id']).current_player_season
 		player_out_start = fixture.appearances.find_by(player_season: player_out_player_season)
 		if player_out_player_season.nil? || player_in_player_season.nil? || player_out_start.nil?
 			puts "Fixture #{fixture.id} substitute_for_away in sub creator helper"
-			ObjectHandlingFailure.create(object_type: 'player_season', api_response_element: event, related_team_id: team_season.id, related_fixture_id: fixture.id)
+			return ObjectHandlingFailure.create(object_type: 'player_season', api_response_element: event, related_team_id: team_season.id, related_fixture_id: fixture.id)
 		end
 		Appearance.create(
 			fixture_id: fixture.id,
@@ -47,5 +51,10 @@ module SubCreatorHelper
 			appearance_type: 'substitute'
 		)
 		player_out_start.update(minutes: event['time']['elapsed']) if player_out_start
+	end
+
+	def handle_missing_data(event, fixture, team_season)
+		puts "Fixture #{fixture.id} error in sub creator helper"
+		ObjectHandlingFailure.create(object_type: 'player_season', api_response_element: event, related_team_id: team_season.id, related_fixture_id: fixture.id)
 	end
 end
