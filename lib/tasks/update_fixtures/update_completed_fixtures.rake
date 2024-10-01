@@ -2,6 +2,7 @@ namespace :update_completed_fixtures do
 	desc "Create appearances, goals and cards for a fixture"
 	task setup: :environment do
 		counter = ApiCallCount.first_or_create(count: 0)
+		counter.update(count: 0)
 
 		League.not_hidden.each do |league|
 			season = league.current_season
