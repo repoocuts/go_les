@@ -34,11 +34,17 @@ class Team < ApplicationRecord
 	has_many :team_seasons, dependent: :destroy
 	has_many :head_to_heads, dependent: :destroy
 	has_many :player_seasons, through: :team_seasons
+	has_many :home_fixtures, class_name: "Fixture", foreign_key: "home_team_id"
+	has_many :away_fixtures, class_name: "Fixture", foreign_key: "away_team_id"
 
 	belongs_to :league
 	belongs_to :country
 
 	def current_team_season
 		team_seasons.find_by(current_season: true)
+	end
+
+	def fixtures
+		@fixtures ||= Fixture.where("home_team_id = ? OR away_team_id = ?", id, id)
 	end
 end
